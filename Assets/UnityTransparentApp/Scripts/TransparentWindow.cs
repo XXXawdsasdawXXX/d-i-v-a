@@ -40,29 +40,25 @@ public class TransparentWindow : MonoBehaviour {
 
     private IntPtr hWnd;
 
-    private void Start() {
-        //MessageBox(new IntPtr(0), "Hello World!", "Hello Dialog", 0);
-
 #if !UNITY_EDITOR
+    private void Start() {
+
         hWnd = GetActiveWindow();
 
         MARGINS margins = new MARGINS { cxLeftWidth = -1 };
         DwmExtendFrameIntoClientArea(hWnd, ref margins);
 
         SetWindowLong(hWnd, GWL_EXSTYLE, WS_EX_LAYERED | WS_EX_TRANSPARENT);
-        //SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY);
 
         SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, 0);
-#endif
 
         Application.runInBackground = true;
     }
 
-    /*
     private void Update() {
         SetClickthrough(Physics2D.OverlapPoint(CodeMonkey.Utils.UtilsClass.GetMouseWorldPosition()) == null);
     }
-    */
+#endif
 
     private void SetClickthrough(bool clickthrough) {
         if (clickthrough) {
