@@ -16,7 +16,7 @@ namespace Code
             Debug.Log("System Width: " + Display.main.systemWidth + " System Height: " + Display.main.systemHeight);
 
 #if !UNITY_EDITOR
-            Screen.SetResolution(Display.main.systemWidth,Display.main.systemHeight, fullscreen: false); // Замените значения на нужные вам
+            Screen.SetResolution(Display.main.systemWidth,Display.main.systemHeight, fullscreen: true); // Замените значения на нужные вам
 #endif
         
         }
