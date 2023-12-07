@@ -14,7 +14,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
 
     /*
      * Bar in the UI with scaleable Bar and Background

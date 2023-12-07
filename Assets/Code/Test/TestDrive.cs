@@ -2,7 +2,7 @@
 using Code.Enums;
 using UnityEngine;
 
-namespace Code
+namespace Code.Test
 {
     public class TestDrive : MonoBehaviour
     {

@@ -15,10 +15,10 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
     
     /*
      * Button in the UI

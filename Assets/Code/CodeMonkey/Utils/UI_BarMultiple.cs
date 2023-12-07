@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
     
     /*
      * UI Container with multiple bars, useful for displaying one bar with multiple inner bars like success chance and failure chance

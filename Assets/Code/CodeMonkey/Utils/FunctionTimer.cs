@@ -11,10 +11,10 @@
  */
 
 using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
 
     /*
      * Triggers a Action after a certain time 

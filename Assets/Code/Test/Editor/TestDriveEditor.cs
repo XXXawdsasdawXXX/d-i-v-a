@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Editor
+namespace Code.Test.Editor
 {
     [CustomEditor(typeof(TestDrive))]
     public class TestDriveEditor : UnityEditor.Editor

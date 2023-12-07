@@ -13,10 +13,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
 
     /*
      * Various assorted utilities functions

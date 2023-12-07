@@ -14,11 +14,11 @@
 //#define CURSOR_MANAGER // Has Cursor_Manager in project
 
 using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace CodeMonkey.Utils {
+namespace Code.CodeMonkey.Utils {
 
     /*
      * Button Actions on a World BoxCollider
