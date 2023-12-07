@@ -271,7 +271,7 @@ MonoBehaviour:
   m_RefResolutionY: 480
   m_UpscaleRT: 0
   m_PixelSnapping: 0
-  m_CropFrameX: 1
+  m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
 --- !u!1 &631771330
@@ -535,7 +535,7 @@ MonoBehaviour:
   _alphaValue: 1
   _isTopmost: 1
   _isBottommost: 0
-  _isZoomed: 0
+  _isZoomed: 1
   _shouldFitMonitor: 0
   _allowDropFiles: 0
   isHitTestEnabled: 1
