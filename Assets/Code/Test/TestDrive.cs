@@ -1,5 +1,6 @@
 ﻿using System;
-using Code.Enums;
+using Code.Data.Enums;
+using Code.Services;
 using UnityEngine;
 
 namespace Code.Test

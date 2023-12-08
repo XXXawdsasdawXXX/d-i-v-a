@@ -1,4 +1,4 @@
-﻿namespace Code.Enums
+﻿namespace Code.Data.Enums
 {
     public enum PointAnchor
     {

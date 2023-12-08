@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Code.CodeMonkey.Utils {
+namespace Code.Utils {
 
     /*
      * Button Actions on a World BoxCollider

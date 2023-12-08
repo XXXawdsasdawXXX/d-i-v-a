@@ -1,7 +1,7 @@
-using Code.Enums;
+using Code.Data.Enums;
 using UnityEngine;
 
-namespace Code
+namespace Code.Services
 {
     public class PositionService : MonoBehaviour
     {

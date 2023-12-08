@@ -283,6 +283,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631771332}
+  - component: {fileID: 631771333}
+  - component: {fileID: 631771334}
   m_Layer: 0
   m_Name: Lili
   m_TagString: Untagged
@@ -307,6 +309,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631771333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631771330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b60c77c7f764782a757998bc1d28b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterAnimator: {fileID: 1360938014}
+--- !u!114 &631771334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631771330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4761270d086047448e6d8afe54f70000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _microphoneAnalyzer: {fileID: 709046936}
+  _characterAnimation: {fileID: 631771333}
+  _reactionCooldown: 3
 --- !u!1 &709046934
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,11 +381,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86e4e3ebc214339845162538a990004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  microphoneName: 
-  sampleRate: 44100
-  bufferSize: 1024
-  micRecordTime: 10
-  decibelThreshold: 70
+  _device: 
+  _micLoudness: 0
+  _micDecibels: 0
+  _minActionDecibels:
+    MinValue: -20.105364
+    MaxValue: -13.2122
+  _maxActionDecibels:
+    MinValue: -4.1656456
+    MaxValue: 0
 --- !u!1 &925396624
 GameObject:
   m_ObjectHideFlags: 0
