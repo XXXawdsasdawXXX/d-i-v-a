@@ -5,6 +5,7 @@ namespace Code
 {
     public class ScreenScaler : MonoBehaviour
     {
+        
         private void Start()
         {
             Resolution displayResolution = Screen.currentResolution;
@@ -17,6 +18,7 @@ namespace Code
 
 #if !UNITY_EDITOR
             Screen.SetResolution(Display.main.systemWidth,Display.main.systemHeight, fullscreen: true); // Замените значения на нужные вам
+            
 #endif
         
         }
