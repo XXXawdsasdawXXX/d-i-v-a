@@ -108,7 +108,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stand
+  m_Name: StandMode
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6300827461080113048}
@@ -203,6 +203,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-1756210189190339367
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26be5232d4f4cfca8123b827e2cc096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-995663536593515797
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,7 +417,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -432,6 +444,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &5626067798100382046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26be5232d4f4cfca8123b827e2cc096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &8058829717120387291
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -461,7 +485,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Seat
+  m_Name: SeatMode
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 144014489904761065}

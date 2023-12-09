@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Character.Editor
 {
         [CustomEditor(typeof(CharacterAnimator))]
     public class CharacterAnimatorEditor : UnityEditor.Editor

@@ -1,7 +1,8 @@
 ﻿using System;
+using Code.Utils;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Character.AnimationReader.State
 {
     public class CharacterAnimationStateObserver :MonoBehaviour, IAnimationStateReader
     {
@@ -10,48 +11,50 @@ namespace Code.Character
         private readonly int _seatIdle_Hash = Animator.StringToHash("Idle");
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         
-        public event Action<CharacterAnimatorState> StateEnteredEvent;
-        public event Action<CharacterAnimatorState> StateExitedEvent;
-        public CharacterAnimatorState State { get; private set; }
+        public event Action<CharacterAnimationState> StateEnteredEvent;
+        public event Action<CharacterAnimationState> StateExitedEvent;
+        public CharacterAnimationState State { get; private set; }
         
         
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
             StateEnteredEvent?.Invoke(State);
+            Debugging.Instance?.Log($"Animation entered state: {State}", Debugging.Type.AnimationState);
         }
         
         public void ExitedState(int stateHash)
         {
+            var state = StateFor(stateHash);
             StateExitedEvent?.Invoke(StateFor(stateHash));
+            Debugging.Instance?.Log($"Animation exited state: {State}", Debugging.Type.AnimationState);
         }
         
-        private CharacterAnimatorState StateFor(int stateHash)
+        private CharacterAnimationState StateFor(int stateHash)
         {
-            CharacterAnimatorState state;
+            CharacterAnimationState state;
             
             if (stateHash == _reaction_Voice_Hash)
             {
-                state = CharacterAnimatorState.ReactionVoice;
+                state = CharacterAnimationState.ReactionVoice;
             }
             else if (stateHash == _transition_Seat_Hash)
             {
-                state = CharacterAnimatorState.TransitionSeat;
+                state = CharacterAnimationState.TransitionSeat;
             }
             else if (stateHash == _transition_Stand_Hash)
             {
-                state = CharacterAnimatorState.TransitionStand;
+                state = CharacterAnimationState.TransitionStand;
             }
             else if(stateHash == _seatIdle_Hash)
             {
-                state = CharacterAnimatorState.Idle;
+                state = CharacterAnimationState.Idle;
             }
             else
             {
-                state = CharacterAnimatorState.None;
+                state = CharacterAnimationState.None;
             }
 
-            Debug.Log($"State {state}");
             return state;
         }
     }

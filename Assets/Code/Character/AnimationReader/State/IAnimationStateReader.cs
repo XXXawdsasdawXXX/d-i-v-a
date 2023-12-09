@@ -1,10 +1,10 @@
-﻿namespace Code.Character
+﻿namespace Code.Character.AnimationReader.State
 {
     public interface IAnimationStateReader
     {
         void EnteredState(int stateHash);
         void ExitedState(int stateHash);
         
-        CharacterAnimatorState State { get; }
+        CharacterAnimationState State { get; }
     }
 }

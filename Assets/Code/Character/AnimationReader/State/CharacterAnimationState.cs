@@ -1,6 +1,6 @@
-﻿namespace Code.Character
+﻿namespace Code.Character.AnimationReader.State
 {
-    public enum CharacterAnimatorState
+    public enum CharacterAnimationState
     {
         None,
         Idle,
