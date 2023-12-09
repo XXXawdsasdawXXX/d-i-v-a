@@ -8,7 +8,7 @@ namespace Code.Character
     {
         [Header("Components")]
         [SerializeField] private MicrophoneAnalyzer _microphoneAnalyzer;
-        [SerializeField] private CharacterAnimation _characterAnimation;
+        [SerializeField] private CharacterAnimator characterAnimator;
 
         [Header("Params")]
         [SerializeField] private float _reactionCooldown;
@@ -53,7 +53,7 @@ namespace Code.Character
             }
 
             _currentCooldown = _reactionCooldown;
-            _characterAnimation.PlayReactionVoice();
+            characterAnimator.PlayReactionVoice();
         }
 
         private void OnMaximumDecibelRecordedEvent()
