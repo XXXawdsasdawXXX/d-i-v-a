@@ -3,9 +3,9 @@
     public enum CharacterAnimatorState
     {
         None,
-        Transition,
         Idle,
+        TransitionSeat,
+        TransitionStand,
         ReactionVoice,
-        
     }
 }
