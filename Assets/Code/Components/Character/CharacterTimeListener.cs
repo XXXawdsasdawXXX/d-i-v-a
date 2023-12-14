@@ -1,8 +1,7 @@
 ﻿using System;
-using Code.Character.AnimationReader.Mode;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Components.Character
 {
     public class CharacterTimeListener : MonoBehaviour
     {

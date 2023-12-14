@@ -2,7 +2,7 @@
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Character.AnimationReader.State
+namespace Code.Components.Character.AnimationReader.State
 {
     public class CharacterAnimationStateObserver :MonoBehaviour, IAnimationStateReader
     {

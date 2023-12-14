@@ -1,7 +1,7 @@
 ﻿using System;
 using Random = UnityEngine.Random;
 
-namespace Data.Scripts.Audio
+namespace Code.Data.Value.RangeFloat
 {
 	[Serializable]
 	public struct RangedFloat

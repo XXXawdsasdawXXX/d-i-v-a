@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Code.Character.AnimationReader.Mode;
+using Code.Components.Character.AnimationReader.Mode;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Components.Character
 {
     public class CharacterColliderScaler : MonoBehaviour
     {

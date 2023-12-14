@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Code.Test
+namespace Code.Components.Objects
 {
     public class ButtonSprite : MonoBehaviour
     {

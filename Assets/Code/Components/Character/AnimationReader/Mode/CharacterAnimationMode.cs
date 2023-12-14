@@ -1,4 +1,4 @@
-﻿namespace Code.Character.AnimationReader.Mode
+﻿namespace Code.Components.Character.AnimationReader.Mode
 {
     public enum CharacterAnimationMode
     {

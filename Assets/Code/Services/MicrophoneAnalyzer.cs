@@ -1,5 +1,7 @@
 ﻿using System;
-using Data.Scripts.Audio;
+using Code.Data.Configs;
+using Code.Data.Value.RangeFloat;
+using Code.Infrastructure.DI;
 using UnityEngine;
 
 namespace Code.Services
@@ -13,10 +15,7 @@ namespace Code.Services
         [SerializeField] private float _micLoudness;
         [SerializeField] private float _micDecibels;
 
-        [Header("Params")] 
-        [SerializeField, MinMaxRange(-50,0)] private RangedFloat _minActionDecibels;
-        [SerializeField, MinMaxRange(-50,0)] private RangedFloat _maxActionDecibels;
-        
+        private MicrophoneAnalyzerData _analyzerData;
         private AudioClip _clipRecord;
         private AudioClip _recordedClip;
     
@@ -24,11 +23,11 @@ namespace Code.Services
 
         public event Action MaximumDecibelRecordedEvent;
         public event Action MinimumDecibelRecordedEvent;
-        //-3 - max  
-        // -12/-20 - min  
+     
     
         private void Start()
         {
+            _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
             InitMic();
         }
     
@@ -42,12 +41,12 @@ namespace Code.Services
             _micLoudness = MicrophoneLevelMax();
             _micDecibels = MicrophoneLevelMaxDecibels();
 
-            if (_minActionDecibels.Contains(_micDecibels))
+            if (_analyzerData.MinActionDecibels.Contains(_micDecibels))
             {
                 MinimumDecibelRecordedEvent?.Invoke();
             }
 
-            if (_maxActionDecibels.Contains(_micDecibels))
+            if (_analyzerData.MaxActionDecibels.Contains(_micDecibels))
             {
                 MaximumDecibelRecordedEvent?.Invoke();
             }

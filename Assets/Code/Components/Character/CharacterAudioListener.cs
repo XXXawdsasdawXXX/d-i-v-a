@@ -1,7 +1,7 @@
 ﻿using Code.Services;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Components.Character
 {
     public class CharacterAudioListener : MonoBehaviour
     {

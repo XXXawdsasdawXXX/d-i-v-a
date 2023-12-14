@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Data.Scripts.Audio
+namespace Code.Data.Value.RangeFloat
 {
 	public class MinMaxRangeAttribute : Attribute
 	{

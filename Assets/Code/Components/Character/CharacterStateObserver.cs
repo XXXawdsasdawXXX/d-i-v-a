@@ -1,7 +1,7 @@
-﻿using Code.Character.AnimationReader.State;
+﻿using Code.Components.Character.AnimationReader.State;
 using UnityEngine;
 
-namespace Code.Character
+namespace Code.Components.Character
 {
     public class CharacterStateObserver : MonoBehaviour
     {
