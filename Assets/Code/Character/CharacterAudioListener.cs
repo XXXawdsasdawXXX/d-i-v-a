@@ -1,10 +1,9 @@
-﻿using System;
-using Code.Services;
+﻿using Code.Services;
 using UnityEngine;
 
 namespace Code.Character
 {
-    public class CharacterListener : MonoBehaviour
+    public class CharacterAudioListener : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] private MicrophoneAnalyzer _microphoneAnalyzer;

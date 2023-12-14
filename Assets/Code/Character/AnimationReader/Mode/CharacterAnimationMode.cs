@@ -5,5 +5,6 @@
         None,
         Stand,
         Seat,
+        Sleep
     }
 }

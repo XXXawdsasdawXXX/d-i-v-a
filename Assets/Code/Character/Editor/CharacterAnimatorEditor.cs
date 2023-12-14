@@ -9,16 +9,21 @@ namespace Code.Character.Editor
             public override void OnInspectorGUI()
             {
                 DrawDefaultInspector();
-                CharacterAnimator testDrive = (CharacterAnimator)target;
+                CharacterAnimator characterAnimator = (CharacterAnimator)target;
             
                 if (GUILayout.Button("Stand"))
                 {
-                    testDrive.PlayStand();
+                    characterAnimator.SetStandMode();
                 }
 
                 if (GUILayout.Button("Seat"))
                 {
-                    testDrive.PlaySeat();
+                    characterAnimator.SetSeatMode();
+                }
+                
+                if (GUILayout.Button("Sleep"))
+                {
+                    characterAnimator.SetSleepMode();
                 }
             }
         

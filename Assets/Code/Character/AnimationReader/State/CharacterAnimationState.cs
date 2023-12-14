@@ -4,8 +4,9 @@
     {
         None,
         Idle,
+        ReactionVoice,
+        TransitionSleep,
         TransitionSeat,
         TransitionStand,
-        ReactionVoice,
     }
 }

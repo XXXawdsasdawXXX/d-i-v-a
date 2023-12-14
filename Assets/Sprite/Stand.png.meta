@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8eed9f8013810364ca427405838fba91
+guid: 1c4d446b56143104c88a3aac0242eec0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,7 +141,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lili_0
+      name: Stand_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eae5a409c76fcdc409401e82c4f4a209
+      internalID: 1160021702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af199eb5b26b62e4883bead1f55bd017
+      internalID: 1268506806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1753a3bb42cb04894d97e3cd269148
+      internalID: 618267714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fbffdaf0c6b88f4bae1eec06fdde695
+      internalID: -1032389918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_4
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +239,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 208156b081bb76641b87e177d299dbf4
-      internalID: 1093849346
+      spriteID: 3b58c5a99bcbe0e44b18d444771f019e
+      internalID: 1945245453
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_1
+      name: Stand_5
       rect:
         serializedVersion: 2
         x: 256
@@ -176,14 +260,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ec7ba32dbe0ed64f89b51c146bfa90a
-      internalID: 1059889206
+      spriteID: 395299283087b7f42a5f8ae5e21084d4
+      internalID: 1206749984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_2
+      name: Stand_6
       rect:
         serializedVersion: 2
         x: 512
@@ -197,14 +281,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc7d945a959e8a64ca144268c71a5fc5
-      internalID: 1933481077
+      spriteID: 4e9e586c052b74a41b956df92743ac59
+      internalID: 224487795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_3
+      name: Stand_7
       rect:
         serializedVersion: 2
         x: 768
@@ -218,14 +302,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42d6af2af42e0aa4197d74c6ebfbd75c
-      internalID: 1252534216
+      spriteID: 210b5392f358cb44791ed70e4159837b
+      internalID: 570766618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_4
+      name: Stand_8
       rect:
         serializedVersion: 2
         x: 0
@@ -239,14 +323,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfdf64a8980a30848babdeffe212284b
-      internalID: -1896755674
+      spriteID: 6cfdfa63c46b09247aeda366bfe18fcf
+      internalID: 1475702434
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_5
+      name: Stand_9
       rect:
         serializedVersion: 2
         x: 256
@@ -260,14 +344,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03e01146547a3e445a16469878677a84
-      internalID: 1815566083
+      spriteID: 6e03b3c6996d383438f129bf73ffd445
+      internalID: -367191777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_6
+      name: Stand_10
       rect:
         serializedVersion: 2
         x: 512
@@ -281,14 +365,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f999ac1e847efe4489ef4fa06c45b01
-      internalID: -247553870
+      spriteID: 8b92f2b909c99c84c86a123ba2719ba4
+      internalID: 1676162942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_7
+      name: Stand_11
       rect:
         serializedVersion: 2
         x: 768
@@ -302,14 +386,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df55c04123c75f248bc49e3467207b22
-      internalID: -1800844643
+      spriteID: ab8f811a998ba14409067d0c2eeb7069
+      internalID: -48195183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_8
+      name: Stand_12
       rect:
         serializedVersion: 2
         x: 0
@@ -323,14 +407,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a7c70873925e434ca9ca601ff5b5208
-      internalID: -391896396
+      spriteID: 92d2c46b42984b649a73af50a9b9a32e
+      internalID: 1401080670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lili_9
+      name: Stand_13
       rect:
         serializedVersion: 2
         x: 256
@@ -344,8 +428,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2eef502ec571fe543bfa0ffe43d87930
-      internalID: -1278551283
+      spriteID: 234645feb2e059d4ea311f38af361105
+      internalID: -1660148643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_14
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 412c629eeb8e3ff4cb8ee4eeb3c7abe7
+      internalID: 1353985101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stand_15
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77db0d85842d804797df80cccd62cdd
+      internalID: 929621427
       vertices: []
       indices: 
       edges: []
@@ -361,16 +487,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Lili_0: 1093849346
-      Lili_1: 1059889206
-      Lili_2: 1933481077
-      Lili_3: 1252534216
-      Lili_4: -1896755674
-      Lili_5: 1815566083
-      Lili_6: -247553870
-      Lili_7: -1800844643
-      Lili_8: -391896396
-      Lili_9: -1278551283
+      Stand_0: 1160021702
+      Stand_1: 1268506806
+      Stand_10: 1676162942
+      Stand_11: -48195183
+      Stand_12: 1401080670
+      Stand_13: -1660148643
+      Stand_14: 1353985101
+      Stand_15: 929621427
+      Stand_2: 618267714
+      Stand_3: -1032389918
+      Stand_4: 1945245453
+      Stand_5: 1206749984
+      Stand_6: 224487795
+      Stand_7: 570766618
+      Stand_8: 1475702434
+      Stand_9: -367191777
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

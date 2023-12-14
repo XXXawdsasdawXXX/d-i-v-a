@@ -8,7 +8,9 @@ namespace Code.Character.AnimationReader.State
     {
         private readonly int _transition_Seat_Hash = Animator.StringToHash("TransitionSeat");
         private readonly int _transition_Stand_Hash = Animator.StringToHash("TransitionStand");
-        private readonly int _seatIdle_Hash = Animator.StringToHash("Idle");
+        private readonly int _transition_Sleep_Hash = Animator.StringToHash("TransitionSleep");
+        
+        private readonly int _idle_Hash = Animator.StringToHash("Idle");
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         
         public event Action<CharacterAnimationState> StateEnteredEvent;
@@ -38,6 +40,10 @@ namespace Code.Character.AnimationReader.State
             {
                 state = CharacterAnimationState.ReactionVoice;
             }
+            else if(stateHash == _idle_Hash)
+            {
+                state = CharacterAnimationState.Idle;
+            }
             else if (stateHash == _transition_Seat_Hash)
             {
                 state = CharacterAnimationState.TransitionSeat;
@@ -46,9 +52,9 @@ namespace Code.Character.AnimationReader.State
             {
                 state = CharacterAnimationState.TransitionStand;
             }
-            else if(stateHash == _seatIdle_Hash)
+            else if (stateHash == _transition_Sleep_Hash)
             {
-                state = CharacterAnimationState.Idle;
+                state = CharacterAnimationState.TransitionStand;
             }
             else
             {
