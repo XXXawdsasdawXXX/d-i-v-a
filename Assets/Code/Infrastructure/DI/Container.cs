@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Code.Components.Character;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Code.Infrastructure.DI
 {
@@ -14,9 +14,10 @@ namespace Code.Infrastructure.DI
     {
         public static Container Instance;
 
+        [SerializeField] private Character _character;
         [SerializeField] private List<ScriptableObject> _configs;
-        private  List<IService> _services = new();
-
+        private List<IService> _services = new();
+        
         private void Awake()
         {
             Instance = this;
@@ -29,7 +30,7 @@ namespace Code.Infrastructure.DI
             list = new List<T>();
 
             var types = Assembly.GetExecutingAssembly().GetTypes();
-
+    
             var serviceTypes = types.Where(t => typeof(T).IsAssignableFrom(t) && t.IsClass);
 
             foreach (var serviceType in serviceTypes)
@@ -55,7 +56,6 @@ namespace Code.Infrastructure.DI
                     return findConfig;
                 }
             }
-
             return null;
         }
         
@@ -73,9 +73,25 @@ namespace Code.Infrastructure.DI
 
         public List<IGameListeners> GetGameListeners()
         {
-            var list = new List<Object>();
-            list.AddRange(_services);
-            return list.OfType<IGameListeners>().ToList();
+            var listenersList = new List<IGameListeners>();
+            
+            listenersList.AddRange(_services.OfType<IGameListeners>().ToList());
+            
+            var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IGameListeners>();
+            foreach (var mbListener in mbListeners)
+            {
+                if (!listenersList.Contains(mbListener))
+                {
+                    listenersList.Add(mbListener);
+                }
+            }
+            
+            return listenersList;
+        }
+
+        public Character GetCharacter()
+        {
+            return _character;
         }
 
     }

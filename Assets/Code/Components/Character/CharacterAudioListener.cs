@@ -1,37 +1,48 @@
-﻿using Code.Data.Configs;
-using Code.Infrastructure.DI;
+﻿using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Services;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Character
 {
-    public class CharacterAudioListener : MonoBehaviour
+    public class CharacterAudioListener : MonoBehaviour , IGameTickListener, IGameStartListener, IGameExitListener
     {
-        [Header("Components")] private MicrophoneAnalyzer _microphoneAnalyzer;
+        [Header("Components")] 
+        private MicrophoneAnalyzer _microphoneAnalyzer;
+
         [SerializeField] private CharacterAnimator characterAnimator;
 
-        [Header("Params")] [SerializeField] private float _reactionCooldown;
+        [Header("Params")] 
+        [SerializeField] private float _reactionCooldown;
 
         private float _currentCooldown;
 
-        private void Start()
+        public void GameStart()
         {
             _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
             SubscribeToEvents();
+            Debugging.Instance.Log("CharacterAudioListener: Game Start", Debugging.Type.Micro);
         }
 
-        private void Update()
+
+        public void GameTick()
         {
             if (_currentCooldown > 0)
             {
                 _currentCooldown -= Time.deltaTime;
             }
+            Debugging.Instance.Log($"CharacterAudioListener: Game Tick {_currentCooldown}", Debugging.Type.Micro);
         }
 
-        private void OnDestroy()
+        public void GameExit()
         {
+            Debugging.Instance.Log("CharacterAudioListener: Game Exit", Debugging.Type.Micro);
             UnSubscribeToEvents();
+            
         }
+
+
 
         private void SubscribeToEvents()
         {
