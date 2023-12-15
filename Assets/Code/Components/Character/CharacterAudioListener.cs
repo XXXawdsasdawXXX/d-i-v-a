@@ -1,21 +1,22 @@
-﻿using Code.Services;
+﻿using Code.Data.Configs;
+using Code.Infrastructure.DI;
+using Code.Services;
 using UnityEngine;
 
 namespace Code.Components.Character
 {
     public class CharacterAudioListener : MonoBehaviour
     {
-        [Header("Components")]
-        [SerializeField] private MicrophoneAnalyzer _microphoneAnalyzer;
+        [Header("Components")] private MicrophoneAnalyzer _microphoneAnalyzer;
         [SerializeField] private CharacterAnimator characterAnimator;
 
-        [Header("Params")]
-        [SerializeField] private float _reactionCooldown;
+        [Header("Params")] [SerializeField] private float _reactionCooldown;
 
         private float _currentCooldown;
 
         private void Start()
         {
+            _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
             SubscribeToEvents();
         }
 
@@ -40,10 +41,10 @@ namespace Code.Components.Character
 
         private void UnSubscribeToEvents()
         {
-            _microphoneAnalyzer.MaximumDecibelRecordedEvent += OnMaximumDecibelRecordedEvent;
-            _microphoneAnalyzer.MinimumDecibelRecordedEvent += OnMinimumDecibelRecordedEvent;
+            _microphoneAnalyzer.MaximumDecibelRecordedEvent -= OnMaximumDecibelRecordedEvent;
+            _microphoneAnalyzer.MinimumDecibelRecordedEvent -= OnMinimumDecibelRecordedEvent;
         }
-        
+
         private void OnMinimumDecibelRecordedEvent()
         {
             if (_currentCooldown > 0)
@@ -57,7 +58,6 @@ namespace Code.Components.Character
 
         private void OnMaximumDecibelRecordedEvent()
         {
-            
         }
     }
 }

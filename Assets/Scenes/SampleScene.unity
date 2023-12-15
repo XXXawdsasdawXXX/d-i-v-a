@@ -304,7 +304,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1074312142}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &555248864
 MonoBehaviour:
@@ -448,53 +448,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7708477133988595673, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
   m_PrefabInstance: {fileID: 7708477133528799003}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &709046934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 709046935}
-  - component: {fileID: 709046936}
-  m_Layer: 0
-  m_Name: ' MicrophoneAnalyzer'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &709046935
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709046934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1074312142}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &709046936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709046934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b86e4e3ebc214339845162538a990004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _device: 
-  _micLoudness: 0
-  _micDecibels: 0
 --- !u!1 &925396624
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +546,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 905365805009172327}
-  - {fileID: 709046935}
   - {fileID: 2009315526}
   - {fileID: 555248863}
   m_Father: {fileID: 0}
@@ -687,7 +639,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1074312142}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2009315527
 MonoBehaviour:
@@ -711,6 +663,12 @@ MonoBehaviour:
   - Type: 3
     Active: 1
     Color: {r: 0.5254902, g: 1, b: 0.7323555, a: 1}
+  - Type: 4
+    Active: 1
+    Color: {r: 1, g: 0.7452422, b: 0.5254902, a: 1}
+  - Type: 5
+    Active: 1
+    Color: {r: 1, g: 0.5254902, b: 0.9738706, a: 1}
 --- !u!1001 &905365805009172326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -789,9 +747,13 @@ PrefabInstance:
       value: Lili
       objectReference: {fileID: 0}
     - target: {fileID: 7708477133988595677, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7708477133988595677, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
       propertyPath: _microphoneAnalyzer
       value: 
-      objectReference: {fileID: 709046936}
+      objectReference: {fileID: 0}
     - target: {fileID: 7708477133988595679, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
       propertyPath: m_RootOrder
       value: 1

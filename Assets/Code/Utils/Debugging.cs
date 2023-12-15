@@ -12,7 +12,9 @@ namespace Code.Utils
             None,
             AnimationState,
             AnimationMode,
-            Collision
+            Collision,
+            Micro,
+            DiContainer
         }
         
         [Serializable]

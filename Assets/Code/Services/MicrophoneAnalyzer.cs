@@ -1,19 +1,20 @@
 ﻿using System;
 using Code.Data.Configs;
-using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Services
 {
-    public class MicrophoneAnalyzer : MonoBehaviour
+    public class MicrophoneAnalyzer : IService, IGameStartListener, IGameTickListener, IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;
         
         [Header("Stats")]
-        [SerializeField] private string _device;
-        [SerializeField] private float _micLoudness;
-        [SerializeField] private float _micDecibels;
+         private string _device;
+         private float _micLoudness;
+         private float _micDecibels;
 
         private MicrophoneAnalyzerData _analyzerData;
         private AudioClip _clipRecord;
@@ -23,15 +24,19 @@ namespace Code.Services
 
         public event Action MaximumDecibelRecordedEvent;
         public event Action MinimumDecibelRecordedEvent;
-     
-    
-        private void Start()
+
+        public MicrophoneAnalyzer()
+        {
+            Debugging.Instance.Log($"MicrophoneAnalyzer: Construct", Debugging.Type.Micro);
+        }
+        public void GameStart()
         {
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
             InitMic();
+            Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
         }
-    
-        private void Update()
+
+        public void GameTick()
         {
             if (!_isInitialized)
             {
@@ -50,14 +55,15 @@ namespace Code.Services
             {
                 MaximumDecibelRecordedEvent?.Invoke();
             }
+         //   Debugging.Instance.Log($"MicrophoneAnalyzer: GameTick {_micDecibels}", Debugging.Type.Micro);
         }
-    
-        private void OnDestroy()
+
+        public void GameExit()
         {
             StopMicrophone();
+            Debugging.Instance.Log("MicrophoneAnalyzer: GameExit", Debugging.Type.Micro);
         }
     
-        //mic initialization
         private void InitMic()
         {
             _device = Microphone.devices[0];
@@ -101,6 +107,7 @@ namespace Code.Services
             return db;
         }
 
-   
+
+        
     }
 }

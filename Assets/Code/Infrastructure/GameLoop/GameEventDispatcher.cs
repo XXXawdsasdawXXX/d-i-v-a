@@ -35,16 +35,18 @@ namespace Code.Infrastructure.GameLoop
 
         private void InitializeListeners()
         {
-            // Получаем все типы в текущей сборке
+            var gameListeners = Container.Instance.GetGameListeners();
+
+
+            /*// Получаем все типы в текущей сборке
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();
 
             // Фильтруем только те, которые реализуют интерфейс IGameListeners
             IEnumerable<Type> listenerTypes = types.Where(t => typeof(IGameListeners).IsAssignableFrom(t) && !t.IsInterface);
-
-            foreach (Type listenerType in listenerTypes)
+*/
+            foreach (var listener in gameListeners)
             {
                 // Инициализируем объект
-                IGameListeners listener = Activator.CreateInstance(listenerType) as IGameListeners;
 
                 // Добавляем в соответствующий список в зависимости от интерфейса
                 if (listener is IGameStartListener)
