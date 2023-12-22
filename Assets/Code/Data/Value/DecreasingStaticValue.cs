@@ -3,7 +3,7 @@
 namespace Code.Components.Character.Params
 {
     [Serializable]
-    public class DecreasingValue
+    public class DecreasingStaticValue
     {
         public float MaxValue;
         public float TickValue;

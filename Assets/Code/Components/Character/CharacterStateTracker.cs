@@ -10,8 +10,8 @@ namespace Code.Components.Character
         [SerializeField] private CharacterAnimator _characterAnimator;
         public CharacterAnimationState GetCurrentAnimationState() => _animationStateObserver.State;
         public CharacterAnimationMode GetCurrentAnimationMode() => _characterAnimator.Mode;
-
         
-
+        
+        
     }
 }

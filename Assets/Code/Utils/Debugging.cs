@@ -14,7 +14,8 @@ namespace Code.Utils
             AnimationMode,
             Collision,
             Micro,
-            DiContainer
+            DiContainer,
+            Time
         }
         
         [Serializable]
