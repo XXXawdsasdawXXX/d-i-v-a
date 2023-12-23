@@ -1,14 +1,23 @@
-using UnityEngine;
+using Code.Infrastructure.BehaviorTree.CustomNodes;
+using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public sealed class BehaviourNode_Selector : BehaviourNode, IBehaviourCallback
+    public sealed class BehaviourSelector : BehaviourNode, IBehaviourCallback
     {
-        [SerializeField]
-        private BehaviourNode[] _orderedNodes;
+        private readonly BehaviourNode[] _orderedNodes;
         private BehaviourNode _currentChild;
 
         private int _currentChildIndex;
+        public BehaviourSelector()
+        {
+            _orderedNodes = new BehaviourNode[]
+            {
+                new BehaviorNode_EntryGame(),
+                new BehaviorNode_Happy(),
+                
+            };
+        }
         
         protected override void Run()
         {
@@ -50,9 +59,9 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
         }
 
-        protected override void OnReturn(bool result)
+        protected override void OnReturn(bool success)
         {
-    //        Debug.Log($"NODE: {name} RETURN: {result}");
+        
         }
 
         protected override void OnDispose()

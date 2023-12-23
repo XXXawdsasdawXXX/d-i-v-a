@@ -4,11 +4,15 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public sealed class BehaviourNode_Sequence : BehaviourNode, IBehaviourCallback
     {
-        [SerializeField]
         private BehaviourNode[] _orderNodes;// порядок элементов имеет значение
 
         private BehaviourNode _currentChild;
         private int _currentNodeIndex;
+        
+        public BehaviourNode_Sequence(BehaviourNode[] orderNodes)
+        {
+            _orderNodes = orderNodes;
+        }
         
         protected override void Run()
         {
@@ -50,7 +54,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
         }
 
-        protected override void OnReturn(bool result)
+        protected override void OnReturn(bool success)
         {
         //    Debug.Log($"NODE: {name} RETURN: {result}");
         }

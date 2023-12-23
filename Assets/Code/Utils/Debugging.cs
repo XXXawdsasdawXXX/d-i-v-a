@@ -15,7 +15,8 @@ namespace Code.Utils
             Collision,
             Micro,
             DiContainer,
-            Time
+            Time,
+            BehaviorTree
         }
         
         [Serializable]

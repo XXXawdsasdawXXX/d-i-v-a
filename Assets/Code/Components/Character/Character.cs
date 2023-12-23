@@ -7,8 +7,8 @@ namespace Code.Components.Character
         [SerializeField] private CharacterAnimator _characterAnimator;
         public CharacterAnimator Animator => _characterAnimator;
 
-        [SerializeField] private CharacterStateTracker _characterStateTracker;
-        public CharacterStateTracker StateTracker => _characterStateTracker;
+        [SerializeField] private CharacterLiveStateController _characterLiveStateController;
+        public CharacterLiveStateController LiveStateController => _characterLiveStateController;
 
     }
 }

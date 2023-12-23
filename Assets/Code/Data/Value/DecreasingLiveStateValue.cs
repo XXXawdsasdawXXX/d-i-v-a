@@ -3,9 +3,9 @@
 namespace Code.Components.Character.Params
 {
     [Serializable]
-    public class DecreasingStaticValue
+    public class DecreasingLiveStateValue
     {
-        public float MaxValue;
+        public LiveStateKey Key;
         public float TickValue;
     }
 }

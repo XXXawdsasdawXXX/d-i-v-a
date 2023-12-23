@@ -1,10 +1,7 @@
-﻿namespace Code.Data.Enums
+namespace Code.Components.Character.Params
 {
     public enum BlackboardKey
     {
         None,
-        Mode,
-        State,
-        Stats
     }
 }
