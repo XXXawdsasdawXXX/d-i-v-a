@@ -12,7 +12,7 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        [SerializeField] private CoroutineController coroutineController;
+        
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
 
@@ -22,19 +22,19 @@ namespace Code.Infrastructure.DI
             {
                 Destroy(gameObject);
             }
+
             DontDestroyOnLoad(gameObject);
             Instance = this;
-            
-            InitList(out _services);
+
+            InitList(ref _services);
         }
 
-        private void InitList<T>(out List<T> list)
+        private void InitList<T>(ref List<T> list)
         {
-            list = new List<T>();
-
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
-            var serviceTypes = types.Where(t => typeof(T).IsAssignableFrom(t) && t.IsClass);
+            var serviceTypes = types.Where(t =>
+                typeof(T).IsAssignableFrom(t) && t.IsClass && !typeof(MonoBehaviour).IsAssignableFrom(t));
 
             foreach (var serviceType in serviceTypes)
             {
@@ -45,18 +45,13 @@ namespace Code.Infrastructure.DI
             }
 
             var mbServices = FindObjectsOfType<MonoBehaviour>().OfType<T>();
-            var enumerable = mbServices as T[] ?? mbServices.ToArray();
-            if (enumerable.Any())
+            if (mbServices.Any())
             {
-                list.AddRange(enumerable);
+                list.AddRange(mbServices);
             }
-            
-            foreach (var l in list)
-            {
-                Debugging.Instance.Log($"Init {l.GetType().Name} ", Debugging.Type.DiContainer);
-            }
+
             Debugging.Instance.Log(
-                $"Init {typeof(T).Name} | mb count = {enumerable.Count()}| list count = {list.Count}",
+                $"Init {typeof(T).Name} | mb count = {mbServices.Count()}| list count = {list.Count}",
                 Debugging.Type.DiContainer);
         }
 
@@ -77,22 +72,15 @@ namespace Code.Infrastructure.DI
         {
             foreach (var service in _services)
             {
-                Debugging.Instance.Log($"Try find {typeof(T)}  {service is T}  ", Debugging.Type.DiContainer);
                 if (service is T findService)
                 {
-                      Debugging.Instance.Log($"return find {typeof(T)} ", Debugging.Type.DiContainer);
                     return findService;
                 }
             }
-
             return default;
         }
 
-        public CoroutineController GetCoroutineRunner()
-        {
-            return coroutineController;
-        }
-
+   
         public List<IGameListeners> GetGameListeners()
         {
             var listenersList = new List<IGameListeners>();

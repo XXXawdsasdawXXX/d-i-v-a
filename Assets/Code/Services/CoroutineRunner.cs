@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class CoroutineController : MonoBehaviour, IService
+    public class CoroutineRunner : MonoBehaviour, IService
     {
         public void Play(IEnumerator coroutine)
         {

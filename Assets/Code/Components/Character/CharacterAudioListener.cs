@@ -32,7 +32,7 @@ namespace Code.Components.Character
             {
                 _currentCooldown -= Time.deltaTime;
             }
-            Debugging.Instance.Log($"CharacterAudioListener: Game Tick {_currentCooldown}", Debugging.Type.Micro);
+//            Debugging.Instance.Log($"CharacterAudioListener: Game Tick {_currentCooldown}", Debugging.Type.Micro);
         }
 
         public void GameExit()

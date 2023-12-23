@@ -2,39 +2,27 @@
 using System.Collections;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Test;
 using Code.Utils;
 using UnityEngine.Networking;
 
 namespace Code.Services
 {
-    public class TimeObserver : IService, IGameStartListener
+    public class TimeObserver : IService,IGameStartListener
     {
         public DateTime LastSyncedLocalTime { get; private set; }
-
         public DateTime LastSyncedServerTime;
-
-        private CoroutineController _coroutineController;
-
+        
         public void GameStart()
         {
-            var testDrive = Container.Instance.FindService<TestDrive>();
-            Debugging.Instance.Log($"Test drive {testDrive  != null}", Debugging.Type.Time);
-
-
-            _coroutineController = Container.Instance.FindService<CoroutineController>();
-            //var coroutineRunner = Container.Instance.GetCoroutineRunner();
-            Debugging.Instance.Log($"Coroutime runner {_coroutineController != null}", Debugging.Type.Time);
-
-            if (_coroutineController == null)
+            var coroutineController = Container.Instance.FindService<CoroutineRunner>();
+            if (coroutineController == null)
             {
                 Debugging.Instance.Log($"time observer can't find coroutine runner", Debugging.Type.Time);
                 return;
             }
 
-            _coroutineController.StartCoroutine(Sync());
-            Debugging.Instance.Log($"server time {LastSyncedServerTime} || local time {LastSyncedLocalTime}",
-                Debugging.Type.Time);
+            coroutineController.StartCoroutine(Sync());
+            Debugging.Instance.Log($"server time {LastSyncedServerTime} || local time {LastSyncedLocalTime}", Debugging.Type.Time);
         }
 
         public DateTime InterpolatedUtcNow
@@ -46,7 +34,7 @@ namespace Code.Services
         {
             LastSyncedLocalTime = DateTime.UtcNow;
             
-            UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.microsoft.com");
+            UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.google.com");
             if (myHttpWebRequest == null)
             {
                 yield break;

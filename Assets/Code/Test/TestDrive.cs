@@ -10,6 +10,8 @@ namespace Code.Test
         [SerializeField] private GameObject _testObject;
         [SerializeField] private int _currentAnchorIndex;
 
+        
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q))
