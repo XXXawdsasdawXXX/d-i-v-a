@@ -17,6 +17,7 @@ namespace Code.Infrastructure.GameLoop
             InitializeListeners();
             NotifyGameLoad();
         }
+        
 
         private void Start()
         {
@@ -40,10 +41,10 @@ namespace Code.Infrastructure.GameLoop
 
             foreach (var listener in gameListeners)
             {
-                if (listener is IGameStartListener startListener)
-                    _startListeners.Add(startListener);
                 if (listener is IGameLoadListener loadListener)
                     _loadListeners.Add(loadListener);
+                if (listener is IGameStartListener startListener)
+                    _startListeners.Add(startListener);
                 if (listener is IGameTickListener tickListener)
                     _tickListeners.Add(tickListener);
                 if (listener is IGameSaveListener saveListener)

@@ -12,7 +12,7 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        [SerializeField] private CoroutineRunner _coroutineRunner;
+        [SerializeField] private CoroutineController coroutineController;
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
 
@@ -44,12 +44,19 @@ namespace Code.Infrastructure.DI
                 }
             }
 
-
             var mbServices = FindObjectsOfType<MonoBehaviour>().OfType<T>();
-            list.AddRange(mbServices);
-
+            var enumerable = mbServices as T[] ?? mbServices.ToArray();
+            if (enumerable.Any())
+            {
+                list.AddRange(enumerable);
+            }
+            
+            foreach (var l in list)
+            {
+                Debugging.Instance.Log($"Init {l.GetType().Name} ", Debugging.Type.DiContainer);
+            }
             Debugging.Instance.Log(
-                $"Init {typeof(T).Name} | mb count = {mbServices.Count()}| list count = {list.Count}",
+                $"Init {typeof(T).Name} | mb count = {enumerable.Count()}| list count = {list.Count}",
                 Debugging.Type.DiContainer);
         }
 
@@ -70,9 +77,10 @@ namespace Code.Infrastructure.DI
         {
             foreach (var service in _services)
             {
-                    Debugging.Instance.Log($"Try find {typeof(T)}  {service is T}  ", Debugging.Type.DiContainer);
+                Debugging.Instance.Log($"Try find {typeof(T)}  {service is T}  ", Debugging.Type.DiContainer);
                 if (service is T findService)
                 {
+                      Debugging.Instance.Log($"return find {typeof(T)} ", Debugging.Type.DiContainer);
                     return findService;
                 }
             }
@@ -80,9 +88,9 @@ namespace Code.Infrastructure.DI
             return default;
         }
 
-        public CoroutineRunner GetCoroutineRunner()
+        public CoroutineController GetCoroutineRunner()
         {
-            return _coroutineRunner;
+            return coroutineController;
         }
 
         public List<IGameListeners> GetGameListeners()

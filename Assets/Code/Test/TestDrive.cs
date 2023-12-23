@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class TestDrive : MonoBehaviour
+    public class TestDrive : MonoBehaviour, IService
     {
         [SerializeField] private GameObject _testObject;
         [SerializeField] private int _currentAnchorIndex;
