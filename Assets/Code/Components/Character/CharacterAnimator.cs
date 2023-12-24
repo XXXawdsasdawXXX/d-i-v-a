@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Components.Character.AnimationReader.Mode;
+using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 

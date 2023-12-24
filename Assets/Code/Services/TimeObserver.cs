@@ -3,14 +3,20 @@ using System.Collections;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Code.Services
 {
-    public class TimeObserver : IService,IGameStartListener
+    public class TimeObserver : IService,IGameStartListener, IGameTickListener
     {
         public DateTime LastSyncedLocalTime { get; private set; }
         public DateTime LastSyncedServerTime;
+        
+        private float _tickTime = 5;
+        private float _currentTickCooldown;
+
+        public event Action TickEvent;
         
         public void GameStart()
         {
@@ -23,6 +29,16 @@ namespace Code.Services
 
             coroutineController.StartCoroutine(Sync());
             Debugging.Instance.Log($"server time {LastSyncedServerTime} || local time {LastSyncedLocalTime}", Debugging.Type.Time);
+        }
+
+        public void GameTick()
+        {
+            _currentTickCooldown += Time.deltaTime;
+            if (_currentTickCooldown >= _tickTime)
+            {
+                _currentTickCooldown = 0;
+                TickEvent?.Invoke();
+            }
         }
 
         public DateTime InterpolatedUtcNow

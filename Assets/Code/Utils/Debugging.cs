@@ -7,6 +7,7 @@ namespace Code.Utils
     public class Debugging : MonoBehaviour
     {
         public static Debugging Instance;
+
         public enum Type
         {
             None,
@@ -18,7 +19,7 @@ namespace Code.Utils
             Time,
             BehaviorTree
         }
-        
+
         [Serializable]
         private class DebugParam
         {
@@ -28,6 +29,7 @@ namespace Code.Utils
         }
 
         [SerializeField] private DebugParam[] _debugParams;
+
         private void Awake()
         {
             Instance = this;
@@ -44,8 +46,14 @@ namespace Code.Utils
 
         public void TestLog(string message)
         {
-            ColorLog(message,Color.green);
+            ColorLog(message, Color.green);
         }
+
+        public void ErrorLog(string message)
+        {
+            ColorLog(message, Color.red);
+        }
+
         private void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");

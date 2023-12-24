@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Components.Character.Params;
+using Code.Data.Enums;
 using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree

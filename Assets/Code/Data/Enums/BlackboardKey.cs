@@ -1,4 +1,4 @@
-namespace Code.Components.Character.Params
+namespace Code.Data.Enums
 {
     public enum BlackboardKey
     {
