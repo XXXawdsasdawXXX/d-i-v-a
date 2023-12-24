@@ -5,28 +5,59 @@ using Code.Data.Enums;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Infrastructure.Save;
 using Code.Services;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Character
 {
-    public class CharacterLiveStateController : MonoBehaviour, IGameStartListener, IGameExitListener
+    public class CharacterLiveStateController : MonoBehaviour, IGameStartListener, IGameExitListener, IProgressWriter
     {
-       [SerializeField] private List<CharacterLiveState> _liveStates = new();
+        private Dictionary<LiveStateKey, CharacterLiveState> _liveStates = new();
         private TimeObserver _timeObserver;
 
 
         public void GameStart()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _liveStates = InitNewStates();
-            
             SubscribeToEvents(true);
         }
 
         public void GameExit()
         {
             SubscribeToEvents(false);
+        }
+
+        private void OnTimeObserverTick()
+        {
+            foreach (var liveState in _liveStates)
+            {
+                liveState.Value.TimeUpdate();
+            }
+        }
+
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _liveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
+                ? InitNewStates()
+                : LoadSavedStates(progress.LiveStatesData);
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            foreach (var liveState in _liveStates)
+            {
+                if (progress.LiveStatesData.ContainsKey(liveState.Key))
+                {
+                    progress.LiveStatesData[liveState.Key] = liveState.Value.Current;
+                }
+                else
+                {
+                    progress.LiveStatesData.Add(liveState.Key, liveState.Value._current);
+                }
+            }
         }
 
         private void SubscribeToEvents(bool flag)
@@ -38,76 +69,58 @@ namespace Code.Components.Character
             else
             {
                 _timeObserver.TickEvent -= OnTimeObserverTick;
-                
             }
         }
 
-        private void OnTimeObserverTick()
+        private Dictionary<LiveStateKey, CharacterLiveState> InitNewStates()
         {
-            foreach (var liveState in _liveStates)
-            {
-                liveState.TimeUpdate();
-            }
-        }
-
-
-        private List<CharacterLiveState> InitNewStates()
-        {
-            List<CharacterLiveState> list = new List<CharacterLiveState>();
+            var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); ///nu takoe
+            var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
             var liveStateCount = Enum.GetNames(typeof(LiveStateKey)).Length;
-            var characterConfig = Container.Instance.FindConfig<CharacterConfig>();
 
             for (int i = 1; i < liveStateCount; i++)
             {
                 var stateKey = (LiveStateKey)i;
                 var staticParam = characterConfig.GetStaticParam(stateKey);
                 var characterLiveState = new CharacterLiveState(
-                    key: stateKey,
                     current: staticParam.MaxValue,
                     max: staticParam.MaxValue,
                     decreasingValue: staticParam.DecreasingValue);
 
-                list.Add(characterLiveState);
+                characterLiveStates.Add(stateKey, characterLiveState);
             }
 
-            return list;
+            Debugging.Instance.Log($"Live state -> init new", Debugging.Type.LiveState);
+            return characterLiveStates;
         }
 
-        private List<CharacterLiveState> LoadStates(List<LiveStateSavedData> liveStateSavedData)
+        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(
+            Dictionary<LiveStateKey, float> liveStateSavedData)
         {
-            List<CharacterLiveState> list = new List<CharacterLiveState>();
             var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); ///nu takoe
+            var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
+
             foreach (var stateSavedData in liveStateSavedData)
             {
                 var staticParam = characterConfig.GetStaticParam(stateSavedData.Key);
                 var characterLiveState = new CharacterLiveState(
-                    key: stateSavedData.Key,
-                    current: stateSavedData.CurrentValue,
+                    current: stateSavedData.Value,
                     max: staticParam.MaxValue,
                     decreasingValue: staticParam.DecreasingValue);
 
-                list.Add(characterLiveState);
+                characterLiveStates.Add(stateSavedData.Key, characterLiveState);
             }
 
-            return list;
+            Debugging.Instance.Log($"Live state -> load saved", Debugging.Type.LiveState);
+            return characterLiveStates;
         }
 
-
-        /*public void LoadProgress(Progress progress)
+        public void LogStates()
         {
-            if (progress == null)
+            foreach (var liveState in _liveStates)
             {
-                Debugging.Instance.Log($"CharacterLiveState: ");
-            }
-            else
-            {
-                
+                Debugging.Instance.Log($"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
             }
         }
-
-        public void UpdateProgress(Progress progress)
-        {
-            progress.LiveStatesData = LiveStates.Select(s => s.GetCurrentData()).ToList();
-        }*/
     }
 }

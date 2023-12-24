@@ -17,7 +17,9 @@ namespace Code.Utils
             Micro,
             DiContainer,
             Time,
-            BehaviorTree
+            BehaviorTree,
+            LiveState,
+            SaveLoad
         }
 
         [Serializable]

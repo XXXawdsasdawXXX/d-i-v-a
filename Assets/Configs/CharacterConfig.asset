@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8aff09396804c6ca0686e7be6f8b410, type: 3}
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
-  DecreasingLiveStateValues: []
+  _liveStateStaticParams:
+  - Key: 1
+    DecreasingValue: 0.1
+    MaxValue: 20
+  - Key: 2
+    DecreasingValue: 0.1
+    MaxValue: 15
+  - Key: 3
+    DecreasingValue: 0
+    MaxValue: 10

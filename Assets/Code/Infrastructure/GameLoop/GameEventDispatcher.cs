@@ -18,7 +18,6 @@ namespace Code.Infrastructure.GameLoop
             NotifyGameLoad();
         }
         
-
         private void Start()
         {
             NotifyGameStart();
@@ -31,7 +30,6 @@ namespace Code.Infrastructure.GameLoop
 
         private void OnApplicationQuit()
         {
-            NotifyGameLoad();
             NotifyGameExit();
         }
 

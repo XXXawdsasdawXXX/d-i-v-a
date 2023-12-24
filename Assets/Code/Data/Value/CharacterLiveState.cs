@@ -7,20 +7,20 @@ namespace Code.Data.Value
     public class CharacterLiveState
     {
             
-        public LiveStateKey _key;
+
         public float _current;
         public float _max;
         
         private float _decreasingValue;
-        public LiveStateKey GetLiveStateKey() => _key;
+        public float Current => _current;
+
         public float GetPercent() => _max == 0 ? 0 :_current / _max;
 
         public event Action<float> OnChanged;
 
 
-        public CharacterLiveState(LiveStateKey key,float current,float max, float decreasingValue)
+        public CharacterLiveState(float current,float max, float decreasingValue)
         {
-            _key = key;
             _current = current;
             _max = max;
             _decreasingValue = decreasingValue;

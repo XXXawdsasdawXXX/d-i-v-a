@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Infrastructure.GameLoop;
+using Code.Infrastructure.Save;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
@@ -98,5 +99,24 @@ namespace Code.Infrastructure.DI
 
             return listenersList;
         }
+        
+        public List<IProgressReader> GetProgressReaders()
+        {
+            var listenersList = new List<IProgressReader>();
+
+            listenersList.AddRange(_services.OfType<IProgressReader>().ToList());
+
+            var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IProgressReader>();
+            foreach (var mbListener in mbListeners)
+            {
+                if (!listenersList.Contains(mbListener))
+                {
+                    listenersList.Add(mbListener);
+                }
+            }
+
+            return listenersList;
+        }
+        
     }
 }
