@@ -17,7 +17,7 @@ MonoBehaviour:
     DecreasingValue: 0.1
     MaxValue: 20
   - Key: 2
-    DecreasingValue: 0.1
+    DecreasingValue: 0.25
     MaxValue: 15
   - Key: 3
     DecreasingValue: 0

@@ -6,15 +6,16 @@ namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
+        private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
         private readonly List<IGameTickListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
-        private readonly List<IGameSaveListener> _saveListeners = new();
 
         public void Awake()
         {
             InitializeListeners();
+            NotifyGameInit();
             NotifyGameLoad();
         }
         
@@ -39,19 +40,26 @@ namespace Code.Infrastructure.GameLoop
 
             foreach (var listener in gameListeners)
             {
+                if (listener is IGameInitListener initListener)
+                    _initListeners.Add(initListener);
                 if (listener is IGameLoadListener loadListener)
                     _loadListeners.Add(loadListener);
                 if (listener is IGameStartListener startListener)
                     _startListeners.Add(startListener);
                 if (listener is IGameTickListener tickListener)
                     _tickListeners.Add(tickListener);
-                if (listener is IGameSaveListener saveListener)
-                    _saveListeners.Add(saveListener);
                 if (listener is IGameExitListener exitListener)
                     _exitListeners.Add(exitListener);
             }
         }
 
+        private void NotifyGameInit()
+        {
+            foreach (var listener in _initListeners)
+            {
+                listener.GameInit();
+            }
+        }
         private void NotifyGameLoad()
         {
             foreach (var listener in _loadListeners)
@@ -75,15 +83,7 @@ namespace Code.Infrastructure.GameLoop
                 listener.GameTick();
             }
         }
-
-        private void NotifyGameSave()
-        {
-            foreach (var listener in _saveListeners)
-            {
-                listener.GameSave();
-            }
-        }
-
+        
         private void NotifyGameExit()
         {
             foreach (var listener in _exitListeners)
@@ -92,4 +92,6 @@ namespace Code.Infrastructure.GameLoop
             }
         }
     }
+
+    
 }

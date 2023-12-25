@@ -1,6 +1,6 @@
 using Code.Data.Enums;
 
-namespace Code.Data.Value
+namespace Code.Data.SavedData
 {
     public class LiveStateSavedData
     {

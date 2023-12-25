@@ -9,7 +9,7 @@ namespace Code.Data.Value.RangeFloat
 		public float MinValue;
 		public float MaxValue;
 
-		public float GetRandomValue()
+		public readonly float GetRandomValue()
 		{
 			return Random.Range(MinValue, MaxValue);
 		}

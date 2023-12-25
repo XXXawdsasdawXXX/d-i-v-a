@@ -1,38 +1,46 @@
 using System.Collections;
+using Code.Data.Value.RangeFloat;
+using Code.Infrastructure.DI;
+using Code.Services;
 using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public sealed class BehaviourNode_WaitForSeconds : BehaviourNode
     {
-        private float _seconds;
-        private bool _success;
+        private readonly RangedFloat _cooldown;
+        private float _randomSeconds;
+
+        
+        private readonly CoroutineRunner _coroutineRunner;
         private Coroutine _coroutine;
 
-        private BehaviourNode_WaitForSeconds()
+        public BehaviourNode_WaitForSeconds(RangedFloat cooldown)
         {
-                
+            _cooldown = cooldown;
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
         }
         
         protected override void Run()
-        {
-            //this._coroutine = this.StartCoroutine(this.WaitForSeconds());
+        { 
+            _randomSeconds = _cooldown.GetRandomValue();
+           _coroutine = _coroutineRunner.StartRoutine(WaitForSeconds());
         }
 
-        protected override void OnBreak()
+        protected override void OnDispose()
         {
-            if (this._coroutine != null)
+            if (_coroutine != null)
             {
-            //    this.StopCoroutine(this._coroutine);
-                this._coroutine = null;
+                _coroutineRunner.Stop(_coroutine);
+                _coroutine = null;
             }
         }
 
         private IEnumerator WaitForSeconds()
         {
-            yield return new WaitForSeconds(this._seconds);
-            this._coroutine = null;
-            this.Return(this._success);
+            yield return new WaitForSeconds(_randomSeconds);
+            _coroutine = null;
+            Return(true);
         }
     }
 }

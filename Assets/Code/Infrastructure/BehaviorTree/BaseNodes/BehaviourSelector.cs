@@ -13,8 +13,13 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         {
             _orderedNodes = new BehaviourNode[]
             {
-                new BehaviorNode_EntryGame(),
-                new BehaviorNode_Happy(),
+                new BehaviorNode_Sleep(),
+                new BehaviorNode_None(),
+                new BehaviorNode_Seat(),
+                
+                //Eat
+                
+                //Stand
                 
             };
         }

@@ -10,12 +10,11 @@ namespace Code.Components.Character
     {
         [Header("Components")] 
         private MicrophoneAnalyzer _microphoneAnalyzer;
-
-        [SerializeField] private CharacterAnimator characterAnimator;
-
+        [SerializeField] 
+        private CharacterAnimator characterAnimator;
         [Header("Params")] 
-        [SerializeField] private float _reactionCooldown;
-
+        [SerializeField] 
+        private float _reactionCooldown;
         private float _currentCooldown;
 
         public void GameStart()
@@ -24,26 +23,21 @@ namespace Code.Components.Character
             SubscribeToEvents();
             Debugging.Instance.Log("CharacterAudioListener: Game Start", Debugging.Type.Micro);
         }
-
-
+        
         public void GameTick()
         {
             if (_currentCooldown > 0)
             {
                 _currentCooldown -= Time.deltaTime;
             }
-//            Debugging.Instance.Log($"CharacterAudioListener: Game Tick {_currentCooldown}", Debugging.Type.Micro);
         }
 
         public void GameExit()
         {
             Debugging.Instance.Log("CharacterAudioListener: Game Exit", Debugging.Type.Micro);
             UnSubscribeToEvents();
-            
         }
-
-
-
+        
         private void SubscribeToEvents()
         {
             _microphoneAnalyzer.MaximumDecibelRecordedEvent += OnMaximumDecibelRecordedEvent;

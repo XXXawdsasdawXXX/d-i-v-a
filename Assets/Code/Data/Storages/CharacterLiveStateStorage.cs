@@ -2,52 +2,42 @@
 using System.Collections.Generic;
 using Code.Data.Configs;
 using Code.Data.Enums;
+using Code.Data.Interfaces;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
-using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
-using Code.Services;
 using Code.Utils;
-using UnityEngine;
 
-namespace Code.Components.Character
+namespace Code.Data.Storages
 {
-    public class CharacterLiveStateController : MonoBehaviour, IGameStartListener, IGameExitListener, IProgressWriter
+    public class CharacterLiveStateStorage : IStorage, IProgressWriter
     {
-        private Dictionary<LiveStateKey, CharacterLiveState> _liveStates = new();
-        private TimeObserver _timeObserver;
-
-
-        public void GameStart()
+        public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
+        
+        public bool TryGetCharacterLiveState(LiveStateKey key, out CharacterLiveState liveState)
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
-            SubscribeToEvents(true);
-        }
-
-        public void GameExit()
-        {
-            SubscribeToEvents(false);
-        }
-
-        private void OnTimeObserverTick()
-        {
-            foreach (var liveState in _liveStates)
+            if (LiveStates.ContainsKey(key))
             {
-                liveState.Value.TimeUpdate();
+                liveState = LiveStates[key];
+                return true;
             }
+
+            liveState = null;
+            return false;
         }
 
+        #region Initialize
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _liveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
+            LiveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
                 ? InitNewStates()
                 : LoadSavedStates(progress.LiveStatesData);
         }
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            foreach (var liveState in _liveStates)
+            foreach (var liveState in LiveStates)
             {
                 if (progress.LiveStatesData.ContainsKey(liveState.Key))
                 {
@@ -57,18 +47,6 @@ namespace Code.Components.Character
                 {
                     progress.LiveStatesData.Add(liveState.Key, liveState.Value._current);
                 }
-            }
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _timeObserver.TickEvent += OnTimeObserverTick;
-            }
-            else
-            {
-                _timeObserver.TickEvent -= OnTimeObserverTick;
             }
         }
 
@@ -115,12 +93,18 @@ namespace Code.Components.Character
             return characterLiveStates;
         }
 
+        #endregion
+
+        #region Editor
+
         public void LogStates()
         {
-            foreach (var liveState in _liveStates)
+            foreach (var liveState in LiveStates)
             {
                 Debugging.Instance.Log($"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
             }
         }
+
+        #endregion
     }
 }

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Code.Components.Character;
+using Code.Components.Character.Controllers;
+using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Services;
@@ -13,9 +17,12 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        
+
+        [SerializeField] private Character _character;  
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
+        private List<IStorage> _storages = new();
+        private List<ILiveStateLogic> _liveStateLogics = new();
 
         private void Awake()
         {
@@ -28,6 +35,8 @@ namespace Code.Infrastructure.DI
             Instance = this;
 
             InitList(ref _services);
+            InitList(ref _storages);
+            InitList(ref _liveStateLogics);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -81,12 +90,39 @@ namespace Code.Infrastructure.DI
             return default;
         }
 
-   
+        public T FindStorage<T>() where T : IStorage
+        {
+            foreach (var storage in _storages)
+            {
+                if (storage is T typedStorage)
+                {
+                    return typedStorage;
+                }
+            }
+            return default;
+        }
+
+
+        public T FindLiveStateLogic<T>() where T : ILiveStateLogic
+        {
+            foreach (var liveStateLogic in _liveStateLogics)
+            {
+                if (liveStateLogic is T typedLiveStateLogic)
+                {
+                    return typedLiveStateLogic;
+                }
+            }
+            return default;
+        }
+
+        public Character GetCharacter() => _character;
         public List<IGameListeners> GetGameListeners()
         {
             var listenersList = new List<IGameListeners>();
 
             listenersList.AddRange(_services.OfType<IGameListeners>().ToList());
+            listenersList.AddRange(_storages.OfType<IGameListeners>().ToList());
+            listenersList.AddRange(_liveStateLogics.OfType<IGameListeners>().ToList());
 
             var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IGameListeners>();
             foreach (var mbListener in mbListeners)
@@ -99,13 +135,16 @@ namespace Code.Infrastructure.DI
 
             return listenersList;
         }
-        
+
         public List<IProgressReader> GetProgressReaders()
         {
             var listenersList = new List<IProgressReader>();
 
             listenersList.AddRange(_services.OfType<IProgressReader>().ToList());
+            listenersList.AddRange(_storages.OfType<IProgressReader>().ToList());
+            listenersList.AddRange(_liveStateLogics.OfType<IProgressReader>().ToList());
 
+            
             var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IProgressReader>();
             foreach (var mbListener in mbListeners)
             {
@@ -117,6 +156,5 @@ namespace Code.Infrastructure.DI
 
             return listenersList;
         }
-        
     }
 }

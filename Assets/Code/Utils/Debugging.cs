@@ -19,7 +19,8 @@ namespace Code.Utils
             Time,
             BehaviorTree,
             LiveState,
-            SaveLoad
+            SaveLoad,
+            ButtonSprite
         }
 
         [Serializable]

@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Code.Components.Character.Editor
 {
-    [CustomEditor(typeof(CharacterLiveStateController))]
+    [CustomEditor(typeof(CharacterLiveStateTimer))]
     public class CharacterLiveStateControllerEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            CharacterLiveStateController stateControllerEditor = (CharacterLiveStateController)target;
+            CharacterLiveStateTimer stateTimerEditor = (CharacterLiveStateTimer)target;
 
             if (GUILayout.Button("Log"))
             {
-                stateControllerEditor.LogStates();
+                stateTimerEditor.LogStates();
             }
         }
     }

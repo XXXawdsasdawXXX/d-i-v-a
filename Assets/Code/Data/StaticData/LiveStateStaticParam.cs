@@ -1,7 +1,7 @@
 ﻿using System;
 using Code.Data.Enums;
 
-namespace Code.Data.Value
+namespace Code.Data.StaticData
 {
     [Serializable]
     public class LiveStateStaticParam

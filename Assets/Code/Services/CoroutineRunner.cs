@@ -1,13 +1,14 @@
 ﻿using System.Collections;
+using Code.Data.Interfaces;
 using UnityEngine;
 
 namespace Code.Services
 {
     public class CoroutineRunner : MonoBehaviour, IService
     {
-        public void Play(IEnumerator coroutine)
+        public Coroutine StartRoutine(IEnumerator coroutine)
         {
-            StartCoroutine(coroutine);
+            return coroutine == null ? null : StartCoroutine(coroutine);
         }
 
         public void Stop(IEnumerator coroutine)
@@ -15,5 +16,9 @@ namespace Code.Services
             StopCoroutine(coroutine);
         }
         
+        public void Stop(Coroutine coroutine)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 }

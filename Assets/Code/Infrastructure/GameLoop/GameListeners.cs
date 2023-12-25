@@ -4,13 +4,17 @@
     {
         
     }
+    
+    internal interface IGameInitListener
+    {
+        void GameInit();
+    }
 
     public interface IGameLoadListener : IGameListeners
     {
         void GameLoad();
     }
-
-
+    
     public interface IGameStartListener : IGameListeners
     {
         void GameStart();
@@ -21,11 +25,7 @@
         void GameTick();
     }
 
-    public interface IGameSaveListener : IGameListeners
-    {
-        void GameSave();
-        
-    }
+
     public interface IGameExitListener : IGameListeners
     {
         void GameExit();

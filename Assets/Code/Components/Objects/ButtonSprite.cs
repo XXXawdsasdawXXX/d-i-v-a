@@ -1,46 +1,67 @@
-﻿using UnityEngine;
+﻿using System;
+using Code.Utils;
+using UnityEngine;
 
 namespace Code.Components.Objects
 {
     public class ButtonSprite : MonoBehaviour
     {
         [SerializeField] private bool _isPressed;
+        public event Action<Vector2> MouseDownEvent;
+        public event Action<Vector2, float> MouseUpEvent;
+        public event Action<int> SeriesOfClicksEvent;
+
+        private float _pressedTime;
 
         private void Update()
         {
             if (_isPressed)
             {
-                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pos.z = 0;
+                _pressedTime += Time.deltaTime;
+                
+                Vector3 pos = GetMouseWorldPosition();
                 transform.position = pos;
             }
+        }
+
+        private Vector3 GetMouseWorldPosition()
+        {
+            var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            position.z = 0;
+            return position;
         }
 
         void OnMouseDown()
         {
             _isPressed = true;
-            Debug.Log("Mouse down");
+            MouseDownEvent?.Invoke(GetMouseWorldPosition());
+            
+            Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
         }
 
         private void OnMouseUp()
         {
             _isPressed = false;
-            Debug.Log("Mouse up");
+            MouseUpEvent?.Invoke(GetMouseWorldPosition(),_pressedTime);
+            _pressedTime = 0;
+            
+            Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);
         }
 
         private void OnMouseEnter()
         {
-            Debug.Log("Mouse enter");
+            
+            Debugging.Instance.Log($"{gameObject.name}: Mouse enter", Debugging.Type.ButtonSprite);
         }
 
         private void OnMouseExit()
         {
-            Debug.Log("Mouse exit");
+            Debugging.Instance.Log($"{gameObject.name}: Mouse exit", Debugging.Type.ButtonSprite);
         }
 
         private void OnMouseOver()
         {
-            Debug.Log("Mouse over");
+            Debugging.Instance.Log($"{gameObject.name}: Mouse over", Debugging.Type.ButtonSprite);
         }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using System;
-using Code.Data.Enums;
 
 namespace Code.Data.Value
 {
     [Serializable]
     public class CharacterLiveState
     {
-            
-
         public float _current;
         public float _max;
         
@@ -17,8 +14,7 @@ namespace Code.Data.Value
         public float GetPercent() => _max == 0 ? 0 :_current / _max;
 
         public event Action<float> OnChanged;
-
-
+        
         public CharacterLiveState(float current,float max, float decreasingValue)
         {
             _current = current;
@@ -55,6 +51,9 @@ namespace Code.Data.Value
             }
             OnChanged?.Invoke(_current);
         }
+        
+        
+        
 
     }
 }

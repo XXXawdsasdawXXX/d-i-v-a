@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Code.Components.Character;
 using Code.Data.Enums;
+using Code.Data.StaticData;
 using Code.Data.Value;
 using Code.Utils;
 using UnityEngine;
