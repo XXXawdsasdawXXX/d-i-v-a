@@ -1,13 +1,12 @@
-using Code.Components.Character;
 using Code.Components.Character.LiveState;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
-using Code.Data.Storages;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree
 {
     public sealed class BehaviourTreeRunner : IService, IGameInitListener , IGameTickListener, IGameExitListener
     {
@@ -26,10 +25,10 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         public void GameTick()
         {
-            if (_rootNode is { IsRunning: false })
+            /*if (_rootNode is { IsRunning: false })
             {
                 _rootNode.Run(null);
-            }
+            }*/
         }
 
         public void GameExit()
@@ -46,7 +45,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         private void OnVariableChanged(LiveStateKey key)
         {
-            _rootNode.Break();
+            _rootNode?.Break();
         }
     }
 }

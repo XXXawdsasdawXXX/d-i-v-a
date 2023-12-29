@@ -4,7 +4,7 @@ using Code.Data.Enums;
 using Code.Infrastructure.DI;
 using Code.Services;
 
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class BehaviorNode_Seat : BehaviourNode
     {

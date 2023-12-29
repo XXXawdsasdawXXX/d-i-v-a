@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components.Character;
-using Code.Components.Character.Controllers;
 using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;

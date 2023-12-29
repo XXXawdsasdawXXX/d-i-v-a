@@ -1,4 +1,4 @@
-﻿namespace Code.Components.Character.Controllers
+﻿namespace Code.Components.Character.LiveState
 {
     public class CharacterLiveStateHealer
     {

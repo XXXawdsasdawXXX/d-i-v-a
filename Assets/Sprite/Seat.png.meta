@@ -228,8 +228,8 @@ TextureImporter:
       name: Seat_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
+        x: 1024
+        y: 512
         width: 256
         height: 256
       alignment: 9
@@ -249,8 +249,8 @@ TextureImporter:
       name: Seat_5
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
+        x: 1280
+        y: 512
         width: 256
         height: 256
       alignment: 9
@@ -270,8 +270,8 @@ TextureImporter:
       name: Seat_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 256
+        x: 1536
+        y: 512
         width: 256
         height: 256
       alignment: 9
@@ -291,8 +291,8 @@ TextureImporter:
       name: Seat_7
       rect:
         serializedVersion: 2
-        x: 768
-        y: 256
+        x: 1792
+        y: 512
         width: 256
         height: 256
       alignment: 9
@@ -313,7 +313,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 256
         width: 256
         height: 256
       alignment: 9
@@ -325,6 +325,195 @@ TextureImporter:
       bones: []
       spriteID: 9c440cb12b6edb94ca7d918bfd18a609
       internalID: 479497556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bfb0c80400ceb446a7e4bb70fadc57f
+      internalID: 1829648727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b04f53fab1af614d85804957d12af7f
+      internalID: 1268545993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_11
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44fdc9ec9cb8a7545863525d53bb4804
+      internalID: -656915239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 123939c269bc22149abb4c0dde838e84
+      internalID: 1205604019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_13
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 030a08f9bafc5e0419fa5192eba0657f
+      internalID: 658865672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c7930b03958f5840b3fab4598171250
+      internalID: -74894565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_15
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53dd81b225a7f2541b847f6897e7d68b
+      internalID: 1973430215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc64d041073a48f41a4fcbb25efbc12b
+      internalID: 897585521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seat_17
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97bf787befed724f8b08120b5f81049
+      internalID: -1894773575
       vertices: []
       indices: 
       edges: []
@@ -342,6 +531,14 @@ TextureImporter:
     nameFileIdTable:
       Seat_0: 2078959914
       Seat_1: -1228770169
+      Seat_10: 1268545993
+      Seat_11: -656915239
+      Seat_12: 1205604019
+      Seat_13: 658865672
+      Seat_14: -74894565
+      Seat_15: 1973430215
+      Seat_16: 897585521
+      Seat_17: -1894773575
       Seat_2: 536237349
       Seat_3: 267425235
       Seat_4: 1345561303
@@ -349,6 +546,7 @@ TextureImporter:
       Seat_6: -1266640727
       Seat_7: -681610615
       Seat_8: 479497556
+      Seat_9: 1829648727
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

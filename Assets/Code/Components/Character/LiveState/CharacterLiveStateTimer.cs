@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Code.Components.Character.Controllers;
-using Code.Data.Enums;
+﻿using Code.Data.Enums;
 using Code.Data.Storages;
-using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Character
+namespace Code.Components.Character.LiveState
 {
     public class CharacterLiveStateTimer : MonoBehaviour, IGameStartListener, IGameExitListener
     {
