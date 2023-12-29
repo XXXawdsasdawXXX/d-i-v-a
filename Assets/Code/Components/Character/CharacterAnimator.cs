@@ -12,6 +12,7 @@ namespace Code.Components.Character
         private readonly int _standHash_t = Animator.StringToHash("Stand");
         private readonly int _seatHash_t = Animator.StringToHash("Seat");
         private readonly int _sleepHash_t = Animator.StringToHash("Sleep");
+        private readonly int _empty_b = Animator.StringToHash("Empty");
 
         private readonly int _eatHash_b = Animator.StringToHash("Eat");
         private readonly int _reactionVoiceHash_t = Animator.StringToHash("ReactionVoice");
@@ -37,10 +38,25 @@ namespace Code.Components.Character
         }
 
 
+        
+        
         #endregion
 
         #region SetMode
 
+        public void SetEmptyMode()
+        {
+            if (Mode == CharacterAnimationMode.None)
+            {
+                Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
+                return;
+            }
+            _characterAnimator.SetBool(_empty_b, true);
+            Mode = CharacterAnimationMode.None;
+            Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
+            ModeEnteredEvent?.Invoke(Mode);
+        }
+        
         public void SetSleepMode()
         {
             if (Mode == CharacterAnimationMode.Sleep)
@@ -48,6 +64,12 @@ namespace Code.Components.Character
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
+
+            if (Mode == CharacterAnimationMode.None)
+            {
+                _characterAnimator.SetBool(_empty_b, false);
+            }
+            
             _characterAnimator.SetTrigger(_sleepHash_t);
             Mode = CharacterAnimationMode.Sleep;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
@@ -62,6 +84,12 @@ namespace Code.Components.Character
                 return;
             }
 
+            if (Mode == CharacterAnimationMode.None)
+            {
+                _characterAnimator.SetBool(_empty_b, false);
+            }
+
+            
             _characterAnimator.SetTrigger(_standHash_t);
             Mode = CharacterAnimationMode.Stand;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
@@ -75,6 +103,12 @@ namespace Code.Components.Character
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
+            
+            if (Mode == CharacterAnimationMode.None)
+            {
+                _characterAnimator.SetBool(_empty_b, false);
+            }
+
 
             _characterAnimator.SetTrigger(_seatHash_t);
             Mode = CharacterAnimationMode.Seat;
@@ -89,6 +123,8 @@ namespace Code.Components.Character
             {
                 default:
                 case CharacterAnimationMode.None:
+                    SetEmptyMode();
+                    break;
                 case CharacterAnimationMode.Stand:
                     SetStandMode();
                     break;
@@ -106,7 +142,7 @@ namespace Code.Components.Character
             switch (state)
             {
                 case LiveStateKey.None:
-                    SetStandMode();
+                    SetEmptyMode();
                     break;
                 case LiveStateKey.Sleep:
                     SetSleepMode();

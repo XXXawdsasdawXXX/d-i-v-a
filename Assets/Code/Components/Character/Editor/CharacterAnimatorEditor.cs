@@ -12,6 +12,7 @@ namespace Code.Components.Character.Editor
             CharacterAnimator characterAnimator = (CharacterAnimator)target;
 
             //Mode
+            if (GUILayout.Button("Empty")) characterAnimator.SetEmptyMode();
             
             if (GUILayout.Button("Stand")) characterAnimator.SetStandMode();
 
