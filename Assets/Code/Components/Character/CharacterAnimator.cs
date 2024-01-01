@@ -65,10 +65,7 @@ namespace Code.Components.Character
                 return;
             }
 
-            if (Mode == CharacterAnimationMode.None)
-            {
-                _characterAnimator.SetBool(_empty_b, false);
-            }
+            ResetBoolStates();
             
             _characterAnimator.SetTrigger(_sleepHash_t);
             Mode = CharacterAnimationMode.Sleep;
@@ -84,12 +81,9 @@ namespace Code.Components.Character
                 return;
             }
 
-            if (Mode == CharacterAnimationMode.None)
-            {
-                _characterAnimator.SetBool(_empty_b, false);
-            }
+            ResetBoolStates();
 
-            
+
             _characterAnimator.SetTrigger(_standHash_t);
             Mode = CharacterAnimationMode.Stand;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
@@ -103,12 +97,8 @@ namespace Code.Components.Character
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
-            
-            if (Mode == CharacterAnimationMode.None)
-            {
-                _characterAnimator.SetBool(_empty_b, false);
-            }
-
+            ResetBoolStates();
+     
 
             _characterAnimator.SetTrigger(_seatHash_t);
             Mode = CharacterAnimationMode.Seat;
@@ -160,5 +150,15 @@ namespace Code.Components.Character
         }
 
         #endregion
+
+        private void ResetBoolStates()
+        {
+            if (Mode == CharacterAnimationMode.None)
+            {
+                _characterAnimator.SetBool(_empty_b, false);
+            }
+
+            _characterAnimator.SetBool(_eatHash_b, false);
+        }
     }
 }
