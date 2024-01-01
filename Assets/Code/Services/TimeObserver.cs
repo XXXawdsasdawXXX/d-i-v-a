@@ -23,6 +23,7 @@ namespace Code.Services
         public event Action TickEvent;
         public event Action InitTimeEvent;
 
+        [Obsolete("Obsolete")]
         public void GameInit()
         {
             var coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -70,6 +71,7 @@ namespace Code.Services
         }
 
 
+        [Obsolete("Obsolete")]
         private IEnumerator InitCurrentTime()
         {
             UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.google.com");
