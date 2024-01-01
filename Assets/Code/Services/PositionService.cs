@@ -54,5 +54,12 @@ namespace Code.Services
             var worldPoint = _camera.ScreenToWorldPoint(screenPoint);
             return new Vector3(worldPoint.x, worldPoint.y, 0);
         }
+        
+        public static Vector3 GetMouseWorldPosition()
+        {
+            var position = _camera.ScreenToWorldPoint(Input.mousePosition);
+            position.z = 0;
+            return position;
+        }
     }
 }
