@@ -38,5 +38,8 @@ namespace Code.Utils
                 (array[i], array[j]) = (array[j], array[i]);
             }
         }
+        
+        public static Vector3 AsVector3(this Vector2 vector) =>
+            new Vector3(vector.x, vector.y,0);
     }
 }

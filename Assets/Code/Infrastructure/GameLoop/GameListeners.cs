@@ -5,7 +5,7 @@
         
     }
     
-    internal interface IGameInitListener
+    internal interface IGameInitListener: IGameListeners
     {
         void GameInit();
     }

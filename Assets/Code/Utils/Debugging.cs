@@ -20,7 +20,9 @@ namespace Code.Utils
             BehaviorTree,
             LiveState,
             SaveLoad,
-            ButtonSprite
+            ButtonSprite,
+            Item,
+            Position
         }
 
         [Serializable]
@@ -41,9 +43,16 @@ namespace Code.Utils
         public void Log(string message, Type type = Type.None)
         {
             var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
-            if (debugParam is { Active: true })
+            if (debugParam != null)
             {
-                ColorLog(message, debugParam.Color);
+                if (debugParam.Active)
+                {
+                    ColorLog(message, debugParam.Color);
+                }
+            }
+            else
+            {
+                ColorLog(message, Color.white);
             }
         }
 

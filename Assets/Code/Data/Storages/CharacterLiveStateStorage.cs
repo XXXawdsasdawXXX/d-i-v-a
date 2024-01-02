@@ -13,7 +13,17 @@ namespace Code.Data.Storages
     public class CharacterLiveStateStorage : IStorage, IProgressWriter
     {
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
-        
+
+        public void AddValues(LiveStateValue[] value)
+        {
+            foreach (var liveStateValue in value)
+            {
+                if (TryGetCharacterLiveState(liveStateValue.Key, out var state))
+                {
+                    state.Add(liveStateValue.Value);
+                }
+            }
+        }
         public bool TryGetCharacterLiveState(LiveStateKey key, out CharacterLiveState liveState)
         {
             if (LiveStates.ContainsKey(key))
