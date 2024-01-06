@@ -24,7 +24,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             if (_characterLiveStateAnalytics.GetLowerSate(out var key, out var statePercent) && statePercent < 0.4f)
             {
-                if (key is LiveStateKey.Fear or LiveStateKey.Hunger)
+                if (key is LiveStateKey.Trust or LiveStateKey.Hunger)
                 {
                     _character.Animator.EnterToMode(CharacterAnimationMode.Seat);
                     

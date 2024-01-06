@@ -55,14 +55,14 @@ namespace Code.Data.Storages
                 }
                 else
                 {
-                    progress.LiveStatesData.Add(liveState.Key, liveState.Value._current);
+                    progress.LiveStatesData.Add(liveState.Key, liveState.Value.Current);
                 }
             }
         }
 
         private Dictionary<LiveStateKey, CharacterLiveState> InitNewStates()
         {
-            var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); ///nu takoe
+            var characterConfig = Container.Instance.FindConfig<CharacterConfig>();
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
             var liveStateCount = Enum.GetNames(typeof(LiveStateKey)).Length;
 
@@ -116,5 +116,16 @@ namespace Code.Data.Storages
         }
 
         #endregion
+
+        public void AddPercentageValues(LiveStateValue[] values)
+        {
+            foreach (var liveStateValue in values)
+            {
+                if (TryGetCharacterLiveState(liveStateValue.Key, out var state))
+                {
+                    state.Add(state.Max / 100 * liveStateValue.Value);
+                }
+            }
+        }
     }
 }

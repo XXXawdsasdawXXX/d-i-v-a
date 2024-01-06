@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class ButtonSprite : MonoBehaviour, IGameTickListener
+    public class ColliderButton : MonoBehaviour, IGameTickListener
     {
         public bool IsPressed { get; private set; }
         public event Action<Vector2> MouseDownEvent;

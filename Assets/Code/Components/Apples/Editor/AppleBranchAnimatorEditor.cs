@@ -26,7 +26,7 @@ namespace Code.Components.Objects.Editor
 
             AppleBranch appleBranch = (AppleBranch)target;
 
-            appleBranch.GrowBranch();
+            if(GUILayout.Button("Grow brunch"))  appleBranch.GrowBranch();
         }
     }
 }

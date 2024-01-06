@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a88bc28bdddcf54f83f26b6ca74415d
+guid: c619df1bc38b13040b9c9158be61a72f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Apple_0
+      name: SmallApple_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a2a3f56951b5754b90d64a2b51e3edf
-      internalID: 1168313213
+      spriteID: 8d05896d1a30fad48a20df408725df04
+      internalID: -1388180687
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_1
+      name: SmallApple_1
       rect:
         serializedVersion: 2
         x: 32
@@ -176,14 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b82d3b75d2f72f1498e239007bc73ab0
-      internalID: -2037685216
+      spriteID: 694a6de04d0bba143bb7d44d4e8000d1
+      internalID: -1353799463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_2
+      name: SmallApple_2
       rect:
         serializedVersion: 2
         x: 64
@@ -197,14 +197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e94504dff427d448bc354312bff4d5f
-      internalID: 2030511315
+      spriteID: b2f833cc8bd74ad4ba4d41991a3e586f
+      internalID: -321109855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_3
+      name: SmallApple_3
       rect:
         serializedVersion: 2
         x: 96
@@ -218,14 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ef36df50a6dd754db70bf71af4a7b77
-      internalID: -1769061594
+      spriteID: e467de43b8d51f1488a608201db81107
+      internalID: 544818252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_4
+      name: SmallApple_4
       rect:
         serializedVersion: 2
         x: 128
@@ -239,14 +239,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8b9cda1fd6cd764eb3d6ea9bc8ea0c2
-      internalID: -1210834524
+      spriteID: 238d522fc3463214f9fc411ee4d37e0a
+      internalID: -1235100445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_5
+      name: SmallApple_5
       rect:
         serializedVersion: 2
         x: 0
@@ -260,14 +260,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84f3f7215f8502c49918a317b799c6fb
-      internalID: -1006614949
+      spriteID: d461dcecea90424489425d7e37ff2461
+      internalID: 485476308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_6
+      name: SmallApple_6
       rect:
         serializedVersion: 2
         x: 32
@@ -281,14 +281,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a983e914e5a0294db744106e0cb05fd
-      internalID: -979436734
+      spriteID: a5244a8feff9aa44bb7c992a4b934dad
+      internalID: 1458012975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_7
+      name: SmallApple_7
       rect:
         serializedVersion: 2
         x: 64
@@ -302,14 +302,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca6b7b9ec531bd54482545da319e3303
-      internalID: -1197113209
+      spriteID: af0b7d23ffa755b48a5aa1ded3c12345
+      internalID: 1608973424
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_8
+      name: SmallApple_8
       rect:
         serializedVersion: 2
         x: 96
@@ -323,14 +323,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9d75a7bc5b83b74cb11b84ffe9bb2db
-      internalID: -581450276
+      spriteID: f9c4c22cc7851504482650914c4b98ba
+      internalID: -1387729217
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_9
+      name: SmallApple_9
       rect:
         serializedVersion: 2
         x: 128
@@ -344,14 +344,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65e7502ba6c60d44e94131d901b62ad3
-      internalID: 1809115106
+      spriteID: 2b4cd1f5f3d68a141a5c0a65bace4c8e
+      internalID: -63540741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_10
+      name: SmallApple_10
       rect:
         serializedVersion: 2
         x: 0
@@ -365,14 +365,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 382930be41e3e854f90179880677cd5d
-      internalID: 16760712
+      spriteID: d265cabefb38ce14bbf23f9588747dff
+      internalID: -2106370167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_11
+      name: SmallApple_11
       rect:
         serializedVersion: 2
         x: 32
@@ -386,14 +386,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93495eaa0ff5c9b43b230716fa3ac1f2
-      internalID: -110582635
+      spriteID: 7eba7cc674fd6e741aef91889e737cc5
+      internalID: -1569747872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_12
+      name: SmallApple_12
       rect:
         serializedVersion: 2
         x: 64
@@ -407,14 +407,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5647c20b46f19554f9bd78af05c07b1a
-      internalID: -603435562
+      spriteID: d82012bb5b7595949bd45236670129ee
+      internalID: -434148057
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_13
+      name: SmallApple_13
       rect:
         serializedVersion: 2
         x: 96
@@ -428,14 +428,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2abb5b418519e964698976dc94f58ae1
-      internalID: 769618485
+      spriteID: 0ffbe319d2c1cab45aa869b3ece08ced
+      internalID: -1595591326
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_14
+      name: SmallApple_14
       rect:
         serializedVersion: 2
         x: 128
@@ -449,14 +449,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e25c3e34f81262468bba9c47800090c
-      internalID: 1998791837
+      spriteID: 8645fdbc2fe848144b88806425464b6f
+      internalID: -1986336164
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_15
+      name: SmallApple_15
       rect:
         serializedVersion: 2
         x: 0
@@ -470,14 +470,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a5e1f52c78ad35428b3ea64a0a25b14
-      internalID: 868566415
+      spriteID: f1f507785c032a04384bb9a74a7e0c0c
+      internalID: -2114123363
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_16
+      name: SmallApple_16
       rect:
         serializedVersion: 2
         x: 32
@@ -491,14 +491,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3c62303e0a52924399c5ad1ba4cc2cc
-      internalID: -313339991
+      spriteID: a9cb8169353cb3a4d8b64ae91216d3d7
+      internalID: 296007073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_17
+      name: SmallApple_17
       rect:
         serializedVersion: 2
         x: 64
@@ -512,14 +512,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 852b4824faa12df45b25d07a2337300f
-      internalID: -783064972
+      spriteID: e0580ed23d3ced14ab1eb5cb6d7b465a
+      internalID: 37138953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_18
+      name: SmallApple_18
       rect:
         serializedVersion: 2
         x: 96
@@ -533,14 +533,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e6e56baf91d1b4a85e1c69289a6dc6
-      internalID: -593356508
+      spriteID: 2f0d28cbb78f63641894c3691ffbf9ef
+      internalID: -297962307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Apple_19
+      name: SmallApple_19
       rect:
         serializedVersion: 2
         x: 128
@@ -554,8 +554,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1510093813cd00d4e987f7e827ea3c7a
-      internalID: 2081893064
+      spriteID: 6810c59ecce9c1e44af41f3f206c6d57
+      internalID: 195581604
       vertices: []
       indices: 
       edges: []
@@ -571,26 +571,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Apple_0: 1168313213
-      Apple_1: -2037685216
-      Apple_10: 16760712
-      Apple_11: -110582635
-      Apple_12: -603435562
-      Apple_13: 769618485
-      Apple_14: 1998791837
-      Apple_15: 868566415
-      Apple_16: -313339991
-      Apple_17: -783064972
-      Apple_18: -593356508
-      Apple_19: 2081893064
-      Apple_2: 2030511315
-      Apple_3: -1769061594
-      Apple_4: -1210834524
-      Apple_5: -1006614949
-      Apple_6: -979436734
-      Apple_7: -1197113209
-      Apple_8: -581450276
-      Apple_9: 1809115106
+      SmallApple_0: -1388180687
+      SmallApple_1: -1353799463
+      SmallApple_10: -2106370167
+      SmallApple_11: -1569747872
+      SmallApple_12: -434148057
+      SmallApple_13: -1595591326
+      SmallApple_14: -1986336164
+      SmallApple_15: -2114123363
+      SmallApple_16: 296007073
+      SmallApple_17: 37138953
+      SmallApple_18: -297962307
+      SmallApple_19: 195581604
+      SmallApple_2: -321109855
+      SmallApple_3: 544818252
+      SmallApple_4: -1235100445
+      SmallApple_5: 485476308
+      SmallApple_6: 1458012975
+      SmallApple_7: 1608973424
+      SmallApple_8: -1387729217
+      SmallApple_9: -63540741
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

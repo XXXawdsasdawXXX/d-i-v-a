@@ -12,8 +12,8 @@ namespace Code.Components.Character
         public CharacterAudioListener AudioListener => _characterAudioListener;
         
 
-        [SerializeField] private ButtonSprite _buttonSprite;
-        public ButtonSprite ButtonSprite => _buttonSprite;
+        [SerializeField] private ColliderButton _colliderButton;
+        public ColliderButton ColliderButton => _colliderButton;
 
 
 

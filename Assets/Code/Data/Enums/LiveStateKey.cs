@@ -5,6 +5,6 @@ namespace Code.Data.Enums
         None,
         Sleep,
         Hunger,
-        Fear
+        Trust
     }
 }

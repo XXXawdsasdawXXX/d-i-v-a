@@ -140,7 +140,7 @@ namespace Code.Components.Character
                 case LiveStateKey.Hunger:
                     SetSeatMode();
                     break;
-                case LiveStateKey.Fear:
+                case LiveStateKey.Trust:
                     SetSeatMode();
                     break;
                 default:

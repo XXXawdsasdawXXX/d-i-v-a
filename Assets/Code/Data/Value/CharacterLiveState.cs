@@ -5,11 +5,12 @@ namespace Code.Data.Value
     [Serializable]
     public class CharacterLiveState
     {
-        public float _current;
-        public float _max;
+        private  float _current;
+        private float _max;
         
         private float _decreasingValue;
         public float Current => _current;
+        public float Max => _max;
 
         public float GetPercent() => _max == 0 ? 0 :_current / _max;
 

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class DragAndDropSprite : MonoBehaviour, IGameTickListener
+    public class ColliderDragAndDrop : MonoBehaviour, IGameTickListener
     {
-        [SerializeField] private ButtonSprite _buttonSprite;
+        [SerializeField] private ColliderButton _colliderButton;
 
         public void GameTick()
         {
-            if (_buttonSprite.IsPressed)
+            if (_colliderButton.IsPressed)
             {
                 Vector3 pos = PositionService.GetMouseWorldPosition();
                 transform.position = pos;

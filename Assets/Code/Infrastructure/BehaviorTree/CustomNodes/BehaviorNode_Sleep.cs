@@ -46,7 +46,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 if (_characterLiveStateAnalytics.GetLowerSate(out LiveStateKey key, out float percent))
                 {
-                    if (key == LiveStateKey.Fear && percent < 0.3f)
+                    if (key == LiveStateKey.Trust && percent < 0.3f)
                     {
                         Debugging.Instance.Log($"Нода сна: выбран минимальный страх ",Debugging.Type.BehaviorTree);
 
