@@ -8,6 +8,8 @@ namespace Code.Components.Character
     public class CharacterAnimator : MonoBehaviour
     {
         [SerializeField] private Animator _characterAnimator;
+        [SerializeField] private Animator _frontHairAnimator;
+        [SerializeField] private Animator _backHairAnimator;
 
         private readonly int _standHash_t = Animator.StringToHash("Stand");
         private readonly int _seatHash_t = Animator.StringToHash("Seat");
@@ -25,16 +27,22 @@ namespace Code.Components.Character
         public void PlayReactionVoice()
         {
             _characterAnimator.SetTrigger(_reactionVoiceHash_t);
+            _frontHairAnimator.SetTrigger(_reactionVoiceHash_t);
+            _backHairAnimator.SetTrigger(_reactionVoiceHash_t);
         }
         
         public void StartPlayEat()
         {
             _characterAnimator.SetBool(_eatHash_b, true);
+            _frontHairAnimator.SetBool(_eatHash_b, true);
+            _backHairAnimator.SetBool(_eatHash_b, true);
         }
 
         public void StopPlayEat()
         {
             _characterAnimator.SetBool(_eatHash_b, false);
+            _frontHairAnimator.SetBool(_eatHash_b, false);
+            _backHairAnimator.SetBool(_eatHash_b, false);
         }
 
 
@@ -51,7 +59,11 @@ namespace Code.Components.Character
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
+            
             _characterAnimator.SetBool(_empty_b, true);
+            _frontHairAnimator.SetBool(_empty_b, true);
+            _backHairAnimator.SetBool(_empty_b, true);
+            
             Mode = CharacterAnimationMode.None;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -68,6 +80,9 @@ namespace Code.Components.Character
             ResetBoolStates();
             
             _characterAnimator.SetTrigger(_sleepHash_t);
+            _frontHairAnimator.SetTrigger(_sleepHash_t);
+            _backHairAnimator.SetTrigger(_sleepHash_t);
+            
             Mode = CharacterAnimationMode.Sleep;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -82,9 +97,11 @@ namespace Code.Components.Character
             }
 
             ResetBoolStates();
-
-
+            
             _characterAnimator.SetTrigger(_standHash_t);
+            _frontHairAnimator.SetTrigger(_standHash_t);
+            _backHairAnimator.SetTrigger(_standHash_t);
+            
             Mode = CharacterAnimationMode.Stand;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -98,9 +115,11 @@ namespace Code.Components.Character
                 return;
             }
             ResetBoolStates();
-     
-
+            
             _characterAnimator.SetTrigger(_seatHash_t);
+            _frontHairAnimator.SetTrigger(_seatHash_t);
+            _backHairAnimator.SetTrigger(_seatHash_t);
+
             Mode = CharacterAnimationMode.Seat;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -156,9 +175,13 @@ namespace Code.Components.Character
             if (Mode == CharacterAnimationMode.None)
             {
                 _characterAnimator.SetBool(_empty_b, false);
+                _frontHairAnimator.SetBool(_empty_b, false);
+                _backHairAnimator.SetBool(_empty_b, false);
             }
 
             _characterAnimator.SetBool(_eatHash_b, false);
+            _frontHairAnimator.SetBool(_eatHash_b, false);
+            _backHairAnimator.SetBool(_eatHash_b, false);
         }
     }
 }

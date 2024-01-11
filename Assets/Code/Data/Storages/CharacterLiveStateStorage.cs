@@ -85,7 +85,7 @@ namespace Code.Data.Storages
         private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(
             Dictionary<LiveStateKey, float> liveStateSavedData)
         {
-            var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); ///nu takoe
+            var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); 
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
 
             foreach (var stateSavedData in liveStateSavedData)
