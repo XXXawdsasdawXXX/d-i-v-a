@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e35d63def1706144784a8d83cef6fce7
+guid: 20d83a091b0a5f545b618e6b2c505978
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sleep_0
+      name: blueHair_front_sleep_enter_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43e7993e83d7d514a9b3e878f6e5dfa6
-      internalID: 1273146257
+      spriteID: 154750ae4ec463a4c9700a43d421a574
+      internalID: 539913512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sleep_1
+      name: blueHair_front_sleep_enter_1
       rect:
         serializedVersion: 2
         x: 256
@@ -176,140 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ea50f8507d79354288ceb9821e118b4
-      internalID: -1249935048
+      spriteID: 449e433e211ce3340949d5371cb403ae
+      internalID: -1742361497
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sleep_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 117fa90743342ab4fa06caefd3615753
-      internalID: 1524873999
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9efe71a6e59e7c4b9ac4e83138a13bf
-      internalID: -551205388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_4
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4bf65e7a684942046879b71eef7e887e
-      internalID: 1081366130
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_5
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 453a1c1bb80cbba41a6dfb4c7cb289fc
-      internalID: -456724227
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_6
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b826a42313aad243b45bdf4c5cf7607
-      internalID: 1946401299
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_7
-      rect:
-        serializedVersion: 2
-        x: 1792
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4d91ad06b52cc646bbf66749dfa3595
-      internalID: 1342932723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_8
+      name: blueHair_front_sleep_enter_2
       rect:
         serializedVersion: 2
         x: 0
@@ -323,29 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10322312348a52240bcbe7051e00b249
-      internalID: 351632111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sleep_9
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d45f4d2df9e999b4189b97b9127aae91
-      internalID: 1517503058
+      spriteID: b7a2cf63964814a4faebfb72078ec3c9
+      internalID: -1480297395
       vertices: []
       indices: 
       edges: []
@@ -361,16 +214,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sleep_0: 1273146257
-      Sleep_1: -1249935048
-      Sleep_2: 1524873999
-      Sleep_3: -551205388
-      Sleep_4: 1081366130
-      Sleep_5: -456724227
-      Sleep_6: 1946401299
-      Sleep_7: 1342932723
-      Sleep_8: 351632111
-      Sleep_9: 1517503058
+      blueHair_front_sleep_enter_0: 539913512
+      blueHair_front_sleep_enter_1: -1742361497
+      blueHair_front_sleep_enter_2: -1480297395
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -77,7 +77,7 @@ namespace Code.Components.Character
                 return;
             }
 
-            ResetBoolStates();
+            Reset();
             
             _characterAnimator.SetTrigger(_sleepHash_t);
             _frontHairAnimator.SetTrigger(_sleepHash_t);
@@ -96,7 +96,7 @@ namespace Code.Components.Character
                 return;
             }
 
-            ResetBoolStates();
+            Reset();
             
             _characterAnimator.SetTrigger(_standHash_t);
             _frontHairAnimator.SetTrigger(_standHash_t);
@@ -114,7 +114,7 @@ namespace Code.Components.Character
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
-            ResetBoolStates();
+            Reset();
             
             _characterAnimator.SetTrigger(_seatHash_t);
             _frontHairAnimator.SetTrigger(_seatHash_t);
@@ -170,6 +170,12 @@ namespace Code.Components.Character
 
         #endregion
 
+        private void Reset()
+        {
+            ResetBoolStates();
+            ResetTriggers();
+        }
+
         private void ResetBoolStates()
         {
             if (Mode == CharacterAnimationMode.None)
@@ -182,6 +188,14 @@ namespace Code.Components.Character
             _characterAnimator.SetBool(_eatHash_b, false);
             _frontHairAnimator.SetBool(_eatHash_b, false);
             _backHairAnimator.SetBool(_eatHash_b, false);
+            
+        }
+
+        private void ResetTriggers()
+        {
+            _characterAnimator.ResetTrigger(_reactionVoiceHash_t);
+            _frontHairAnimator.ResetTrigger(_reactionVoiceHash_t);
+            _backHairAnimator.ResetTrigger(_reactionVoiceHash_t);
         }
     }
 }
