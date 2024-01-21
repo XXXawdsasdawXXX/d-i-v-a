@@ -30,6 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _character = Container.Instance.GetCharacter();
+            _liveStateStorage.TryGetCharacterLiveState(LiveStateKey.Sleep, out _sleepState);
         }
 
         protected override void Run()
@@ -47,39 +48,41 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 Debugging.Instance.Log($"Нода сна: выбрано ", Debugging.Type.BehaviorTree);
 
-                _liveStateStorage.TryGetCharacterLiveState(LiveStateKey.Sleep, out CharacterLiveState sleepState);
                 _liveStateAnalytics.TryGetLowerSate(out LiveStateKey key, out float statePercent);
 
-                if (sleepState.Current > 0.9f)
+                if (_sleepState.GetPercent() > 0.9f)
                 {
-                    Debugging.Instance.Log($"Нода сна: выбрано -> стаейт сна полный, возврат ", Debugging.Type.BehaviorTree);
+                    Debugging.Instance.Log($"Нода сна: выбрано -> стаейт сна полный, возврат ",
+                        Debugging.Type.BehaviorTree);
                     Return(false);
                     return;
                 }
 
-                
+                _sleepState?.SetHealUpdate();
+
                 if (key is LiveStateKey.Trust && statePercent <= 0.4f && UnityEngine.Random.Range(0, 100) >= 50)
                 {
                     Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТАРТ", Debugging.Type.BehaviorTree);
                     _coroutineRunner.StartRoutine(PlayExitAnimationRoutine());
                 }
 
-                _timeObserver.StartDayEvent += StopSleep;
-                sleepState.ChangedEvent += SleepStateOnChangedEvent;
+                SubscribeToEvents(true);
                 _character.Animator.EnterToMode(CharacterAnimationMode.Sleep);
             }
         }
 
         private void SleepStateOnChangedEvent(float obj)
         {
-            if (obj > 0.95f)
+            if (_sleepState.GetPercent() > 0.9f)
             {
+                Debugging.Instance.Log($"Нода сна: сон на максимальном значение ");
                 StopSleep();
             }
         }
 
         protected override void OnBreak()
         {
+            _sleepState?.SetDefaultUpdate();
             Debugging.Instance.Log($"Нода сна: брейк ");
             base.OnBreak();
         }
@@ -87,18 +90,34 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private IEnumerator PlayExitAnimationRoutine()
         {
             yield return new WaitUntil(() => _liveStateAnalytics.GetStatePercent(LiveStateKey.Sleep) >= 0.7f);
-                    Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТОП", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТОП", Debugging.Type.BehaviorTree);
             _character.Animator.EnterToMode(CharacterAnimationMode.Sleep);
         }
 
         private void StopSleep()
         {
+            Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
+            SubscribeToEvents(false);
             Return(true);
         }
 
         private bool IsCanSleep()
         {
-            return _timeObserver.IsNightTime() || _liveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.Sleep;
+            return _timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f;
+        }
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _timeObserver.StartDayEvent += StopSleep;
+                _sleepState.ChangedEvent += SleepStateOnChangedEvent;
+            }
+            else
+            {
+                _timeObserver.StartDayEvent -= StopSleep;
+                _sleepState.ChangedEvent -= SleepStateOnChangedEvent;
+            }
         }
     }
 }

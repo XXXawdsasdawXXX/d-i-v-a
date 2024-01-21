@@ -52,6 +52,8 @@ namespace Code.Data.Storages
             LiveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
                 ? InitNewStates()
                 : LoadSavedStates(progress.LiveStatesData);
+            
+            Debugging.Instance.Log($"init count {LiveStates.Count} { progress.LiveStatesData.Count }", Debugging.Type.LiveState);
         }
 
         public void UpdateProgress(PlayerProgress progress)
@@ -77,9 +79,10 @@ namespace Code.Data.Storages
 
             for (int i = 1; i < liveStateCount; i++)
             {
-                CreateNewState(
+                var state =  CreateNewState(
                     stateKey: (LiveStateKey)i,
                     currentIsMaxValue:true);
+                characterLiveStates.Add( (LiveStateKey)i,state);
             }
 
             Debugging.Instance.Log($"init new", Debugging.Type.LiveState);
@@ -93,17 +96,18 @@ namespace Code.Data.Storages
 
             foreach (var stateSavedData in liveStateSavedData)
             {
-                CreateNewState(stateKey:
+               var state =  CreateNewState(stateKey:
                     stateSavedData.Key,
                     currentIsMaxValue: false,
                     currentValue:stateSavedData.Value);
+                characterLiveStates.Add(stateSavedData.Key,state);
             }
 
             Debugging.Instance.Log($"load saved", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private  void CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
+        private  CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
         {
             var staticParam = _characterConfig.GetStaticParam(stateKey);
             var characterLiveState = new CharacterLiveState(
@@ -112,7 +116,7 @@ namespace Code.Data.Storages
                 decreasingValue: staticParam.DecreasingValue,
                 healValue: staticParam.HealValue);
 
-            LiveStates.Add(stateKey, characterLiveState);
+            return characterLiveState;
         }
 
         #endregion

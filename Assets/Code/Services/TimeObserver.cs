@@ -61,6 +61,7 @@ namespace Code.Services
             if (_currentTickCooldown >= _tickTime)
             {
                 _currentTickCooldown = 0;
+                Debugging.Instance.Log($"Tick", Debugging.Type.Time);
                 TickEvent?.Invoke();
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
+using Code.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ namespace Code.Test
             string text = null;
             foreach (var state in _storage.LiveStates)
             {
-                text += $"<color=#86FFBB>{state.Key}</color> {state.Value.Current}\n";
+                text += $"<color=#86FFBB>{state.Key}</color>\t{state.Value.Current}\t{state.Value.GetPercent()}\n"; 
             }
             _paramText.text = text;
         }

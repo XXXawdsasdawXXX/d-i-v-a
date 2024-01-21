@@ -16,6 +16,8 @@ namespace Code.Data.Value
         public float GetPercent() => _max == 0 ? 0 :_current / _max;
 
         public event Action<float> ChangedEvent;
+
+        private bool _isHealing;
         
         public CharacterLiveState(float current,float max, float decreasingValue, float healValue)
         {
@@ -24,25 +26,17 @@ namespace Code.Data.Value
             _decreasingValue = decreasingValue;
             _healValue = healValue;
         }
-
-        public void Heal()
-        {
-            _current += _decreasingValue;
-            if (_current > _max)
-            {
-                _current = _max;
-            }
-            ChangedEvent?.Invoke(_current);
-        }
-
+        
         public void TimeUpdate()
         {
-            _current -= _decreasingValue;
-            if (_current < 0)
+            if (_isHealing)
             {
-                _current = 0;
+                Add(_healValue);
             }
-            ChangedEvent?.Invoke(_current);
+            else
+            {
+                Remove(_decreasingValue);
+            }
         }
 
         public void Add(float value)
@@ -63,6 +57,16 @@ namespace Code.Data.Value
                 _current = 0;
             }
             ChangedEvent?.Invoke(_current);
+        }
+
+        public void SetHealUpdate()
+        {
+            _isHealing = true;
+        }
+
+        public void SetDefaultUpdate()
+        {
+            _isHealing = false;
         }
     }
 }
