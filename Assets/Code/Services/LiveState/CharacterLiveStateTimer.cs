@@ -1,4 +1,5 @@
 ﻿using Code.Data.Enums;
+using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Components.Character.LiveState
 {
-    public class CharacterLiveStateTimer : MonoBehaviour, IGameStartListener, IGameExitListener
+    public class CharacterLiveStateTimer : ILiveStateLogic, IGameInitListener, IGameExitListener
     {
         private CharacterLiveStateStorage _storage;
         private TimeObserver _timeObserver;
@@ -16,7 +17,7 @@ namespace Code.Components.Character.LiveState
         private LiveStateKey  _currentLowerLiveStateKey;
         
        
-        public void GameStart()
+        public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
@@ -53,23 +54,5 @@ namespace Code.Components.Character.LiveState
             }
         }
 
- 
-
-        #region Editor
-
-        public void LogStates()
-        {
-            if (_storage.LiveStates == null)
-            {
-                Debugging.Instance.ErrorLog($"_storage.LiveStates is null -> {_storage.LiveStates == null}");
-                return;
-            }
-            foreach (var liveState in _storage.LiveStates)
-            {
-                Debugging.Instance.Log($"{liveState.Key} = {liveState.Value.Current} || {liveState.Value.GetPercent()}", Debugging.Type.LiveState);
-            }
-        }
-
-        #endregion
     }
 }

@@ -226,7 +226,6 @@ GameObject:
   - component: {fileID: 7708477133988595677}
   - component: {fileID: 7708477133988595676}
   - component: {fileID: 7708477133988595667}
-  - component: {fileID: 1348744619532292575}
   - component: {fileID: 631771338}
   m_Layer: 0
   m_Name: Lili
@@ -332,18 +331,6 @@ MonoBehaviour:
     Size: {x: 0.3, y: 0.7}
   - AnimationMode: 3
     Size: {x: 0.9, y: 0.3}
---- !u!114 &1348744619532292575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7708477133988595673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b3c5332cb57414c84a4f8ef07d278a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &631771338
 MonoBehaviour:
   m_ObjectHideFlags: 0
