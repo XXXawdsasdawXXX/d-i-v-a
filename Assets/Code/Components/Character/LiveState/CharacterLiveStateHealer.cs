@@ -1,4 +1,5 @@
-﻿using Code.Data.Enums;
+﻿using Code.Components.Character.AnimationReader.State;
+using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -8,16 +9,21 @@ using UnityEngine;
 
 namespace Code.Components.Character.LiveState
 {
-    public class CharacterLiveStateTimer : MonoBehaviour, IGameStartListener, IGameExitListener
-    {
+    public class CharacterLiveStateHealer : MonoBehaviour, IGameStartListener, IGameExitListener
+        {
+        private CharacterAnimationStateObserver _animationState;
+        private CharacterAnimator _animationMode;
+        
         private CharacterLiveStateStorage _storage;
         private TimeObserver _timeObserver;
         
         private LiveStateKey  _currentLowerLiveStateKey;
-        
-       
+
+
         public void GameStart()
         {
+            _animationState = Container.Instance.GetCharacter().AnimationStateObserver;
+            _animationMode = Container.Instance.GetCharacter().Animator;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
             SubscribeToEvents(true);
@@ -42,14 +48,9 @@ namespace Code.Components.Character.LiveState
 
         private void OnTimeObserverTick()
         {
-            if (_storage.LiveStates == null)
+            if (_animationMode.Mode == CharacterAnimationMode.Sleep)
             {
-                Debugging.Instance.ErrorLog($"_storage.LiveStates is null -> {_storage.LiveStates == null}");
-                return;
-            }
-            foreach (var liveState in _storage.LiveStates)
-            {
-                liveState.Value.TimeUpdate();
+                
             }
         }
 
@@ -71,5 +72,8 @@ namespace Code.Components.Character.LiveState
         }
 
         #endregion
+        
+        
+   
     }
 }

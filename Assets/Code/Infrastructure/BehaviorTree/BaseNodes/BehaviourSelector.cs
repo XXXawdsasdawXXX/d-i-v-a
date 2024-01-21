@@ -14,7 +14,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _orderedNodes = new BehaviourNode[]
             {
                 new BehaviorNode_Sleep(),
-                new BehaviorNode_None(),
+                new BehaviorNode_Stand(),
                 new BehaviorNode_Seat(),
                 
                 //Eat
@@ -37,7 +37,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _currentChild.Run(callback: this);
         }
 
-        void IBehaviourCallback.Invoke(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
         {
             if (success)
             {
@@ -63,16 +63,10 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 _currentChild.Break();
             }
         }
-
-        protected override void OnReturn(bool success)
-        {
         
-        }
-
         protected override void OnDispose()
         {
             _currentChild = null;
         }
-        
     }
 }

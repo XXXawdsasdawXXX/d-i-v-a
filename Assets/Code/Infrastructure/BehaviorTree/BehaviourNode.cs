@@ -77,7 +77,7 @@ namespace Code.Infrastructure.BehaviorTree
 
             var callback = _callback;
             _callback = null;
-            callback.Invoke(this, success);
+            callback.InvokeCallback(this, success);
         }
     }
 }

@@ -20,8 +20,7 @@ namespace Code.Components.Character
         private readonly int _reactionVoiceHash_t = Animator.StringToHash("ReactionVoice");
         public event Action<CharacterAnimationMode> ModeEnteredEvent;
         public CharacterAnimationMode Mode { get; private set; }
-
-
+        
         #region Reaction Animation
 
         public void PlayReactionVoice()

@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _currentChild.Run(callback: this);
         }
 
-        void IBehaviourCallback.Invoke(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
         {
             if (!success)
             {

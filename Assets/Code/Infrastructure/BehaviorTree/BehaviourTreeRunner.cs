@@ -5,13 +5,16 @@ using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
+using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree
 {
-    public sealed class BehaviourTreeRunner : IService, IGameInitListener , IGameTickListener, IGameExitListener
+    public sealed class BehaviourTreeRunner : MonoBehaviour, IService, IGameInitListener , IGameTickListener, IGameExitListener
     {
+        [SerializeField] private bool _isRun;
         private CharacterLiveStatesAnalytics _statesAnalytics;
         private BehaviourNode _rootNode;
+
         private TimeObserver _timeObserver;
 
         public void GameInit()
@@ -23,12 +26,21 @@ namespace Code.Infrastructure.BehaviorTree
             _statesAnalytics.SwitchLowerStateKeyEvent += OnVariableChanged;
         }
 
+        private void OnInitTime()
+        {
+            _rootNode = new BehaviourSelector();
+        }
+
         public void GameTick()
         {
-            /*if (_rootNode is { IsRunning: false })
+            if (!_isRun)
+            {
+                return;
+            }
+            if (_rootNode is { IsRunning: false })
             {
                 _rootNode.Run(null);
-            }*/
+            }
         }
 
         public void GameExit()
@@ -36,13 +48,7 @@ namespace Code.Infrastructure.BehaviorTree
             _timeObserver.InitTimeEvent -= OnInitTime;
             _statesAnalytics.SwitchLowerStateKeyEvent -= OnVariableChanged;
         }
-
-
-        private void OnInitTime()
-        {
-            _rootNode = new BehaviourSelector();
-        }
-
+        
         private void OnVariableChanged(LiveStateKey key)
         {
             _rootNode?.Break();

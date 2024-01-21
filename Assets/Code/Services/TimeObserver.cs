@@ -22,6 +22,7 @@ namespace Code.Services
 
         public event Action TickEvent;
         public event Action InitTimeEvent;
+        public event Action StartDayEvent;
 
         [Obsolete("Obsolete")]
         public void GameInit()

@@ -1,89 +1,104 @@
-﻿using Code.Components.Character;
+﻿using System;
+using System.Collections;
+using Code.Components.Character;
 using Code.Components.Character.LiveState;
 using Code.Data.Enums;
-using Code.Data.Value.RangeFloat;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
+using Code.Data.Storages;
+using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
+using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Sleep : BehaviourNode, IBehaviourCallback
+    public class BehaviorNode_Sleep : BehaviourNode
     {
-        private readonly CharacterLiveStatesAnalytics _characterLiveStateAnalytics;
-        private readonly Character _character;
+        private readonly CharacterLiveStatesAnalytics _liveStateAnalytics;
+        private readonly CharacterLiveStateStorage _liveStateStorage;
+        private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
-        private readonly BehaviourNode_RandomSequence _randomSequence;
+
+        private readonly Character _character;
+        private CharacterLiveState _sleepState;
 
 
         public BehaviorNode_Sleep()
         {
-            _character = Container.Instance.GetCharacter();
-
+            _liveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
+            _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _characterLiveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
-            
-            _randomSequence = new BehaviourNode_RandomSequence(new BehaviourNode[]
-            {
-                new BehaviourNode_WaitForSeconds(new RangedFloat()
-                {
-                    MinValue = 60 * 1,
-                    MaxValue = 60 * 5
-                }),
-            });
-        }
-
-        protected override void OnBreak()
-        {
-            _randomSequence.Break();
-            base.OnBreak();
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _character = Container.Instance.GetCharacter();
         }
 
         protected override void Run()
         {
-            if (_timeObserver.IsNightTime())
+            if (!IsCanSleep())
             {
-                if (_characterLiveStateAnalytics.GetLowerSate(out LiveStateKey key, out float percent))
-                {
-                    if (key == LiveStateKey.Trust && percent < 0.3f)
-                    {
-                        Debugging.Instance.Log($"Нода сна: выбран минимальный страх ",Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log($"Нода сна: отказ " +
+                                       $"{!_timeObserver.IsNightTime()} " +
+                                       $"{_liveStateAnalytics.CurrentLowerLiveStateKey != LiveStateKey.Sleep}",
+                    Debugging.Type.BehaviorTree);
 
-                        _character.Animator.EnterToMode(CharacterAnimationMode.Seat);
-                        //Show Spikes (шипы)
-                        //Show Wound  (раны)
-                        Return(true);
-                        return;
-                    }
-                    else if (key == LiveStateKey.Hunger && percent < 0.3f)
-                    {
-                        Debugging.Instance.Log($"Нода сна: выбран минимальный голод ",Debugging.Type.BehaviorTree);
-
-                        _character.Animator.EnterToMode(CharacterAnimationMode.Seat);
-                        //Show Spikes (шипы)
-                        //Show Wound  (раны)
-                        Return(true);
-                        return;
-                    }
-                }
-
-                Debugging.Instance.Log($"Нода сна: выбран сон ",Debugging.Type.BehaviorTree);
-                _character.Animator.EnterToMode(CharacterAnimationMode.Sleep);
-                _randomSequence.Run(this);
+                Return(false);
             }
             else
             {
-                Debugging.Instance.Log($"Нода сна: отказ запуска -> не ночное время ");
-                Return(false);
-            }
+                Debugging.Instance.Log($"Нода сна: выбрано ", Debugging.Type.BehaviorTree);
 
+                _liveStateStorage.TryGetCharacterLiveState(LiveStateKey.Sleep, out CharacterLiveState sleepState);
+                _liveStateAnalytics.TryGetLowerSate(out LiveStateKey key, out float statePercent);
+
+                if (sleepState.Current > 0.9f)
+                {
+                    Debugging.Instance.Log($"Нода сна: выбрано -> стаейт сна полный, возврат ", Debugging.Type.BehaviorTree);
+                    Return(false);
+                    return;
+                }
+
+                
+                if (key is LiveStateKey.Trust && statePercent <= 0.4f && UnityEngine.Random.Range(0, 100) >= 50)
+                {
+                    Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТАРТ", Debugging.Type.BehaviorTree);
+                    _coroutineRunner.StartRoutine(PlayExitAnimationRoutine());
+                }
+
+                _timeObserver.StartDayEvent += StopSleep;
+                sleepState.ChangedEvent += SleepStateOnChangedEvent;
+                _character.Animator.EnterToMode(CharacterAnimationMode.Sleep);
+            }
         }
 
-        void IBehaviourCallback.Invoke(BehaviourNode node, bool success)
+        private void SleepStateOnChangedEvent(float obj)
         {
-                Return(true);
-            
+            if (obj > 0.95f)
+            {
+                StopSleep();
+            }
+        }
+
+        protected override void OnBreak()
+        {
+            Debugging.Instance.Log($"Нода сна: брейк ");
+            base.OnBreak();
+        }
+
+        private IEnumerator PlayExitAnimationRoutine()
+        {
+            yield return new WaitUntil(() => _liveStateAnalytics.GetStatePercent(LiveStateKey.Sleep) >= 0.7f);
+                    Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТОП", Debugging.Type.BehaviorTree);
+            _character.Animator.EnterToMode(CharacterAnimationMode.Sleep);
+        }
+
+        private void StopSleep()
+        {
+            Return(true);
+        }
+
+        private bool IsCanSleep()
+        {
+            return _timeObserver.IsNightTime() || _liveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.Sleep;
         }
     }
 }

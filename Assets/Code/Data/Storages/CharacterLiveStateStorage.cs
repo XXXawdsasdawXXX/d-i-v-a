@@ -5,14 +5,22 @@ using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Utils;
 
 namespace Code.Data.Storages
 {
-    public class CharacterLiveStateStorage : IStorage, IProgressWriter
+    public class CharacterLiveStateStorage : IStorage,IGameInitListener, IProgressWriter
     {
+        private CharacterConfig _characterConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
+
+
+        public void GameInit()
+        {
+            _characterConfig = Container.Instance.FindConfig<CharacterConfig>();
+        }
 
         public void AddValues(LiveStateValue[] value)
         {
@@ -24,6 +32,7 @@ namespace Code.Data.Storages
                 }
             }
         }
+
         public bool TryGetCharacterLiveState(LiveStateKey key, out CharacterLiveState liveState)
         {
             if (LiveStates.ContainsKey(key))
@@ -68,39 +77,42 @@ namespace Code.Data.Storages
 
             for (int i = 1; i < liveStateCount; i++)
             {
-                var stateKey = (LiveStateKey)i;
-                var staticParam = characterConfig.GetStaticParam(stateKey);
-                var characterLiveState = new CharacterLiveState(
-                    current: staticParam.MaxValue,
-                    max: staticParam.MaxValue,
-                    decreasingValue: staticParam.DecreasingValue);
-
-                characterLiveStates.Add(stateKey, characterLiveState);
+                CreateNewState(
+                    stateKey: (LiveStateKey)i,
+                    currentIsMaxValue:true);
             }
 
-            Debugging.Instance.Log($"Live state -> init new", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"init new", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(
-            Dictionary<LiveStateKey, float> liveStateSavedData)
+        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(Dictionary<LiveStateKey, float> liveStateSavedData)
         {
             var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); 
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
 
             foreach (var stateSavedData in liveStateSavedData)
             {
-                var staticParam = characterConfig.GetStaticParam(stateSavedData.Key);
-                var characterLiveState = new CharacterLiveState(
-                    current: stateSavedData.Value,
-                    max: staticParam.MaxValue,
-                    decreasingValue: staticParam.DecreasingValue);
-
-                characterLiveStates.Add(stateSavedData.Key, characterLiveState);
+                CreateNewState(stateKey:
+                    stateSavedData.Key,
+                    currentIsMaxValue: false,
+                    currentValue:stateSavedData.Value);
             }
 
-            Debugging.Instance.Log($"Live state -> load saved", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"load saved", Debugging.Type.LiveState);
             return characterLiveStates;
+        }
+
+        private  void CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
+        {
+            var staticParam = _characterConfig.GetStaticParam(stateKey);
+            var characterLiveState = new CharacterLiveState(
+                current: currentIsMaxValue ? staticParam.MaxValue: currentValue,
+                max: staticParam.MaxValue,
+                decreasingValue: staticParam.DecreasingValue,
+                healValue: staticParam.HealValue);
+
+            LiveStates.Add(stateKey, characterLiveState);
         }
 
         #endregion

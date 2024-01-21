@@ -1,5 +1,6 @@
 ﻿using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
+using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
@@ -19,9 +20,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         protected override void Run()
         {
             _waitFor.Run(this);
+            Debugging.Instance.Log($"Нода смотреть за курсором: запущено ",Debugging.Type.BehaviorTree);
         }
         
-        void IBehaviourCallback.Invoke(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
         {
             Return(true);    
         }

@@ -5,10 +5,11 @@ using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Services;
+using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_None : BehaviourNode, IBehaviourCallback
+    public class BehaviorNode_Stand : BehaviourNode, IBehaviourCallback
     {
         private readonly Character _character;
         private readonly TimeObserver _timeObserver;
@@ -16,10 +17,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private BehaviourNode_RandomSequence _randomSequence;
 
-        public BehaviorNode_None()
+        public BehaviorNode_Stand()
         {
             _character = Container.Instance.GetCharacter();
-
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _characterLiveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
 
@@ -29,7 +29,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 {
                     MinValue = 60 * 1,
                     MaxValue = 60 * 5
-                }), 
+                }),
                 new BehaviourNode_LookToMouse()
             });
         }
@@ -46,15 +46,18 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 _character.Animator.EnterToMode(CharacterAnimationMode.Stand);
                 _randomSequence.Run(this);
+
+                Debugging.Instance.Log($"Нода стояния: выбрано ", Debugging.Type.BehaviorTree);
                 return;
             }
 
+            Debugging.Instance.Log($"Нода стояния: отказ ", Debugging.Type.BehaviorTree);
             Return(false);
         }
 
-        void IBehaviourCallback.Invoke(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
         {
-             Return(true);
+            Return(true);
         }
     }
 }

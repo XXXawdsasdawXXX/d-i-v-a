@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace Code.Utils
@@ -47,7 +48,7 @@ namespace Code.Utils
             {
                 if (debugParam.Active)
                 {
-                    ColorLog(message, debugParam.Color);
+                    ColorLog($"{InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
                 }
             }
             else
@@ -69,6 +70,25 @@ namespace Code.Utils
         private void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
+        }
+        
+        private  string InsertSpaceBeforeUppercase(string input)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (char character in input)
+            {
+                if (char.IsUpper(character))
+                {
+                    // Вставляем пробел перед заглавной буквой
+                    result.Append(' ');
+                }
+
+                // Добавляем текущий символ в результат
+                result.Append(character);
+            }
+
+            return result.ToString().Trim(); // Удаляем возможный пробел в начале строки
         }
     }
 }

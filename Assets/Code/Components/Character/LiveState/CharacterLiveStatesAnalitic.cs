@@ -15,7 +15,6 @@ namespace Code.Components.Character.LiveState
         private TimeObserver _timeObserver;
         private CharacterLiveStateStorage _storage;
         public LiveStateKey CurrentLowerLiveStateKey { get; private set; }
-
         public event Action<LiveStateKey> SwitchLowerStateKeyEvent;
 
         public void GameStart()
@@ -48,7 +47,9 @@ namespace Code.Components.Character.LiveState
 
         private void CheckLowerState()
         {
-            var lowerCharacterLiveState = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent()).First().Key;
+            var keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
+            if(!keyValuePairs.Any())return;
+            var lowerCharacterLiveState = keyValuePairs.First().Key;
             if (lowerCharacterLiveState != CurrentLowerLiveStateKey)
             {
                 Debugging.Instance.Log(
@@ -62,16 +63,31 @@ namespace Code.Components.Character.LiveState
             }
         }
 
-        public bool GetLowerSate(out LiveStateKey liveStateKey, out float statePercent)
+        public float GetStatePercent(LiveStateKey liveStateKey)
+        {
+            if (_storage != null && _storage.TryGetCharacterLiveState(liveStateKey, out var characterLiveState))
+            {
+                return characterLiveState.Current;
+            }
+
+            return 0;
+        }
+        public bool TryGetLowerSate(out LiveStateKey liveStateKey, out float statePercent)
         {
             liveStateKey = CurrentLowerLiveStateKey;
             if (_storage != null && _storage.TryGetCharacterLiveState(liveStateKey, out var characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
+                Debugging.Instance.Log(
+                    $"try get lower state -> {liveStateKey} {statePercent} (true)",
+                    Debugging.Type.LiveState);
                 return true;
             }
 
             statePercent = 1;
+            Debugging.Instance.Log(
+                $"try get lower state -> {liveStateKey} {statePercent} (false)",
+                Debugging.Type.LiveState);
             return false;
         }
     }
