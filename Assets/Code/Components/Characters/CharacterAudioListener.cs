@@ -4,7 +4,7 @@ using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Character
+namespace Code.Components.Characters
 {
     public class CharacterAudioListener : MonoBehaviour , IGameTickListener, IGameStartListener, IGameExitListener
     {

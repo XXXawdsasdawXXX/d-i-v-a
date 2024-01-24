@@ -1,5 +1,6 @@
 ﻿using Code.Components.Character;
 using Code.Components.Character.LiveState;
+using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;

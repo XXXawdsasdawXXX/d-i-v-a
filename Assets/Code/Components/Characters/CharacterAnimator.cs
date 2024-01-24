@@ -3,7 +3,7 @@ using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Character
+namespace Code.Components.Characters
 {
     public class CharacterAnimator : MonoBehaviour
     {

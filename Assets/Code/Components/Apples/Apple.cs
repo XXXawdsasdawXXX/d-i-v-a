@@ -4,22 +4,26 @@ using Code.Data.StaticData;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Utils;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Objects
 {
     public class Apple : MonoBehaviour, IGameInitListener
     {
-        [Header("Components")] 
+        [Header("Components")]
         [SerializeField] private AppleAnimator _appleAnimator;
+
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private ColliderDragAndDrop _dragAndDrop;
 
         private AppleConfig _appleConfig;
         private CharacterLiveStateStorage _liveStateStorage;
-        
+
         public int MaxStage => 5;
         public int CurrentStage { get; private set; }
-        
+
         private Coroutine _liveCoroutine;
         private bool _isFall;
         private bool _isBig;
@@ -29,6 +33,8 @@ namespace Code.Components.Objects
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            Debugging.Instance.Log($"Init apple {_appleConfig != null} {_liveStateStorage != null}",
+                Debugging.Type.Item);
         }
 
         public void Grow()
@@ -37,6 +43,7 @@ namespace Code.Components.Objects
             _isBig = false;
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
 
+            _dragAndDrop.Activate();
             _appleAnimator.PlayEnter();
 
             _liveCoroutine = StartCoroutine(StartLiveTimerRoutine());
@@ -44,12 +51,26 @@ namespace Code.Components.Objects
 
         public void Use()
         {
-            StopCoroutine(_liveCoroutine);
-            
-            _liveStateStorage.AddPercentageValues(_isBig
-                ? _appleConfig.BigAppleValues[CurrentStage].Values
-                : _appleConfig.SmallAppleValues[CurrentStage].Values);
-            
+            if (_liveCoroutine != null)
+            {
+                StopCoroutine(_liveCoroutine);
+            }
+
+            _dragAndDrop.Deactivate();
+            _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+            _rigidbody2D.velocity = Vector2.zero;
+
+            _appleAnimator.PlayUse(onEnd: () =>
+            {
+                _liveStateStorage.AddPercentageValues(_isBig
+                    ? _appleConfig.BigAppleValues[CurrentStage].Values
+                    : _appleConfig.SmallAppleValues[CurrentStage].Values);
+                
+                transform.position = Vector3.zero;
+            });
+
+            Debugging.Instance.Log($"Use apple {_appleConfig != null} {_liveStateStorage != null}  {CurrentStage - 1}",
+                Debugging.Type.Item);
         }
 
         public void Fall()
@@ -60,12 +81,12 @@ namespace Code.Components.Objects
 
         private IEnumerator StartLiveTimerRoutine()
         {
-            var period = new WaitForSeconds(_appleConfig.LiveTime.GetRandomValue() / MaxStage);
+            var period = new WaitForSeconds(_appleConfig.LiveTimeSecond.GetRandomValue() / MaxStage);
 
             while (CurrentStage < MaxStage)
             {
                 yield return period;
-                
+
                 if (!_isBig && !_isFall)
                 {
                     _isBig = true;

@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf386af47234095bd23985eb02425ba, type: 3}
   m_Name: AppleConfig
   m_EditorClassIdentifier: 
-  LiveTime:
+  SpawnCooldownMinutes:
     MinValue: 0
-    MaxValue: 300
+    MaxValue: 52.423286
+  LiveTimeSecond:
+    MinValue: 120
+    MaxValue: 120
   SmallAppleValues:
   - Values:
     - Key: 2

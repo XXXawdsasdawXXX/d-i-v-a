@@ -9,8 +9,8 @@ namespace Code.Components.Objects
     public class ColliderButton : MonoBehaviour, IGameTickListener
     {
         public bool IsPressed { get; private set; }
-        public event Action<Vector2> MouseDownEvent;
-        public event Action<Vector2, float> MouseUpEvent;
+        public event Action<Vector2> DownEvent;
+        public event Action<Vector2, float> UpEvent;
         public event Action<int> SeriesOfClicksEvent;
 
         private float _pressedTime;
@@ -22,25 +22,32 @@ namespace Code.Components.Objects
                 _pressedTime += Time.deltaTime;
             }
         }
-        
-        void OnMouseDown()
+
+        private void OnMouseDown()
         {
             IsPressed = true;
-            MouseDownEvent?.Invoke(PositionService.GetMouseWorldPosition());
+            DownEvent?.Invoke(PositionService.GetMouseWorldPosition());
             
             Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
         }
+        /*void OnMouseDown(int _)
+        {
+            IsPressed = true;
+          MouseDownEvent?.Invoke(PositionService.GetMouseWorldPosition());
+            
+            Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
+        }*/
 
         private void OnMouseUp()
         {
             IsPressed = false;
-            MouseUpEvent?.Invoke(PositionService.GetMouseWorldPosition(),_pressedTime);
+            UpEvent?.Invoke(PositionService.GetMouseWorldPosition(),_pressedTime);
             _pressedTime = 0;
             
             Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);
         }
 
-        private void OnMouseEnter()
+        /*private void OnMouseEnter()
         {
             
             Debugging.Instance.Log($"{gameObject.name}: Mouse enter", Debugging.Type.ButtonSprite);
@@ -54,6 +61,6 @@ namespace Code.Components.Objects
         private void OnMouseOver()
         {
             Debugging.Instance.Log($"{gameObject.name}: Mouse over", Debugging.Type.ButtonSprite);
-        }
+        }*/
     }
 }

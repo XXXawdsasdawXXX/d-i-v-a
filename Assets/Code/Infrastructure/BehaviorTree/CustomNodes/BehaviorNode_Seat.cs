@@ -1,5 +1,6 @@
 using Code.Components.Character;
 using Code.Components.Character.LiveState;
+using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
 using Code.Services;
@@ -29,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 {
                     _character.Animator.EnterToMode(CharacterAnimationMode.Seat);
                     Debugging.Instance.Log($"Нода сидения: выбрано",Debugging.Type.BehaviorTree);
-                    Return(true);
+                  
                     return;
                 }
             }

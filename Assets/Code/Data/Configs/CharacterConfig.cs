@@ -3,6 +3,7 @@ using Code.Components.Character;
 using Code.Data.Enums;
 using Code.Data.StaticData;
 using Code.Data.Value;
+using Code.Data.Value.RangeFloat;
 using Code.Utils;
 using UnityEngine;
 
@@ -11,9 +12,14 @@ namespace Code.Data.Configs
     [CreateAssetMenu(fileName = "CharacterConfig", menuName = "Configs/Character config")]
     public class CharacterConfig : ScriptableObject
     {
+        [SerializeField,MinMaxRange(5,6000)] private RangedFloat _tickTime;
         [SerializeField] private LiveStateStaticParam[] _liveStateStaticParams;
 
 
+        public float GetTickTime()
+        {
+            return _tickTime.GetRandomValue();
+        }
         public LiveStateStaticParam GetStaticParam(LiveStateKey key)
         {
             return _liveStateStaticParams.FirstOrDefault(d => d.Key == key);

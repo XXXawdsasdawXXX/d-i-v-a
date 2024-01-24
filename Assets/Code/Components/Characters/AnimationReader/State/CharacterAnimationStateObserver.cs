@@ -3,7 +3,7 @@ using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Character.AnimationReader.State
+namespace Code.Components.Characters.AnimationReader.State
 {
     public class CharacterAnimationStateObserver :MonoBehaviour, IAnimationStateReader
     {

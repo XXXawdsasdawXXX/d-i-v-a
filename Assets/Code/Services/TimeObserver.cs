@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Code.Data.Configs;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -13,10 +14,11 @@ namespace Code.Services
     {
         private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
-        private const float _tickTime = 5;
 
+        private CharacterConfig _characterConfig;
         public DateTime CurrentTime;
         private float _currentTickCooldown;
+        private  float _tickTime = 5;
 
         private bool _isInit;
 
@@ -27,6 +29,8 @@ namespace Code.Services
         [Obsolete("Obsolete")]
         public void GameInit()
         {
+            _characterConfig = Container.Instance.FindConfig<CharacterConfig>();
+            
             var coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             if (coroutineRunner == null)
             {
@@ -60,6 +64,7 @@ namespace Code.Services
             _currentTickCooldown += Time.deltaTime;
             if (_currentTickCooldown >= _tickTime)
             {
+                _tickTime = _characterConfig.GetTickTime();
                 _currentTickCooldown = 0;
                 Debugging.Instance.Log($"Tick", Debugging.Type.Time);
                 TickEvent?.Invoke();

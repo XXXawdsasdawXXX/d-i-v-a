@@ -8,7 +8,9 @@ namespace Code.Components.Objects
         [SerializeField] private AppleBranchAnimator _branchAnimator;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private Apple _apple;
+        [Space]
         [SerializeField] private Transform _applePoint;
+        [SerializeField] private Transform _smallApplePoint;
 
 
         public void GameInit()
@@ -29,15 +31,15 @@ namespace Code.Components.Objects
         {
             if (flag)
             {
-                _colliderButton.MouseDownEvent += OnMouseDown;
+                _colliderButton.DownEvent += OnDown;
             }
             else
             {
-                _colliderButton.MouseDownEvent -= OnMouseDown;
+                _colliderButton.DownEvent -= OnDown;
             }
         }
 
-        private void OnMouseDown(Vector2 position)
+        private void OnDown(Vector2 position)
         {
             DestroyBranch();
         }

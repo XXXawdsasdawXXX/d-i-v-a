@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Character.Editor
+namespace Code.Components.Characters.Editor
 {
     [CustomEditor(typeof(CharacterAnimator))]
     public class CharacterAnimatorEditor : UnityEditor.Editor
@@ -27,7 +27,6 @@ namespace Code.Components.Character.Editor
             if (GUILayout.Button("Stop eat")) characterAnimator.StopPlayEat();
             
             if (GUILayout.Button("Reaction voice")) characterAnimator.PlayReactionVoice();
-
         }
     }
 }

@@ -1,25 +1,25 @@
 ﻿using Code.Components.Objects;
-using Code.Data.Storages;
-using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components
+namespace Code.Components.Characters
 {
     public class CharacterObjectsController : MonoBehaviour, IGameInitListener, IGameExitListener
     {
+        [SerializeField] private Character _character;
         [SerializeField] private CollisionObserver _collisionObserver;
-        private CharacterLiveStateStorage _liveStateStorage;
+        [SerializeField] private CharacterModeAdapter _modeAdapter;
+
+        private Apple _selectedApple;
         public void GameInit()
         {
-            _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
             SubscribeToEvents(true);    
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);    
-            
+            SubscribeToEvents(false);
         }
 
         private void SubscribeToEvents(bool flag)
@@ -28,6 +28,7 @@ namespace Code.Components
             {
                 _collisionObserver.EnterEvent += OnEnterEvent;
                 _collisionObserver.ExitEvent += OnExitEvent;
+                
             }
             else
             {
@@ -39,16 +40,21 @@ namespace Code.Components
 
         private void OnExitEvent(GameObject obj)
         {
-            throw new System.NotImplementedException();
+            if (_selectedApple != null && obj.TryGetComponent(out Apple item))
+            { 
+                _character.Animator.StopPlayEat();
+            }
         }
+
 
         private void OnEnterEvent(GameObject obj)
         {
-            if (obj.TryGetComponent(out Apple item) )
-            {
+            if (obj.TryGetComponent(out Apple item))
+            { 
                item.Use();
+               item.transform.position = _modeAdapter.GetWorldEatPoint();
+               _character.Animator.StartPlayEat();
             }
-
         }
     }
 }
