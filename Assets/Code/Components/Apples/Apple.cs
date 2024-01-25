@@ -1,11 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Data.Configs;
-using Code.Data.StaticData;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
-using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Objects
@@ -49,7 +48,7 @@ namespace Code.Components.Objects
             _liveCoroutine = StartCoroutine(StartLiveTimerRoutine());
         }
 
-        public void Use()
+        public void Use(Action OnEnd = null)
         {
             if (_liveCoroutine != null)
             {
@@ -67,9 +66,10 @@ namespace Code.Components.Objects
                     : _appleConfig.SmallAppleValues[CurrentStage].Values);
                 
                 transform.position = Vector3.zero;
+                OnEnd?.Invoke();
             });
 
-            Debugging.Instance.Log($"Use apple {_appleConfig != null} {_liveStateStorage != null}  {CurrentStage - 1}",
+            Debugging.Instance.Log($"Use apple {_appleConfig != null} {_liveStateStorage != null}  {CurrentStage }",
                 Debugging.Type.Item);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Utils;
 
 namespace Code.Data.Value
 {
@@ -46,6 +47,7 @@ namespace Code.Data.Value
             {
                 _current= _max;
             }
+            Debugging.Instance.Log($"+ {value} ={_current}", Debugging.Type.LiveState);
             ChangedEvent?.Invoke(_current);
         }
 

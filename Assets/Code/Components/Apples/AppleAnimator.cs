@@ -20,7 +20,6 @@ namespace Code.Components.Objects
 
         public void PlayEnter()
         {
-        
             _animator.SetBool(Small, true);
             _animator.SetBool(Active, true);
             _animator.SetInteger(Stage, 0);
@@ -46,19 +45,13 @@ namespace Code.Components.Objects
             {
                 _animator.SetBool(Active, false);
                 _animator.SetTrigger(Use);
-                ReactionEndEvent = onEnd;
+                onEnd?.Invoke();
+                Debugging.Instance.Log("Apple animation Invoke reaction end", Debugging.Type.Item);
             });
 
             Debugging.Instance.Log("Apple animation play reaction", Debugging.Type.Item);
         }
 
-
-        private void InvokeReactionEnd()
-        {
-            Debugging.Instance.Log("Apple animation Invoke reaction end", Debugging.Type.Item);
-            _animator.SetBool(Active, false);
-            ReactionEndEvent?.Invoke();
-        }
 
         private void InvokeExitEnd()
         {

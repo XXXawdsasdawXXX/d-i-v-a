@@ -51,9 +51,9 @@ namespace Code.Components.Characters
         {
             if (obj.TryGetComponent(out Apple item))
             { 
-               item.Use();
                item.transform.position = _modeAdapter.GetWorldEatPoint();
                _character.Animator.StartPlayEat();
+               item.Use(OnEnd: () => _character.Animator.StopPlayEat());
             }
         }
     }
