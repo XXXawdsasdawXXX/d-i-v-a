@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class AppleBranch : MonoBehaviour, IGameInitListener, IGameStartListener, IGameExitListener
+    public class AppleBranch : Entity, IGameInitListener, IGameExitListener
     {
         [SerializeField] private AppleBranchAnimator _branchAnimator;
         [SerializeField] private ColliderButton _colliderButton;
@@ -12,49 +12,53 @@ namespace Code.Components.Objects
         [SerializeField] private Transform _applePoint;
         [SerializeField] private Transform _smallApplePoint;
 
+        private bool _isActive;
 
         public void GameInit()
         {
             SubscribeToEvents(true);
         }
-
-        public void GameStart()
-        {
-        }
-
+        
         public void GameExit()
         {
             SubscribeToEvents(false);
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _colliderButton.DownEvent += OnDown;
-            }
-            else
-            {
-                _colliderButton.DownEvent -= OnDown;
-            }
-        }
-
-        private void OnDown(Vector2 position)
-        {
-            DestroyBranch();
         }
 
         public void GrowBranch()
         {
             _branchAnimator.PlayEnter(onEndAnimation: () =>
             {
+                _isActive = true;
                 _apple.transform.position = _applePoint.position;
                 _apple.Grow();
             });
         }
 
-        public void DestroyBranch()
+        private void SubscribeToEvents(bool flag)
         {
+            if (flag)
+            {
+                _colliderButton.DownEvent += TryDestroyBranch;
+                _apple.ColliderButton.DownEvent += TryDestroyBranch;
+            }
+            else
+            {
+                _colliderButton.DownEvent -= TryDestroyBranch;
+                _apple.ColliderButton.DownEvent -= TryDestroyBranch;
+            }
+        }
+
+        private void TryDestroyBranch(Vector2 position)
+        {
+            if (_isActive)
+            {
+                DestroyBranch();
+            }
+        }
+
+        private void DestroyBranch()
+        {
+            _isActive = false;
             _branchAnimator.PlayExit();
             _apple.Fall();
         }

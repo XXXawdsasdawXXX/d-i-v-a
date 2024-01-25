@@ -9,31 +9,31 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class Apple : MonoBehaviour, IGameInitListener
+    public class Apple : Entity, IGameInitListener
     {
         [Header("Components")]
         [SerializeField] private AppleAnimator _appleAnimator;
-
         [SerializeField] private Rigidbody2D _rigidbody2D;
+        [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColliderDragAndDrop _dragAndDrop;
-
-        private AppleConfig _appleConfig;
-        private CharacterLiveStateStorage _liveStateStorage;
-
+        
         public int MaxStage => 5;
         public int CurrentStage { get; private set; }
+        public ColliderButton ColliderButton => _colliderButton;
+        
+        private AppleConfig _appleConfig;
+        private CharacterLiveStateStorage _liveStateStorage;
 
         private Coroutine _liveCoroutine;
         private bool _isFall;
         private bool _isBig;
-
-
+        
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
             Debugging.Instance.Log($"Init apple {_appleConfig != null} {_liveStateStorage != null}",
-                Debugging.Type.Item);
+                Debugging.Type.Apple);
         }
 
         public void Grow()
@@ -70,7 +70,7 @@ namespace Code.Components.Objects
             });
 
             Debugging.Instance.Log($"Use apple {_appleConfig != null} {_liveStateStorage != null}  {CurrentStage }",
-                Debugging.Type.Item);
+                Debugging.Type.Apple);
         }
 
         public void Fall()

@@ -24,19 +24,19 @@ namespace Code.Components.Objects
             _animator.SetBool(Active, true);
             _animator.SetInteger(Stage, 0);
 
-            Debugging.Instance.Log("Apple animation play enter", Debugging.Type.Item);
+            Debugging.Instance.Log("Apple animation play enter", Debugging.Type.Apple);
         }
 
         public void SetBigApple()
         {
             _animator.SetBool(Small, false);
-            Debugging.Instance.Log("Apple animation set big", Debugging.Type.Item);
+            Debugging.Instance.Log("Apple animation set big", Debugging.Type.Apple);
         }
 
         public void SetAppleStage(int stage)
         {
             _animator.SetInteger(Stage, stage);
-            Debugging.Instance.Log($"Apple animation set apple stage {stage}", Debugging.Type.Item);
+            Debugging.Instance.Log($"Apple animation set apple stage {stage}", Debugging.Type.Apple);
         }
 
         public void PlayUse(Action onEnd = null)
@@ -46,16 +46,16 @@ namespace Code.Components.Objects
                 _animator.SetBool(Active, false);
                 _animator.SetTrigger(Use);
                 onEnd?.Invoke();
-                Debugging.Instance.Log("Apple animation Invoke reaction end", Debugging.Type.Item);
+                Debugging.Instance.Log("Apple animation Invoke reaction end", Debugging.Type.Apple);
             });
 
-            Debugging.Instance.Log("Apple animation play reaction", Debugging.Type.Item);
+            Debugging.Instance.Log("Apple animation play reaction", Debugging.Type.Apple);
         }
 
 
         private void InvokeExitEnd()
         {
-            Debugging.Instance.Log("Apple animation Invoke exit end", Debugging.Type.Item);
+            Debugging.Instance.Log("Apple animation Invoke exit end", Debugging.Type.Apple);
             _animator.SetBool(Active, false);
             ExitEndEvent?.Invoke();
         }

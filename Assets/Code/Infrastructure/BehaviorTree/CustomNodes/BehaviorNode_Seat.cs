@@ -16,7 +16,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         public BehaviorNode_Seat()
         {
-            _character = Container.Instance.GetCharacter();
+            _character = Container.Instance.FindEntity<Character>();
 
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _characterLiveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();

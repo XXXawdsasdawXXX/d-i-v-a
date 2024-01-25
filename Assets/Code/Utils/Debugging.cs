@@ -22,7 +22,7 @@ namespace Code.Utils
             LiveState,
             SaveLoad,
             ButtonSprite,
-            Item,
+            Apple,
             Position
         }
 

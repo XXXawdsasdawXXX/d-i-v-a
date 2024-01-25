@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using Code.Data.Interfaces;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Services
 {
-    public class CoroutineRunner : MonoBehaviour, IService
+    public class CoroutineRunner : MonoBehaviour, IService , IGameExitListener
     {
         public Coroutine StartRoutine(IEnumerator coroutine)
         {
@@ -19,6 +20,11 @@ namespace Code.Services
         public void Stop(Coroutine coroutine)
         {
             StopCoroutine(coroutine);
+        }
+        
+        public void GameExit()
+        {
+            StopAllCoroutines();
         }
     }
 }

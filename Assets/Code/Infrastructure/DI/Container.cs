@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Code.Components.Character;
+using Code.Components;
 using Code.Components.Characters;
 using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
-using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -23,6 +21,7 @@ namespace Code.Infrastructure.DI
         private List<IService> _services = new();
         private List<IStorage> _storages = new();
         private List<ILiveStateLogic> _liveStateLogics = new();
+        private List<Entity> _entities = new List<Entity>();
 
         private void Awake()
         {
@@ -37,6 +36,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _services);
             InitList(ref _storages);
             InitList(ref _liveStateLogics);
+            InitList(ref _entities);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -115,7 +115,19 @@ namespace Code.Infrastructure.DI
             return default;
         }
 
-        public Character GetCharacter() => _character;
+        
+        public T FindEntity<T>() where T : Entity
+        {
+            foreach (var entity in _entities)
+            {
+                if (entity is T findEntity)
+                {
+                    return findEntity;
+                }
+            }
+            return default;
+        }
+       // public Character GetCharacter() => _character;
         public List<IGameListeners> GetGameListeners()
         {
             var listenersList = new List<IGameListeners>();

@@ -1591,6 +1591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _appleAnimator: {fileID: 88689568}
   _rigidbody2D: {fileID: 1962372020}
+  _colliderButton: {fileID: 1962372024}
   _dragAndDrop: {fileID: 1962372023}
 --- !u!114 &1962372023
 MonoBehaviour:

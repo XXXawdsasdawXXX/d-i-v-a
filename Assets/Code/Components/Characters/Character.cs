@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class Character : MonoBehaviour
+    public class Character : Entity
     {
-        
         [SerializeField] private CharacterAudioListener _characterAudioListener;
         public CharacterAudioListener AudioListener => _characterAudioListener;
         

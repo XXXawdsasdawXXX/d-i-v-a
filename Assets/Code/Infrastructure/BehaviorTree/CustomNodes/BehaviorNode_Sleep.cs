@@ -30,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            _character = Container.Instance.GetCharacter();
+            _character = Container.Instance.FindEntity<Character>();
             _liveStateStorage.TryGetCharacterLiveState(LiveStateKey.Sleep, out _sleepState);
         }
 
