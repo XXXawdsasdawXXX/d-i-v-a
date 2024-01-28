@@ -1,8 +1,9 @@
 ﻿using System;
+using Code.Components.Objects;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Apples
 {
     public class AppleAnimator : MonoBehaviour
     {

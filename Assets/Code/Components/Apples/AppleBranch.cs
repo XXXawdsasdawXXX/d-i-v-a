@@ -1,56 +1,82 @@
-﻿using Code.Infrastructure.GameLoop;
+﻿using Code.Components.Objects;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Apples
 {
     public class AppleBranch : Entity, IGameInitListener, IGameExitListener
     {
         [SerializeField] private AppleBranchAnimator _branchAnimator;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private Apple _apple;
-        [Space]
+        [Space] 
         [SerializeField] private Transform _applePoint;
         [SerializeField] private Transform _smallApplePoint;
 
-        private bool _isActive;
+        private bool _isActiveBranch;
+        private bool _isBigApple;
 
         public void GameInit()
         {
             SubscribeToEvents(true);
         }
-        
+
         public void GameExit()
         {
             SubscribeToEvents(false);
-        }
-
-        public void GrowBranch()
-        {
-            _branchAnimator.PlayEnter(onEndAnimation: () =>
-            {
-                _isActive = true;
-                _apple.transform.position = _applePoint.position;
-                _apple.Grow();
-            });
         }
 
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _colliderButton.DownEvent += TryDestroyBranch;
                 _apple.ColliderButton.DownEvent += TryDestroyBranch;
+                _apple.Event.StartIllEvent += TryDestroyBranch;
+                _colliderButton.DownEvent += TryDestroyBranch;
+                _apple.Event.GrowEvent += SetBigApplePosition;
             }
             else
             {
-                _colliderButton.DownEvent -= TryDestroyBranch;
                 _apple.ColliderButton.DownEvent -= TryDestroyBranch;
+                _apple.Event.StartIllEvent -= TryDestroyBranch;
+                _colliderButton.DownEvent -= TryDestroyBranch;
+                _apple.Event.GrowEvent -= SetBigApplePosition;
             }
+        }
+
+        public void GrowBranch()
+        {
+            _branchAnimator.PlayEnter(onEndAnimation: () =>
+            {
+                _isActiveBranch = true;
+                _isBigApple = false;
+                _apple.transform.position = _smallApplePoint.position;
+                _apple.Grow();
+            });
+        }
+
+        private void SetBigApplePosition()
+        {
+            if (_isBigApple)
+            {
+                return;
+            }
+
+            _isBigApple = true;
+            _apple.transform.position = _applePoint.position;
         }
 
         private void TryDestroyBranch(Vector2 position)
         {
-            if (_isActive)
+            if (_isActiveBranch)
+            {
+                DestroyBranch();
+            }
+        }
+
+        private void TryDestroyBranch()
+        {
+            if (_isActiveBranch)
             {
                 DestroyBranch();
             }
@@ -58,7 +84,7 @@ namespace Code.Components.Objects
 
         private void DestroyBranch()
         {
-            _isActive = false;
+            _isActiveBranch = false;
             _branchAnimator.PlayExit();
             _apple.Fall();
         }

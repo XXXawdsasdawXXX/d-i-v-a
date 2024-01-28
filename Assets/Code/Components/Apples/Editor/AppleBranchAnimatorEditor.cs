@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Objects.Editor
+namespace Code.Components.Apples.Editor
 {
     [CustomEditor(typeof(AppleBranchAnimator))]
     public class AppleBranchAnimatorEditor : UnityEditor.Editor

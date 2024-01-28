@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnCooldownMinutes:
     MinValue: 0
-    MaxValue: 52.423286
+    MaxValue: 1.872258
   LiveTimeSecond:
-    MinValue: 120
-    MaxValue: 120
+    MinValue: 60
+    MaxValue: 60
   SmallAppleValues:
   - Values:
     - Key: 2

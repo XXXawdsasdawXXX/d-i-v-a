@@ -4,7 +4,7 @@ using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Borders
+namespace Code.Components.Objects
 {
     public class PositionInitializer : MonoBehaviour, IGameStartListener
     {

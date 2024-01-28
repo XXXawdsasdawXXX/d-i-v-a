@@ -1,5 +1,6 @@
 ﻿using Code.Components.Characters.AnimationReader.State;
 using Code.Components.Objects;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Components.Characters
@@ -14,13 +15,11 @@ namespace Code.Components.Characters
         public ColliderButton ColliderButton => _colliderButton;
 
         
-        [Header("Animation")]
         [SerializeField] private CharacterAnimator _characterAnimator;
         public CharacterAnimator Animator => _characterAnimator;
+
         
-        
-        [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
-        public CharacterAnimationStateObserver AnimationStateObserver => _animationStateObserver;
-        
+        [SerializeField] private CharacterManager _characterManager;
+        public CharacterManager Manager => _characterManager;
     }
 }
