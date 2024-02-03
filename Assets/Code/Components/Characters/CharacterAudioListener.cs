@@ -11,7 +11,7 @@ namespace Code.Components.Characters
         [Header("Components")] 
         private MicrophoneAnalyzer _microphoneAnalyzer;
         [SerializeField] 
-        private CharacterAnimator characterAnimator;
+        private CharacterAnimator _characterAnimator;
         [Header("Params")] 
         [SerializeField] 
         private float _reactionCooldown;
@@ -58,7 +58,7 @@ namespace Code.Components.Characters
             }
 
             _currentCooldown = _reactionCooldown;
-            characterAnimator.PlayReactionVoice();
+            _characterAnimator.PlayReactionVoice();
         }
 
         private void OnMaximumDecibelRecordedEvent()

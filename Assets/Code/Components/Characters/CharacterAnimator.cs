@@ -18,9 +18,13 @@ namespace Code.Components.Characters
 
         private readonly int _eatHash_b = Animator.StringToHash("Eat");
         private readonly int _reactionVoiceHash_t = Animator.StringToHash("ReactionVoice");
+        private readonly int _reactionMouseHash_b = Animator.StringToHash("ReactionMouse");
+        
+        private readonly int _mouseXHash_f = Animator.StringToHash("MouseX");
+        private readonly int _mouseYHash_f = Animator.StringToHash("MouseY");
         public event Action<CharacterAnimationMode> ModeEnteredEvent;
         public CharacterAnimationMode Mode { get; private set; }
-        
+
         #region Reaction Animation
 
         public void PlayReactionVoice()
@@ -29,7 +33,7 @@ namespace Code.Components.Characters
             _frontHairAnimator.SetTrigger(_reactionVoiceHash_t);
             _backHairAnimator.SetTrigger(_reactionVoiceHash_t);
         }
-        
+
         public void StartPlayEat()
         {
             _characterAnimator.SetBool(_eatHash_b, true);
@@ -45,8 +49,32 @@ namespace Code.Components.Characters
         }
 
 
+        public void StartPlayReactionMouse()
+        {
+            _characterAnimator.SetBool(_reactionMouseHash_b, true);
+            _frontHairAnimator.SetBool(_reactionMouseHash_b, true);
+            _backHairAnimator.SetBool(_reactionMouseHash_b, true);
+        }
         
-        
+        public void StopPlayReactionMouse()
+        {
+            _characterAnimator.SetBool(_reactionMouseHash_b, false);
+            _frontHairAnimator.SetBool(_reactionMouseHash_b, false);
+            _backHairAnimator.SetBool(_reactionMouseHash_b, false);
+        }
+
+
+        public void SetMouseNormal(float x, float y)
+        {
+            _characterAnimator.SetFloat(_mouseXHash_f,x);
+            _characterAnimator.SetFloat(_mouseYHash_f,y);
+            
+            _frontHairAnimator.SetFloat(_mouseXHash_f,x);
+            _frontHairAnimator.SetFloat(_mouseYHash_f,y);
+            
+            _backHairAnimator.SetFloat(_mouseXHash_f,x);
+            _backHairAnimator.SetFloat(_mouseYHash_f,y);
+        }
         #endregion
 
         #region SetMode
@@ -58,16 +86,16 @@ namespace Code.Components.Characters
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
-            
+
             _characterAnimator.SetBool(_empty_b, true);
             _frontHairAnimator.SetBool(_empty_b, true);
             _backHairAnimator.SetBool(_empty_b, true);
-            
+
             Mode = CharacterAnimationMode.None;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
         }
-        
+
         public void SetSleepMode()
         {
             if (Mode == CharacterAnimationMode.Sleep)
@@ -77,11 +105,11 @@ namespace Code.Components.Characters
             }
 
             Reset();
-            
+
             _characterAnimator.SetTrigger(_sleepHash_t);
             _frontHairAnimator.SetTrigger(_sleepHash_t);
             _backHairAnimator.SetTrigger(_sleepHash_t);
-            
+
             Mode = CharacterAnimationMode.Sleep;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -96,11 +124,11 @@ namespace Code.Components.Characters
             }
 
             Reset();
-            
+
             _characterAnimator.SetTrigger(_standHash_t);
             _frontHairAnimator.SetTrigger(_standHash_t);
             _backHairAnimator.SetTrigger(_standHash_t);
-            
+
             Mode = CharacterAnimationMode.Stand;
             Debugging.Instance?.Log($"Animation set mode {Mode}", Debugging.Type.AnimationMode);
             ModeEnteredEvent?.Invoke(Mode);
@@ -113,8 +141,9 @@ namespace Code.Components.Characters
                 Debugging.Instance?.Log($"Animation set mode {Mode} -> return", Debugging.Type.AnimationMode);
                 return;
             }
+
             Reset();
-            
+
             _characterAnimator.SetTrigger(_seatHash_t);
             _frontHairAnimator.SetTrigger(_seatHash_t);
             _backHairAnimator.SetTrigger(_seatHash_t);
@@ -187,7 +216,6 @@ namespace Code.Components.Characters
             _characterAnimator.SetBool(_eatHash_b, false);
             _frontHairAnimator.SetBool(_eatHash_b, false);
             _backHairAnimator.SetBool(_eatHash_b, false);
-            
         }
 
         private void ResetTriggers()

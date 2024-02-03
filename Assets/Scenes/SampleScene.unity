@@ -1698,7 +1698,7 @@ MonoBehaviour:
     Active: 1
     Color: {r: 0.21581441, g: 0.4811321, b: 0.15205589, a: 1}
   - Type: 8
-    Active: 1
+    Active: 0
     Color: {r: 0.0047169924, g: 1, b: 0.8870509, a: 1}
   - Type: 9
     Active: 1
@@ -1707,10 +1707,10 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0.92941177, g: 0.8878994, b: 0.5372549, a: 1}
   - Type: 11
-    Active: 1
+    Active: 0
     Color: {r: 0.52022064, g: 0.13679248, b: 1, a: 1}
   - Type: 12
-    Active: 0
+    Active: 1
     Color: {r: 1, g: 0.304368, b: 0.19339621, a: 1}
 --- !u!1 &2097926736
 GameObject:

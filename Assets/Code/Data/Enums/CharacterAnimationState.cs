@@ -11,5 +11,6 @@
         TransitionSleep,
         TransitionSeat,
         TransitionStand,
+        ReactionMouse
     }
 }

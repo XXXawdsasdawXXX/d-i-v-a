@@ -27,6 +27,11 @@ namespace Code.Components.Characters.Editor
             if (GUILayout.Button("Stop eat")) characterAnimator.StopPlayEat();
             
             if (GUILayout.Button("Reaction voice")) characterAnimator.PlayReactionVoice();
+            
+            if (GUILayout.Button("Start reaction mouse")) characterAnimator.StartPlayReactionMouse();
+            
+            if (GUILayout.Button("Stop reaction mouse")) characterAnimator.StopPlayReactionMouse();
+            
         }
     }
 }
