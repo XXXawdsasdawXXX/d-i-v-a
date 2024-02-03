@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Code.Components.Character;
+﻿using System.Collections;
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
 using Code.Data.Enums;

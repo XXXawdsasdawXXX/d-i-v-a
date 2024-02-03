@@ -30,14 +30,7 @@ namespace Code.Components.Objects
             
             Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
         }
-        /*void OnMouseDown(int _)
-        {
-            IsPressed = true;
-          MouseDownEvent?.Invoke(PositionService.GetMouseWorldPosition());
-            
-            Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
-        }*/
-
+    
         private void OnMouseUp()
         {
             IsPressed = false;
