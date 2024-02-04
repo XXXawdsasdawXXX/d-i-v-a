@@ -10,32 +10,35 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class BehaviorNode_Seat : BaseNode
     {
-        private readonly Character _character;
-        private readonly TimeObserver _timeObserver;
-        private readonly CharacterLiveStatesAnalytics _characterLiveStateAnalytics;
+        private readonly CharacterAnimator _characterAnimator;
+        private readonly LiveStatesAnalytics _statesAnalytics;
 
         public BehaviorNode_Seat()
         {
-            _character = Container.Instance.FindEntity<Character>();
-
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _characterLiveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
+            var character = Container.Instance.FindEntity<Character>();
+            _characterAnimator = character.Animator;
+            _statesAnalytics = character.StatesAnalytics;
         }
 
         protected override void Run()
         {
-            if (_characterLiveStateAnalytics.TryGetLowerSate(out var key, out var statePercent) && statePercent < 0.4f)
+            if (IsCanSeat())
             {
-                if (key is LiveStateKey.Trust or LiveStateKey.Hunger)
-                {
-                    _character.Animator.EnterToMode(CharacterAnimationMode.Seat);
-                    Debugging.Instance.Log($"Нода сидения: выбрано",Debugging.Type.BehaviorTree);
-                  
-                    return;
-                }
+                _characterAnimator.EnterToMode(CharacterAnimationMode.Seat);
+                Debugging.Instance.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
+
+                return;
             }
-            Debugging.Instance.Log($"Нода сидения: отказ ",Debugging.Type.BehaviorTree);
+
+            Debugging.Instance.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
             Return(false);
+        }
+
+        private bool IsCanSeat()
+        {
+            return _statesAnalytics.TryGetLowerSate(out var key, out var statePercent)
+                   && statePercent < 0.4f
+                   && key is LiveStateKey.Trust or LiveStateKey.Hunger;
         }
     }
 }

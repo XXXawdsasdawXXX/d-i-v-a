@@ -26,7 +26,7 @@ namespace Code.Test.Editor
             DrawDefaultInspector();
             LiveStateValidator validator = (LiveStateValidator)target;
             
-            if (GUILayout.Button("Move next point"))
+            if (GUILayout.Button("Add value"))
             {
                 validator.ChangeState();
             }

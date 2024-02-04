@@ -11,7 +11,7 @@ using Code.Utils;
 
 namespace Code.Data.Storages
 {
-    public class CharacterLiveStateStorage : IStorage,IGameInitListener, IProgressWriter
+    public class LiveStateStorage : IStorage,IGameInitListener, IProgressWriter
     {
         private CharacterConfig _characterConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
@@ -26,14 +26,14 @@ namespace Code.Data.Storages
         {
             foreach (var liveStateValue in value)
             {
-                if (TryGetCharacterLiveState(liveStateValue.Key, out var state))
+                if (TryGetLiveState(liveStateValue.Key, out var state))
                 {
                     state.Add(liveStateValue.Value);
                 }
             }
         }
 
-        public bool TryGetCharacterLiveState(LiveStateKey key, out CharacterLiveState liveState)
+        public bool TryGetLiveState(LiveStateKey key, out CharacterLiveState liveState)
         {
             if (LiveStates.ContainsKey(key))
             {
@@ -137,7 +137,7 @@ namespace Code.Data.Storages
         {
             foreach (var liveStateValue in values)
             {
-                if (TryGetCharacterLiveState(liveStateValue.Key, out var state))
+                if (TryGetLiveState(liveStateValue.Key, out var state))
                 {
                     state.Add(state.Max / 100 * liveStateValue.Value);
                 }

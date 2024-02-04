@@ -11,7 +11,7 @@ namespace Code.Components.Character.LiveState
 {
     public class CharacterLiveStateTimer : ILiveStateLogic, IGameInitListener, IGameExitListener
     {
-        private CharacterLiveStateStorage _storage;
+        private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
         
         private LiveStateKey  _currentLowerLiveStateKey;
@@ -20,7 +20,7 @@ namespace Code.Components.Character.LiveState
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _storage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            _storage = Container.Instance.FindStorage<LiveStateStorage>();
             SubscribeToEvents(true);
         }
 

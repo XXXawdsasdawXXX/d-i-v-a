@@ -3,7 +3,6 @@ using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
 using Code.Utils;
 
@@ -11,9 +10,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class BehaviorNode_Stand : BaseNode, IBehaviourCallback
     {
-        private readonly Character _character;
-
-        private readonly CharacterLiveStatesAnalytics _characterLiveStateAnalytics;
+        private readonly CharacterAnimator _characterAnimator;
+        private readonly LiveStatesAnalytics _statesAnalytics;
 
         private readonly BaseNode_RandomSequence _randomSequenceNode;
 
@@ -21,9 +19,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         public BehaviorNode_Stand()
         {
-            _character = Container.Instance.FindEntity<Character>();
+            var character = Container.Instance.FindEntity<Character>();
 
-            _characterLiveStateAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
+            _statesAnalytics = character.StatesAnalytics;
+            _characterAnimator = character.Animator;
 
             _randomSequenceNode = new BaseNode_RandomSequence(new BaseNode[]
             {
@@ -41,13 +40,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (IsCanStand())
             {
                 Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
-                _character.Animator.EnterToMode(CharacterAnimationMode.Stand);
+                _characterAnimator.EnterToMode(CharacterAnimationMode.Stand);
                 RunNode(_randomSequenceNode);
             }
             else
             {
                 Debugging.Instance.Log(
-                    $"Нода стояния: отказ. текущий минимальный стрейт {_characterLiveStateAnalytics.CurrentLowerLiveStateKey}",
+                    $"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytics.CurrentLowerLiveStateKey}",
                     Debugging.Type.BehaviorTree);
 
                 Return(false);
@@ -56,9 +55,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-                Debugging.Instance.Log($"Нода стояния: колбэк ",
-                    Debugging.Type.BehaviorTree);
-            if (_characterLiveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None)
+                Debugging.Instance.Log($"Нода стояния: колбэк ", Debugging.Type.BehaviorTree);
+            if (_statesAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None)
             {
                 Debugging.Instance.Log($"Нода стояния: колбэк -> запуск рандомной сиквенции",
                     Debugging.Type.BehaviorTree);
@@ -81,7 +79,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanStand()
         {
-            return _characterLiveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None;
+            return _statesAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None;
         }
 
 

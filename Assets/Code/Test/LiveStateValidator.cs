@@ -2,7 +2,6 @@
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Test
@@ -11,18 +10,17 @@ namespace Code.Test
     {
         [SerializeField] private LiveStateKey _editableKey;
         [SerializeField] private float _editableValue;
-        private CharacterLiveStateStorage _stateStorage;
 
-
+        private LiveStateStorage _stateStorage;
+        
         public void GameInit()
         {
-            _stateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            _stateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
-
-
+        
         public void ChangeState()
         {
-            if (_stateStorage.TryGetCharacterLiveState(_editableKey, out var state))
+            if (_stateStorage.TryGetLiveState(_editableKey, out var state))
             {
                 state.Add(_editableValue);
             }

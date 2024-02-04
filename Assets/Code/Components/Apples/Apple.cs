@@ -25,7 +25,7 @@ namespace Code.Components.Apples
         public int MaxStage => 5;
 
         private AppleConfig _appleConfig;
-        private CharacterLiveStateStorage _liveStateStorage;
+        private LiveStateStorage _liveStateStorage;
 
         private Coroutine _liveCoroutine;
         private bool _isFall;
@@ -34,7 +34,7 @@ namespace Code.Components.Apples
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
-            _liveStateStorage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
 
             Debugging.Instance.Log($"Init apple {_appleConfig != null} {_liveStateStorage != null}",
                 Debugging.Type.Apple);

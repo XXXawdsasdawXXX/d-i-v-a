@@ -7,13 +7,13 @@ namespace Code.Test
 {
     public class TestParamPanel : MonoBehaviour
     {
-        private CharacterLiveStateStorage _storage;
+        private LiveStateStorage _storage;
         [SerializeField] private Text _paramText;
         
 
         private void Start()
         {
-            _storage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            _storage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
         private void Update()

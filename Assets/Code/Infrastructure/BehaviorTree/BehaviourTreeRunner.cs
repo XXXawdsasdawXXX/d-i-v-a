@@ -13,17 +13,13 @@ namespace Code.Infrastructure.BehaviorTree
     {
         [SerializeField] private bool _isRun;
         
-        private CharacterLiveStatesAnalytics _statesAnalytics;
         private BaseNode _rootNode;
         private TimeObserver _timeObserver;
 
         public void GameInit()
         {
-            _statesAnalytics = Container.Instance.FindLiveStateLogic<CharacterLiveStatesAnalytics>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            
             _timeObserver.InitTimeEvent += OnInitTime;
-            _statesAnalytics.SwitchLowerStateKeyEvent += OnVariableChanged;
         }
 
         private void OnInitTime()
@@ -46,12 +42,8 @@ namespace Code.Infrastructure.BehaviorTree
         public void GameExit()
         {
             _timeObserver.InitTimeEvent -= OnInitTime;
-            _statesAnalytics.SwitchLowerStateKeyEvent -= OnVariableChanged;
         }
         
-        private void OnVariableChanged(LiveStateKey key)
-        {
-          //  _rootNode?.Break();
-        }
+     
     }
 }

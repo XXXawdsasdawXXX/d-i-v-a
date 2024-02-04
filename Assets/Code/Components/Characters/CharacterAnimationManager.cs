@@ -1,16 +1,19 @@
-﻿using Code.Components.Characters.AnimationReader.State;
+﻿using Code.Components.Character.LiveState;
+using Code.Components.Characters.AnimationReader.State;
 using Code.Data.Enums;
-using UnityEditor;
+using Code.Data.Storages;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterManager : MonoBehaviour
+    public class CharacterAnimationManager : MonoBehaviour
     {
         [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
-
-            public CharacterAnimationMode GetAnimationMode()
+     
+        
+        public CharacterAnimationMode GetAnimationMode()
         {
             return _characterAnimator.Mode;
         }
@@ -19,7 +22,5 @@ namespace Code.Components.Characters
         {
             return _animationStateObserver.State;
         }
-        
-        
     }
 }

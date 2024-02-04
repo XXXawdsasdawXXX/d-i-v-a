@@ -16,7 +16,7 @@ namespace Code.Components.Apples
         private AppleBranch _appleBranch;
         private Apple _apple;
 
-        private CharacterManager _characterManager;
+        private CharacterAnimationManager _characterAnimationManager;
         
         private Coroutine _coroutine;
 
@@ -26,7 +26,7 @@ namespace Code.Components.Apples
             _appleBranch = Container.Instance.FindEntity<AppleBranch>();
             _apple = Container.Instance.FindEntity<Apple>();
 
-            _characterManager = Container.Instance.FindEntity<Characters.Character>().Manager;
+            _characterAnimationManager = Container.Instance.FindEntity<Characters.Character>().AnimationManager;
             
             SubscribeToEvents(true);
 
@@ -80,7 +80,7 @@ namespace Code.Components.Apples
 
             _coroutine = null;
             
-            if (_characterManager.GetAnimationMode() == CharacterAnimationMode.Sleep)
+            if (_characterAnimationManager.GetAnimationMode() == CharacterAnimationMode.Sleep)
             {
                 Spawn();
             }

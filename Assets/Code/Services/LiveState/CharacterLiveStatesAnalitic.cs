@@ -10,17 +10,17 @@ using Code.Utils;
 
 namespace Code.Components.Character.LiveState
 {
-    public class CharacterLiveStatesAnalytics : ILiveStateLogic, IGameStartListener, IGameExitListener
+    public class LiveStatesAnalytics :  IGameStartListener, IGameExitListener
     {
         private TimeObserver _timeObserver;
-        private CharacterLiveStateStorage _storage;
+        private LiveStateStorage _storage;
         public LiveStateKey CurrentLowerLiveStateKey { get; private set; }
         public event Action<LiveStateKey> SwitchLowerStateKeyEvent;
 
         public void GameStart()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _storage = Container.Instance.FindStorage<CharacterLiveStateStorage>();
+            _storage = Container.Instance.FindStorage<LiveStateStorage>();
 
             CheckLowerState();
 
@@ -65,7 +65,7 @@ namespace Code.Components.Character.LiveState
 
         public float GetStatePercent(LiveStateKey liveStateKey)
         {
-            if (_storage != null && _storage.TryGetCharacterLiveState(liveStateKey, out var characterLiveState))
+            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out var characterLiveState))
             {
                 return characterLiveState.Current;
             }
@@ -75,7 +75,7 @@ namespace Code.Components.Character.LiveState
         public bool TryGetLowerSate(out LiveStateKey liveStateKey, out float statePercent)
         {
             liveStateKey = CurrentLowerLiveStateKey;
-            if (_storage != null && _storage.TryGetCharacterLiveState(liveStateKey, out var characterLiveState))
+            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out var characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
                 Debugging.Instance.Log(
