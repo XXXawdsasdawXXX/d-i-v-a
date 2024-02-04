@@ -7,17 +7,17 @@ namespace Code.Services
 {
     public class CoroutineRunner : MonoBehaviour, IService , IGameExitListener
     {
-        public Coroutine Start(IEnumerator coroutine)
+        public Coroutine StartRoutine(IEnumerator coroutine)
         {
             return coroutine == null ? null : StartCoroutine(coroutine);
         }
 
-        public void Stop(IEnumerator coroutine)
+        public void StopRoutine(IEnumerator coroutine)
         {
             StopCoroutine(coroutine);
         }
         
-        public void Stop(Coroutine coroutine)
+        public void StopRoutine(Coroutine coroutine)
         {
             StopCoroutine(coroutine);
         }

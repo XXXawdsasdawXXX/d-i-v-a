@@ -16,6 +16,20 @@ namespace Code.Test.Editor
                 testDrive.MoveToNextPosition();
             }
         }
-        
+    }
+    
+    [CustomEditor(typeof(LiveStateValidator))]
+    public class LiveStateValidatorEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+            LiveStateValidator validator = (LiveStateValidator)target;
+            
+            if (GUILayout.Button("Move next point"))
+            {
+                validator.ChangeState();
+            }
+        }
     }
 }

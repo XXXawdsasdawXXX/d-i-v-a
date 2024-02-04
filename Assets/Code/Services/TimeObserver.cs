@@ -38,7 +38,7 @@ namespace Code.Services
                 return;
             }
 
-            coroutineRunner.Start(InitCurrentTime());
+            coroutineRunner.StartRoutine(InitCurrentTime());
 
             Debugging.Instance.Log($"Current time {CurrentTime}", Debugging.Type.Time);
         }

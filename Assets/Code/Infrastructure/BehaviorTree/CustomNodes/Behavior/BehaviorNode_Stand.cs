@@ -38,7 +38,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         protected override void Run()
         {
-            if (_characterLiveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None)
+            if (IsCanStand())
             {
                 Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
                 _character.Animator.EnterToMode(CharacterAnimationMode.Stand);
@@ -77,6 +77,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
             _currentNode?.Break();
             base.OnBreak();
+        }
+
+        private bool IsCanStand()
+        {
+            return _characterLiveStateAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None;
         }
 
 

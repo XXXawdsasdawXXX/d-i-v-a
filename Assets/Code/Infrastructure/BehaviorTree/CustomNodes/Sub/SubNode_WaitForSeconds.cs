@@ -25,14 +25,14 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         protected override void Run()
         { 
             _randomSeconds = _cooldown.GetRandomValue();
-           _coroutine = _coroutineRunner.Start(WaitForSeconds());
+           _coroutine = _coroutineRunner.StartRoutine(WaitForSeconds());
         }
 
         protected override void OnBreak()
         {
             if (_coroutine != null)
             {
-                _coroutineRunner.Stop(_coroutine);
+                _coroutineRunner.StopRoutine(_coroutine);
             }
         }
 
