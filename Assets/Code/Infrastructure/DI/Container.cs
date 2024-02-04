@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components;
-using Code.Components.Characters;
 using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
@@ -16,11 +15,10 @@ namespace Code.Infrastructure.DI
     {
         public static Container Instance;
 
-        [SerializeField] private Character _character;  
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
         private List<IStorage> _storages = new();
-        private List<ILiveStateLogic> _liveStateLogics = new();
+
         private List<Entity> _entities = new List<Entity>();
 
         private void Awake()
@@ -35,7 +33,6 @@ namespace Code.Infrastructure.DI
 
             InitList(ref _services);
             InitList(ref _storages);
-            InitList(ref _liveStateLogics);
             InitList(ref _entities);
         }
 
@@ -87,6 +84,7 @@ namespace Code.Infrastructure.DI
                     return findService;
                 }
             }
+
             return default;
         }
 
@@ -99,23 +97,11 @@ namespace Code.Infrastructure.DI
                     return typedStorage;
                 }
             }
+
             return default;
         }
 
 
-        public T FindLiveStateLogic<T>() where T : ILiveStateLogic
-        {
-            foreach (var liveStateLogic in _liveStateLogics)
-            {
-                if (liveStateLogic is T typedLiveStateLogic)
-                {
-                    return typedLiveStateLogic;
-                }
-            }
-            return default;
-        }
-
-        
         public T FindEntity<T>() where T : Entity
         {
             foreach (var entity in _entities)
@@ -125,16 +111,16 @@ namespace Code.Infrastructure.DI
                     return findEntity;
                 }
             }
+
             return default;
         }
-        
+
         public List<IGameListeners> GetGameListeners()
         {
             var listenersList = new List<IGameListeners>();
 
             listenersList.AddRange(_services.OfType<IGameListeners>().ToList());
             listenersList.AddRange(_storages.OfType<IGameListeners>().ToList());
-            listenersList.AddRange(_liveStateLogics.OfType<IGameListeners>().ToList());
 
             var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IGameListeners>();
             foreach (var mbListener in mbListeners)
@@ -154,9 +140,8 @@ namespace Code.Infrastructure.DI
 
             listenersList.AddRange(_services.OfType<IProgressReader>().ToList());
             listenersList.AddRange(_storages.OfType<IProgressReader>().ToList());
-            listenersList.AddRange(_liveStateLogics.OfType<IProgressReader>().ToList());
 
-            
+
             var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IProgressReader>();
             foreach (var mbListener in mbListeners)
             {

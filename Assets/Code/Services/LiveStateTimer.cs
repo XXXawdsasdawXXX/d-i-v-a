@@ -5,18 +5,16 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
-using UnityEngine;
 
 namespace Code.Components.Character.LiveState
 {
-    public class CharacterLiveStateTimer : ILiveStateLogic, IGameInitListener, IGameExitListener
+    public class LiveStateTimer : IService, IGameInitListener, IGameExitListener
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
         
         private LiveStateKey  _currentLowerLiveStateKey;
         
-       
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();

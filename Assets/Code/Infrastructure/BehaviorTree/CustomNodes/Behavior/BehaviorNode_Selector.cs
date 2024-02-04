@@ -1,4 +1,7 @@
+using Code.Components.Character.LiveState;
+using Code.Components.Characters;
 using Code.Infrastructure.BehaviorTree.CustomNodes;
+using Code.Infrastructure.DI;
 using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
@@ -9,8 +12,12 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         private BaseNode _currentChild;
 
         private int _currentChildIndex;
+        private readonly LiveStatesAnalytics _stateAnalytics;
+
         public BehaviorNode_Selector()
         {
+            _stateAnalytics = Container.Instance.FindEntity<Character>().StatesAnalytics;
+            
             _orderedNodes = new BaseNode[]
             {
                 new BehaviorNode_Sleep(),

@@ -18,8 +18,8 @@ namespace Code.Components.Characters
         public CharacterAnimator Animator => _characterAnimator;
 
         
-        [SerializeField] private CharacterAnimationManager characterAnimationManager;
-        public CharacterAnimationManager AnimationManager => characterAnimationManager;
+        [SerializeField] private CharacterAnimationAnalytic _characterAnimationAnalytic;
+        public CharacterAnimationAnalytic AnimationAnalytic => _characterAnimationAnalytic;
 
         
         [SerializeField] private CharacterReaction[] _reactions;
