@@ -62,7 +62,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 if (key is LiveStateKey.Trust && statePercent <= 0.4f && UnityEngine.Random.Range(0, 100) >= 50)
                 {
                     Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТАРТ", Debugging.Type.BehaviorTree);
-                    _coroutineRunner.StartRoutine(PlayExitAnimationRoutine());
+                    _coroutineRunner.Start(PlayExitAnimationRoutine());
                 }
 
                 SubscribeToEvents(true);

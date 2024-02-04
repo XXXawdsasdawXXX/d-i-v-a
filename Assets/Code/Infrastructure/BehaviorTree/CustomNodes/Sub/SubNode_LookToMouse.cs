@@ -21,6 +21,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _mouseReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterMouseReaction>();
         }
 
+        public bool IsReady()
+        {
+            return _mouseReaction.IsReady();
+        }
+        
         protected override void Run()
         {
             Debugging.Instance.Log($"Нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);

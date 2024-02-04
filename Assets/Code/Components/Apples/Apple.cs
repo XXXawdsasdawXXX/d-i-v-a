@@ -45,6 +45,7 @@ namespace Code.Components.Apples
             _isFall = false;
             _isBig = false;
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+            _rigidbody2D.velocity = Vector2.zero;
 
             _dragAndDrop.Activate();
             _appleAnimator.PlayEnter();

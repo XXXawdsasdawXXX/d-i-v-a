@@ -6,10 +6,7 @@ namespace Code.Components.Characters
 {
     public class Character : Entity
     {
-        [SerializeField] private CharacterAudioListener _characterAudioListener;
-        public CharacterAudioListener AudioListener => _characterAudioListener;
         
-
         [SerializeField] private ColliderButton _colliderButton;
         public ColliderButton ColliderButton => _colliderButton;
 

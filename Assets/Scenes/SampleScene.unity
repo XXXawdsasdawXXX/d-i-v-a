@@ -1132,7 +1132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15, y: 0.5}
+  m_Size: {x: 20, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &1386471886
 MonoBehaviour:
@@ -1841,10 +1841,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1464787009}
     m_Modifications:
-    - target: {fileID: 631771338, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
-      propertyPath: _character
-      value: 
-      objectReference: {fileID: 631771331}
     - target: {fileID: 7708477133988595673, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
       propertyPath: m_Name
       value: Lili
@@ -1892,10 +1888,6 @@ PrefabInstance:
     - target: {fileID: 7708477133988595679, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7708477134437247928, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03bc37601f1bd9d418fd738d93f3373f, type: 3}

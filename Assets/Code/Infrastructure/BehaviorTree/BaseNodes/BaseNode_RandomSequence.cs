@@ -52,6 +52,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             if (_currentChild != null && _currentChild.IsRunning)
             {
                 _currentChild.Break();
+                _currentChild = null;
             }
         }
 
@@ -60,9 +61,6 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             //    Debug.Log($"NODE: {name} RETURN: {result}");
         }
 
-        protected override void OnDispose()
-        {
-            _currentChild = null;
-        }
+
     }
 }

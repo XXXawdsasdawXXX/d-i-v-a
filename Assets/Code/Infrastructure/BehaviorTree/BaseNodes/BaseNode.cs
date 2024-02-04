@@ -38,7 +38,6 @@ namespace Code.Infrastructure.BehaviorTree
             OnBreak();
             _isRunning = false;
             _callback = null;
-            OnDispose();
         }
 
         protected abstract void Run();
@@ -52,7 +51,7 @@ namespace Code.Infrastructure.BehaviorTree
 
             _isRunning = false;
             OnReturn(success);
-            OnDispose();
+          
             InvokeCallback(success);
         }
 
@@ -64,10 +63,7 @@ namespace Code.Infrastructure.BehaviorTree
         {
         }
 
-        protected virtual void OnDispose()
-        {
-        }
-
+  
         private void InvokeCallback(bool success)
         {
             if (_callback == null)

@@ -51,7 +51,7 @@ namespace Code.Infrastructure.BehaviorTree
         
         private void OnVariableChanged(LiveStateKey key)
         {
-            _rootNode?.Break();
+          //  _rootNode?.Break();
         }
     }
 }
