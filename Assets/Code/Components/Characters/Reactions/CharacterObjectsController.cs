@@ -1,7 +1,6 @@
 ﻿using Code.Components.Apples;
 using Code.Components.Objects;
 using Code.Infrastructure.GameLoop;
-using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Characters

@@ -127,7 +127,7 @@ namespace Code.Infrastructure.DI
             }
             return default;
         }
-       // public Character GetCharacter() => _character;
+        
         public List<IGameListeners> GetGameListeners()
         {
             var listenersList = new List<IGameListeners>();

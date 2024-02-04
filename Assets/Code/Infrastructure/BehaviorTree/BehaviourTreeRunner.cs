@@ -12,9 +12,9 @@ namespace Code.Infrastructure.BehaviorTree
     public sealed class BehaviourTreeRunner : MonoBehaviour, IService, IGameInitListener , IGameTickListener, IGameExitListener
     {
         [SerializeField] private bool _isRun;
+        
         private CharacterLiveStatesAnalytics _statesAnalytics;
-        private BehaviourNode _rootNode;
-
+        private BaseNode _rootNode;
         private TimeObserver _timeObserver;
 
         public void GameInit()
@@ -28,7 +28,7 @@ namespace Code.Infrastructure.BehaviorTree
 
         private void OnInitTime()
         {
-            _rootNode = new BehaviourSelector();
+            _rootNode = new BehaviorNode_Selector();
         }
 
         public void GameTick()

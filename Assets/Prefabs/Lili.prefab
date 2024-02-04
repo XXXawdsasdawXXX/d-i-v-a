@@ -356,6 +356,8 @@ MonoBehaviour:
   _colliderButton: {fileID: 7463782227792163140}
   _characterAnimator: {fileID: 7708477133988595676}
   _characterManager: {fileID: 1267662802232854736}
+  _reactions:
+  - {fileID: 2900638762654591031}
 --- !u!114 &1267662802232854736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,8 +410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be83ef2fe2949ab9f4c09e7e9754b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxCooldownMinutes: 5
   _characterAnimator: {fileID: 7708477133988595676}
-  _normal: {x: 0, y: 0}
+  _centralNormalValue: 0.3
   _offset: {x: 0, y: 1}
 --- !u!114 &7708477133988595676
 MonoBehaviour:

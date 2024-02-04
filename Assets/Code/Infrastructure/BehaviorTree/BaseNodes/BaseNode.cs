@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree
 {
-    public abstract class BehaviourNode 
+    public abstract class BaseNode 
     {
         //Базовый нод
         public bool IsRunning

@@ -8,7 +8,7 @@ using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Seat : BehaviourNode
+    public class BehaviorNode_Seat : BaseNode
     {
         private readonly Character _character;
         private readonly TimeObserver _timeObserver;

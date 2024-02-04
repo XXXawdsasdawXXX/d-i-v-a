@@ -1,6 +1,5 @@
-﻿using Code.Components.Characters.AnimationReader.State;
+﻿using Code.Components.Characters.Reactions;
 using Code.Components.Objects;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Components.Characters
@@ -21,5 +20,20 @@ namespace Code.Components.Characters
         
         [SerializeField] private CharacterManager _characterManager;
         public CharacterManager Manager => _characterManager;
+
+
+        [SerializeField] private CharacterReaction[] _reactions;
+        
+        public T FindReaction<T>() where T : CharacterReaction
+        {
+            foreach (var reaction in _reactions)
+            {
+                if (reaction is T characterReaction)
+                {
+                    return characterReaction;
+                }
+            }
+            return null;
+        }
     }
 }

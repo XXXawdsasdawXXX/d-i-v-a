@@ -2,11 +2,12 @@ using System.Collections;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Services;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public sealed class BehaviourNode_WaitForSeconds : BehaviourNode
+    public sealed class SubNode_WaitForSeconds : BaseNode
     {
         private readonly RangedFloat _cooldown;
         private float _randomSeconds;
@@ -15,7 +16,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         private readonly CoroutineRunner _coroutineRunner;
         private Coroutine _coroutine;
 
-        public BehaviourNode_WaitForSeconds(RangedFloat cooldown)
+        public SubNode_WaitForSeconds(RangedFloat cooldown)
         {
             _cooldown = cooldown;
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -38,6 +39,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         private IEnumerator WaitForSeconds()
         {
+            Debugging.Instance.Log($"Саб нода ожидания: выбрано. длительность {_randomSeconds}", Debugging.Type.BehaviorTree);
             yield return new WaitForSeconds(_randomSeconds);
             _coroutine = null;
             Return(true);

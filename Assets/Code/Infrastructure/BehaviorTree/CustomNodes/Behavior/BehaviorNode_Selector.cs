@@ -3,24 +3,19 @@ using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public sealed class BehaviourSelector : BehaviourNode, IBehaviourCallback
+    public sealed class BehaviorNode_Selector : BaseNode, IBehaviourCallback
     {
-        private readonly BehaviourNode[] _orderedNodes;
-        private BehaviourNode _currentChild;
+        private readonly BaseNode[] _orderedNodes;
+        private BaseNode _currentChild;
 
         private int _currentChildIndex;
-        public BehaviourSelector()
+        public BehaviorNode_Selector()
         {
-            _orderedNodes = new BehaviourNode[]
+            _orderedNodes = new BaseNode[]
             {
                 new BehaviorNode_Sleep(),
                 new BehaviorNode_Stand(),
                 new BehaviorNode_Seat(),
-                
-                //Eat
-                
-                //Stand
-                
             };
         }
         
@@ -37,7 +32,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _currentChild.Run(callback: this);
         }
 
-        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
             if (success)
             {

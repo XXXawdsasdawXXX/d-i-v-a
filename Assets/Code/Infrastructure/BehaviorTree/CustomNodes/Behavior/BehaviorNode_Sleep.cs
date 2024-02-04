@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Sleep : BehaviourNode
+    public class BehaviorNode_Sleep : BaseNode
     {
         private readonly CharacterLiveStatesAnalytics _liveStateAnalytics;
         private readonly CharacterLiveStateStorage _liveStateStorage;
@@ -19,7 +19,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly TimeObserver _timeObserver;
 
         private readonly Character _character;
-        private CharacterLiveState _sleepState;
+        private readonly CharacterLiveState _sleepState;
 
 
         public BehaviorNode_Sleep()

@@ -1,18 +1,17 @@
-using Code.Utils;
+using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public class BehaviourNode_RandomSequence : BehaviourNode, IBehaviourCallback
+    public sealed class BaseNode_Sequence : BaseNode, IBehaviourCallback
     {
-        private readonly BehaviourNode[] _orderNodes;
+        private BaseNode[] _orderNodes;// порядок элементов имеет значение
 
-        private BehaviourNode _currentChild;
+        private BaseNode _currentChild;
         private int _currentNodeIndex;
         
-        public BehaviourNode_RandomSequence(BehaviourNode[] orderNodes)
+        public BaseNode_Sequence(BaseNode[] orderNodes)
         {
             _orderNodes = orderNodes;
-            Extensions.ShuffleArray(_orderNodes);
         }
         
         protected override void Run()
@@ -28,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _currentChild.Run(callback: this);
         }
 
-        void IBehaviourCallback.InvokeCallback(BehaviourNode node, bool success)
+        void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
             if (!success)
             {
@@ -57,7 +56,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         protected override void OnReturn(bool success)
         {
-            //    Debug.Log($"NODE: {name} RETURN: {result}");
+        //    Debug.Log($"NODE: {name} RETURN: {result}");
         }
 
         protected override void OnDispose()
