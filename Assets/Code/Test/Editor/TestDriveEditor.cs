@@ -30,6 +30,11 @@ namespace Code.Test.Editor
             {
                 validator.ChangeState();
             }
+            
+            if (GUILayout.Button("Debug lower key"))
+            {
+                validator.DebugLowerState();
+            }
         }
     }
 }

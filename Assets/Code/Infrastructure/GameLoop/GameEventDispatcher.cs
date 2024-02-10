@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Infrastructure.DI;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameLoop
@@ -17,11 +18,13 @@ namespace Code.Infrastructure.GameLoop
             InitializeListeners();
             NotifyGameInit();
             NotifyGameLoad();
+            Debugging.Instance.Log("Awake",Debugging.Type.GameState);
         }
         
         private void Start()
         {
             NotifyGameStart();
+            Debugging.Instance.Log("Start",Debugging.Type.GameState);
         }
 
         private void Update()
@@ -32,6 +35,7 @@ namespace Code.Infrastructure.GameLoop
         private void OnApplicationQuit()
         {
             NotifyGameExit();
+            Debugging.Instance.Log("Exit",Debugging.Type.GameState);
         }
 
         private void InitializeListeners()

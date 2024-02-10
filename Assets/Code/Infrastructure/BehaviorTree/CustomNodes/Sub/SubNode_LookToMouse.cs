@@ -33,6 +33,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _waitFor.Run(this);
         }
 
+        protected override void OnBreak()
+        {
+            _waitFor.Break();
+            _mouseReaction.StopReaction();
+        }
 
         private bool IsReady()
         {

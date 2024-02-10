@@ -23,7 +23,8 @@ namespace Code.Utils
             SaveLoad,
             ButtonSprite,
             Apple,
-            Position
+            Position,
+            GameState
         }
 
         [Serializable]

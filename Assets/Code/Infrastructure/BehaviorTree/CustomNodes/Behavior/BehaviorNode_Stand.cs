@@ -71,7 +71,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         protected override void OnBreak()
         {
-            Debugging.Instance.Log($"Нода стояния: брейк", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода стояния: брейк ", Debugging.Type.BehaviorTree);
 
             _currentNode?.Break();
             base.OnBreak();

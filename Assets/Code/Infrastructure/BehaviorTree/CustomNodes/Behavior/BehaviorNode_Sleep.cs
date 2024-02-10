@@ -35,16 +35,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         protected override void Run()
         {
-            if (!IsCanSleep())
-            {
-                Debugging.Instance.Log($"Нода сна: отказ " +
-                                       $"{!_timeObserver.IsNightTime()} " +
-                                       $"{_statesAnalytics.CurrentLowerLiveStateKey != LiveStateKey.Sleep}",
-                    Debugging.Type.BehaviorTree);
-
-                Return(false);
-            }
-            else
+            if(IsCanSleep())
             {
                 Debugging.Instance.Log($"Нода сна: выбрано ", Debugging.Type.BehaviorTree);
 
@@ -68,6 +59,15 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
                 SubscribeToEvents(true);
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
+            }
+            else
+            {
+                Debugging.Instance.Log($"Нода сна: отказ " +
+                                       $"{!_timeObserver.IsNightTime()} " +
+                                       $"{_statesAnalytics.CurrentLowerLiveStateKey != LiveStateKey.Sleep}",
+                    Debugging.Type.BehaviorTree);
+
+                Return(false);
             }
         }
 

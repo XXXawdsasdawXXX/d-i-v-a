@@ -1,7 +1,10 @@
-﻿using Code.Data.Enums;
+﻿using Code.Components.Character.LiveState;
+using Code.Components.Characters;
+using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Test
@@ -12,9 +15,11 @@ namespace Code.Test
         [SerializeField] private float _editableValue;
 
         private LiveStateStorage _stateStorage;
-        
+        private LiveStatesAnalytics _stateAnalytics;
+
         public void GameInit()
         {
+            _stateAnalytics = Container.Instance.FindEntity<Character>().StatesAnalytics;
             _stateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
         
@@ -24,6 +29,11 @@ namespace Code.Test
             {
                 state.Add(_editableValue);
             }
+        }
+
+        public void DebugLowerState()
+        {
+            Debugging.Instance.Log($"Lower key: {_stateAnalytics.CurrentLowerLiveStateKey}",Debugging.Type.LiveState);
         }
     }
 }

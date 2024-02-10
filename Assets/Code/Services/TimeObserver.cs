@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Code.Data.Configs;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
@@ -17,6 +18,7 @@ namespace Code.Services
 
         private CharacterConfig _characterConfig;
         public DateTime CurrentTime;
+        
         private float _currentTickCooldown;
         private  float _tickTime = 5;
 
@@ -38,6 +40,7 @@ namespace Code.Services
                 return;
             }
 
+            _tickTime = _characterConfig.GetTickTime();
             coroutineRunner.StartRoutine(InitCurrentTime());
 
             Debugging.Instance.Log($"Current time {CurrentTime}", Debugging.Type.Time);
@@ -97,5 +100,15 @@ namespace Code.Services
             InitTimeEvent?.Invoke();
             _isInit = true;
         }
+
+        #region Editor
+
+        public KeyValuePair<float, float> GetTimeState()
+        {
+            return new KeyValuePair<float, float>(_currentTickCooldown, _tickTime);
+        }
+        
+        #endregion
+        
     }
 }

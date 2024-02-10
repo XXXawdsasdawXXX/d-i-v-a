@@ -11,7 +11,7 @@ using Code.Utils;
 
 namespace Code.Data.Storages
 {
-    public class LiveStateStorage : IStorage,IGameInitListener, IProgressWriter
+    public class LiveStateStorage : IStorage, IGameInitListener, IProgressWriter
     {
         private CharacterConfig _characterConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
@@ -53,7 +53,7 @@ namespace Code.Data.Storages
                 ? InitNewStates()
                 : LoadSavedStates(progress.LiveStatesData);
             
-            Debugging.Instance.Log($"init count {LiveStates.Count} { progress.LiveStatesData.Count }", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"load init count {LiveStates.Count} { progress.LiveStatesData.Count }", Debugging.Type.LiveState);
         }
 
         public void UpdateProgress(PlayerProgress progress)

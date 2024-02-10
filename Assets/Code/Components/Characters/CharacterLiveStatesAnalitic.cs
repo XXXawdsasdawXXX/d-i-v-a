@@ -1,33 +1,31 @@
 ﻿using System;
 using System.Linq;
 using Code.Data.Enums;
-using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
-using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
 
 namespace Code.Components.Character.LiveState
 {
-    public class LiveStatesAnalytics :  IGameStartListener, IGameExitListener
+    public class LiveStatesAnalytics
     {
-        private TimeObserver _timeObserver;
-        private LiveStateStorage _storage;
+        private readonly TimeObserver _timeObserver;
+        private readonly LiveStateStorage _storage;
         public LiveStateKey CurrentLowerLiveStateKey { get; private set; }
         public event Action<LiveStateKey> SwitchLowerStateKeyEvent;
 
-        public void GameStart()
+        public LiveStatesAnalytics()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
 
-            CheckLowerState();
+            Debugging.Instance.Log($"LiveStatesAnalytics construct", Debugging.Type.LiveState);
 
             SubscribeToEvents(true);
         }
 
-        public void GameExit()
+        ~LiveStatesAnalytics()
         {
             SubscribeToEvents(false);
         }
@@ -45,20 +43,30 @@ namespace Code.Components.Character.LiveState
         }
 
 
-        private void CheckLowerState()
+        public void CheckLowerState()
         {
             var keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
-            if(!keyValuePairs.Any())return;
-            var lowerCharacterLiveState = keyValuePairs.First().Key;
-            if (lowerCharacterLiveState != CurrentLowerLiveStateKey)
+            if (!keyValuePairs.Any())
             {
-                Debugging.Instance.Log(
-                    $"Switch lover state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} {_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
-                    Debugging.Type.LiveState);
-                CurrentLowerLiveStateKey = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
-                    ? LiveStateKey.None
-                    : lowerCharacterLiveState;
+                Debugging.Instance.Log($"return when try check lower state", Debugging.Type.LiveState);
+                return;
+            }
 
+            var lowerCharacterLiveState = keyValuePairs.First().Key;
+            
+            Debugging.Instance.Log(
+                $"try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
+                $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
+                Debugging.Type.LiveState);
+
+            var resultState = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
+                ? LiveStateKey.None
+                : lowerCharacterLiveState;
+
+            if (resultState != CurrentLowerLiveStateKey)
+            {
+                Debugging.Instance.Log($"{CurrentLowerLiveStateKey} switch {resultState}", Debugging.Type.LiveState);
+                CurrentLowerLiveStateKey = resultState;
                 SwitchLowerStateKeyEvent?.Invoke(CurrentLowerLiveStateKey);
             }
         }
@@ -72,6 +80,7 @@ namespace Code.Components.Character.LiveState
 
             return 0;
         }
+
         public bool TryGetLowerSate(out LiveStateKey liveStateKey, out float statePercent)
         {
             liveStateKey = CurrentLowerLiveStateKey;

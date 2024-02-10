@@ -27,11 +27,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Seat);
                 Debugging.Instance.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
 
-                return;
             }
-
-            Debugging.Instance.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
-            Return(false);
+            else
+            {
+                Debugging.Instance.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
+                Return(false);
+                
+            }
         }
 
         private bool IsCanSeat()

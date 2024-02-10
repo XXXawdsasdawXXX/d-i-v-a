@@ -1,5 +1,6 @@
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
+using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.CustomNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
@@ -21,9 +22,16 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             _orderedNodes = new BaseNode[]
             {
                 new BehaviorNode_Sleep(),
-                new BehaviorNode_Stand(),
                 new BehaviorNode_Seat(),
+                new BehaviorNode_Stand(),
             };
+            
+            SubscribeToEvents(true);
+        }
+
+        ~BehaviorNode_Selector()
+        {
+            SubscribeToEvents(false);
         }
         
         protected override void Run()
@@ -66,6 +74,24 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 _currentChild = null;
             }
         }
-        
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _stateAnalytics.SwitchLowerStateKeyEvent += OnSwitchLowerLiveState;
+            }
+            else
+            {
+                _stateAnalytics.SwitchLowerStateKeyEvent -= OnSwitchLowerLiveState;
+            }
+        }
+
+        private void OnSwitchLowerLiveState(LiveStateKey key)
+        {
+            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя ", Debugging.Type.BehaviorTree);
+            _currentChild?.Break();
+            Run();
+        }
     }
 }

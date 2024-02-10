@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   _tickTime:
-    MinValue: 138.85349
-    MaxValue: 485.98746
+    MinValue: 5
+    MaxValue: 29.101227
   _liveStateStaticParams:
   - Key: 1
     DecreasingValue: 1
