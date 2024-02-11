@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tickTime:
     MinValue: 5
-    MaxValue: 29.101227
+    MaxValue: 5
   _liveStateStaticParams:
   - Key: 1
     DecreasingValue: 1

@@ -26,19 +26,18 @@ namespace Code.Components.Characters
         {
             if (flag)
             {
-                _collisionObserver.EnterEvent += OnEnterEvent;
-                _collisionObserver.ExitEvent += OnExitEvent;
+                _collisionObserver.EnterEvent += StartReactionToObject;
+                _collisionObserver.ExitEvent += StopReactionToObject;
                 
             }
             else
             {
-                
-                _collisionObserver.EnterEvent -= OnEnterEvent;
-                _collisionObserver.ExitEvent -= OnExitEvent;
+                _collisionObserver.EnterEvent -= StartReactionToObject;
+                _collisionObserver.ExitEvent -= StopReactionToObject;
             }
         }
 
-        private void OnExitEvent(GameObject obj)
+        public void StopReactionToObject(GameObject obj)
         {
             if (_selectedApple != null && obj.TryGetComponent(out Apple item))
             { 
@@ -47,7 +46,7 @@ namespace Code.Components.Characters
         }
 
 
-        private void OnEnterEvent(GameObject obj)
+        public void StartReactionToObject(GameObject obj)
         {
             if (obj.TryGetComponent(out Apple apple))
             {
