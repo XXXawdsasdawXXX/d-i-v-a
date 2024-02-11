@@ -15,11 +15,11 @@ namespace Code.Test
         [SerializeField] private float _editableValue;
 
         private LiveStateStorage _stateStorage;
-        private LiveStatesAnalytics _stateAnalytics;
+        private CharacterLiveStatesAnalytic _stateAnalytic;
 
         public void GameInit()
         {
-            _stateAnalytics = Container.Instance.FindEntity<Character>().StatesAnalytics;
+            _stateAnalytic = Container.Instance.FindEntity<Character>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _stateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
         
@@ -33,7 +33,7 @@ namespace Code.Test
 
         public void DebugLowerState()
         {
-            Debugging.Instance.Log($"Lower key: {_stateAnalytics.CurrentLowerLiveStateKey}",Debugging.Type.LiveState);
+            Debugging.Instance.Log($"Lower key: {_stateAnalytic.CurrentLowerLiveStateKey}",Debugging.Type.LiveState);
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class PositionInitializer : MonoBehaviour, IGameStartListener
+    public class PositionInitializer : CommonComponent, IGameStartListener
     {
         [SerializeField] private PointAnchor _pointAnchor;
         [SerializeField] private Vector2 _offset;

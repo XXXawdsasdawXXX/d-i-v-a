@@ -11,7 +11,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
     public class BehaviorNode_Stand : BaseNode, IBehaviourCallback
     {
         private readonly CharacterAnimator _characterAnimator;
-        private readonly LiveStatesAnalytics _statesAnalytics;
+        private readonly CharacterLiveStatesAnalytic _statesAnalytic;
 
         private readonly BaseNode_RandomSequence _randomSequenceNode;
 
@@ -21,8 +21,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             var character = Container.Instance.FindEntity<Character>();
 
-            _statesAnalytics = character.StatesAnalytics;
-            _characterAnimator = character.Animator;
+            _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
 
             _randomSequenceNode = new BaseNode_RandomSequence(new BaseNode[]
             {
@@ -46,7 +46,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             else
             {
                 Debugging.Instance.Log(
-                    $"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytics.CurrentLowerLiveStateKey}",
+                    $"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytic.CurrentLowerLiveStateKey}",
                     Debugging.Type.BehaviorTree);
 
                 Return(false);
@@ -56,7 +56,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
                 Debugging.Instance.Log($"Нода стояния: колбэк ", Debugging.Type.BehaviorTree);
-            if (_statesAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None)
+            if (_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None)
             {
                 Debugging.Instance.Log($"Нода стояния: колбэк -> запуск рандомной сиквенции",
                     Debugging.Type.BehaviorTree);
@@ -79,7 +79,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanStand()
         {
-            return _statesAnalytics.CurrentLowerLiveStateKey == LiveStateKey.None;
+            return _statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None;
         }
 
 

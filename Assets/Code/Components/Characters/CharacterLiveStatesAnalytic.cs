@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Linq;
+using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
 
 namespace Code.Components.Character.LiveState
 {
-    public class LiveStatesAnalytics
+    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener,
+        IGameExitListener
+
     {
-        private readonly TimeObserver _timeObserver;
-        private readonly LiveStateStorage _storage;
+        private TimeObserver _timeObserver;
+        private LiveStateStorage _storage;
         public LiveStateKey CurrentLowerLiveStateKey { get; private set; }
+
         public event Action<LiveStateKey> SwitchLowerStateKeyEvent;
 
-        public LiveStatesAnalytics()
+        public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
@@ -25,7 +30,12 @@ namespace Code.Components.Character.LiveState
             SubscribeToEvents(true);
         }
 
-        ~LiveStatesAnalytics()
+        public void GameStart()
+        {
+            CheckLowerState();
+        }
+
+        public void GameExit()
         {
             SubscribeToEvents(false);
         }
@@ -53,7 +63,7 @@ namespace Code.Components.Character.LiveState
             }
 
             var lowerCharacterLiveState = keyValuePairs.First().Key;
-            
+
             Debugging.Instance.Log(
                 $"try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",

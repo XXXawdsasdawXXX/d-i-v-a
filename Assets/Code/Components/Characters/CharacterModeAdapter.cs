@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterModeAdapter : MonoBehaviour
+    public class CharacterModeAdapter : CharacterComponent
     {
         [Header("Component")]
         [SerializeField] private BoxCollider2D _boxCollider2D;

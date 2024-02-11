@@ -1,23 +1,35 @@
-using Code.Components.Character;
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
 using Code.Data.Enums;
+using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
-using Code.Services;
 using Code.Utils;
+using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class BehaviorNode_Seat : BaseNode
     {
+        [Header("Character")]
         private readonly CharacterAnimator _characterAnimator;
-        private readonly LiveStatesAnalytics _statesAnalytics;
+        private readonly CharacterLiveStatesAnalytic _statesAnalytic;
+        
+        [Header("Services")]
 
+        [Header("Sub nodes")] 
+        private readonly SubNode_Eat _nodeEat;
+        
         public BehaviorNode_Seat()
         {
             var character = Container.Instance.FindEntity<Character>();
-            _characterAnimator = character.Animator;
-            _statesAnalytics = character.StatesAnalytics;
+            
+            //character
+            _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
+            _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            //services
+            
+            //sub nodes
+            _nodeEat = new SubNode_Eat();
         }
 
         protected override void Run()
@@ -32,13 +44,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 Debugging.Instance.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
                 Return(false);
-                
             }
         }
 
         private bool IsCanSeat()
         {
-            return _statesAnalytics.TryGetLowerSate(out var key, out var statePercent)
+            return _statesAnalytic.TryGetLowerSate(out var key, out var statePercent)
                    && statePercent < 0.4f
                    && key is LiveStateKey.Trust or LiveStateKey.Hunger;
         }

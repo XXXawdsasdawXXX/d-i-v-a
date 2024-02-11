@@ -9,6 +9,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
     public class SubNode_LookToMouse : BaseNode, IBehaviourCallback
     {
         private readonly SubNode_WaitForSeconds _waitFor;
+        
         private readonly CharacterMouseReaction _mouseReaction;
 
         public SubNode_LookToMouse()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class SpriteAnimationMask : MonoBehaviour, IActivated
+    public class SpriteAnimationMask : CommonComponent, IActivated
     {
         [SerializeField] private SpriteMask _spriteMask;
         [SerializeField] private float _frameDelay = 0.10f;

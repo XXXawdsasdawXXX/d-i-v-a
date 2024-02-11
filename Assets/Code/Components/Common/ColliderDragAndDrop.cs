@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class ColliderDragAndDrop : MonoBehaviour, IGameTickListener, IActivated
+    public class ColliderDragAndDrop : CommonComponent, IGameTickListener, IActivated
     {
         [SerializeField] private ColliderButton _colliderButton;
 

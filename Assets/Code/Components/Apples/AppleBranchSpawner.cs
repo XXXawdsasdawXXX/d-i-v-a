@@ -26,7 +26,8 @@ namespace Code.Components.Apples
             _appleBranch = Container.Instance.FindEntity<AppleBranch>();
             _apple = Container.Instance.FindEntity<Apple>();
 
-            _animationAnalytic = Container.Instance.FindEntity<Characters.Character>().AnimationAnalytic;
+            _animationAnalytic = Container.Instance.FindEntity<Characters.Character>()
+                .FindCharacterComponent<CharacterAnimationAnalytic>();
             
             SubscribeToEvents(true);
 

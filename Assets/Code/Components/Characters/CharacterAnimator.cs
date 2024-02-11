@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterAnimator : MonoBehaviour
+    public class CharacterAnimator : CharacterComponent
     {
         [SerializeField] private Animator _characterAnimator;
         [SerializeField] private Animator _frontHairAnimator;

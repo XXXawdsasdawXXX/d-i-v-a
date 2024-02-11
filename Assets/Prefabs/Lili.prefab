@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 7708477133988595676}
   - component: {fileID: 7708477133988595667}
   - component: {fileID: 631771338}
+  - component: {fileID: 4619186015331398710}
   m_Layer: 0
   m_Name: Lili
   m_TagString: Untagged
@@ -351,12 +352,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbb27b41d284061a18ffba6839a1be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colliderButton: {fileID: 342975210246099990}
-  _characterAnimator: {fileID: 7708477133988595676}
-  _characterAnimationAnalytic: {fileID: 1267662802232854736}
+  _characterComponent:
+  - {fileID: 1267662802232854736}
+  - {fileID: 7708477133988595676}
+  - {fileID: 7708477133988595667}
+  - {fileID: 631771338}
+  - {fileID: 4619186015331398710}
+  _commonComponent:
+  - {fileID: 1408423200}
+  - {fileID: 342975210246099990}
   _reactions:
-  - {fileID: 2900638762654591031}
   - {fileID: 7708477133988595677}
+  - {fileID: 2900638762654591031}
 --- !u!114 &1267662802232854736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,9 +459,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94101d7230dc40d5b08f8112344a9e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 8364212037280549741}
+  _characterAnimator: {fileID: 7708477133988595676}
   _collisionObserver: {fileID: 1408423200}
   _modeAdapter: {fileID: 7708477133988595667}
+--- !u!114 &4619186015331398710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708477133988595673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24df623e89a048bf8aa71d427bf7cebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7708477134316688129
 GameObject:
   m_ObjectHideFlags: 0

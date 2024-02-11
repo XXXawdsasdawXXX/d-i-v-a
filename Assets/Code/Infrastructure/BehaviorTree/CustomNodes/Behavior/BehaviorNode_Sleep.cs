@@ -14,7 +14,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
     public class BehaviorNode_Sleep : BaseNode
     {
         private readonly CharacterAnimator _characterAnimator;
-        private readonly LiveStatesAnalytics _statesAnalytics;
+        private readonly CharacterLiveStatesAnalytic _statesAnalytic;
 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly CoroutineRunner _coroutineRunner;
@@ -26,8 +26,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         public BehaviorNode_Sleep()
         {
             var character = Container.Instance.FindEntity<Character>();
-            _characterAnimator = character.Animator;
-            _statesAnalytics = character.StatesAnalytics;
+            _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
+            _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             Container.Instance.FindStorage<LiveStateStorage>().TryGetLiveState(LiveStateKey.Sleep, out _sleepState);
@@ -39,7 +39,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 Debugging.Instance.Log($"Нода сна: выбрано ", Debugging.Type.BehaviorTree);
 
-                _statesAnalytics.TryGetLowerSate(out LiveStateKey key, out float statePercent);
+                _statesAnalytic.TryGetLowerSate(out LiveStateKey key, out float statePercent);
 
                 if (_sleepState.GetPercent() > 0.9f)
                 {
@@ -64,7 +64,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 Debugging.Instance.Log($"Нода сна: отказ " +
                                        $"{!_timeObserver.IsNightTime()} " +
-                                       $"{_statesAnalytics.CurrentLowerLiveStateKey != LiveStateKey.Sleep}",
+                                       $"{_statesAnalytic.CurrentLowerLiveStateKey != LiveStateKey.Sleep}",
                     Debugging.Type.BehaviorTree);
 
                 Return(false);
@@ -89,7 +89,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private IEnumerator PlayExitAnimationRoutine()
         {
-            yield return new WaitUntil(() => _statesAnalytics.GetStatePercent(LiveStateKey.Sleep) >= 0.7f);
+            yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(LiveStateKey.Sleep) >= 0.7f);
             Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТОП", Debugging.Type.BehaviorTree);
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }

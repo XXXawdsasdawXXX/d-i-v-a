@@ -13,11 +13,11 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         private BaseNode _currentChild;
 
         private int _currentChildIndex;
-        private readonly LiveStatesAnalytics _stateAnalytics;
+        private readonly CharacterLiveStatesAnalytic _stateAnalytic;
 
         public BehaviorNode_Selector()
         {
-            _stateAnalytics = Container.Instance.FindEntity<Character>().StatesAnalytics;
+            _stateAnalytic = Container.Instance.FindEntity<Character>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             
             _orderedNodes = new BaseNode[]
             {
@@ -79,11 +79,11 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         {
             if (flag)
             {
-                _stateAnalytics.SwitchLowerStateKeyEvent += OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent += OnSwitchLowerLiveState;
             }
             else
             {
-                _stateAnalytics.SwitchLowerStateKeyEvent -= OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent -= OnSwitchLowerLiveState;
             }
         }
 

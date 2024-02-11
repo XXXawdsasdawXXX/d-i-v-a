@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterObjectsController : MonoBehaviour, IGameInitListener, IGameExitListener
+    public class CharacterObjectsController : CharacterComponent, IGameInitListener, IGameExitListener
     {
-        [SerializeField] private Character _character;
+        [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private CollisionObserver _collisionObserver;
         [SerializeField] private CharacterModeAdapter _modeAdapter;
 
@@ -42,19 +42,24 @@ namespace Code.Components.Characters
         {
             if (_selectedApple != null && obj.TryGetComponent(out Apple item))
             { 
-                _character.Animator.StopPlayEat();
+                _characterAnimator.StopPlayEat();
             }
         }
 
 
         private void OnEnterEvent(GameObject obj)
         {
-            if (obj.TryGetComponent(out Apple item))
-            { 
-               item.transform.position = _modeAdapter.GetWorldEatPoint();
-               _character.Animator.StartPlayEat();
-               item.Use(OnEnd: () => _character.Animator.StopPlayEat());
+            if (obj.TryGetComponent(out Apple apple))
+            {
+                UseApple(apple);
             }
+        }
+
+        private void UseApple(Apple apple)
+        {
+            apple.transform.position = _modeAdapter.GetWorldEatPoint();
+            _characterAnimator.StartPlayEat();
+            apple.Use(OnEnd: () => _characterAnimator.StopPlayEat());
         }
     }
 }

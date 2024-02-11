@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class CollisionObserver : MonoBehaviour
+    public class CollisionObserver : CommonComponent
     {
         public event Action<GameObject> EnterEvent;
         public event Action<GameObject> ExitEvent;
