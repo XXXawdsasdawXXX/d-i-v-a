@@ -79,7 +79,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanStand()
         {
-            return _statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None;
+            return true;
         }
 
 

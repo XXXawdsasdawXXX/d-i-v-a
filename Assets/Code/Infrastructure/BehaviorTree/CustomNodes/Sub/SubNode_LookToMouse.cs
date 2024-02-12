@@ -16,8 +16,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             _waitFor = new SubNode_WaitForSeconds(new RangedFloat()
             {
-                MinValue = 60 * 0.5f,
-                MaxValue = 60 * 2
+                MinValue = 60 * 0.25f,
+                MaxValue = 60 * 0.75f 
             });
             _mouseReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterMouseReaction>();
         }

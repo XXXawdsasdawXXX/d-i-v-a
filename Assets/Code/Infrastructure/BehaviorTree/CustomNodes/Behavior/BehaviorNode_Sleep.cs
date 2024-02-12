@@ -2,6 +2,8 @@
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
 using Code.Components.Characters.Reactions;
+using Code.Components.Objects;
+using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
@@ -19,24 +21,31 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly CharacterAnimator _characterAnimator;
         private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CharacterLiveState _sleepState;
+        private readonly ColliderButton _characterButton;
 
         [Header("Services")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
 
+        [Header("Values")] 
+        private readonly float _sleepCooldown;
+        private bool _cooldownIsUp = true;
 
+        
         public BehaviorNode_Sleep()
         {
             var character = Container.Instance.FindEntity<Character>();
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _characterButton = character.FindCommonComponent<ColliderButton>();
             Container.Instance.FindStorage<LiveStateStorage>().TryGetLiveState(LiveStateKey.Sleep, out _sleepState);
             //services--------------------------------------------------------------------------------------------------
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            //nodes-----------------------------------------------------------------------------------------------------
+            //values----------------------------------------------------------------------------------------------------
+            _sleepCooldown = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.Sleep;
         }
 
         protected override void Run()
@@ -78,10 +87,17 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }
 
+        private IEnumerator CooldownRoutine()
+        {
+            _cooldownIsUp = false;
+            yield return new WaitForSeconds(_sleepCooldown);
+            _cooldownIsUp = true;
+        }
         private void StopSleep()
         {
             Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
             SubscribeToEvents(false);
+            _coroutineRunner.StartRoutine(CooldownRoutine());
             Return(true);
         }
 
@@ -91,13 +107,23 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             if (flag)
             {
+                _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += StopSleep;
                 _sleepState.ChangedEvent += OnChangedSleepStateValue;
             }
             else
             {
+                _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= StopSleep;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
+            }
+        }
+
+        private void OnClickSeries(int clickCount)
+        {
+            if (clickCount >= 5)
+            {
+                StopSleep();
             }
         }
 
@@ -116,7 +142,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanSleep()
         {
-            return _timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f;
+            return _cooldownIsUp && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f);
         }
         
         private  bool IsCanExit()

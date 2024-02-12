@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Configs;
 using Code.Data.Storages;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Components.Apples
 {
-    public class Apple : Entity, IGameInitListener
+    public class Apple : Item, IGameInitListener
     {
         [Header("Components")] 
         [SerializeField] private AppleAnimator _appleAnimator;
@@ -53,7 +54,7 @@ namespace Code.Components.Apples
             _liveCoroutine = StartCoroutine(StartLiveTimerRoutine());
         }
 
-        public void Use(Action OnEnd = null)
+        public override void Use(Action OnEnd = null)
         {
             if (_liveCoroutine != null)
             {
