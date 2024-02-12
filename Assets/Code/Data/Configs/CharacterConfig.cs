@@ -13,6 +13,7 @@ namespace Code.Data.Configs
     public class CharacterConfig : ScriptableObject
     {
         [SerializeField,MinMaxRange(5,6000)] private RangedFloat _tickTime;
+        public CooldownData Cooldowns;
         [SerializeField] private LiveStateStaticParam[] _liveStateStaticParams;
 
 
@@ -20,10 +21,12 @@ namespace Code.Data.Configs
         {
             return _tickTime.GetRandomValue();
         }
+        
         public LiveStateStaticParam GetStaticParam(LiveStateKey key)
         {
             return _liveStateStaticParams.FirstOrDefault(d => d.Key == key);
         }
+        
         public float GetDecreasingValue(LiveStateKey key)
         {
             var data = _liveStateStaticParams.FirstOrDefault(d => d.Key == key);

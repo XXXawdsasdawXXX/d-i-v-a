@@ -16,20 +16,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         
         [Header("Services")]
 
+        
         [Header("Sub nodes")] 
-        private readonly SubNode_Eat _nodeEat;
+        private readonly SubNode_Eat _node_eat;
         
         public BehaviorNode_Seat()
         {
             var character = Container.Instance.FindEntity<Character>();
-            
-            //character
+            //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
-            //services
+            //services--------------------------------------------------------------------------------------------------
             
-            //sub nodes
-            _nodeEat = new SubNode_Eat();
+            //nodes-----------------------------------------------------------------------------------------------------
+            _node_eat = new SubNode_Eat();
         }
 
         protected override void Run()
@@ -38,7 +38,6 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             {
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Seat);
                 Debugging.Instance.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
-
             }
             else
             {

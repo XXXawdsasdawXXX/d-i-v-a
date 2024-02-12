@@ -4,12 +4,17 @@ using UnityEngine;
 
 namespace Code.Components.Characters.Reactions
 {
-    public abstract class CharacterReaction : MonoBehaviour, IGameExitListener
+    public abstract class CharacterReaction : MonoBehaviour, IGameExitListener, IGameInitListener
     {
-        [SerializeField] private float _maxCooldownMinutes = 5;
+        protected abstract float _maxCooldownMinutes { get; set; }
 
         private bool _isReady;
         private Coroutine _cooldownCoroutine;
+
+        public void GameInit()
+        {
+            SetCooldownMinutes();
+        }
 
         public void GameExit()
         {
@@ -19,12 +24,14 @@ namespace Code.Components.Characters.Reactions
             }
         }
 
+        protected abstract void SetCooldownMinutes();
+
         public bool IsReady()
         {
             return _isReady;
         }
 
-        public virtual void StartReaction()
+       public virtual void StartReaction()
         {
             _isReady = false;
         }

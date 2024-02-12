@@ -1,4 +1,6 @@
 ﻿using System;
+using Code.Data.Configs;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
@@ -6,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class ColliderButton : CommonComponent, IGameTickListener
+    public class ColliderButton : CommonComponent, IGameInitListener, IGameTickListener
     {
         public bool IsPressed { get; private set; }
         public event Action<Vector2> DownEvent;
@@ -14,29 +16,54 @@ namespace Code.Components.Objects
         public event Action<int> SeriesOfClicksEvent;
 
         private float _pressedTime;
-        
+
+
+        private float _maxClickCooldown, _currentClickCooldown;
+        private int _clickNumber;
+
+        public void GameInit()
+        {
+            _maxClickCooldown = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.ClickSeries;
+        }
+
         public void GameTick()
         {
             if (IsPressed)
             {
                 _pressedTime += Time.deltaTime;
             }
+
+            if (_clickNumber > 0)
+            {
+                if (_currentClickCooldown < _maxClickCooldown)
+                {
+                    _currentClickCooldown += Time.deltaTime;
+                }
+                else
+                {
+                    _clickNumber = 0;
+                }
+            }
         }
 
         private void OnMouseDown()
         {
             IsPressed = true;
-            DownEvent?.Invoke(PositionService.GetMouseWorldPosition());
+            _clickNumber++;
+            _currentClickCooldown = 0;
             
-            Debugging.Instance.Log($"{gameObject.name}: Mouse down", Debugging.Type.ButtonSprite);
+            DownEvent?.Invoke(PositionService.GetMouseWorldPosition());
+            SeriesOfClicksEvent?.Invoke(_clickNumber);
+            
+            Debugging.Instance.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);
         }
-    
+
         private void OnMouseUp()
         {
             IsPressed = false;
-            UpEvent?.Invoke(PositionService.GetMouseWorldPosition(),_pressedTime);
+            UpEvent?.Invoke(PositionService.GetMouseWorldPosition(), _pressedTime);
             _pressedTime = 0;
-            
+
             Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);
         }
 

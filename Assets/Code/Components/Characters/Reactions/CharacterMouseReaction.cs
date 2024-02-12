@@ -1,4 +1,6 @@
 ﻿using Code.Components.Characters.Reactions;
+using Code.Data.Configs;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
@@ -13,13 +15,20 @@ namespace Code.Components.Characters
         [SerializeField] private Vector2 _offset;
 
         private bool _isActive;
-        
+
+        protected override float _maxCooldownMinutes { get; set; }
+
         public void GameTick()
         {
             if (_isActive)
             {
                 SetAnimationMousePosition();
             }
+        }
+
+        protected override void SetCooldownMinutes()
+        {
+            _maxCooldownMinutes = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.ReactionMouse;
         }
 
         public override void StartReaction()

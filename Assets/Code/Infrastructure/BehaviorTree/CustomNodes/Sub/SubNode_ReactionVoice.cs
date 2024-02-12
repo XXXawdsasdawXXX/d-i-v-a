@@ -19,7 +19,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
         
         protected override void Run()
         {
-            
+            _audioReaction.StartReaction();
+            Return(true);
         }
     }
 }
