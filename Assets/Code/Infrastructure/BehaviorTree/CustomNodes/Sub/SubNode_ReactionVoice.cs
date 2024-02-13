@@ -1,9 +1,10 @@
 ﻿using Code.Components.Characters;
 using Code.Infrastructure.DI;
+using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
 {
-    public class SubNode_ReactionVoice: BaseNode
+    public class SubNode_ReactionVoice : BaseNode
     {
         private readonly CharacterAudioReaction _audioReaction;
 
@@ -16,11 +17,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
         {
             return _audioReaction.IsReady();
         }
-        
+
         protected override void Run()
         {
-            _audioReaction.StartReaction();
-            Return(true);
+            if (IsReady())
+            {
+                Debugging.Instance.Log($"Саб нода реакция на звук: запуск", Debugging.Type.BehaviorTree);
+                _audioReaction.StartReaction();
+                Return(true);
+            }
+            else
+            {
+                Debugging.Instance.Log($"Саб нода реакция на звук: отказ", Debugging.Type.BehaviorTree);
+                Return(false);
+            }
         }
     }
 }

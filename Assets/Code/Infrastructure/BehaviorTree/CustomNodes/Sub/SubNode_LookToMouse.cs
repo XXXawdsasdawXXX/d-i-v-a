@@ -16,7 +16,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             _waitFor = new SubNode_WaitForSeconds(new RangedFloat()
             {
-                MinValue = 60 * 0.25f,
+                MinValue = 60 * 0.5f,
                 MaxValue = 60 * 0.75f 
             });
             _mouseReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterMouseReaction>();
@@ -24,12 +24,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         protected override void Run()
         {
-            Debugging.Instance.Log($"Нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
             if (!IsReady())
             {
                 Return(false);
+                return;
             }
         
+            Debugging.Instance.Log($"Саб нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
             _mouseReaction.StartReaction();
             _waitFor.Run(this);
         }
@@ -38,6 +39,14 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             _waitFor.Break();
             _mouseReaction.StopReaction();
+            Debugging.Instance.Log($"Саб нода смотреть за курсором: брейк", Debugging.Type.BehaviorTree);
+        }
+
+        protected override void OnReturn(bool success)
+        {
+            _mouseReaction.StopReaction();
+            Debugging.Instance.Log($"Саб нода смотреть за курсором: ретерн {success}", Debugging.Type.BehaviorTree);
+            base.OnReturn(success);
         }
 
         private bool IsReady()
@@ -47,7 +56,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log($"Нода смотреть за курсором: колбэк", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода смотреть за курсором: ожидание закончилось колбэк", Debugging.Type.BehaviorTree);
             _mouseReaction.StopReaction();
             Return(true);
         }

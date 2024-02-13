@@ -54,6 +54,7 @@ namespace Code.Components.Characters
             _characterAnimator.SetBool(_reactionMouseHash_b, true);
             _frontHairAnimator.SetBool(_reactionMouseHash_b, true);
             _backHairAnimator.SetBool(_reactionMouseHash_b, true);
+            Debugging.Instance.Log($"Start play reaction mouse", Debugging.Type.AnimationState);
         }
         
         public void StopPlayReactionMouse()
@@ -61,6 +62,7 @@ namespace Code.Components.Characters
             _characterAnimator.SetBool(_reactionMouseHash_b, false);
             _frontHairAnimator.SetBool(_reactionMouseHash_b, false);
             _backHairAnimator.SetBool(_reactionMouseHash_b, false);
+            Debugging.Instance.Log($"Stop play reaction mouse", Debugging.Type.AnimationState);
         }
 
 

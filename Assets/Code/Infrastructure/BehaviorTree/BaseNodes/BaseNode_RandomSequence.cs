@@ -23,6 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 return;
             }
 
+            Debugging.Instance.Log($"Рандомная сиквенция: старт", Debugging.Type.BehaviorTree);
             _currentNodeIndex = 0;
             _currentChild = _orderNodes[_currentNodeIndex];
             _currentChild.Run(callback: this);
@@ -30,6 +31,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
+            Debugging.Instance.Log($"Рандомная сиквенция: калбэк {success}", Debugging.Type.BehaviorTree);
             if (!success)
             {
                 Return(false);
@@ -42,6 +44,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 return;
             }
 
+            Debugging.Instance.Log($"Рандомная сиквенция: калбэк следующая нода", Debugging.Type.BehaviorTree);
             _currentNodeIndex++;
             _currentChild = _orderNodes[_currentNodeIndex];
             _currentChild.Run(callback: this);
@@ -53,12 +56,13 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             {
                 _currentChild.Break();
                 _currentChild = null;
+                Debugging.Instance.Log($"Рандомная сиквенция: брейк", Debugging.Type.BehaviorTree);
             }
-        }
-
-        protected override void OnReturn(bool success)
-        {
-            //    Debug.Log($"NODE: {name} RETURN: {result}");
+            else
+            {
+                Debugging.Instance.Log($"Рандомная сиквенция: брейк -> нет дочерней ноды", Debugging.Type.BehaviorTree);
+                
+            }
         }
 
 

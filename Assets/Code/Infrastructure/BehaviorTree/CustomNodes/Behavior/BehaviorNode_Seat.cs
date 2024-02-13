@@ -18,7 +18,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         
         [Header("Sub nodes")] 
-        private readonly SubNode_Eat _node_eat;
+        private readonly SubNode_ItemsReaction _nodeItemsReaction;
         
         public BehaviorNode_Seat()
         {
@@ -29,7 +29,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             //services--------------------------------------------------------------------------------------------------
             
             //nodes-----------------------------------------------------------------------------------------------------
-            _node_eat = new SubNode_Eat();
+            _nodeItemsReaction = new SubNode_ItemsReaction();
         }
 
         protected override void Run()

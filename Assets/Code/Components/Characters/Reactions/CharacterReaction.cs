@@ -8,7 +8,7 @@ namespace Code.Components.Characters.Reactions
     {
         protected abstract float _maxCooldownMinutes { get; set; }
 
-        private bool _isReady;
+        private bool _isReady = true;
         private Coroutine _cooldownCoroutine;
 
         public void GameInit()
