@@ -37,7 +37,7 @@ namespace Code.Components.Characters
         {
             apple.transform.position = _modeAdapter.GetWorldEatPoint();
             apple.ReadyForUse();
-            _characterAnimator.StartPlayEat(() =>
+            _characterAnimator.StartPlayEat(OnReadyEat: () =>
             {
                 apple.Use(OnEnd: () =>
                 {

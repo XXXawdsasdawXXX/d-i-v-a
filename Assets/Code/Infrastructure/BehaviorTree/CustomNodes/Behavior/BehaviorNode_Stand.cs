@@ -14,11 +14,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class BehaviorNode_Stand : BaseNode, IBehaviourCallback
     {
-        [Header("Character")] private readonly CharacterAnimator _characterAnimator;
+        [Header("Character")] 
+        private readonly CharacterAnimator _characterAnimator;
         private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Node")] private BaseNode _node_Current;
+        [Header("Node")] 
+        private BaseNode _node_Current;
         private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ItemsReaction _node_ItemReaction;
 

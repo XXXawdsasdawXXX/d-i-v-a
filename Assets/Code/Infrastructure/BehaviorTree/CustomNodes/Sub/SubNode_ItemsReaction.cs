@@ -41,20 +41,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
 
         protected override void OnReturn(bool success)
         {
-                Debugging.Instance.Log($"Саб нода реакции на объект: ретерн {success}", Debugging.Type.BehaviorTree);
-            base.OnReturn(success);
+            Debugging.Instance.Log($"Саб нода реакции на объект: ретерн {success}", Debugging.Type.BehaviorTree);
             _item = null;
+            base.OnReturn(success);
         }
 
         protected override void OnBreak()
         {
-                Debugging.Instance.Log($"Саб нода реакции на объект: брейк", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Саб нода реакции на объект: брейк", Debugging.Type.BehaviorTree);
             _item = null;
         }
 
         public void SetCurrentItem(Item component)
         {
-                Debugging.Instance.Log($"Саб нода реакции на объект: установлен итем", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Саб нода реакции на объект: установлен итем", Debugging.Type.BehaviorTree);
             _item = component;
         }
     }
