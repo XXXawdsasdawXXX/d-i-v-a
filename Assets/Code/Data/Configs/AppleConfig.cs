@@ -8,9 +8,9 @@ namespace Code.Data.Configs
     public class AppleConfig : ScriptableObject
     {
         [Header("Time for spawn apple branch")]
-        [MinMaxRange(1, 300)] public RangedFloat SpawnCooldownMinutes;
+        [MinMaxRangeFloat(1, 300)] public RangedFloat SpawnCooldownMinutes;
         [Header("Time for one apple stage")]
-        [MinMaxRange(60, 600)] public RangedFloat LiveTimeSecond;
+        [MinMaxRangeFloat(60, 600)] public RangedFloat LiveTimeSecond;
         [Header("Apples stage params\nValue is a percentage of the state's maximum value.")]
         public LiveStateValues[] SmallAppleValues;
         public LiveStateValues[] BigAppleValues;

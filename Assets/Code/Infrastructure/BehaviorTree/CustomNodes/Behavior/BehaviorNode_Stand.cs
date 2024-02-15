@@ -2,6 +2,7 @@
 using Code.Components.Characters;
 using Code.Components.Items;
 using Code.Components.Objects;
+using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
@@ -34,11 +35,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             //node------------------------------------------------------------------------------------------------------
             _node_randomSequence = new BaseNode_RandomSequence(new BaseNode[]
             {
-                new SubNode_WaitForSeconds(new RangedFloat()
-                {
-                    MinValue = 60 * /*1*/0.15f,
-                    MaxValue = 60 * /*5*/ 0.5f
-                }),
+                new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.Stand),
                 new SubNode_LookToMouse()
             });
             _node_ItemReaction = new SubNode_ItemsReaction();
@@ -95,11 +92,6 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private void RunNode(BaseNode node)
         {
-            if (_node_Current != null && _node_Current == node)
-            {
-                Debugging.Instance.Log($"Нода стояния: попыталась запустить уже запущенную саб ноду ", Debugging.Type.BehaviorTree);
-                return;
-            }
             _node_Current?.Break();
             _node_Current = node;
             _node_Current.Run(this);

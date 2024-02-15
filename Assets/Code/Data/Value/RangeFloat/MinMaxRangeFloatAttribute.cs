@@ -2,9 +2,9 @@
 
 namespace Code.Data.Value.RangeFloat
 {
-	public class MinMaxRangeAttribute : Attribute
+	public class MinMaxRangeFloatAttribute : Attribute
 	{
-		public MinMaxRangeAttribute(float min, float max)
+		public MinMaxRangeFloatAttribute(float min, float max)
 		{
 			Min = min;
 			Max = max;

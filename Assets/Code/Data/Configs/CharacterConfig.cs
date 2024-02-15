@@ -12,15 +12,10 @@ namespace Code.Data.Configs
     [CreateAssetMenu(fileName = "CharacterConfig", menuName = "Configs/Character config")]
     public class CharacterConfig : ScriptableObject
     {
-        [SerializeField,MinMaxRange(5,6000)] private RangedFloat _tickTime;
-        public CooldownData Cooldowns;
+
         [SerializeField] private LiveStateStaticParam[] _liveStateStaticParams;
 
 
-        public float GetTickTime()
-        {
-            return _tickTime.GetRandomValue();
-        }
         
         public LiveStateStaticParam GetStaticParam(LiveStateKey key)
         {

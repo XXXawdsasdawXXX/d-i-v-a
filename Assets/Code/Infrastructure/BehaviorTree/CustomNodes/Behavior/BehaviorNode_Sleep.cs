@@ -27,10 +27,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly LiveStateStorage _liveStateStorage;
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
+        private readonly TickCounter _tickCounter;
+        
 
-        [Header("Values")] 
-        private readonly float _sleepCooldown;
-        private bool _cooldownIsUp = true;
+
 
         
         public BehaviorNode_Sleep()
@@ -44,8 +44,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             //services--------------------------------------------------------------------------------------------------
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
             //values----------------------------------------------------------------------------------------------------
-            _sleepCooldown = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.Sleep;
+       
         }
 
         protected override void Run()
@@ -87,17 +88,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }
 
-        private IEnumerator CooldownRoutine()
-        {
-            _cooldownIsUp = false;
-            yield return new WaitForSeconds(_sleepCooldown);
-            _cooldownIsUp = true;
-        }
+ 
         private void StopSleep()
         {
             Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
             SubscribeToEvents(false);
-            _coroutineRunner.StartRoutine(CooldownRoutine());
+            _tickCounter.StartWait();
             Return(true);
         }
 
@@ -142,7 +138,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanSleep()
         {
-            return _cooldownIsUp && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f);
+            return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f);
         }
         
         private  bool IsCanExit()

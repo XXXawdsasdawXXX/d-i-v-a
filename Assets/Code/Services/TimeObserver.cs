@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Code.Data.Configs;
 using Code.Data.Interfaces;
+using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
@@ -16,7 +17,7 @@ namespace Code.Services
         private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
 
-        private CharacterConfig _characterConfig;
+        private RangedFloat _tickRangedTime;
         public DateTime CurrentTime;
         
         private float _currentTickCooldown;
@@ -31,7 +32,7 @@ namespace Code.Services
         [Obsolete("Obsolete")]
         public void GameInit()
         {
-            _characterConfig = Container.Instance.FindConfig<CharacterConfig>();
+            _tickRangedTime = Container.Instance.FindConfig<TimeConfig>().TickRangedTime;
             
             var coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             if (coroutineRunner == null)
@@ -40,7 +41,7 @@ namespace Code.Services
                 return;
             }
 
-            _tickTime = _characterConfig.GetTickTime();
+            _tickTime = _tickRangedTime.GetRandomValue();
             coroutineRunner.StartRoutine(InitCurrentTime());
 
             Debugging.Instance.Log($"Current time {CurrentTime}", Debugging.Type.Time);
@@ -67,7 +68,7 @@ namespace Code.Services
             _currentTickCooldown += Time.deltaTime;
             if (_currentTickCooldown >= _tickTime)
             {
-                _tickTime = _characterConfig.GetTickTime();
+                _tickTime = _tickRangedTime.GetRandomValue();
                 _currentTickCooldown = 0;
                 Debugging.Instance.Log($"Tick", Debugging.Type.Time);
                 TickEvent?.Invoke();

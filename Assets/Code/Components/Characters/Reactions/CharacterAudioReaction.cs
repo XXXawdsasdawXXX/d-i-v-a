@@ -9,13 +9,11 @@ namespace Code.Components.Characters
     {
         [Header("Components")] 
         [SerializeField] private CharacterAnimator _characterAnimator;
-
-
-        protected override float _maxCooldownMinutes { get; set; }
+        protected override int _cooldownTickCount { get; set; }
 
         protected override void SetCooldownMinutes()
         {
-            _maxCooldownMinutes = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.ReactionMaxAudioClip;
+            _cooldownTickCount = Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
         }
 
         public override void StartReaction()

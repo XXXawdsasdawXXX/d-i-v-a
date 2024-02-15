@@ -16,7 +16,7 @@ namespace Code.Components.Characters
 
         private bool _isActive;
 
-        protected override float _maxCooldownMinutes { get; set; }
+        protected override int _cooldownTickCount { get; set; }
 
         public void GameTick()
         {
@@ -28,7 +28,7 @@ namespace Code.Components.Characters
 
         protected override void SetCooldownMinutes()
         {
-            _maxCooldownMinutes = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.ReactionMouse;
+            _cooldownTickCount = Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMouse;
         }
 
         public override void StartReaction()

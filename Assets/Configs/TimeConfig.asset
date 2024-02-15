@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0a88d9f5ed4a01985f8a0648e14677, type: 3}
+  m_Name: TimeConfig
+  m_EditorClassIdentifier: 
+  TickRangedTime:
+    MinValue: 5
+    MaxValue: 5
+  ClickSeries: 0.75
+  Cooldown:
+    Sleep: 5
+    ReactionMaxAudioClip: 2
+    ReactionMouse: 2
+  Duration:
+    LookToMouse:
+      MinValue: 1
+      MaxValue: 3
+    Stand:
+      MinValue: 2
+      MaxValue: 6

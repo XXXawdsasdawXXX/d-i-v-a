@@ -23,7 +23,7 @@ namespace Code.Components.Objects
 
         public void GameInit()
         {
-            _maxClickCooldown = Container.Instance.FindConfig<CharacterConfig>().Cooldowns.ClickSeries;
+            _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;
         }
 
         public void GameTick()

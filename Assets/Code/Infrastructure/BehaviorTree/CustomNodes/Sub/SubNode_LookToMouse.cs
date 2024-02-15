@@ -1,4 +1,5 @@
 ﻿using Code.Components.Characters;
+using Code.Data.Configs;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
@@ -8,17 +9,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
     public class SubNode_LookToMouse : BaseNode, IBehaviourCallback
     {
-        private readonly SubNode_WaitForSeconds _waitFor;
+        private readonly SubNode_WaitForTicks _waitFor;
         
         private readonly CharacterMouseReaction _mouseReaction;
 
         public SubNode_LookToMouse()
         {
-            _waitFor = new SubNode_WaitForSeconds(new RangedFloat()
-            {
-                MinValue = 60 * 0.5f,
-                MaxValue = 60 * 0.75f 
-            });
+            _waitFor = new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.LookToMouse);
             _mouseReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterMouseReaction>();
         }
 

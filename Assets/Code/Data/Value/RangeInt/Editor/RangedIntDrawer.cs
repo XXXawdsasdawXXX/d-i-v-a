@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Code.Data.Value.RangeFloat
 {
-	[CustomPropertyDrawer(typeof(RangedFloat), true)]
-	public class RangedFloatDrawer : PropertyDrawer {
+	[CustomPropertyDrawer(typeof(RangedInt), true)]
+	public class RangedIntDrawer : PropertyDrawer {
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			label = EditorGUI.BeginProperty(position, label, property);
@@ -13,13 +13,13 @@ namespace Code.Data.Value.RangeFloat
 			SerializedProperty minProp = property.FindPropertyRelative("MinValue");
 			SerializedProperty maxProp = property.FindPropertyRelative("MaxValue");
 
-			float minValue = minProp.floatValue;
-			float maxValue = maxProp.floatValue;
+			var minValue = minProp.intValue;
+			var maxValue = maxProp.intValue;
 
-			float rangeMin = 0;
-			float rangeMax = 1;
+			var  rangeMin = 0;
+			var rangeMax = 1;
 
-			var ranges = (MinMaxRangeFloatAttribute[])fieldInfo.GetCustomAttributes(typeof (MinMaxRangeFloatAttribute), true);
+			var ranges = (MinMaxRangeIntAttribute[])fieldInfo.GetCustomAttributes(typeof (MinMaxRangeIntAttribute), true);
 			if (ranges.Length > 0)
 			{
 				rangeMin = ranges[0].Min;
@@ -39,11 +39,15 @@ namespace Code.Data.Value.RangeFloat
 			position.xMax -= rangeBoundsLabelWidth;
 
 			EditorGUI.BeginChangeCheck();
-			EditorGUI.MinMaxSlider(position, ref minValue, ref maxValue, rangeMin, rangeMax);
+// Преобразуйте значения MinValue и MaxValue из int в float перед передачей в MinMaxSlider
+			float minFloatValue = (float)minValue;
+			float maxFloatValue = (float)maxValue;
+			EditorGUI.MinMaxSlider(position, ref minFloatValue, ref maxFloatValue, (float)rangeMin, (float)rangeMax);
 			if (EditorGUI.EndChangeCheck())
 			{
-				minProp.floatValue = minValue;
-				maxProp.floatValue = maxValue;
+				// Преобразуйте обратно значения MinValue и MaxValue из float в int после изменения слайдера
+				minProp.intValue = Mathf.RoundToInt(minFloatValue);
+				maxProp.intValue = Mathf.RoundToInt(maxFloatValue);
 			}
 
 			EditorGUI.EndProperty();
