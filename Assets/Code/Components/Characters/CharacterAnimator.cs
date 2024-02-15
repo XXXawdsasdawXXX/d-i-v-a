@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
 using Code.Data.Enums;
+using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
+using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterAnimator : CharacterComponent
+    public class CharacterAnimator : CharacterComponent, IGameInitListener
     {
         [SerializeField] private Animator _characterAnimator;
         [SerializeField] private Animator _frontHairAnimator;
@@ -23,7 +27,14 @@ namespace Code.Components.Characters
         private readonly int _mouseXHash_f = Animator.StringToHash("MouseX");
         private readonly int _mouseYHash_f = Animator.StringToHash("MouseY");
         public event Action<CharacterAnimationMode> ModeEnteredEvent;
+
         public CharacterAnimationMode Mode { get; private set; }
+
+        private CoroutineRunner _coroutineRunner;
+        public void GameInit()
+        {
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+        }
 
         #region Reaction Animation
 
@@ -34,11 +45,12 @@ namespace Code.Components.Characters
             _backHairAnimator.SetTrigger(_reactionVoiceHash_t);
         }
 
-        public void StartPlayEat()
+        public void StartPlayEat(Action OnReadyEat = null)
         {
             _characterAnimator.SetBool(_eatHash_b, true);
             _frontHairAnimator.SetBool(_eatHash_b, true);
             _backHairAnimator.SetBool(_eatHash_b, true);
+            _coroutineRunner.StartActionWithDelay(OnReadyEat, 1);
         }
 
         public void StopPlayEat()
@@ -56,7 +68,7 @@ namespace Code.Components.Characters
             _backHairAnimator.SetBool(_reactionMouseHash_b, true);
             Debugging.Instance.Log($"Start play reaction mouse", Debugging.Type.AnimationState);
         }
-        
+
         public void StopPlayReactionMouse()
         {
             _characterAnimator.SetBool(_reactionMouseHash_b, false);
@@ -77,6 +89,7 @@ namespace Code.Components.Characters
             _backHairAnimator.SetFloat(_mouseXHash_f,x);
             _backHairAnimator.SetFloat(_mouseYHash_f,y);
         }
+
         #endregion
 
         #region SetMode
@@ -172,28 +185,6 @@ namespace Code.Components.Characters
                     break;
                 case CharacterAnimationMode.Sleep:
                     SetSleepMode();
-                    break;
-            }
-        }
-
-        public void EnterToMode(LiveStateKey state)
-        {
-            switch (state)
-            {
-                case LiveStateKey.None:
-                    SetEmptyMode();
-                    break;
-                case LiveStateKey.Sleep:
-                    SetSleepMode();
-                    break;
-                case LiveStateKey.Hunger:
-                    SetSeatMode();
-                    break;
-                case LiveStateKey.Trust:
-                    SetSeatMode();
-                    break;
-                default:
-                    SetStandMode();
                     break;
             }
         }

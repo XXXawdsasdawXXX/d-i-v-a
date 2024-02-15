@@ -54,7 +54,7 @@ namespace Code.Components.Apples
             _liveCoroutine = StartCoroutine(StartLiveTimerRoutine());
         }
 
-        public override void Use(Action OnEnd = null)
+        public void ReadyForUse()
         {
             if (_liveCoroutine != null)
             {
@@ -64,6 +64,11 @@ namespace Code.Components.Apples
             _dragAndDrop.Deactivate();
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
+            
+        }
+
+        public override void Use(Action OnEnd = null)
+        {
 
             _appleAnimator.PlayUse(onEnd: () =>
             {
