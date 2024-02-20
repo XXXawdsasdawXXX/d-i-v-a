@@ -1,24 +1,24 @@
-﻿using System.Collections;
-using Code.Components.Characters;
+﻿using Code.Components.Characters;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Apples
 {
-    public class AppleBranchSpawner : MonoBehaviour, IService, IGameInitListener, IGameStartListener, IGameExitListener
+    public class AppleBranchController : MonoBehaviour, IService, IGameInitListener, IGameStartListener
     {
         private AppleConfig _appleConfig;
         private AppleBranch _appleBranch;
         private Apple _apple;
 
         private CharacterAnimationAnalytic _animationAnalytic;
-        
-        private Coroutine _coroutine;
+
+        private TickCounter _tickCounter;
 
         public void GameInit()
         {
@@ -26,8 +26,9 @@ namespace Code.Components.Apples
             _appleBranch = Container.Instance.FindEntity<AppleBranch>();
             _apple = Container.Instance.FindEntity<Apple>();
 
-            _animationAnalytic = Container.Instance.FindEntity<Characters.Character>()
+            _animationAnalytic = Container.Instance.FindEntity<Characters.DIVA>()
                 .FindCharacterComponent<CharacterAnimationAnalytic>();
+            _tickCounter = new TickCounter();
             
             SubscribeToEvents(true);
 
@@ -39,48 +40,29 @@ namespace Code.Components.Apples
             Spawn();
         }
 
-        public void GameExit()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-            }
 
-            SubscribeToEvents(false);
-        }
 
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _apple.Event.EndLiveTimeEvent += OnAppleEnd;
+                _apple.Event.EndLiveTimeEvent +=  Spawn;
+                _tickCounter.WaitedEvent += OnWaitedTickCounter;
             }
             else
             {
-                _apple.Event.EndLiveTimeEvent -= OnAppleEnd;
+               // _apple.Event.EndLiveTimeEvent -= OnAppleEnd;
             }
         }
         
-
-        private void OnAppleEnd()
-        {
-            Spawn();
-        }
-
         private void Spawn()
         {
-            _coroutine ??= StartCoroutine(SpawnRoutine());
+            var period = _appleConfig.SpawnCooldownTick.GetRandomValue();
+            _tickCounter.StartWait(period);
         }
 
-        private IEnumerator SpawnRoutine()
+        private void OnWaitedTickCounter()
         {
-            var period = _appleConfig.SpawnCooldownMinutes.GetRandomValue() * 60;
-            Debugging.Instance.Log($"Spawn routine -> period {period / 60} min", Debugging.Type.Apple);
-            
-            yield return new WaitForSeconds(period);
-
-            _coroutine = null;
-            
             if (_animationAnalytic.GetAnimationMode() == CharacterAnimationMode.Sleep)
             {
                 Spawn();

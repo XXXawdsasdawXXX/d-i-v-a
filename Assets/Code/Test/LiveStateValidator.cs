@@ -19,7 +19,7 @@ namespace Code.Test
 
         public void GameInit()
         {
-            _stateAnalytic = Container.Instance.FindEntity<Character>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _stateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
         

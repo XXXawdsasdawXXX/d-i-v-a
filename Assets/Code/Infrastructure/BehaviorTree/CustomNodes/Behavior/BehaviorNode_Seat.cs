@@ -22,7 +22,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         
         public BehaviorNode_Seat()
         {
-            var character = Container.Instance.FindEntity<Character>();
+            var character = Container.Instance.FindEntity<DIVA>();
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();

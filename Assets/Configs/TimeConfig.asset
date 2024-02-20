@@ -27,3 +27,7 @@ MonoBehaviour:
     Stand:
       MinValue: 2
       MaxValue: 6
+  Delay:
+    GrassGrow:
+      MinValue: 1
+      MaxValue: 2

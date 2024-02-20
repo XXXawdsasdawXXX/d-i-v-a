@@ -17,7 +17,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
         public SubNode_ItemsReaction()
         {
             //character-------------------------------------------------------------------------------------------------
-            _itemsController = Container.Instance.FindEntity<Character>()
+            _itemsController = Container.Instance.FindEntity<DIVA>()
                 .FindCharacterComponent<CharacterItemsController>();
         }
         

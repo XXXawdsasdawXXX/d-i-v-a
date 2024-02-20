@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Code.Components.Characters.Editor
 {
-    [CustomEditor(typeof(Character))]
+    [CustomEditor(typeof(DIVA))]
     public class CharacterEditor: UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            Character character = (Character)target;
+            DIVA diva = (DIVA)target;
 
             if (GUILayout.Button("Find all components"))
             {
-                character.FindAllComponents();
+                diva.FindAllComponents();
             }
         }
     }

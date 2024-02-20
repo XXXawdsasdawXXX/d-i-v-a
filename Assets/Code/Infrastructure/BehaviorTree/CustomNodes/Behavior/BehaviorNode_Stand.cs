@@ -28,7 +28,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         public BehaviorNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
-            var character = Container.Instance.FindEntity<Character>();
+            var character = Container.Instance.FindEntity<DIVA>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();

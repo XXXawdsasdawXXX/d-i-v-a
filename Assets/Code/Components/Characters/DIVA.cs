@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class Character : Entity
+    public class DIVA : Entity
     {
         [SerializeField] private CharacterComponent[] _characterComponent;
         [SerializeField] private CommonComponent[] _commonComponent;

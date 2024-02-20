@@ -26,11 +26,12 @@ namespace Code.Components.Characters
         
         private readonly int _mouseXHash_f = Animator.StringToHash("MouseX");
         private readonly int _mouseYHash_f = Animator.StringToHash("MouseY");
-        public event Action<CharacterAnimationMode> ModeEnteredEvent;
 
         public CharacterAnimationMode Mode { get; private set; }
 
         private CoroutineRunner _coroutineRunner;
+        public event Action<CharacterAnimationMode> ModeEnteredEvent;//EVENT!!^_^
+        
         public void GameInit()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();

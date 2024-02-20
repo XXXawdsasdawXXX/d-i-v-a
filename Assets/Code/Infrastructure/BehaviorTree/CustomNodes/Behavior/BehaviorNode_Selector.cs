@@ -17,7 +17,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         public BehaviorNode_Selector()
         {
-            _stateAnalytic = Container.Instance.FindEntity<Character>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             
             _orderedNodes = new BaseNode[]
             {

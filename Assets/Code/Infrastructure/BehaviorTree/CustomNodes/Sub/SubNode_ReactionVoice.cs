@@ -10,7 +10,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
 
         public SubNode_ReactionVoice()
         {
-            _audioReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterAudioReaction>();
+            _audioReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterAudioReaction>();
         }
 
         public bool IsReady()

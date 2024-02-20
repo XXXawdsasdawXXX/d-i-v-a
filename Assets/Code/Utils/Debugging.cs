@@ -24,7 +24,8 @@ namespace Code.Utils
             ButtonSprite,
             Apple,
             Position,
-            GameState
+            GameState,
+            Grass
         }
 
         [Serializable]

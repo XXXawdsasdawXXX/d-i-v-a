@@ -3,25 +3,29 @@ using Code.Infrastructure.DI;
 
 namespace Code.Services
 {
+    [Serializable]
     public class TickCounter 
     {
         private readonly TimeObserver _timeObserver;
         
         private int _tickCount;
         private int _currentTickNumber;
-        public bool IsWaited { get; private set; } = true;
 
+        private bool _isLoop;
+        public bool IsWaited { get; private set; } = true;
         public event Action WaitedEvent;
         
         #region Constructors
 
-        public TickCounter()
+        public TickCounter(bool isLoop = true)
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _isLoop = isLoop;
+            _timeObserver = Container.Instance?.FindService<TimeObserver>();
         }
         
-        public TickCounter(int tickCount)
+        public TickCounter(int tickCount,bool isLoop = true)
         {
+            _isLoop = isLoop;
             _tickCount = tickCount;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
         }
@@ -49,10 +53,15 @@ namespace Code.Services
             }
         }
 
-        public void StopWait()
+        public void StopWait(bool isStopLoop = false)
         {
+            _currentTickNumber = 0;
             IsWaited = true;
-            SubscribeToEvents(false);
+           
+            if (!_isLoop || (_isLoop && isStopLoop))
+            {
+                SubscribeToEvents(false);
+            }
         }
 
         #endregion
@@ -76,8 +85,8 @@ namespace Code.Services
             _currentTickNumber++;
             if (_currentTickNumber >= _tickCount)
             {
-                IsWaited = true;
                 WaitedEvent?.Invoke();
+                StopWait(); 
             }
         }
 

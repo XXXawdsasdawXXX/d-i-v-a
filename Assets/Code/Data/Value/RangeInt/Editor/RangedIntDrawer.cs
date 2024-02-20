@@ -39,13 +39,11 @@ namespace Code.Data.Value.RangeFloat
 			position.xMax -= rangeBoundsLabelWidth;
 
 			EditorGUI.BeginChangeCheck();
-// Преобразуйте значения MinValue и MaxValue из int в float перед передачей в MinMaxSlider
 			float minFloatValue = (float)minValue;
 			float maxFloatValue = (float)maxValue;
 			EditorGUI.MinMaxSlider(position, ref minFloatValue, ref maxFloatValue, (float)rangeMin, (float)rangeMax);
 			if (EditorGUI.EndChangeCheck())
 			{
-				// Преобразуйте обратно значения MinValue и MaxValue из float в int после изменения слайдера
 				minProp.intValue = Mathf.RoundToInt(minFloatValue);
 				maxProp.intValue = Mathf.RoundToInt(maxFloatValue);
 			}

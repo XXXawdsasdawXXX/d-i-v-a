@@ -16,7 +16,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         public SubNode_LookToMouse()
         {
             _waitFor = new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.LookToMouse);
-            _mouseReaction = Container.Instance.FindEntity<Character>().FindReaction<CharacterMouseReaction>();
+            _mouseReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterMouseReaction>();
         }
 
         protected override void Run()

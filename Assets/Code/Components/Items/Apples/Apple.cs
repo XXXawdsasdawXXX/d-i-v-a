@@ -6,6 +6,7 @@ using Code.Data.Configs;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -13,8 +14,9 @@ namespace Code.Components.Apples
 {
     public class Apple : Item, IGameInitListener
     {
-        [Header("Components")] 
-        [SerializeField] private AppleAnimator _appleAnimator;
+        [Header("Components")] [SerializeField]
+        private AppleAnimator _appleAnimator;
+
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColliderDragAndDrop _dragAndDrop;
@@ -28,7 +30,7 @@ namespace Code.Components.Apples
         private AppleConfig _appleConfig;
         private LiveStateStorage _liveStateStorage;
 
-        private Coroutine _liveCoroutine;
+        private TickCounter _tickCounter;
         private bool _isFall;
         private bool _isBig;
 
@@ -37,10 +39,14 @@ namespace Code.Components.Apples
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
 
+            _tickCounter = new TickCounter();
             Debugging.Instance.Log($"Init apple {_appleConfig != null} {_liveStateStorage != null}",
                 Debugging.Type.Apple);
+            
+            _tickCounter.WaitedEvent += OnTickCounterWaited;
         }
 
+   
         public void Grow()
         {
             _isFall = false;
@@ -51,25 +57,19 @@ namespace Code.Components.Apples
             _dragAndDrop.Activate();
             _appleAnimator.PlayEnter();
 
-            _liveCoroutine = StartCoroutine(StartLiveTimerRoutine());
+            _tickCounter.StartWait(_appleConfig.OneStageLiveTimeTick.GetRandomValue());
+            
         }
 
         public void ReadyForUse()
         {
-            if (_liveCoroutine != null)
-            {
-                StopCoroutine(_liveCoroutine);
-            }
-
             _dragAndDrop.Deactivate();
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
-            
         }
 
         public override void Use(Action OnEnd = null)
         {
-
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 _liveStateStorage.AddPercentageValues(_isBig
@@ -91,31 +91,28 @@ namespace Code.Components.Apples
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         }
 
-        private IEnumerator StartLiveTimerRoutine()
+        private void OnTickCounterWaited()
         {
-            while (CurrentStage < MaxStage)
+            _tickCounter.StartWait(_appleConfig.OneStageLiveTimeTick.GetRandomValue());
+
+            if (!_isBig && !_isFall)
             {
-                yield return  new WaitForSeconds(_appleConfig.LiveTimeSecond.GetRandomValue());
-
-                if (!_isBig && !_isFall)
-                {
-                    _isBig = true;
-                    _appleAnimator.SetBigApple();
-                }
-                else
-                {
-                    CurrentStage++;
-                    if (CurrentStage == 2 && !_isFall)
-                    {
-                        Fall();
-                        Event.InvokeStartIllEvent();
-                    }
-
-                    _appleAnimator.SetAppleStage(CurrentStage);
-                }
-                
-                Event.InvokeGrowEvent();
+                _isBig = true;
+                _appleAnimator.SetBigApple();
             }
+            else
+            {
+                CurrentStage++;
+                if (CurrentStage == 2 && !_isFall)
+                {
+                    Fall();
+                    Event.InvokeStartIllEvent();
+                }
+
+                _appleAnimator.SetAppleStage(CurrentStage);
+            }
+
+            Event.InvokeGrowEvent();
         }
     }
 }
