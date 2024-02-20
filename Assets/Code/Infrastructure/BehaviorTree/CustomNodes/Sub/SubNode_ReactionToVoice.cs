@@ -11,6 +11,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
         public SubNode_ReactionToVoice()
         {
             _audioReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterAudioReaction>();
+            _audioReaction.EndReactionEvent += AudioReactionOnEndReactionEvent;
+        }
+
+        private void AudioReactionOnEndReactionEvent()
+        {
+            Return(true);
         }
 
         public bool IsReady()
@@ -24,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
             {
                 Debugging.Instance.Log($"Саб нода реакция на звук: запуск", Debugging.Type.BehaviorTree);
                 _audioReaction.StartReaction();
-                Return(true);
+              
             }
             else
             {

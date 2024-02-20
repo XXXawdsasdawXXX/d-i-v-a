@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
-using Code.Components.Characters.Reactions;
 using Code.Components.Objects;
 using Code.Data.Configs;
 using Code.Data.Enums;
@@ -16,7 +15,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Sleep : BaseNode
+    public class BehaviorNode_Sleep : BaseNode_Root
     {
         [Header("Character")] 
         private readonly CharacterAnimator _characterAnimator;
@@ -28,13 +27,16 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
+        private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         
-
+        [Header("Node")] 
+        private readonly SubNode_ReactionToVoice _subNode_reactionToVoice;
+        
         [Header("Values")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly RangedFloat _effectAwakeningValue;
 
-        
+
         public BehaviorNode_Sleep()
         {
             var character = Container.Instance.FindEntity<DIVA>();
@@ -47,20 +49,24 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
+            _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
+            //node------------------------------------------------------------------------------------------------------
+            _subNode_reactionToVoice = new SubNode_ReactionToVoice();
             //values----------------------------------------------------------------------------------------------------
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().EffectAwakeningValue;
         }
 
+        #region Base methods
+        
         protected override void Run()
         {
             if (IsCanSleep())
             {
                 Debugging.Instance.Log($"Нода сна: выбрано ", Debugging.Type.BehaviorTree);
-            
+
                 SubscribeToEvents(true);
                 _sleepState?.SetHealUpdate();
-             
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
 
                 if (IsCanExit())
@@ -83,6 +89,19 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             base.OnBreak();
         }
 
+        public override void InvokeCallback(BaseNode node, bool success)
+        {
+            if (node is SubNode_ReactionToVoice)
+            {
+                WakeUp();
+            }
+            base.InvokeCallback(node, success);
+        }
+
+        #endregion
+
+        #region Unique methods
+        
         private IEnumerator PlayExitAnimationRoutine()
         {
             _characterAnimator.EnterToMode(CharacterAnimationMode.None);
@@ -91,15 +110,38 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }
 
- 
-        private void StopSleep()
+        private void WakeUp()
         {
-            Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
-            SubscribeToEvents(false);
-            _tickCounter.StartWait();
-            Return(true);
+            Debugging.Instance.Log($"Нода сна: разбудили", Debugging.Type.BehaviorTree);
+            _liveStateStorage.AddPercentageValue(new LiveStateValue()
+            {
+                Key = LiveStateKey.Trust,
+                Value = -_effectAwakeningValue.GetRandomValue()
+            });
+            StopSleep(delay: 1.5f);
         }
 
+        private void StopSleep(float delay = 0)
+        {
+            if (delay == 0)
+            {
+                _tickCounter.StartWait();
+                Return(true);
+            }
+            else
+            {
+                _coroutineRunner.StartActionWithDelay(() =>
+                {
+                    _tickCounter.StartWait();
+                    Return(true);
+                },delay);
+            }
+            SubscribeToEvents(false);
+            Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
+        }
+        
+        #endregion
+        
         #region Events
 
         private void SubscribeToEvents(bool flag)
@@ -107,29 +149,32 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (flag)
             {
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
-                _timeObserver.StartDayEvent += StopSleep;
+                _timeObserver.StartDayEvent += WakeUp;
                 _sleepState.ChangedEvent += OnChangedSleepStateValue;
+                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
-                _timeObserver.StartDayEvent -= StopSleep;
+                _timeObserver.StartDayEvent -= WakeUp;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
+                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
             }
+        }
+
+        private void OnMaxDecibelRecorder()
+        {
+           RunNode(_subNode_reactionToVoice);
         }
 
         private void OnClickSeries(int clickCount)
         {
             if (clickCount >= 5)
             {
-                StopSleep();
-                _liveStateStorage.AddPercentageValue(new LiveStateValue()
-                {
-                    Key = LiveStateKey.Trust,
-                    Value =  -_effectAwakeningValue.GetRandomValue()
-                });
+                WakeUp();
             }
         }
+
 
         private void OnChangedSleepStateValue(float sleepValue)
         {
@@ -141,21 +186,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         }
 
         #endregion
-        
+
         #region Conditions
 
         private bool IsCanSleep()
         {
             return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f);
         }
-        
-        private  bool IsCanExit()
+
+        private bool IsCanExit()
         {
             _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out var lowerStatePercent);
             return lowerKey is LiveStateKey.Trust && lowerStatePercent <= 0.4f && Random.Range(0, 100) >= 50;
         }
 
         #endregion
-        
     }
 }

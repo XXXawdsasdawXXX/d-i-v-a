@@ -8,6 +8,7 @@ using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
+using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -20,10 +21,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
+        [Header("Services")]
+
         [Header("Node")] 
-        private BaseNode _node_Current;
         private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ReactionToItems _node_reactionToItem;
+        private BaseNode _node_Current;
 
         public BehaviorNode_Stand()
         {
@@ -32,6 +35,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
+            //services--------------------------------------------------------------------------------------------------
+           
             //node------------------------------------------------------------------------------------------------------
             _node_randomSequence = new BaseNode_RandomSequence(new BaseNode[]
             {

@@ -1,22 +1,39 @@
-﻿using Code.Components.Characters.Reactions;
+﻿using System;
+using Code.Components.Characters.AnimationReader.State;
+using Code.Components.Characters.Reactions;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterAudioReaction : CharacterReaction
+    public class CharacterAudioReaction : CharacterReaction, IGameExitListener
     {
         [Header("Components")] 
         [SerializeField] private CharacterAnimator _characterAnimator;
+        [SerializeField] private CharacterAnimationStateObserver _stateReader;
         protected override int _cooldownTickCount { get; set; }
 
         private RangedFloat _effectAwakeningValue;
         private LiveStateStorage _liveStateStorage;
+
+        public event Action EndReactionEvent;
+
+        protected override void InitReaction()
+        {
+            SubscribeToEvents(true);
+            base.InitReaction();
+        }
+
+        public void GameExit()
+        {
+            SubscribeToEvents(false);
+        }
 
         protected override void SetCooldownMinutes()
         {
@@ -41,5 +58,29 @@ namespace Code.Components.Characters
                 Value = -_effectAwakeningValue.GetRandomValue()
             });
         }
+
+        #region Events
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _stateReader.StateExitedEvent += OnAnimationStateExitedEvent;
+            }
+            else
+            {
+                _stateReader.StateExitedEvent -= OnAnimationStateExitedEvent;
+            }
+        }
+
+        private void OnAnimationStateExitedEvent(CharacterAnimationState obj)
+        {
+            if (obj == CharacterAnimationState.ReactionVoice)
+            {
+                EndReactionEvent?.Invoke();
+            }
+        }
+
+        #endregion
     }
 }

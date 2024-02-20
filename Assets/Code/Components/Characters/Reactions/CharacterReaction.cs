@@ -19,6 +19,8 @@ namespace Code.Components.Characters.Reactions
             _tickCounter.WaitedEvent += () => _isReady = true;
         }
 
+        protected virtual void InitReaction() { }
+
         protected abstract void SetCooldownMinutes();
 
         public bool IsReady()
