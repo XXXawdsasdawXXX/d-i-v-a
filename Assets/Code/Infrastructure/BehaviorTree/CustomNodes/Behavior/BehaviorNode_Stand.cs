@@ -23,7 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         [Header("Node")] 
         private BaseNode _node_Current;
         private readonly BaseNode_RandomSequence _node_randomSequence;
-        private readonly SubNode_ReactionToItems _node_ReactionToItem;
+        private readonly SubNode_ReactionToItems _node_reactionToItem;
 
         public BehaviorNode_Stand()
         {
@@ -38,17 +38,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.Stand),
                 new SubNode_LookToMouse()
             });
-            _node_ReactionToItem = new SubNode_ReactionToItems();
+            _node_reactionToItem = new SubNode_ReactionToItems();
         }
 
         protected override void Run()
         {
             if (IsCanStand())
             {
-                Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
-                SubscribeToEvents(true);
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Stand);
+                
+                SubscribeToEvents(true);
+                
                 RunNode(_node_randomSequence);
+                
+                Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
             }
             else
             {
@@ -85,8 +88,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (obj.TryGetComponent(out Item item))
             {
                 Debugging.Instance.Log($"Нода стояния: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-                _node_ReactionToItem.SetCurrentItem(item);
-                RunNode(_node_ReactionToItem);
+                _node_reactionToItem.SetCurrentItem(item);
+                RunNode(_node_reactionToItem);
             }
         }
 

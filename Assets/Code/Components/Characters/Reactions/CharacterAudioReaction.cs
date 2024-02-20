@@ -21,7 +21,7 @@ namespace Code.Components.Characters
         protected override void SetCooldownMinutes()
         {
             _cooldownTickCount = Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
-            _effectAwakeningValue = Container.Instance.FindConfig<CharacterConfig>().EffectAwakeningValue;
+            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().EffectAwakeningValue;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
@@ -37,8 +37,8 @@ namespace Code.Components.Characters
         {
             _liveStateStorage.AddPercentageValue(new LiveStateValue()
             {
-                Key = LiveStateKey.Sleep,
-                Value = _effectAwakeningValue.GetRandomValue()
+                Key = LiveStateKey.Trust,
+                Value = -_effectAwakeningValue.GetRandomValue()
             });
         }
     }

@@ -13,13 +13,12 @@ namespace Code.Data.Storages
 {
     public class LiveStateStorage : IStorage, IGameInitListener, IProgressWriter
     {
-        private CharacterConfig _characterConfig;
+        private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
-
-
+        
         public void GameInit()
         {
-            _characterConfig = Container.Instance.FindConfig<CharacterConfig>();
+            _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
         }
 
         public bool TryGetLiveState(LiveStateKey key, out CharacterLiveState liveState)
@@ -33,18 +32,12 @@ namespace Code.Data.Storages
             liveState = null;
             return false;
         }
+        
 
-        public void AddValues(LiveStateValue[] value)
-        {
-            foreach (var liveStateValue in value)
-            {
-                if (TryGetLiveState(liveStateValue.Key, out var state))
-                {
-                    state.Add(liveStateValue.Value);
-                }
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values">value from 0 to 1</param>
         public void AddPercentageValues(LiveStateValue[] values)
         {
             foreach (var liveStateValue in values)
@@ -56,11 +49,15 @@ namespace Code.Data.Storages
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values">value from 0 to 1</param>
         public void AddPercentageValue(LiveStateValue value)
         {
             if (TryGetLiveState(value.Key, out var state))
             {
-                state.Add(state.Max / 100 * value.Value);
+                state.Add(state.Max / (100 * value.Value));
             }
         }
 
@@ -92,7 +89,7 @@ namespace Code.Data.Storages
 
         private Dictionary<LiveStateKey, CharacterLiveState> InitNewStates()
         {
-            var characterConfig = Container.Instance.FindConfig<CharacterConfig>();
+            var characterConfig = Container.Instance.FindConfig<LiveStateConfig>();
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
             var liveStateCount = Enum.GetNames(typeof(LiveStateKey)).Length;
 
@@ -110,7 +107,7 @@ namespace Code.Data.Storages
 
         private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(Dictionary<LiveStateKey, float> liveStateSavedData)
         {
-            var characterConfig = Container.Instance.FindConfig<CharacterConfig>(); 
+            var characterConfig = Container.Instance.FindConfig<LiveStateConfig>(); 
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
 
             foreach (var stateSavedData in liveStateSavedData)
@@ -128,7 +125,7 @@ namespace Code.Data.Storages
 
         private  CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
         {
-            var staticParam = _characterConfig.GetStaticParam(stateKey);
+            var staticParam = _liveStateConfig.GetStaticParam(stateKey);
             var characterLiveState = new CharacterLiveState(
                 current: currentIsMaxValue ? staticParam.MaxValue: currentValue,
                 max: staticParam.MaxValue,

@@ -7,6 +7,7 @@ using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
 using Code.Services;
@@ -24,13 +25,14 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly ColliderButton _characterButton;
 
         [Header("Services")] 
-        private readonly LiveStateStorage _liveStateStorage;
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
         
 
-
+        [Header("Values")] 
+        private readonly LiveStateStorage _liveStateStorage;
+        private readonly RangedFloat _effectAwakeningValue;
 
         
         public BehaviorNode_Sleep()
@@ -46,7 +48,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
             //values----------------------------------------------------------------------------------------------------
-       
+            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
+            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().EffectAwakeningValue;
         }
 
         protected override void Run()
@@ -120,6 +123,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (clickCount >= 5)
             {
                 StopSleep();
+                _liveStateStorage.AddPercentageValue(new LiveStateValue()
+                {
+                    Key = LiveStateKey.Trust,
+                    Value =  -_effectAwakeningValue.GetRandomValue()
+                });
             }
         }
 

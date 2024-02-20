@@ -1,16 +1,13 @@
 ﻿using System.Linq;
-using Code.Components.Character;
 using Code.Data.Enums;
 using Code.Data.StaticData;
-using Code.Data.Value;
 using Code.Data.Value.RangeFloat;
-using Code.Utils;
 using UnityEngine;
 
 namespace Code.Data.Configs
 {
-    [CreateAssetMenu(fileName = "CharacterConfig", menuName = "Configs/Character config")]
-    public class CharacterConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "LiveStateConfig", menuName = "Configs/Live State config")]
+    public class LiveStateConfig : ScriptableObject
     {
 
         public RangedFloat EffectAwakeningValue;
