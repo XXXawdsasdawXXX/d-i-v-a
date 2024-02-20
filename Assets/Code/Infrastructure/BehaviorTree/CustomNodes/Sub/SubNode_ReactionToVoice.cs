@@ -4,11 +4,11 @@ using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
 {
-    public class SubNode_ReactionVoice : BaseNode
+    public class SubNode_ReactionToVoice : BaseNode
     {
         private readonly CharacterAudioReaction _audioReaction;
 
-        public SubNode_ReactionVoice()
+        public SubNode_ReactionToVoice()
         {
             _audioReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterAudioReaction>();
         }

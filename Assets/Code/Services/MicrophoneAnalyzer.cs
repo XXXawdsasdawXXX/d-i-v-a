@@ -23,8 +23,8 @@ namespace Code.Services
 
         private bool _isInitialized;
 
-        public event Action MaximumDecibelRecordedEvent;
-        public event Action MinimumDecibelRecordedEvent;
+        public event Action MaxDecibelRecordedEvent;
+        public event Action MinDecibelRecordedEvent;
 
         public MicrophoneAnalyzer()
         {
@@ -50,12 +50,12 @@ namespace Code.Services
 
             if (_analyzerData.MinActionDecibels.Contains(_micDecibels))
             {
-                MinimumDecibelRecordedEvent?.Invoke();
+                MinDecibelRecordedEvent?.Invoke();
             }
 
             if (_analyzerData.MaxActionDecibels.Contains(_micDecibels))
             {
-                MaximumDecibelRecordedEvent?.Invoke();
+                MaxDecibelRecordedEvent?.Invoke();
             }
             //   Debugging.Instance.Log($"MicrophoneAnalyzer: GameTick {_micDecibels}", Debugging.Type.Micro);
         }

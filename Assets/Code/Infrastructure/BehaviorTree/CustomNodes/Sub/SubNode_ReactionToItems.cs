@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
 {
-    public class SubNode_ItemsReaction: BaseNode
+    public class SubNode_ReactionToItems: BaseNode
     {
         [Header("Character")]
         private readonly CharacterItemsController _itemsController;
@@ -14,7 +14,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
         [Header("Values")] 
         private Item _item;
         
-        public SubNode_ItemsReaction()
+        public SubNode_ReactionToItems()
         {
             //character-------------------------------------------------------------------------------------------------
             _itemsController = Container.Instance.FindEntity<DIVA>()

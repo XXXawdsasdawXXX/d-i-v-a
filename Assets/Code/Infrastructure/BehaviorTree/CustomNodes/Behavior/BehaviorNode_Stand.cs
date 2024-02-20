@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Stand : BaseNode, IBehaviourCallback
+    public class BehaviorNode_Stand : BaseNode_Root, IBehaviourCallback
     {
         [Header("Character")] 
         private readonly CharacterAnimator _characterAnimator;
@@ -23,7 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         [Header("Node")] 
         private BaseNode _node_Current;
         private readonly BaseNode_RandomSequence _node_randomSequence;
-        private readonly SubNode_ItemsReaction _node_ItemReaction;
+        private readonly SubNode_ReactionToItems _node_ReactionToItem;
 
         public BehaviorNode_Stand()
         {
@@ -38,7 +38,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.Stand),
                 new SubNode_LookToMouse()
             });
-            _node_ItemReaction = new SubNode_ItemsReaction();
+            _node_ReactionToItem = new SubNode_ReactionToItems();
         }
 
         protected override void Run()
@@ -65,41 +65,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 RunNode(_node_randomSequence);
             }
         }
-
-        protected override void OnBreak()
-        {
-            Debugging.Instance.Log($"Нода стояния: брейк ", Debugging.Type.BehaviorTree);
-            
-            SubscribeToEvents(false);
-         
-            _node_Current?.Break();
-            _node_Current = null;
-            
-            base.OnBreak();
-        }
-
-        protected override void OnReturn(bool success)
-        {
-            Debugging.Instance.Log($"Нода стояния: ретерн {success} ", Debugging.Type.BehaviorTree);
-         
-            SubscribeToEvents(false);
-         
-            _node_Current?.Break();
-            _node_Current = null;
-       
-            base.OnReturn(success);
-        }
-
-        private void RunNode(BaseNode node)
-        {
-            _node_Current?.Break();
-            _node_Current = node;
-            _node_Current.Run(this);
-        }
-
+        
         #region Events
 
-        private void SubscribeToEvents(bool flag)
+        protected override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
@@ -116,8 +85,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (obj.TryGetComponent(out Item item))
             {
                 Debugging.Instance.Log($"Нода стояния: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-                _node_ItemReaction.SetCurrentItem(item);
-                RunNode(_node_ItemReaction);
+                _node_ReactionToItem.SetCurrentItem(item);
+                RunNode(_node_ReactionToItem);
             }
         }
 

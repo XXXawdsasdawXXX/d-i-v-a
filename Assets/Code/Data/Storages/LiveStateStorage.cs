@@ -22,6 +22,18 @@ namespace Code.Data.Storages
             _characterConfig = Container.Instance.FindConfig<CharacterConfig>();
         }
 
+        public bool TryGetLiveState(LiveStateKey key, out CharacterLiveState liveState)
+        {
+            if (LiveStates.ContainsKey(key))
+            {
+                liveState = LiveStates[key];
+                return true;
+            }
+
+            liveState = null;
+            return false;
+        }
+
         public void AddValues(LiveStateValue[] value)
         {
             foreach (var liveStateValue in value)
@@ -33,16 +45,23 @@ namespace Code.Data.Storages
             }
         }
 
-        public bool TryGetLiveState(LiveStateKey key, out CharacterLiveState liveState)
+        public void AddPercentageValues(LiveStateValue[] values)
         {
-            if (LiveStates.ContainsKey(key))
+            foreach (var liveStateValue in values)
             {
-                liveState = LiveStates[key];
-                return true;
+                if (TryGetLiveState(liveStateValue.Key, out var state))
+                {
+                    state.Add(state.Max / 100 * liveStateValue.Value);
+                }
             }
-
-            liveState = null;
-            return false;
+        }
+        
+        public void AddPercentageValue(LiveStateValue value)
+        {
+            if (TryGetLiveState(value.Key, out var state))
+            {
+                state.Add(state.Max / 100 * value.Value);
+            }
         }
 
         #region Initialize
@@ -132,16 +151,5 @@ namespace Code.Data.Storages
         }
 
         #endregion
-
-        public void AddPercentageValues(LiveStateValue[] values)
-        {
-            foreach (var liveStateValue in values)
-            {
-                if (TryGetLiveState(liveStateValue.Key, out var state))
-                {
-                    state.Add(state.Max / 100 * liveStateValue.Value);
-                }
-            }
-        }
     }
 }

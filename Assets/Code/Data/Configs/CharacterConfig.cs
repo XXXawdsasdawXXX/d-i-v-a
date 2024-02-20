@@ -13,25 +13,12 @@ namespace Code.Data.Configs
     public class CharacterConfig : ScriptableObject
     {
 
+        public RangedFloat EffectAwakeningValue;
         [SerializeField] private LiveStateStaticParam[] _liveStateStaticParams;
 
-
-        
         public LiveStateStaticParam GetStaticParam(LiveStateKey key)
         {
             return _liveStateStaticParams.FirstOrDefault(d => d.Key == key);
         }
-        
-        public float GetDecreasingValue(LiveStateKey key)
-        {
-            var data = _liveStateStaticParams.FirstOrDefault(d => d.Key == key);
-            if (data == null)
-            {
-                Debugging.Instance.ErrorLog($"");
-            }
-            return data?.DecreasingValue ?? 0;
-        }
-
-  
     }
 }
