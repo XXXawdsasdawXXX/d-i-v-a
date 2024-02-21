@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8aff09396804c6ca0686e7be6f8b410, type: 3}
   m_Name: LiveStateConfig
   m_EditorClassIdentifier: 
-  EffectAwakeningValue:
-    MinValue: 0.10402533
-    MaxValue: 0.1402081
+  Awakening:
+    Key: 3
+    PercentageValue:
+      MinValue: -0.06774741
+      MaxValue: -0.019356415
   _liveStateStaticParams:
   - Key: 1
     DecreasingValue: 1

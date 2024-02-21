@@ -18,6 +18,11 @@ MonoBehaviour:
   OneStageLiveTimeTick:
     MinValue: 1
     MaxValue: 1
+  DieAppleEffect:
+    Key: 3
+    PercentageValue:
+      MinValue: -0.05163955
+      MaxValue: -0.010327909
   SmallAppleValues:
   - Values:
     - Key: 2

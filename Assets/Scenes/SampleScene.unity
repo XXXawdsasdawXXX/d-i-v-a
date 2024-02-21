@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03d6749b0f64e6a91df84cb05e18ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _apple: {fileID: 1962372022}
   _animator: {fileID: 88689567}
   _animationMask: {fileID: 142218787}
 --- !u!1 &142218782
@@ -2175,10 +2176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugParams:
   - Type: 1
-    Active: 1
+    Active: 0
     Color: {r: 0.5444066, g: 0.5235849, b: 1, a: 1}
   - Type: 2
-    Active: 1
+    Active: 0
     Color: {r: 0.5254902, g: 0.7554999, b: 1, a: 1}
   - Type: 3
     Active: 0
@@ -2196,7 +2197,7 @@ MonoBehaviour:
     Active: 1
     Color: {r: 0.6018156, g: 0.7924528, b: 0.55695975, a: 1}
   - Type: 8
-    Active: 0
+    Active: 1
     Color: {r: 0.0047169924, g: 1, b: 0.8870509, a: 1}
   - Type: 9
     Active: 0
@@ -2205,7 +2206,7 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0.92941177, g: 0.8878994, b: 0.5372549, a: 1}
   - Type: 11
-    Active: 0
+    Active: 1
     Color: {r: 0.52022064, g: 0.13679248, b: 1, a: 1}
   - Type: 12
     Active: 0
@@ -2214,7 +2215,7 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0.5686275, g: 0.050980393, b: 0.19339621, a: 1}
   - Type: 14
-    Active: 1
+    Active: 0
     Color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2043938388
 GameObject:
