@@ -803,6 +803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAnimator: {fileID: 631771335}
+  _stateReader: {fileID: 1360938015}
 --- !u!114 &631771335
 MonoBehaviour:
   m_ObjectHideFlags: 0

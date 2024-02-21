@@ -1,12 +1,14 @@
 ﻿using System;
 using Code.Components.Objects;
 using Code.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Components.Apples
 {
     public class AppleAnimator : MonoBehaviour
     {
+        [SerializeField] private Apple _apple;
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteAnimationMask _animationMask;
 
@@ -14,11 +16,7 @@ namespace Code.Components.Apples
         private static readonly int Stage = Animator.StringToHash("Stage");
         private static readonly int Active = Animator.StringToHash("Active");
         private static readonly int Use = Animator.StringToHash("Use");
-
-
-        private event Action ReactionEndEvent;
-        public event Action ExitEndEvent;
-
+        
         public void PlayEnter()
         {
             _animator.SetBool(Small, true);
@@ -54,11 +52,14 @@ namespace Code.Components.Apples
         }
 
 
-        private void InvokeExitEnd()
+        /// <summary>
+        /// Animation event
+        /// </summary>
+        private void InvokeDie()
         {
-            Debugging.Instance.Log("Apple animation Invoke exit end", Debugging.Type.Apple);
+            Debugging.Instance.Log("Apple animation Invoke die", Debugging.Type.Apple);
             _animator.SetBool(Active, false);
-            ExitEndEvent?.Invoke();
+            _apple.Die();
         }
     }
 }

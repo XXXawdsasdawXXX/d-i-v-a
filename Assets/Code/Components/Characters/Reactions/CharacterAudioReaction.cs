@@ -5,7 +5,6 @@ using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
-using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace Code.Components.Characters
         [SerializeField] private CharacterAnimationStateObserver _stateReader;
         protected override int _cooldownTickCount { get; set; }
 
-        private RangedFloat _effectAwakeningValue;
+        private LiveStateRangePercentageValue _effectAwakeningValue;
         private LiveStateStorage _liveStateStorage;
 
         public event Action EndReactionEvent;
@@ -38,7 +37,7 @@ namespace Code.Components.Characters
         protected override void SetCooldownMinutes()
         {
             _cooldownTickCount = Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
-            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().EffectAwakeningValue;
+            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
@@ -52,11 +51,7 @@ namespace Code.Components.Characters
 
         private void RemoveLiveStateValue()
         {
-            _liveStateStorage.AddPercentageValue(new LiveStateValue()
-            {
-                Key = LiveStateKey.Trust,
-                Value = -_effectAwakeningValue.GetRandomValue()
-            });
+            _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
         }
 
         #region Events

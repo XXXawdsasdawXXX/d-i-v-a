@@ -46,7 +46,7 @@ namespace Code.Components.Apples
         {
             if (flag)
             {
-                _apple.Event.EndLiveTimeEvent +=  Spawn;
+                _apple.Event.UseEvent +=  Spawn;
                 _tickCounter.WaitedEvent += OnWaitedTickCounter;
             }
             else

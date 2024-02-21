@@ -34,7 +34,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         
         [Header("Values")] 
         private readonly LiveStateStorage _liveStateStorage;
-        private readonly RangedFloat _effectAwakeningValue;
+        private readonly LiveStateRangePercentageValue _effectAwakeningValue;
 
 
         public BehaviorNode_Sleep()
@@ -54,7 +54,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _subNode_reactionToVoice = new SubNode_ReactionToVoice();
             //values----------------------------------------------------------------------------------------------------
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().EffectAwakeningValue;
+            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
         }
 
         #region Base methods
@@ -113,11 +113,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private void WakeUp()
         {
             Debugging.Instance.Log($"Нода сна: разбудили", Debugging.Type.BehaviorTree);
-            _liveStateStorage.AddPercentageValue(new LiveStateValue()
-            {
-                Key = LiveStateKey.Trust,
-                Value = -_effectAwakeningValue.GetRandomValue()
-            });
+            _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
             StopSleep(delay: 1.5f);
         }
 

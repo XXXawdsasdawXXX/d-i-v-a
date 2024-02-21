@@ -15,7 +15,7 @@ namespace Code.Data.Storages
     {
         private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
-        
+
         public void GameInit()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
@@ -32,33 +32,64 @@ namespace Code.Data.Storages
             liveState = null;
             return false;
         }
-        
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="values">value from 0 to 1</param>
-        public void AddPercentageValues(LiveStateValue[] values)
+        public void AddPercentageValues(LiveStatePercentageValue[] values)
         {
             foreach (var liveStateValue in values)
             {
                 if (TryGetLiveState(liveStateValue.Key, out var state))
                 {
-                    state.Add(state.Max / 100 * liveStateValue.Value);
+                    Add(state, liveStateValue.Value);
                 }
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="values">value from 0 to 1</param>
-        public void AddPercentageValue(LiveStateValue value)
+        /// <param name="values">value from -1 to 1</param>
+        public void AddPercentageValue(LiveStatePercentageValue percentageValue)
         {
-            if (TryGetLiveState(value.Key, out var state))
+            if (TryGetLiveState(percentageValue.Key, out var state))
             {
-                state.Add(state.Max / (100 * value.Value));
+                Add(state, percentageValue.Value);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values">value from -1 to 1</param>
+        public void AddPercentageValue(LiveStateRangePercentageValue percentageValue)
+        {
+            if (TryGetLiveState(percentageValue.Key, out var state))
+            {
+                var randomValue = percentageValue.PercentageValue.GetRandomValue();
+                Add(state, randomValue);
+            }
+        }
+
+        private void Add(CharacterLiveState state, float randomValue)
+        {
+            var max = state.Max;
+            var result = max / 100 * GetCorrectValue(randomValue);
+            Debugging.Instance.Log($"{max} / 100 * {randomValue} = {result}", Debugging.Type.LiveState);
+            state.Add(result);
+        }
+
+        private float GetCorrectValue(float normalizedValue)
+        {
+            if (Math.Abs(normalizedValue) <= 1)
+            {
+                return normalizedValue * 100;
+            }
+
+            return normalizedValue;
         }
 
         #region Initialize
@@ -68,8 +99,9 @@ namespace Code.Data.Storages
             LiveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
                 ? InitNewStates()
                 : LoadSavedStates(progress.LiveStatesData);
-            
-            Debugging.Instance.Log($"load init count {LiveStates.Count} { progress.LiveStatesData.Count }", Debugging.Type.LiveState);
+
+            Debugging.Instance.Log($"load init count {LiveStates.Count} {progress.LiveStatesData.Count}",
+                Debugging.Type.LiveState);
         }
 
         public void UpdateProgress(PlayerProgress progress)
@@ -95,39 +127,40 @@ namespace Code.Data.Storages
 
             for (int i = 1; i < liveStateCount; i++)
             {
-                var state =  CreateNewState(
+                var state = CreateNewState(
                     stateKey: (LiveStateKey)i,
-                    currentIsMaxValue:true);
-                characterLiveStates.Add( (LiveStateKey)i,state);
+                    currentIsMaxValue: true);
+                characterLiveStates.Add((LiveStateKey)i, state);
             }
 
             Debugging.Instance.Log($"init new", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(Dictionary<LiveStateKey, float> liveStateSavedData)
+        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(
+            Dictionary<LiveStateKey, float> liveStateSavedData)
         {
-            var characterConfig = Container.Instance.FindConfig<LiveStateConfig>(); 
+            var characterConfig = Container.Instance.FindConfig<LiveStateConfig>();
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
 
             foreach (var stateSavedData in liveStateSavedData)
             {
-               var state =  CreateNewState(stateKey:
+                var state = CreateNewState(stateKey:
                     stateSavedData.Key,
                     currentIsMaxValue: false,
-                    currentValue:stateSavedData.Value);
-                characterLiveStates.Add(stateSavedData.Key,state);
+                    currentValue: stateSavedData.Value);
+                characterLiveStates.Add(stateSavedData.Key, state);
             }
 
             Debugging.Instance.Log($"load saved", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private  CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
+        private CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
         {
             var staticParam = _liveStateConfig.GetStaticParam(stateKey);
             var characterLiveState = new CharacterLiveState(
-                current: currentIsMaxValue ? staticParam.MaxValue: currentValue,
+                current: currentIsMaxValue ? staticParam.MaxValue : currentValue,
                 max: staticParam.MaxValue,
                 decreasingValue: staticParam.DecreasingValue,
                 healValue: staticParam.HealValue);

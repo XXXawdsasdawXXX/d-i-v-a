@@ -1,4 +1,5 @@
 ﻿using Code.Data.StaticData;
+using Code.Data.Value;
 using Code.Data.Value.RangeFloat;
 using UnityEngine;
 
@@ -8,12 +9,16 @@ namespace Code.Data.Configs
     public class AppleConfig : ScriptableObject
     {
         [Header("Time for spawn apple branch")]
-        [MinMaxRangeFloat(1, 100)] public RangedInt SpawnCooldownTick;
+        [MinMaxRangeInt(1, 100)] public RangedInt SpawnCooldownTick;
         [Header("Time for one apple stage")]
-        [MinMaxRangeFloat(1, 100)] public RangedInt OneStageLiveTimeTick;
+        [MinMaxRangeInt(1, 100)] public RangedInt OneStageLiveTimeTick;
+      
+        [Space]
+        public LiveStateRangePercentageValue DieAppleEffect;
+        
         [Header("Apples stage params\nValue is a percentage of the state's maximum value.")]
-        public LiveStateValues[] SmallAppleValues;
-        public LiveStateValues[] BigAppleValues;
+        public LiveStatePercentageValues[] SmallAppleValues;
+        public LiveStatePercentageValues[] BigAppleValues;
 
     }
 }

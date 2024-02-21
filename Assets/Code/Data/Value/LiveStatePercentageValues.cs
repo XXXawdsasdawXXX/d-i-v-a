@@ -4,8 +4,8 @@ using Code.Data.Value;
 namespace Code.Data.StaticData
 {
     [Serializable]
-    public class LiveStateValues
+    public class LiveStatePercentageValues
     {
-        public LiveStateValue[] Values;
+        public LiveStatePercentageValue[] Values;
     }
 }   
