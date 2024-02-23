@@ -9,10 +9,11 @@ namespace Code.Infrastructure.Save
     public class PlayerProgressData
     {
         public CooldownSavedData Cooldowns;
-        public List<LiveStateSavedData> LiveStatesData = new();
+        public List<LiveStateSavedData> LiveStatesData;
 
         public PlayerProgressData()
         {
+            Cooldowns = new CooldownSavedData();
             LiveStatesData = new List<LiveStateSavedData>();
         }
     }
