@@ -1,6 +1,8 @@
-﻿using Code.Data.Enums;
+﻿using System.Collections.Generic;
+using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
+using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
@@ -48,9 +50,18 @@ namespace Code.Components.Character.LiveState
             }
             foreach (var liveState in _storage.LiveStates)
             {
+                if (IsCantUpdateLiveState(liveState))
+                {
+                    continue;
+                }
+                
                 liveState.Value.TimeUpdate();
             }
         }
 
+        private bool IsCantUpdateLiveState(KeyValuePair<LiveStateKey, CharacterLiveState> liveState)
+        {
+            return (liveState.Key == LiveStateKey.Trust && !liveState.Value.IsHealing && !_storage.IsEmptyState(LiveStateKey.Hunger));
+        }
     }
 }

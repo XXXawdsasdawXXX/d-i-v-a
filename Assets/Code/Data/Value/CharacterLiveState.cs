@@ -18,8 +18,8 @@ namespace Code.Data.Value
 
         public event Action<float> ChangedEvent;
 
-        private bool _isHealing;
-        
+        public bool IsHealing { get; private set; }
+
         public CharacterLiveState(float current,float max, float decreasingValue, float healValue)
         {
             _current = current;
@@ -30,7 +30,7 @@ namespace Code.Data.Value
         
         public void TimeUpdate()
         {
-            if (_isHealing)
+            if (IsHealing)
             {
                 Add(_healValue);
             }
@@ -62,12 +62,12 @@ namespace Code.Data.Value
 
         public void SetHealUpdate()
         {
-            _isHealing = true;
+            IsHealing = true;
         }
 
         public void SetDefaultUpdate()
         {
-            _isHealing = false;
+            IsHealing = false;
         }
     }
 }
