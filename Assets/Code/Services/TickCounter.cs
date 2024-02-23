@@ -34,6 +34,10 @@ namespace Code.Services
 
         #region Methods
 
+        public int GetRemainingTick()
+        {
+            return _tickCount > 0 ? _tickCount - _currentTickNumber : 0;
+        }
         public void StartWait()
         {
             if (IsWaited && _tickCount > 0)

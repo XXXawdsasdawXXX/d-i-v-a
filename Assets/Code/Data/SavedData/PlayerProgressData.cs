@@ -8,6 +8,7 @@ namespace Code.Infrastructure.Save
     [Serializable]
     public class PlayerProgressData
     {
+        public CooldownSavedData Cooldowns;
         public List<LiveStateSavedData> LiveStatesData = new();
 
         public PlayerProgressData()
