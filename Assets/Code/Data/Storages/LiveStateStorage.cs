@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
+using Code.Data.SavedData;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -105,27 +107,35 @@ namespace Code.Data.Storages
 
         #region Initialize
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgress(PlayerProgressData playerProgress)
         {
-            LiveStates = progress?.LiveStatesData == null || progress.LiveStatesData.Count == 0
+            LiveStates = playerProgress?.LiveStatesData == null || playerProgress.LiveStatesData.Count == 0
                 ? InitNewStates()
-                : LoadSavedStates(progress.LiveStatesData);
+                : LoadSavedStates(playerProgress.LiveStatesData);
 
-            Debugging.Instance.Log($"load init count {LiveStates.Count} {progress.LiveStatesData.Count}",
+            Debugging.Instance.Log($"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
                 Debugging.Type.LiveState);
         }
 
-        public void UpdateProgress(PlayerProgress progress)
+        public void UpdateProgress(PlayerProgressData playerProgress)
         {
             foreach (var liveState in LiveStates)
             {
-                if (progress.LiveStatesData.ContainsKey(liveState.Key))
+                var savedState = playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
+                
+                if (savedState != null)
                 {
-                    progress.LiveStatesData[liveState.Key] = liveState.Value.Current;
+                    savedState.CurrentValue = liveState.Value.Current;
+                    savedState.IsHealing = liveState.Value.IsHealing;
                 }
                 else
                 {
-                    progress.LiveStatesData.Add(liveState.Key, liveState.Value.Current);
+                    playerProgress.LiveStatesData.Add(new LiveStateSavedData()
+                    {
+                        Key = liveState.Key,
+                        CurrentValue = liveState.Value.Current,
+                        IsHealing = liveState.Value.IsHealing
+                    });
                 }
             }
         }
@@ -148,33 +158,34 @@ namespace Code.Data.Storages
             return characterLiveStates;
         }
 
-        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(
-            Dictionary<LiveStateKey, float> liveStateSavedData)
+        private Dictionary<LiveStateKey, CharacterLiveState> LoadSavedStates(List<LiveStateSavedData> list)
         {
             var characterConfig = Container.Instance.FindConfig<LiveStateConfig>();
             var characterLiveStates = new Dictionary<LiveStateKey, CharacterLiveState>();
 
-            foreach (var stateSavedData in liveStateSavedData)
+            foreach (var stateSavedData in list)
             {
                 var state = CreateNewState(stateKey:
                     stateSavedData.Key,
                     currentIsMaxValue: false,
-                    currentValue: stateSavedData.Value);
+                    currentValue: stateSavedData.CurrentValue,
+                    isHealing: stateSavedData.IsHealing);
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 
-            Debugging.Instance.Log($"load saved", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"load states", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0)
+        private CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0, bool isHealing = false)
         {
             var staticParam = _liveStateConfig.GetStaticParam(stateKey);
             var characterLiveState = new CharacterLiveState(
                 current: currentIsMaxValue ? staticParam.MaxValue : currentValue,
                 max: staticParam.MaxValue,
                 decreasingValue: staticParam.DecreasingValue,
-                healValue: staticParam.HealValue);
+                healValue: staticParam.HealValue,
+                isHealing : isHealing);
 
             return characterLiveState;
         }

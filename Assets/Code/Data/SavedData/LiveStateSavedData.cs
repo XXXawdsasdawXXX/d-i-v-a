@@ -6,5 +6,7 @@ namespace Code.Data.SavedData
     {
         public LiveStateKey Key;
         public float CurrentValue;
+        public bool IsHealing;
+        
     }
 }

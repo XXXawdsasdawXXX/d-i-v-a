@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Data.Enums;
+﻿using System.Collections.Generic;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -14,7 +12,7 @@ namespace Code.Infrastructure.Save
     {
         private const string progressKey = "Progress";
 
-        private  PlayerProgress _playerProgress;
+        private  PlayerProgressData _playerProgress;
 
         private List<IProgressWriter> _progressWriters = new();
         private List<IProgressReader> _progressReader = new();
@@ -52,14 +50,14 @@ namespace Code.Infrastructure.Save
 
         private void LoadProgress()
         {
-            _playerProgress =  PlayerPrefs.GetString(progressKey)?.ToDeserialized<PlayerProgress>();
+            _playerProgress =  PlayerPrefs.GetString(progressKey)?.ToDeserialized<PlayerProgressData>();
             
             Debugging.Instance.Log($"Load progress -> " +
                                    $"{_playerProgress != null} " +
                                    $"{_playerProgress?.LiveStatesData != null}" +
                                    $"{_playerProgress?.LiveStatesData?.Count} ",Debugging.Type.SaveLoad);
             
-            _playerProgress ??= new PlayerProgress();
+            _playerProgress ??= new PlayerProgressData();
             foreach (var progressReader in _progressReader)
             {
                 progressReader.LoadProgress(_playerProgress);
@@ -69,22 +67,11 @@ namespace Code.Infrastructure.Save
 
     public interface IProgressWriter : IProgressReader
     {
-        void UpdateProgress(PlayerProgress _playerProgress);
+        void UpdateProgress(PlayerProgressData playerProgress);
     }
 
     public interface IProgressReader
     {
-        void LoadProgress(PlayerProgress _playerProgress);
-    }
-
-    [Serializable]
-    public class PlayerProgress
-    {
-        public Dictionary<LiveStateKey,float> LiveStatesData = new();
-
-        public PlayerProgress()
-        {
-            LiveStatesData = new Dictionary<LiveStateKey, float>();
-        }
+        void LoadProgress(PlayerProgressData playerProgress);
     }
 }
