@@ -43,7 +43,11 @@ namespace Code.Data.Value
             Current += value;
             if (Current > Max)
             {
-                Current= Max;
+                Current = Max;
+            }
+            else if(Current < 0)
+            {
+                Current = 0;
             }
             ChangedEvent?.Invoke(Current);
         }
