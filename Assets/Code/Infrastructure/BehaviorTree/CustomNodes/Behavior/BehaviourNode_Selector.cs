@@ -4,32 +4,36 @@ using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.CustomNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
+using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public sealed class BehaviorNode_Selector : BaseNode, IBehaviourCallback
+    public sealed class BehaviourNode_Selector : BaseNode, IBehaviourCallback
     {
+        [Header("Services")]
+        private readonly CharacterLiveStatesAnalytic _stateAnalytic;
+        
+        [Header("Values")]
         private readonly BaseNode[] _orderedNodes;
         private BaseNode _currentChild;
-
         private int _currentChildIndex;
-        private readonly CharacterLiveStatesAnalytic _stateAnalytic;
 
-        public BehaviorNode_Selector()
+
+        public BehaviourNode_Selector()
         {
             _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             
             _orderedNodes = new BaseNode[]
             {
-                new BehaviorNode_Sleep(),
-                new BehaviorNode_Seat(),
-                new BehaviorNode_Stand(),
+                new BehaviourNode_Sleep(),
+                new BehaviourNode_Seat(),
+                new BehaviourNode_Stand(),
             };
             
             SubscribeToEvents(true);
         }
 
-        ~BehaviorNode_Selector()
+        ~BehaviourNode_Selector()
         {
             SubscribeToEvents(false);
         }
@@ -68,7 +72,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         protected override void OnBreak()
         {
-            if (_currentChild != null && _currentChild.IsRunning)
+            if (_currentChild is { IsRunning: true })
             {
                 _currentChild.Break();
                 _currentChild = null;
@@ -89,7 +93,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         private void OnSwitchLowerLiveState(LiveStateKey key)
         {
-            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя ", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.BehaviorTree);
             _currentChild?.Break();
             Run();
         }

@@ -4,17 +4,15 @@ using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Configs;
 using Code.Data.Enums;
-using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
-using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Stand : BaseNode_Root, IBehaviourCallback
+    public class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
         [Header("Character")] 
         private readonly CharacterAnimator _characterAnimator;
@@ -28,7 +26,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly SubNode_ReactionToItems _node_reactionToItem;
         private BaseNode _node_Current;
 
-        public BehaviorNode_Stand()
+        public BehaviourNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
             var character = Container.Instance.FindEntity<DIVA>();

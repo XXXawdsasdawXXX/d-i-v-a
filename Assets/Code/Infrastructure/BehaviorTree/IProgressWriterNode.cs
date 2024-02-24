@@ -2,8 +2,8 @@
 {
     public interface IProgressWriterNode
     {
-        void UpdateData(WhiteBoard.Data data);
+        void UpdateData(BehaviourTreeLoader.Data data);
         
-        void LoadData(WhiteBoard.Data data);
+        void LoadData(BehaviourTreeLoader.Data data);
     }
 }

@@ -24,7 +24,7 @@ namespace Code.Infrastructure.BehaviorTree
 
         private void OnInitTime()
         {
-            _rootNode = new BehaviorNode_Selector();
+            _rootNode = new BehaviourNode_Selector();
             IsInitBehaviorTree = true;
         }
 

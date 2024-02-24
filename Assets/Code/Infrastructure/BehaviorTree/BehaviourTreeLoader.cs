@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree
 {
-    public class WhiteBoard : MonoBehaviour, IService, IProgressWriter
+    public class BehaviourTreeLoader : MonoBehaviour, IService, IProgressWriter
     {
         private readonly List<IProgressWriterNode> _progressWriterNodes = new();
         private readonly Data _data = new();

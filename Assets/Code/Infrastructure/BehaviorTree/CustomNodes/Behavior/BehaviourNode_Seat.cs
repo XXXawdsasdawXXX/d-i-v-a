@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Seat : BaseNode_Root
+    public class BehaviourNode_Seat : BaseNode_Root
     {
         [Header("Character")]
         private readonly CharacterAnimator _characterAnimator;
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly SubNode_ReactionToItems _node_ReactionToItem;
         private readonly SubNode_ReactionToVoice _node_ReactionToVoice;
 
-        public BehaviorNode_Seat()
+        public BehaviourNode_Seat()
         {
             var character = Container.Instance.FindEntity<DIVA>();
             //character-------------------------------------------------------------------------------------------------
