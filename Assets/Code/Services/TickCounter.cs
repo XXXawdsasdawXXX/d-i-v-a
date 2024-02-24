@@ -36,7 +36,7 @@ namespace Code.Services
 
         public int GetRemainingTick()
         {
-            return _tickCount > 0 ? _tickCount - _currentTickNumber : 0;
+            return _tickCount > 0 && !IsWaited ? _tickCount - _currentTickNumber : 0;
         }
         public void StartWait()
         {

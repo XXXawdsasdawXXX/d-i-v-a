@@ -27,6 +27,6 @@ MonoBehaviour:
     MaxValue: 100
     HealValue: 33
   - Key: 3
-    DecreasingValue: 0
+    DecreasingValue: 1
     MaxValue: 100
-    HealValue: 5
+    HealValue: 0.01

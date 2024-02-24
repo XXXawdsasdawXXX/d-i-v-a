@@ -1,5 +1,3 @@
-using Code.Components.Character.LiveState;
-using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
@@ -16,6 +14,8 @@ namespace Code.Infrastructure.BehaviorTree
         private BaseNode _rootNode;
         private TimeObserver _timeObserver;
 
+        public bool IsInitBehaviorTree { get; private set; }
+
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
@@ -25,6 +25,7 @@ namespace Code.Infrastructure.BehaviorTree
         private void OnInitTime()
         {
             _rootNode = new BehaviorNode_Selector();
+            IsInitBehaviorTree = true;
         }
 
         public void GameTick()

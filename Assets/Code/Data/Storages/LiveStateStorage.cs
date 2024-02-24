@@ -22,8 +22,7 @@ namespace Code.Data.Storages
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
         }
-
-
+        
         public bool IsEmptyState(LiveStateKey key)
         {
             if (TryGetLiveState(key, out var state))

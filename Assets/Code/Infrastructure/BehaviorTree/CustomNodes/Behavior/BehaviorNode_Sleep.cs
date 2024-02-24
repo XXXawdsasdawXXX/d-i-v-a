@@ -4,9 +4,9 @@ using Code.Components.Characters;
 using Code.Components.Objects;
 using Code.Data.Configs;
 using Code.Data.Enums;
+using Code.Data.SavedData;
 using Code.Data.Storages;
 using Code.Data.Value;
-using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
 using Code.Infrastructure.DI;
 using Code.Services;
@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes
 {
-    public class BehaviorNode_Sleep : BaseNode_Root
+    public class BehaviorNode_Sleep : BaseNode_Root, IProgressWriterNode
     {
         [Header("Character")] 
         private readonly CharacterAnimator _characterAnimator;
@@ -36,9 +36,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
 
-
         public BehaviorNode_Sleep()
         {
+            Container.Instance.FindService<WhiteBoard>().AddProgressWriter(this);
             var character = Container.Instance.FindEntity<DIVA>();
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
@@ -57,8 +57,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
         }
 
-        #region Base methods
-        
+        #region Live cycle
+
         protected override void Run()
         {
             if (IsCanSleep())
@@ -176,7 +176,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         {
             if (_sleepState.GetPercent() > 0.9f)
             {
-                Debugging.Instance.Log($"Нода сна: сон на максимальном значение ");
+                Debugging.Instance.Log($"Нода сна: сон на максимальном значение ",Debugging.Type.BehaviorTree);
                 StopSleep();
             }
         }
@@ -197,5 +197,27 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         }
 
         #endregion
+
+        #region Save
+
+        public void UpdateData(WhiteBoard.Data data)
+        {
+            data.SleepRemainingTick = _tickCounter.GetRemainingTick();
+            Debugging.Instance.Log($"Нода сна: обновила дату на сохранение ",Debugging.Type.BehaviorTree);
+        }
+
+        public void LoadData(WhiteBoard.Data data)
+        {
+            Debugging.Instance.Log($"Нода сна: загрузила тики {data.SleepRemainingTick }",Debugging.Type.BehaviorTree);
+            if (data.SleepRemainingTick > 0)
+            {
+                _tickCounter.StartWait(data.SleepRemainingTick);
+            }
+        }
+        
+        #endregion
+
+
+    
     }
 }
