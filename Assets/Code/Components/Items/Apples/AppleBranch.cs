@@ -33,14 +33,14 @@ namespace Code.Components.Apples
                 _apple.ColliderButton.DownEvent += TryDestroyBranch;
                 _apple.Event.StartIllEvent += TryDestroyBranch;
                 _colliderButton.DownEvent += TryDestroyBranch;
-                _apple.Event.GrowEvent += SetBigApplePosition;
+                _apple.Event.SetBigAppleEvent += SetBigApplePosition;
             }
             else
             {
                 _apple.ColliderButton.DownEvent -= TryDestroyBranch;
                 _apple.Event.StartIllEvent -= TryDestroyBranch;
                 _colliderButton.DownEvent -= TryDestroyBranch;
-                _apple.Event.GrowEvent -= SetBigApplePosition;
+                _apple.Event.SetBigAppleEvent -= SetBigApplePosition;
             }
         }
 

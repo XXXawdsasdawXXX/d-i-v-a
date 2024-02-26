@@ -29,7 +29,7 @@ namespace Code.Components.Apples
             _apple = Container.Instance.FindEntity<Apple>();
 
             _animationAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterAnimationAnalytic>();
-            _tickCounter = new TickCounter();
+            _tickCounter = new TickCounter(isLoop: false);
             
             SubscribeToEvents(true);
 

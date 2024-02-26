@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Data.Enums;
+using UnityEngine;
 
 namespace Code.Data.Value
 {
@@ -7,6 +8,6 @@ namespace Code.Data.Value
     public class LiveStatePercentageValue
     {
         public LiveStateKey Key;
-        public float Value;
+        [Range(-1,1)] public float Value;
     }
 }

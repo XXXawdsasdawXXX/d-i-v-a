@@ -44,6 +44,7 @@ namespace Code.Components.Apples
             {
                 _animator.SetBool(Active, false);
                 _animator.SetTrigger(Use);
+                
                 onEnd?.Invoke();
                 Debugging.Instance.Log("Apple animation Invoke reaction end", Debugging.Type.Apple);
             });

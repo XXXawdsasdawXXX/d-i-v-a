@@ -4,8 +4,8 @@ namespace Code.Components.Apples
 {
     public class AppleEvent
     {
-        public event Action GrowEvent;
-        public void InvokeGrowEvent() => GrowEvent?.Invoke();
+        public event Action SetBigAppleEvent;
+        public void InvokeSetBigAppleEvent() => SetBigAppleEvent?.Invoke();
         
         public event Action UseEvent;
         public void InvokeUseEvent() => UseEvent?.Invoke();

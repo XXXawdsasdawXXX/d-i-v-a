@@ -26,32 +26,62 @@ MonoBehaviour:
   SmallAppleValues:
   - Values:
     - Key: 2
-      Value: 10
+      Value: 0.3
     - Key: 3
-      Value: 5
+      Value: 0.1
   - Values:
     - Key: 2
-      Value: 8
+      Value: 0.25
     - Key: 3
-      Value: 2
+      Value: 0.05
   - Values:
     - Key: 2
-      Value: 5
+      Value: 0.2
     - Key: 3
-      Value: -1
+      Value: -0.05
   - Values:
     - Key: 2
-      Value: 4
+      Value: 0.15
     - Key: 3
-      Value: -3
+      Value: -0.7
   - Values:
     - Key: 2
-      Value: 3
+      Value: 0.1
     - Key: 3
-      Value: -4
+      Value: -0.13
+  - Values:
+    - Key: 2
+      Value: 0.1
+    - Key: 3
+      Value: -0.15
   BigAppleValues:
-  - Values: []
-  - Values: []
-  - Values: []
-  - Values: []
-  - Values: []
+  - Values:
+    - Key: 2
+      Value: 0.4
+    - Key: 3
+      Value: 0.15
+  - Values:
+    - Key: 2
+      Value: 0.35
+    - Key: 3
+      Value: 0.05
+  - Values:
+    - Key: 2
+      Value: 0.25
+    - Key: 3
+      Value: -0.05
+  - Values:
+    - Key: 2
+      Value: 0.2
+    - Key: 3
+      Value: -0.7
+  - Values:
+    - Key: 2
+      Value: 0.15
+    - Key: 3
+      Value: -0.13
+  - Values:
+    - Key: 2
+      Value: 0.1
+    - Key: 3
+      Value: -0.15

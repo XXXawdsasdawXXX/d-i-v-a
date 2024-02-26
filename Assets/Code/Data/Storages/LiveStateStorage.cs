@@ -52,6 +52,11 @@ namespace Code.Data.Storages
         /// <param name="values">value from 0 to 1</param>
         public void AddPercentageValues(LiveStatePercentageValue[] values)
         {
+            if (values == null)
+            {
+                Debugging.Instance.Log($"[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
+                return;
+            }
             foreach (var liveStateValue in values)
             {
                 if (TryGetLiveState(liveStateValue.Key, out var state))
@@ -90,7 +95,7 @@ namespace Code.Data.Storages
         {
             var max = state.Max;
             var result = max / 100 * GetCorrectValue(randomValue);
-            Debugging.Instance.Log($"{max} / 100 * {randomValue} = {result}", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"[Add] {max} / 100 * `{randomValue}` = {result}", Debugging.Type.LiveState);
             state.Add(result);
         }
 
