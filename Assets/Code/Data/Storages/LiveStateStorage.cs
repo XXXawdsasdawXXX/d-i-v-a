@@ -173,7 +173,7 @@ namespace Code.Data.Storages
                     stateSavedData.Key,
                     currentIsMaxValue: false,
                     currentValue: stateSavedData.CurrentValue,
-                    isHealing: stateSavedData.IsHealing);
+                    isHealing: stateSavedData.Key != LiveStateKey.Sleep && stateSavedData.IsHealing);
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 

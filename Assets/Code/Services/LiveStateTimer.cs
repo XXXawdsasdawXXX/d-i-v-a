@@ -45,7 +45,7 @@ namespace Code.Components.Character.LiveState
         {
             if (_storage.LiveStates == null)
             {
-                Debugging.Instance.ErrorLog($"_storage.LiveStates is null -> {_storage.LiveStates == null}");
+                Debugging.Instance.ErrorLog($"[OnTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }
             foreach (var liveState in _storage.LiveStates)
@@ -55,6 +55,7 @@ namespace Code.Components.Character.LiveState
                     continue;
                 }
                 
+                Debugging.Instance.Log($"[OnTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}", Debugging.Type.LiveState);
                 liveState.Value.TimeUpdate();
             }
         }
