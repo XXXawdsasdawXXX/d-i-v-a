@@ -2,46 +2,43 @@
 using System.Collections.Generic;
 using Code.Infrastructure.DI;
 using Code.Utils;
+using Kirurobo;
 using UnityEngine;
 
 namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
-        [SerializeField] private SceneInitObserver _sceneInitObserver;
+        [SerializeField] private UniWindowController _controller;
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
         private readonly List<IGameTickListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
 
-        
+
         public void Awake()
         {
-            _sceneInitObserver.InitSceneEvent += SceneInitObserverOnInitSceneEvent;
-            Debugging.Instance.Log("Subscribe",Debugging.Type.GameState);
-        }
-
-        private void SceneInitObserverOnInitSceneEvent()
-        {
-            _sceneInitObserver.InitSceneEvent -= SceneInitObserverOnInitSceneEvent;
+            _controller.OnStateChanged += ControllerOnOnStateChanged;
+            Debugging.Instance.Log("Subscribe", Debugging.Type.GameState);
             InitializeListeners();
             NotifyGameInit();
             NotifyGameLoad();
-            Debugging.Instance.Log("Awake",Debugging.Type.GameState);
-         
+            Debugging.Instance.Log("Awake", Debugging.Type.GameState);
         }
-
-        private void Start()
+        
+        private void ControllerOnOnStateChanged(UniWindowController.WindowStateEventType type)
         {
             StartCoroutine(StartWithDelay());
         }
 
+
         private IEnumerator StartWithDelay()
         {
+            _controller.OnStateChanged -= ControllerOnOnStateChanged;
             yield return new WaitForSeconds(1);
             NotifyGameStart();
-            Debugging.Instance.Log("Start",Debugging.Type.GameState);
+            Debugging.Instance.Log("Start", Debugging.Type.GameState);
         }
 
         private void Update()
@@ -52,7 +49,7 @@ namespace Code.Infrastructure.GameLoop
         private void OnApplicationQuit()
         {
             NotifyGameExit();
-            Debugging.Instance.Log("Exit",Debugging.Type.GameState);
+            Debugging.Instance.Log("Exit", Debugging.Type.GameState);
         }
 
         private void InitializeListeners()
@@ -81,6 +78,7 @@ namespace Code.Infrastructure.GameLoop
                 listener.GameInit();
             }
         }
+
         private void NotifyGameLoad()
         {
             foreach (var listener in _loadListeners)
@@ -104,7 +102,7 @@ namespace Code.Infrastructure.GameLoop
                 listener.GameTick();
             }
         }
-        
+
         private void NotifyGameExit()
         {
             foreach (var listener in _exitListeners)
@@ -113,6 +111,4 @@ namespace Code.Infrastructure.GameLoop
             }
         }
     }
-
-    
 }

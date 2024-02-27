@@ -734,7 +734,6 @@ GameObject:
   m_Component:
   - component: {fileID: 555248863}
   - component: {fileID: 555248864}
-  - component: {fileID: 555248865}
   m_Layer: 0
   m_Name: GameEventDispatcher
   m_TagString: Untagged
@@ -769,24 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b9e1bd125a4ce28237fa631a7d1408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneInitObserver: {fileID: 555248865}
---- !u!114 &555248865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555248862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d82cb030faeb4ec9868c58f4317663b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _perfectCamera: {fileID: 519420033}
-  _canvas: {fileID: 1144677980}
-  _maxInitSeconds: 3
   _controller: {fileID: 905365805009172329}
-  _isInit: 0
 --- !u!1 &631771330
 GameObject:
   m_ObjectHideFlags: 0
