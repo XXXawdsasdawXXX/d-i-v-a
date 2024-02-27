@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -7,22 +8,38 @@ namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
+        [SerializeField] private SceneInitObserver _sceneInitObserver;
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
         private readonly List<IGameTickListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
 
+        
         public void Awake()
         {
+            _sceneInitObserver.InitSceneEvent += SceneInitObserverOnInitSceneEvent;
+            Debugging.Instance.Log("Subscribe",Debugging.Type.GameState);
+        }
+
+        private void SceneInitObserverOnInitSceneEvent()
+        {
+            _sceneInitObserver.InitSceneEvent -= SceneInitObserverOnInitSceneEvent;
             InitializeListeners();
             NotifyGameInit();
             NotifyGameLoad();
             Debugging.Instance.Log("Awake",Debugging.Type.GameState);
+         
         }
-        
+
         private void Start()
         {
+            StartCoroutine(StartWithDelay());
+        }
+
+        private IEnumerator StartWithDelay()
+        {
+            yield return new WaitForSeconds(1);
             NotifyGameStart();
             Debugging.Instance.Log("Start",Debugging.Type.GameState);
         }

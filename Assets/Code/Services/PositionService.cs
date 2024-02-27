@@ -1,76 +1,87 @@
 using Code.Data.Enums;
-using Code.Infrastructure.GameLoop;
+using Code.Data.Interfaces;
+using Code.Data.StaticData;
+using Code.Utils;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace Code.Services
 {
-    public class PositionService : MonoBehaviour, IGameInitListener
+    public class PositionService : MonoBehaviour,IService
     {
-        private const float WIDTH_OFFSET =0/* 64F*/;
-        private const float HEIGHT_OFFSET =0/* 164F*/;
-
-        private static Camera _camera;
-
-        public void GameInit()
+        [SerializeField] private PixelPerfectCamera _perfectCamera;
+        [SerializeField] private RectTransform _canvas;
+        [SerializeField] private  Camera _camera;
+        
+        public Vector3 GetPosition(PointAnchor pointAnchor, EntityBounds entityBounds = null)
         {
-            var cameraPosition = ScreenToWorld(new Vector2(Screen.width / 2, Screen.height / 2));
-            Camera.main.transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
-        }
-
-
-        public static Vector3 GetPosition(PointAnchor pointAnchor)
-        {
+            entityBounds ??= new EntityBounds();
+           
             return pointAnchor switch
             {
-                PointAnchor.UpperLeft => GetUpperLeftPosition(),
-                PointAnchor.UpperCenter => GetUpperCenterPosition(),
-                PointAnchor.UpperRight => GetUpperRightPosition(),
-                PointAnchor.MiddleLeft => GetMiddleLeftPosition(),
-                PointAnchor.MiddleRight => GetMiddleRightPosition(),
-                PointAnchor.LowerLeft => GetLowerLeftPosition(),
-                PointAnchor.LowerCenter => GetLowerCenterPosition(),
-                PointAnchor.LowerRight => GetLowerRightPosition(),
+                PointAnchor.UpperLeft => GetUpperLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.UpperCenter => GetUpperCenterPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.UpperRight => GetUpperRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.MiddleLeft => GetMiddleLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.MiddleRight => GetMiddleRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerLeft => GetLowerLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerCenter => GetLowerCenterPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerRight => GetLowerRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.Center => GetCenterPosition(entityBounds.Size, entityBounds.Center),
                 _ => Vector3.zero
             };
         }
 
-        //upper
-
-        private static Vector3 GetUpperCenterPosition() =>
-            ScreenToWorld(new Vector2(Screen.width / 2, Screen.height - HEIGHT_OFFSET));
-
-        private static Vector3 GetUpperLeftPosition() =>
-            ScreenToWorld(new Vector2(WIDTH_OFFSET, Screen.height - HEIGHT_OFFSET));
-
-        private static Vector3 GetUpperRightPosition() =>
-            ScreenToWorld(new Vector2(Screen.width - WIDTH_OFFSET, Screen.height - HEIGHT_OFFSET));
-
-        //middle
-
-        private static Vector3 GetMiddleRightPosition() =>
-            ScreenToWorld(new Vector2(Screen.width - WIDTH_OFFSET, Screen.height / 2));
-
-        private static Vector3 GetMiddleLeftPosition() => ScreenToWorld(new Vector2(WIDTH_OFFSET, Screen.height / 2));
-
-        //lower
-
-        private static Vector3 GetLowerCenterPosition() => ScreenToWorld(new Vector2(Screen.width / 2, 0));
-
-        private static Vector3 GetLowerLeftPosition() => ScreenToWorld(new Vector2(WIDTH_OFFSET, 0));
-
-        private static Vector3 GetLowerRightPosition() => ScreenToWorld(new Vector2(Screen.width - WIDTH_OFFSET, 0));
-
-
-        private static Vector3 ScreenToWorld(Vector2 screenPoint)
+        #region Base methods
+        private Vector2 GetScreenSize()
         {
-            var worldPoint = Camera.main.ScreenToWorldPoint(screenPoint);
-            return new Vector3(worldPoint.x, worldPoint.y, 0);
+            return _canvas.sizeDelta;
         }
-
-        public static Vector3 GetMouseWorldPosition()
+        
+        public  Vector3 GetMouseWorldPosition()
         {
             var position = ScreenToWorld(Input.mousePosition);
             return position;
         }
+        private  Vector3 ScreenToWorld(Vector2 screenPoint)
+        {
+            var worldPoint = _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint));
+            return new Vector3(worldPoint.x, worldPoint.y, 0);
+        }
+
+        #endregion
+        
+        //upper
+
+        private Vector3 GetUpperLeftPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(size.x, GetScreenSize().y - size.y)) + center.AsVector3();
+
+        private Vector3 GetUpperCenterPosition(Vector2 size, Vector2 center) =>
+            ScreenToWorld(new Vector2(GetScreenSize().x / 2, GetScreenSize().y - size.y)) + center.AsVector3();
+        
+        private Vector3 GetUpperRightPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(GetScreenSize().x - size.x, GetScreenSize().y - size.y)) + center.AsVector3();
+
+        //middle
+        private Vector3 GetCenterPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(GetScreenSize().x / 2, GetScreenSize().y / 2)) + center.AsVector3();
+        private Vector3 GetMiddleRightPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(GetScreenSize().x - size.x,GetScreenSize().y / 2)) + center.AsVector3();
+
+        private Vector3 GetMiddleLeftPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(size.x, GetScreenSize().y  / 2)) + center.AsVector3();
+
+        //lower
+
+        private Vector3 GetLowerCenterPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(GetScreenSize().x / 2,0)) + center.AsVector3();
+
+        private Vector3 GetLowerLeftPosition(Vector2 size, Vector2 center) => 
+            ScreenToWorld(new Vector2(size.x,0)) + center.AsVector3();
+
+        private Vector3 GetLowerRightPosition(Vector2 size, Vector2 center) =>
+            ScreenToWorld(new Vector2(GetScreenSize().x - size.x, 0)) + center.AsVector3();
+
+
     }
 }

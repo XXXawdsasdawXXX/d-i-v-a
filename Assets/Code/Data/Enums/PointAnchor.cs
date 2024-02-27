@@ -10,5 +10,6 @@
         LowerLeft,
         LowerCenter,
         LowerRight,
+        Center
     }
 }

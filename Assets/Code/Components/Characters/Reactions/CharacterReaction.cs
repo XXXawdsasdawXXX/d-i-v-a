@@ -13,8 +13,8 @@ namespace Code.Components.Characters.Reactions
 
         public void GameInit()
         {
+            Init();
             SetCooldownMinutes();
-            
             _tickCounter = new TickCounter(_cooldownTickCount);
             _tickCounter.WaitedEvent += () => _isReady = true;
         }
@@ -37,5 +37,7 @@ namespace Code.Components.Characters.Reactions
         {
             _tickCounter.StartWait();
         }
+
+        protected virtual void Init(){}
     }
 }

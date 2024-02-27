@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree
 {
-    public sealed class BehaviourTreeRunner : MonoBehaviour, IService, IGameInitListener , IGameTickListener, IGameExitListener
+    public sealed class BehaviourTreeRunner : MonoBehaviour, IService, IGameInitListener , IGameTickListener,IGameStartListener
     {
         [SerializeField] private bool _isRun;
         
@@ -19,14 +19,14 @@ namespace Code.Infrastructure.BehaviorTree
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _timeObserver.InitTimeEvent += OnInitTime;
         }
 
-        private void OnInitTime()
+        public void GameStart()
         {
             _rootNode = new BehaviourNode_Selector();
             IsInitBehaviorTree = true;
         }
+
 
         public void GameTick()
         {
@@ -40,11 +40,6 @@ namespace Code.Infrastructure.BehaviorTree
             }
         }
 
-        public void GameExit()
-        {
-            _timeObserver.InitTimeEvent -= OnInitTime;
-        }
-        
-     
+
     }
 }

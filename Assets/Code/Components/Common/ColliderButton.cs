@@ -20,10 +20,12 @@ namespace Code.Components.Objects
 
         private float _maxClickCooldown, _currentClickCooldown;
         private int _clickNumber;
+        private PositionService _positionService;
 
         public void GameInit()
         {
             _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;
+            _positionService = Container.Instance.FindService<PositionService>();
         }
 
         public void GameTick()
@@ -52,7 +54,7 @@ namespace Code.Components.Objects
             _clickNumber++;
             _currentClickCooldown = 0;
             
-            DownEvent?.Invoke(PositionService.GetMouseWorldPosition());
+            DownEvent?.Invoke(_positionService.GetMouseWorldPosition());
             SeriesOfClicksEvent?.Invoke(_clickNumber);
             
             Debugging.Instance.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);
@@ -61,7 +63,7 @@ namespace Code.Components.Objects
         private void OnMouseUp()
         {
             IsPressed = false;
-            UpEvent?.Invoke(PositionService.GetMouseWorldPosition(), _pressedTime);
+            UpEvent?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
             _pressedTime = 0;
 
             Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);

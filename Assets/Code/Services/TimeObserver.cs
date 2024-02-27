@@ -18,10 +18,10 @@ namespace Code.Services
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
 
         private RangedFloat _tickRangedTime;
-        public DateTime CurrentTime;
+        private DateTime _currentTime;
         
         private float _currentTickCooldown;
-        private  float _tickTime = 5;
+        private  float _tickTime;
 
         private bool _isInit;
 
@@ -44,7 +44,7 @@ namespace Code.Services
             _tickTime = _tickRangedTime.GetRandomValue();
             coroutineRunner.StartRoutine(InitCurrentTime());
 
-            Debugging.Instance.Log($"Current time {CurrentTime}", Debugging.Type.Time);
+            Debugging.Instance.Log($"Current time {_currentTime}", Debugging.Type.Time);
         }
 
         public void GameTick()
@@ -60,7 +60,7 @@ namespace Code.Services
 
         private void UpdateCurrentTime()
         {
-            CurrentTime += TimeSpan.FromSeconds(Time.deltaTime);
+            _currentTime += TimeSpan.FromSeconds(Time.deltaTime);
         }
 
         private void UpdateTickTime()
@@ -77,7 +77,7 @@ namespace Code.Services
 
         public bool IsNightTime()
         {
-            TimeSpan timeOfDay = CurrentTime.TimeOfDay;
+            TimeSpan timeOfDay = _currentTime.TimeOfDay;
             return (timeOfDay >= NightStart || timeOfDay < NightEnd);
         }
 
@@ -88,7 +88,7 @@ namespace Code.Services
             UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.google.com");
             if (myHttpWebRequest == null)
             {
-                CurrentTime = DateTime.UtcNow;
+                _currentTime = DateTime.UtcNow;
                 _isInit = true;
                 InitTimeEvent?.Invoke();
                 yield break;
@@ -97,7 +97,7 @@ namespace Code.Services
             yield return myHttpWebRequest.Send();
             string netTime = myHttpWebRequest.GetResponseHeader("date");
             Debugging.Instance.Log($"net time {netTime}", Debugging.Type.Time);
-            DateTime.TryParse(netTime, out CurrentTime);
+            DateTime.TryParse(netTime, out _currentTime);
             InitTimeEvent?.Invoke();
             _isInit = true;
         }
