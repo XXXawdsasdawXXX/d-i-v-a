@@ -1,15 +1,15 @@
 ﻿using Code.Data.Enums;
+using Code.Data.Facades;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
-using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_StarrySky: CustomAction
     {
         private readonly TimeObserver _timeObserver;
-        private readonly ParticleSystem _skyStarsParticle;
+        private readonly ParticleSystemFacade _skyStarsParticle;
 
         public CustomAction_StarrySky() 
         {
@@ -38,12 +38,12 @@ namespace Code.Infrastructure.CustomActions
 
         public override void StartAction()
         {
-            _skyStarsParticle.Play();
+            _skyStarsParticle.On();
         }
         
         public override void StopAction()
         { 
-            _skyStarsParticle.Stop();
+            _skyStarsParticle.Off();
             EndCustomActionEvent?.Invoke(this);
         }
 

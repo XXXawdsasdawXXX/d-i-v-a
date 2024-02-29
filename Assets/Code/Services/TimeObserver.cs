@@ -14,15 +14,15 @@ namespace Code.Services
 {
     public class TimeObserver : IService, IGameInitListener, IGameTickListener
     {
+        [Header("Static value")]
         private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
-
         private RangedFloat _tickRangedTime;
-        private DateTime _currentTime;
-        
-        private float _currentTickCooldown;
         private  float _tickTime;
-
+        
+        [Header("Dinamic value")]
+        private float _currentTickCooldown;
+        private DateTime _currentTime;
         private bool _isInit;
         private bool _isNight;
 
@@ -82,10 +82,14 @@ namespace Code.Services
         {
             if (IsNightTime() && !_isNight)
             {
+                Debugging.Instance.Log($"Начало ночи", Debugging.Type.Time);
+                _isNight = true; 
                 StartNightEvent?.Invoke();
             }
             else if (!IsNightTime() && _isNight)
             {
+                Debugging.Instance.Log($"Начало дня", Debugging.Type.Time);
+                _isNight = false; 
                 StartDayEvent?.Invoke();
             }
         }

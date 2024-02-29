@@ -1,6 +1,6 @@
 ﻿using System;
 using Code.Data.Enums;
-using UnityEngine;
+using Code.Data.Facades;
 
 namespace Code.Data.StaticData
 {
@@ -8,6 +8,6 @@ namespace Code.Data.StaticData
     public class ParticleData
     {
         public ParticleType Type;
-        public ParticleSystem Object;
+        public ParticleSystemFacade Object;
     }
 }

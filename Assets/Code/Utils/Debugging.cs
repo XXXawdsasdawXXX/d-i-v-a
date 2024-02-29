@@ -25,7 +25,8 @@ namespace Code.Utils
             Apple,
             Position,
             GameState,
-            Grass
+            Grass,
+            CustomAction
         }
 
         [Serializable]

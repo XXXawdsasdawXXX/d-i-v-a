@@ -9,6 +9,7 @@ namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
+        [SerializeField] private bool _isTestInit;
         [SerializeField] private UniWindowController _controller;
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
@@ -19,12 +20,25 @@ namespace Code.Infrastructure.GameLoop
 
         public void Awake()
         {
-            _controller.OnStateChanged += ControllerOnOnStateChanged;
-            Debugging.Instance.Log("Subscribe", Debugging.Type.GameState);
-            InitializeListeners();
-            NotifyGameInit();
-            NotifyGameLoad();
-            Debugging.Instance.Log("Awake", Debugging.Type.GameState);
+            if (_isTestInit)
+            {
+                _controller.gameObject.SetActive(false);
+                InitializeListeners();
+                NotifyGameInit();
+                NotifyGameLoad();
+                Debugging.Instance.Log("Awake", Debugging.Type.GameState);
+                StartCoroutine(StartWithDelay());
+                Debugging.Instance.Log("Start", Debugging.Type.GameState);
+            }
+            else
+            {
+                _controller.OnStateChanged += ControllerOnOnStateChanged;
+                Debugging.Instance.Log("Subscribe", Debugging.Type.GameState);
+                InitializeListeners();
+                NotifyGameInit();
+                NotifyGameLoad();
+                Debugging.Instance.Log("Awake", Debugging.Type.GameState);
+            }
         }
         
         private void ControllerOnOnStateChanged(UniWindowController.WindowStateEventType type)

@@ -27,6 +27,7 @@ MonoBehaviour:
     Stand:
       MinValue: 2
       MaxValue: 6
+    StarryMouse: 30
   Delay:
     GrassGrow:
       MinValue: 1

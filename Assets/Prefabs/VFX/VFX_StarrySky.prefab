@@ -4842,8 +4842,9 @@ GameObject:
   - component: {fileID: 389483186217847116}
   - component: {fileID: 4418806080931780569}
   - component: {fileID: 2111864852622805392}
+  - component: {fileID: 7825032538144644012}
   m_Layer: 0
-  m_Name: VFX_Stars
+  m_Name: VFX_StarrySky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4857,7 +4858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2790527831125605431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.55, y: -5.9, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4883,7 +4884,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -8652,7 +8653,7 @@ ParticleSystem:
       emitter: {fileID: 5471549122995970907}
       type: 0
       properties: 0
-      emitProbability: 0.01
+      emitProbability: 0.005
   LightsModule:
     enabled: 0
     ratio: 0
@@ -9654,6 +9655,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7825032538144644012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790527831125605431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 4418806080931780569}
 --- !u!1 &5471549122995970906
 GameObject:
   m_ObjectHideFlags: 0
@@ -10255,7 +10269,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 2
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
