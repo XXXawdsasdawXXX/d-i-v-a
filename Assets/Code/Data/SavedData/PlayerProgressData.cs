@@ -10,6 +10,7 @@ namespace Code.Infrastructure.Save
         public CooldownSavedData Cooldowns;
         public List<LiveStateSavedData> LiveStatesData;
 
+
         public PlayerProgressData()
         {
             Cooldowns = new CooldownSavedData();

@@ -13,7 +13,7 @@ using Code.Utils;
 
 namespace Code.Data.Storages
 {
-    public class LiveStateStorage : IStorage, IGameInitListener, IProgressWriter
+    public class LiveStateStorage : Storage, IGameInitListener, IProgressWriter
     {
         private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();

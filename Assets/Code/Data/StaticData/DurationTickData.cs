@@ -7,7 +7,7 @@ namespace Code.Data.StaticData
     public class DurationTickData
     {
         [MinMaxRangeInt(1, 100)] public RangedInt LookToMouse;
-       [MinMaxRangeInt(1,100)] public RangedInt Stand;
-        
+        [MinMaxRangeInt(1,100)] public RangedInt Stand;
+        public float StarryMouse = 1;
     }
 }

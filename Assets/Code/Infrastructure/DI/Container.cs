@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Code.Components;
 using Code.Data.Interfaces;
+using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Utils;
@@ -14,13 +15,15 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-
+        
+        private MonoBehaviour[] _allObjects;
+        
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
-        private List<IStorage> _storages = new();
-
-        private List<Entity> _entities = new List<Entity>();
-
+        private List<Storage> _storages = new();
+        private List<CustomAction> _customActions = new();
+        private List<Entity> _entities = new();
+        
         private void Awake()
         {
             if (Instance != null)
@@ -31,9 +34,11 @@ namespace Code.Infrastructure.DI
             DontDestroyOnLoad(gameObject);
             Instance = this;
 
+            _allObjects = FindObjectsOfType<MonoBehaviour>();
             InitList(ref _services);
             InitList(ref _storages);
-            InitList(ref _entities);
+            InitList(ref _entities); 
+            InitList(ref _customActions);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -41,7 +46,7 @@ namespace Code.Infrastructure.DI
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
             var serviceTypes = types.Where(t =>
-                typeof(T).IsAssignableFrom(t) && t.IsClass && !typeof(MonoBehaviour).IsAssignableFrom(t));
+                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && !typeof(MonoBehaviour).IsAssignableFrom(t));
 
             foreach (var serviceType in serviceTypes)
             {
@@ -51,7 +56,7 @@ namespace Code.Infrastructure.DI
                 }
             }
 
-            var mbServices = FindObjectsOfType<MonoBehaviour>().OfType<T>();
+            var mbServices = _allObjects.OfType<T>();
             if (mbServices.Any())
             {
                 list.AddRange(mbServices);
@@ -62,6 +67,10 @@ namespace Code.Infrastructure.DI
                 Debugging.Type.DiContainer);
         }
 
+        public CustomAction[] GetCustomActions()
+        {
+            return _customActions.ToArray();
+        }
         public T FindConfig<T>() where T : ScriptableObject
         {
             foreach (var scriptableObject in _configs)
@@ -88,7 +97,7 @@ namespace Code.Infrastructure.DI
             return default;
         }
 
-        public T FindStorage<T>() where T : IStorage
+        public T FindStorage<T>() where T : Storage
         {
             foreach (var storage in _storages)
             {
@@ -117,41 +126,33 @@ namespace Code.Infrastructure.DI
 
         public List<IGameListeners> GetGameListeners()
         {
-            var listenersList = new List<IGameListeners>();
-
-            listenersList.AddRange(_services.OfType<IGameListeners>().ToList());
-            listenersList.AddRange(_storages.OfType<IGameListeners>().ToList());
-
-            var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IGameListeners>();
-            foreach (var mbListener in mbListeners)
-            {
-                if (!listenersList.Contains(mbListener))
-                {
-                    listenersList.Add(mbListener);
-                }
-            }
-
-            return listenersList;
+            return GetContainerComponents<IGameListeners>();
         }
 
         public List<IProgressReader> GetProgressReaders()
         {
-            var listenersList = new List<IProgressReader>();
+            return GetContainerComponents<IProgressReader>();
+        }
 
-            listenersList.AddRange(_services.OfType<IProgressReader>().ToList());
-            listenersList.AddRange(_storages.OfType<IProgressReader>().ToList());
+        private List<T> GetContainerComponents<T>()
+        {
+            var list = new List<T>();
 
+            list.AddRange(_services.OfType<T>().ToList());
+            list.AddRange(_storages.OfType<T>().ToList());
+            list.AddRange(_entities.OfType<T>().ToList());
+            list.AddRange(_customActions.OfType<T>().ToList());
 
-            var mbListeners = FindObjectsOfType<MonoBehaviour>().OfType<IProgressReader>();
+            var mbListeners = _allObjects.OfType<T>();
             foreach (var mbListener in mbListeners)
             {
-                if (!listenersList.Contains(mbListener))
+                if (!list.Contains(mbListener))
                 {
-                    listenersList.Add(mbListener);
+                    list.Add(mbListener);
                 }
             }
 
-            return listenersList;
+            return list;
         }
     }
 }

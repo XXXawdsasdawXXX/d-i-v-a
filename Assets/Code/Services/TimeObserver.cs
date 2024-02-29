@@ -24,10 +24,12 @@ namespace Code.Services
         private  float _tickTime;
 
         private bool _isInit;
+        private bool _isNight;
 
         public event Action TickEvent;
         public event Action InitTimeEvent;
         public event Action StartDayEvent;
+        public event Action StartNightEvent;
 
         [Obsolete("Obsolete")]
         public void GameInit()
@@ -72,6 +74,19 @@ namespace Code.Services
                 _currentTickCooldown = 0;
                 Debugging.Instance.Log($"Tick", Debugging.Type.Time);
                 TickEvent?.Invoke();
+                CheckTimeOfDay();
+            }
+        }
+
+        private void CheckTimeOfDay()
+        {
+            if (IsNightTime() && !_isNight)
+            {
+                StartNightEvent?.Invoke();
+            }
+            else if (!IsNightTime() && _isNight)
+            {
+                StartDayEvent?.Invoke();
             }
         }
 
@@ -100,6 +115,7 @@ namespace Code.Services
             DateTime.TryParse(netTime, out _currentTime);
             InitTimeEvent?.Invoke();
             _isInit = true;
+            CheckTimeOfDay();
         }
 
         #region Editor

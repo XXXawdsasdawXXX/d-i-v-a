@@ -51,6 +51,7 @@ namespace Code.Components.Objects
                 yield return period;
             }
             OnShown?.Invoke();
+            yield return period;
             Deactivate();
         }
         
