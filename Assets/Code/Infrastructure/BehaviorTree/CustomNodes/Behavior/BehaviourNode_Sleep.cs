@@ -31,10 +31,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         [Header("Node")] 
         private readonly SubNode_ReactionToVoice _subNode_reactionToVoice;
         
-        [Header("Values")] 
+        [Header("Static values")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
-
+        private readonly float _sleepHealValue;
+        
+        
         public BehaviourNode_Sleep()
         {
             Container.Instance.FindService<BehaviourTreeLoader>().AddProgressWriter(this);
@@ -51,9 +53,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
             //node------------------------------------------------------------------------------------------------------
             _subNode_reactionToVoice = new SubNode_ReactionToVoice();
-            //values----------------------------------------------------------------------------------------------------
+            //static values---------------------------------------------------------------------------------------------
+            var config = Container.Instance.FindConfig<LiveStateConfig>();
+            _sleepHealValue = config.GetStaticParam(LiveStateKey.Sleep).HealValue;
+            _effectAwakeningValue = config.Awakening;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
         }
 
         #region Live cycle
@@ -185,7 +189,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
 
         private bool IsCanSleep()
         {
-            return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f);
+            return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f) && 
+                   _sleepState.Current + _sleepHealValue * 7 < _sleepState.Max;
         }
 
         private bool IsCanExit()
