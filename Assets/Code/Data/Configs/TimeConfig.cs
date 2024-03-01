@@ -11,7 +11,7 @@ namespace Code.Data.Configs
         public RangedFloat TickRangedTime;
         public float ClickSeries = 0.75f;
         public CooldownTickData Cooldown;
-        public DurationTickData Duration;
+        public DurationData Duration;
         public DelayTickData Delay;
     }
 }

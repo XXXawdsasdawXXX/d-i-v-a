@@ -35,8 +35,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
         private readonly float _sleepHealValue;
-        
-        
+        private readonly int _stoppingTicksToMaximumSleepValues;
+
+
         public BehaviourNode_Sleep()
         {
             Container.Instance.FindService<BehaviourTreeLoader>().AddProgressWriter(this);
@@ -54,9 +55,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             //node------------------------------------------------------------------------------------------------------
             _subNode_reactionToVoice = new SubNode_ReactionToVoice();
             //static values---------------------------------------------------------------------------------------------
-            var config = Container.Instance.FindConfig<LiveStateConfig>();
-            _sleepHealValue = config.GetStaticParam(LiveStateKey.Sleep).HealValue;
-            _effectAwakeningValue = config.Awakening;
+            var liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
+            _sleepHealValue = liveStateConfig.GetStaticParam(LiveStateKey.Sleep).HealValue;
+            _effectAwakeningValue = liveStateConfig.Awakening;
+            var timeConfig = Container.Instance.FindConfig<TimeConfig>();
+            _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
@@ -190,7 +193,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
         private bool IsCanSleep()
         {
             return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f) && 
-                   _sleepState.Current + _sleepHealValue * 7 < _sleepState.Max;
+                   _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
         }
 
         private bool IsCanExit()
