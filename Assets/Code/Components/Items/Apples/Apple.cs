@@ -26,13 +26,16 @@ namespace Code.Components.Apples
         [Header("Services")] 
         private LiveStateStorage _liveStateStorage;
 
-        [Header("Value")] 
+        [Header("Static value")] 
         private AppleConfig _appleConfig;
         private TickCounter _tickCounter;
+
+        [Header("Dinamic value")] 
         private bool _isFall;
         private bool _isBig;
-        public int MaxStage => 5;
-        public int CurrentStage { get; private set; }
+        private int _currentStage;
+        public bool IsActive { get; private set; }
+    
 
 
         public void GameInit()
@@ -46,15 +49,16 @@ namespace Code.Components.Apples
 
         public void Grow()
         {
+            IsActive = true;
             _isFall = false;
             _isBig = false;
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
-            CurrentStage = 0;
+            _currentStage = 0;
             
-            _dragAndDrop.Activate();
+            _dragAndDrop.On();
             _appleAnimator.PlayEnter();
-            _appleAnimator.SetAppleStage(CurrentStage);
+            _appleAnimator.SetAppleStage(_currentStage);
 
             _tickCounter.WaitedEvent += OnTickCounterWaited;
             _tickCounter.StartWait(_appleConfig.OneStageLiveTimeTick.GetRandomValue());
@@ -63,7 +67,7 @@ namespace Code.Components.Apples
 
         public void ReadyForUse()
         {
-            _dragAndDrop.Deactivate();
+            _dragAndDrop.Off();
             _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
             Debugging.Instance.Log($"[ReadyForUse]", Debugging.Type.Apple);
@@ -80,14 +84,14 @@ namespace Code.Components.Apples
                 Reset();
             });
 
-            Debugging.Instance.Log($"[Use] стадия {CurrentStage}", Debugging.Type.Apple);
+            Debugging.Instance.Log($"[Use] стадия {_currentStage}", Debugging.Type.Apple);
         }
 
         private LiveStatePercentageValue[] GetLiveStateValues()
         {
             return _isBig
-                ? CurrentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.BigAppleValues[CurrentStage].Values : null
-                : CurrentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.SmallAppleValues[CurrentStage].Values : null;
+                ? _currentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.BigAppleValues[_currentStage].Values : null
+                : _currentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.SmallAppleValues[_currentStage].Values : null;
         }
 
         public void Fall()
@@ -108,7 +112,8 @@ namespace Code.Components.Apples
 
         private void Reset()
         {
-            CurrentStage = 0;
+            IsActive = false;
+            _currentStage = 0;
             _tickCounter.StopWait();
             _tickCounter.WaitedEvent -= OnTickCounterWaited;
             Debugging.Instance.Log($"[Reset]", Debugging.Type.Apple);
@@ -125,15 +130,15 @@ namespace Code.Components.Apples
             }
             else
             {
-                CurrentStage++;
-                Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {CurrentStage}", Debugging.Type.Apple);
-                if (CurrentStage == 2 && !_isFall)
+                _currentStage++;
+                Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
+                if (_currentStage == 2 && !_isFall)
                 {
                     Fall();
                     Event.InvokeStartIllEvent();
                 }
 
-                _appleAnimator.SetAppleStage(CurrentStage);
+                _appleAnimator.SetAppleStage(_currentStage);
             }
 
         }

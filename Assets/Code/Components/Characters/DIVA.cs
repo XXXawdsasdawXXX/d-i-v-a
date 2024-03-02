@@ -1,8 +1,6 @@
 ﻿using System.Linq;
-using Code.Components.Character.LiveState;
 using Code.Components.Characters.Reactions;
 using Code.Components.Objects;
-using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Components.Characters
@@ -13,7 +11,7 @@ namespace Code.Components.Characters
         [SerializeField] private CommonComponent[] _commonComponent;
         [SerializeField] private CharacterReaction[] _reactions;
 
-
+     
         public T FindCommonComponent<T>() where T : CommonComponent
         {
             foreach (var component in _commonComponent)

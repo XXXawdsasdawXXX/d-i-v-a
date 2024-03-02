@@ -2,7 +2,7 @@
 {
     public interface IActivated
     {
-        void Activate();
-        void Deactivate();
+        void On();
+        void Off();
     }
 }

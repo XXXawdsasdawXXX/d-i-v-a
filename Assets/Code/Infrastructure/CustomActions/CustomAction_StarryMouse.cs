@@ -106,19 +106,18 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _characterButton.DownEvent += CharacterButtonOnDownEvent;
+                _characterButton.UpEvent += OnButtonUp;
             }
             else
             {
-                _characterButton.DownEvent -= CharacterButtonOnDownEvent;
-                
+                _characterButton.UpEvent -= OnButtonUp;
             }
         }
 
-        private void CharacterButtonOnDownEvent(Vector2 _)
+        private void OnButtonUp(Vector2 _, float pressDuration)
         {
             Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",Debugging.Type.CustomAction);
-            if (_characterAnimationAnalytic.GetAnimationMode() is not CharacterAnimationMode.Seat)
+            if (pressDuration < 0.1 && _characterAnimationAnalytic.GetAnimationMode() is not CharacterAnimationMode.Seat)
             {
                 if (_isActive)
                 {

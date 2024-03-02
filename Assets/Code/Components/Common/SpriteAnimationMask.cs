@@ -26,12 +26,12 @@ namespace Code.Components.Objects
             _coroutine = StartCoroutine(ShowAnimation(OnShown));
         }
 
-        public void Activate()
+        public void On()
         {
             _coroutine = StartCoroutine(ShowAnimation());
         }
 
-        public void Deactivate()
+        public void Off()
         {
             if (_coroutine != null)
             {
@@ -52,7 +52,7 @@ namespace Code.Components.Objects
             }
             OnShown?.Invoke();
             yield return period;
-            Deactivate();
+            Off();
         }
         
     }

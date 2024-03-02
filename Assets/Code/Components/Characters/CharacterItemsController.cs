@@ -35,6 +35,11 @@ namespace Code.Components.Characters
 
         private void UseApple(Apple apple, Action OnEndReaction = null)
         {
+            if (!apple.IsActive)
+            {
+                return;
+            }
+            
             apple.transform.position = _modeAdapter.GetWorldEatPoint();
             apple.ReadyForUse();
             _characterAnimator.StartPlayEat(OnReadyEat: () =>
