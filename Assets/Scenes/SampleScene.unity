@@ -3205,7 +3205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
-  _isBindToMouse: 0
+  _isBindToMouse: 1
   _offset: {x: 0, y: -0.4}
   _colliderButton: {fileID: 8893949036200222671}
   _rigidbody2D: {fileID: 8893949036200222672}

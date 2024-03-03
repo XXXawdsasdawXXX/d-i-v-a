@@ -46,16 +46,25 @@ namespace Code.Infrastructure.Save
             }
 
             PlayerPrefs.SetString(progressKey, _playerProgress.ToJson());
+                 
+            var data = PlayerPrefs.GetString(progressKey);
+            Debugging.Instance.Log($"Save progress -> " +
+                                   $"{_playerProgress != null} " +
+                                   $"{_playerProgress?.LiveStatesData != null}" +
+                                   $"{_playerProgress?.LiveStatesData?.Count}\n" +
+                                   $"{data} ",Debugging.Type.SaveLoad);
         }
 
         private void LoadProgress()
         {
+            var data = PlayerPrefs.GetString(progressKey);
             _playerProgress =  PlayerPrefs.GetString(progressKey)?.ToDeserialized<PlayerProgressData>();
             
             Debugging.Instance.Log($"Load progress -> " +
                                    $"{_playerProgress != null} " +
                                    $"{_playerProgress?.LiveStatesData != null}" +
-                                   $"{_playerProgress?.LiveStatesData?.Count} ",Debugging.Type.SaveLoad);
+                                   $"{_playerProgress?.LiveStatesData?.Count}\n" +
+                                   $"{data} ",Debugging.Type.SaveLoad);
             
             _playerProgress ??= new PlayerProgressData();
             foreach (var progressReader in _progressReader)
@@ -63,6 +72,9 @@ namespace Code.Infrastructure.Save
                 progressReader.LoadProgress(_playerProgress);
             }
         }
+        
+
+
     }
 
     public interface IProgressWriter : IProgressReader

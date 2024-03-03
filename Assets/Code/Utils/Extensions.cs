@@ -1,25 +1,11 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Utils
 {
     public static class Extensions
     {
-        
-        public static string ToJson(this object obj)
-        {
-            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-        }
-
-        public static T ToDeserialized<T>(this string json)
-        {
-          return  JsonConvert.DeserializeObject<T>(json);
-        }
-        
         public static void ShuffleList<T>(List<T> list)
         {
             var n = list.Count;
