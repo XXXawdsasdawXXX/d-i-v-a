@@ -14,13 +14,23 @@ namespace Code.Utils
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
-            return EncryptData(json);
+            //return EncryptData(json);
+            return json;
         }
 
-        
+
         public static T ToDeserialized<T>(this string json)
         {
-            return  JsonConvert.DeserializeObject<T>(DecryptData(json));
+            /*try
+            {
+                var t = JsonConvert.DeserializeObject<T>(DecryptData(json));
+                return t;
+            }
+            catch (Exception e)
+            {
+                Debugging.Instance.ErrorLog($"e");*/
+                return JsonConvert.DeserializeObject<T>(json);
+            //}
         }
 
         private static string GenerateUniqueKey()
@@ -47,6 +57,7 @@ namespace Code.Utils
                     swEncrypt.Write(data);
                 }
             }
+
             return Convert.ToBase64String(msEncrypt.ToArray());
         }
 
@@ -59,9 +70,10 @@ namespace Code.Utils
 
             using Aes aesAlg = Aes.Create();
             aesAlg.Key = Convert.FromBase64String(GenerateUniqueKey());
-            aesAlg.IV = new byte[16]; 
+            aesAlg.IV = new byte[16];
             ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-            using System.IO.MemoryStream msDecrypt = new System.IO.MemoryStream(Convert.FromBase64String(encryptedData));
+            using System.IO.MemoryStream
+                msDecrypt = new System.IO.MemoryStream(Convert.FromBase64String(encryptedData));
             using CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
             using System.IO.StreamReader srDecrypt = new System.IO.StreamReader(csDecrypt);
             return srDecrypt.ReadToEnd();
