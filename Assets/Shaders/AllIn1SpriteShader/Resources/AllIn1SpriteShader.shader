@@ -59,15 +59,13 @@
 		_HsvShift("Hue Shift", Range(0, 360)) = 180 //43
 		_HsvSaturation("Saturation", Range(0, 2)) = 1 //44
 		_HsvBright("Brightness", Range(0, 2)) = 1 //45
-
-		_HitEffectColor("Hit Effect Color", Color) = (1,1,1,1) //46
+        _HitEffectColor("Hit Effect Color", Color) = (1,1,1,1) //46
 		_HitEffectGlow("Glow Intensity", Range(1,100)) = 5 //47
 		[Space]
+    	
 		_HitEffectBlend("Hit Effect Blend", Range(0,1)) = 1 //48
-
-		_NegativeAmount("Negative Amount", Range(0, 1)) = 1 //49
-
-		_PixelateSize("Pixelate size", Range(4,512)) = 32 //50
+        _NegativeAmount("Negative Amount", Range(0, 1)) = 1 //49
+        _PixelateSize("Pixelate size", Range(4,512)) = 32 //50
 
 		[NoScaleOffset] _ColorRampTex("Color ramp Texture", 2D) = "white" {} //51
 		_ColorRampLuminosity("Color ramp luminosity",  Range(-1,1)) = 0 //52
@@ -174,6 +172,15 @@
 		_ColorChangeTarget("Color to change", Color) = (1, 0, 0, 1) //124
 		[HDR] _ColorChangeNewCol("New Color", Color) = (1, 1, 0, 1) //125
 		_ColorChangeLuminosity("New Color Luminosity", Range(0, 1)) = 0.0 //126
+		
+    	_ColorChangeTarget2("Color to change 2", Color) = (1, 0, 0, 1) //147
+		[HDR] _ColorChangeNewCol2("New Color 2", Color) = (1, 1, 0, 1) //148
+	    _ColorChangeTolerance2("Tolerance 2", Range(0, 1)) = 0.25 //146
+    	
+		_ColorChangeTarget3("Color to change 3", Color) = (1, 0, 0, 1) //150
+		[HDR] _ColorChangeNewCol3("New Color 3", Color) = (1, 1, 0, 1) //151
+		_ColorChangeTolerance3("Tolerance 3", Range(0, 1)) = 0.25 //149
+
 
 		_RoundWaveStrength("Wave Strength", Range(0, 1)) = 0.7 //127
 		_RoundWaveSpeed("Wave Speed", Range(0, 5)) = 2 //128
@@ -199,12 +206,6 @@
 		_AlphaRoundThreshold("Round Threshold", Range(0.005, 1.0)) = 0.5 //144
 		_GrassRadialBend("Radial Bend", Range(0.0, 5.0)) = 0.1 //145
 
-		_ColorChangeTolerance2("Tolerance 2", Range(0, 1)) = 0.25 //146
-		_ColorChangeTarget2("Color to change 2", Color) = (1, 0, 0, 1) //147
-		[HDR] _ColorChangeNewCol2("New Color 2", Color) = (1, 1, 0, 1) //148
-		_ColorChangeTolerance3("Tolerance 3", Range(0, 1)) = 0.25 //149
-		_ColorChangeTarget3("Color to change 3", Color) = (1, 0, 0, 1) //150
-		[HDR] _ColorChangeNewCol3("New Color 3", Color) = (1, 1, 0, 1) //151
 
 		_Contrast ("Contrast", Range(0, 6)) = 1 // 152
 		_Brightness ("Brightness", Range(-1, 1)) = 0 // 153

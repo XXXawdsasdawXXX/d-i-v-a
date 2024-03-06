@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Components.Characters.Editor
 {
-    [CustomEditor(typeof(MaterialController))]
+    [CustomEditor(typeof(MaterialController)),CanEditMultipleObjects]
     public class MaterialControllerEditor: UnityEditor.Editor
     {
         public override void OnInspectorGUI()
@@ -12,10 +12,16 @@ namespace Code.Components.Characters.Editor
             DrawDefaultInspector();
             MaterialController materialController = (MaterialController)target;
 
-            if (GUILayout.Button("Set active snine"))
+            if (GUILayout.Button("Refresh"))
             {
-                materialController.SetActiveShine();
+                materialController.Editor_RefreshState();
+                materialController.Editor_RefreshValue();
             }
+
+
         }
     }
+    
+    
+   
 }

@@ -1,58 +1,122 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Code.Components.Objects
 {
     public class MaterialController : MonoBehaviour
     {
 
-        public Material targetMaterial;
-        public string propertyName = "_ShineRotate";
-        public float newValue = 3.14f; // Новое значение для угла в радианах
+        [SerializeField] protected Material _material;
+        [SerializeField] private StateType stateType;
         [SerializeField] private bool _isOn;
+        [Space] 
+        [SerializeField] private FloatValueType valueType;
+        [SerializeField] private float _newFloatValue = 3.14f; // Новое значение для угла в радианах
 
-        public string featureName = "SHINE_ON"; // Имя директивы
 
+        private Dictionary<StateType, bool> States;
+        private Dictionary<FloatValueType, bool> Floats;
+        
 
-        public void SetShineAngle()
+        public enum StateType
         {
-            if (targetMaterial != null && targetMaterial.HasProperty(propertyName))
+            SHINE_ON,
+            HOLOGRAM_ON,
+            GLITCH_ON,
+            GHOST_ON,
+            CHANGECOLOR_ON,
+            ONLYOUTLINE_ON,
+            FADE_ON,
+            OUTBASE_ON,
+            GRADIENT_ON
+        }
+        public enum FloatValueType
+        {
+            _ShineRotate,
+            _ColorChangeTolerance,//Range(0, 1)) = 0.25 //123,
+            _ColorChangeLuminosity,
+            _ColorChangeTolerance2,_TextureScrollXSpeed, _TextureScrollYSpeed
+        }
+        public enum ColorValueType
+        {
+            _ColorChangeTarget,// "Color to change" 
+            _ColorChangeNewCol,
+            _ColorChangeTarget2,
+            _ColorChangeNewCol2,
+        }
+
+        
+
+        #region Base methods
+
+        public bool GetStateValue(StateType stateType) => _material != null && _material.shader.isSupported &&
+                                                          _material.IsKeywordEnabled(stateType.ToString());
+        
+        protected void SetFloatValue(FloatValueType floatValueType,float value)
+        {
+            if (_material != null && _material.HasProperty(floatValueType.ToString()))
             {
-                // Устанавливаем новое значение параметра в шейдере
-                targetMaterial.SetFloat(propertyName, newValue);
+                _material.SetFloat(floatValueType.ToString(), value);
             }
             else
             {
-                Debug.LogError("Материал не содержит свойство с именем " + propertyName);
+                Debug.LogError("Материал не содержит свойство с именем " + floatValueType);
             }
         }
 
-
-        public void SetShineAngle(float value)
+        protected void SetState(StateType stateType, bool isActive)
         {
-            targetMaterial.SetFloat(propertyName, value);
-        }
-
-        public void SetActiveShine()
-        {
-            // Проверяем, что у материала есть нужная директива
-            if (targetMaterial != null && targetMaterial.shader.isSupported)
+            if (_material != null && _material.shader.isSupported)
             {
               
-                if (_isOn && !targetMaterial.IsKeywordEnabled(featureName))
+                if (isActive && !_material.IsKeywordEnabled(stateType.ToString()))
                 {
-                 targetMaterial.EnableKeyword(featureName);
+                    
+                    _material.EnableKeyword(stateType.ToString());
                     
                 }
                 else 
                 {
-                  targetMaterial.DisableKeyword(featureName);
-                    
+                    _material.DisableKeyword(stateType.ToString());
                 }
             }
             else
             {
-                Debug.LogError("Материал не поддерживает директиву " + featureName);
+                Debug.LogError("Материал не поддерживает директиву " + stateType);
             }
         }
+        
+
+        #endregion
+  
+
+        #region Editor
+
+        public void Editor_RefreshState()
+        {
+            SetState(stateType,_isOn);
+        }
+        
+        public void Editor_RefreshValue()
+        {
+            SetFloatValue(valueType,_newFloatValue);
+        }
+
+        #endregion
+
+        protected void Clear()
+        {
+            foreach (var value in Enum.GetValues(typeof(StateType)))
+            {
+                Console.WriteLine(value);
+                SetState((StateType)value,false);
+            }
+        }
+
+
     }
+    
+    
 }

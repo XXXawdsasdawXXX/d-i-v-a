@@ -1099,7 +1099,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadfb84dd9374350a6d8b1b293940f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materialController: {fileID: 772439462}
+  _material: {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}
+  stateType: 0
+  _isOn: 0
+  valueType: 0
+  _newFloatValue: 3.14
   _loopbackAudio: {fileID: 1625980003}
 --- !u!114 &772439462
 MonoBehaviour:
@@ -1113,11 +1117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a442b1d423a4ba5ab33b5a0089a6cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetMaterial: {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}
-  propertyName: _ShineRotate
-  newValue: 3.14
+  _material: {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}
+  stateType: 0
   _isOn: 0
-  featureName: SHINE_ON
+  valueType: 0
+  _newFloatValue: 3.14
 --- !u!1 &822540755
 GameObject:
   m_ObjectHideFlags: 0

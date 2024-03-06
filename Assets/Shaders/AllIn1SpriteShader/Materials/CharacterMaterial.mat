@@ -57,8 +57,8 @@ Material:
   m_Name: CharacterMaterial
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_ValidKeywords:
-  - CHANGECOLOR2_ON
   - FADE_ON
+  - GLOWTEX_ON
   - OUTBASEPIXELPERF_ON
   - OUTTEX_ON
   - SHINE_ON
@@ -111,7 +111,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
         m_Texture: {fileID: 2800000, guid: e3763a0fd85c67f4f9f31b55f886d31d, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
         m_Texture: {fileID: 0}
@@ -141,7 +141,7 @@ Material:
     - _ClipUvRight: 1
     - _ClipUvUp: 1
     - _ColorChangeLuminosity: 1
-    - _ColorChangeTolerance: 0.655
+    - _ColorChangeTolerance: 0
     - _ColorChangeTolerance2: 0
     - _ColorChangeTolerance3: 0.25
     - _ColorRampBlend: 1
@@ -156,7 +156,7 @@ Material:
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
-    - _EditorDrawers: 6
+    - _EditorDrawers: 2
     - _FadeAmount: 0.743
     - _FadeBurnGlow: 1
     - _FadeBurnTransition: 0.221
@@ -165,10 +165,10 @@ Material:
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
-    - _GhostBlend: 1
-    - _GhostColorBoost: 2.39
-    - _GhostTransparency: 0.797
-    - _GlitchAmount: 3
+    - _GhostBlend: 0.639
+    - _GhostColorBoost: 2.11
+    - _GhostTransparency: 0.148
+    - _GlitchAmount: 0.8
     - _GlitchSize: 1
     - _Glow: 0.2
     - _GlowGlobal: 1
@@ -226,12 +226,12 @@ Material:
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
     - _OutlineDistortToggle: 0
-    - _OutlineGlow: 83
+    - _OutlineGlow: 100
     - _OutlineIsPixel: 0
-    - _OutlinePixelWidth: 1.17
+    - _OutlinePixelWidth: 1.09
     - _OutlineTexGrey: 0
     - _OutlineTexToggle: 0
-    - _OutlineTexXSpeed: 2.2
+    - _OutlineTexXSpeed: 0.9
     - _OutlineTexYSpeed: 19.4
     - _OutlineWidth: 0.004
     - _OverlayBlend: 0.493
@@ -254,10 +254,10 @@ Material:
     - _ShakeUvY: 1
     - _ShineGlow: 1
     - _ShineLocation: 0.5
-    - _ShineRotate: 0
+    - _ShineRotate: 2.23742
     - _ShineWidth: 0.208
-    - _TextureScrollXSpeed: 1
-    - _TextureScrollYSpeed: 0
+    - _TextureScrollXSpeed: 1.0938005
+    - _TextureScrollYSpeed: 1.0938005
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
@@ -273,10 +273,10 @@ Material:
     m_Colors:
     - _AlphaOutlineColor: {r: 0.33490568, g: 0.42247707, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorChangeNewCol: {r: 1, g: 0.24322104, b: 0, a: 1}
+    - _ColorChangeNewCol: {r: 0.6836439, g: 0.57588273, b: 0.93196285, a: 0}
     - _ColorChangeNewCol2: {r: 0.41424885, g: 0.64008534, b: 0.8207547, a: 1}
     - _ColorChangeNewCol3: {r: 1, g: 1, b: 0, a: 1}
-    - _ColorChangeTarget: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorChangeTarget: {r: 0, g: 0, b: 0, a: 1}
     - _ColorChangeTarget2: {r: 0.007843138, g: 0.039215688, b: 0.06666667, a: 1}
     - _ColorChangeTarget3: {r: 1, g: 0, b: 0, a: 1}
     - _ColorSwapBlue: {r: 1, g: 1, b: 1, a: 1}
@@ -292,7 +292,7 @@ Material:
     - _HitEffectColor: {r: 1, g: 1, b: 1, a: 1}
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 0.53306335, g: 0.62038857, b: 0.9339623, a: 1}
-    - _OutlineColor: {r: 0.3066038, g: 0.4919034, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _OverlayColor: {r: 0.75, g: 0.8588867, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 0.45834818, g: 0.5240081, b: 0.9433962, a: 1}
