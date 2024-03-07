@@ -11,9 +11,9 @@ namespace Code.Services
     {
         [SerializeField] private ParticleData[] _particles;
 
-        public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade particleSystem)
+        public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
-            particleSystem = _particles.FirstOrDefault(p => p.Type == particleType)?.Object;
+            particleSystem = _particles.FirstOrDefault(p => p.Type == particleType)?.Objects;
             return particleSystem != null;
         }
     }

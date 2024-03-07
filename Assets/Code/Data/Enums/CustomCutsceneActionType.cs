@@ -4,6 +4,7 @@ namespace Code.Infrastructure.CustomActions
     {
         None,
         StarrySky,
-        StarryMouse
+        StarryMouse,
+        Electricity
     }
 }

@@ -8,6 +8,6 @@ namespace Code.Data.StaticData
     public class ParticleData
     {
         public ParticleType Type;
-        public ParticleSystemFacade Object;
+        public ParticleSystemFacade[] Objects;
     }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Code.Data.Interfaces;
 
-public class LoopbackAudio : MonoBehaviour
+public class LoopbackAudio : MonoBehaviour, IService
 {
     #region Constants
 

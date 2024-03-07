@@ -4,6 +4,9 @@
     {
         None,
         SkyStars,
-        StarryMouse
+        StarryMouse,
+        Stun,
+        Electricity,
+        Bubbles
     }
 }

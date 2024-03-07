@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction, IGameTickListener, IGameExitListener
+    public class CustomAction_StarryMouse : CustomAction, IGameTickListener, IGameExitListener , IGameStartListener
     {
         [Header("Character")] 
         private readonly ColliderButton _characterButton;
@@ -38,12 +38,20 @@ namespace Code.Infrastructure.CustomActions
             //static values
             _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
             var particles = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particles.TryGetParticle(ParticleType.StarryMouse, out _particle))
+            if (!particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
             {
                 Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.SkyStars} не добавлен в библиотеку партиклов");
             }
-
+            _particle = particlesFacades[0];
+            
             SubscribeToEvents(true);
+        }
+
+        public void GameStart()
+        {
+   
+            _particle.Off();
+            
         }
 
         public void GameExit()
@@ -63,27 +71,18 @@ namespace Code.Infrastructure.CustomActions
                 StopAction();
             }
 
-            if (_isActive)
-            {
+          
                 var currentMousePosition = _positionService.GetMouseWorldPosition();
-                if (Vector3.Distance(currentMousePosition, _lastPoint) > 0.3f)
-                {
-                    _lastPoint = currentMousePosition;
-                    _particle.transform.position = _lastPoint;
-                    _particle.On();
-                }
-                else
-                {
-                    _particle.Off();
-                }
-            }
+                _particle.transform.position = currentMousePosition;
+            
+    
+            
         }
 
         public sealed override void StartAction()
         {
             _isActive = true;
             _particle.transform.position = _positionService.GetMouseWorldPosition();
-            _particle.Play();
             _particle.On();
             _coroutineRunner.StartActionWithDelay(StopAction, _duration);
             Debugging.Instance.Log($"[{GetActionType()}] [Start Action]",Debugging.Type.CustomAction);
@@ -93,7 +92,6 @@ namespace Code.Infrastructure.CustomActions
         {
             _isActive = false;
             _particle.Off();
-            _particle.Stop();
             Debugging.Instance.Log($"[{GetActionType()}] [Stop Action]",Debugging.Type.CustomAction);
         }
 

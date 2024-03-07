@@ -15,10 +15,13 @@ namespace Code.Infrastructure.CustomActions
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particleDictionary.TryGetParticle(ParticleType.SkyStars, out _skyStarsParticle))
+            if (!particleDictionary.TryGetParticle(ParticleType.SkyStars, out var skyStarsParticle))
             {
                 Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.SkyStars} не добавлен в библиотеку партиклов");
+                return;
             }
+
+            _skyStarsParticle = skyStarsParticle[0];
             SubscribeToEvents(true);
         }
 
