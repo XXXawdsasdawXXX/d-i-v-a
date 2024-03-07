@@ -5,7 +5,7 @@
         None,
         SkyStars,
         StarryMouse,
-        Stun,
+        Nimbus,
         Electricity,
         Bubbles
     }

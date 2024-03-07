@@ -9,19 +9,19 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Electricity: CustomAction, IGameTickListener, IGameStartListener
+    public class CustomAction_Nimbus: CustomAction, IGameTickListener, IGameStartListener
     {
         private readonly DIVA _diva;
         private ParticleSystemFacade[] _particlesSystems;
         private readonly LoopbackAudio _loopbackAudio;
         private readonly CharacterModeAdapter _characterModeAdapter;
 
-        public CustomAction_Electricity()
+        public CustomAction_Nimbus()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems))
+            if (!particleDictionary.TryGetParticle(ParticleType.Nimbus, out _particlesSystems))
             {
-                Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.Electricity} не добавлен в библиотеку партиклов");
+                Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.Nimbus} не добавлен в библиотеку партиклов");
             }
 
             _diva = Container.Instance.FindEntity<DIVA>();
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.CustomActions
         
         public override CustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.Electricity;
+            return CustomCutsceneActionType.Nimbus;
         }
       
         public void GameStart()
@@ -51,11 +51,10 @@ namespace Code.Infrastructure.CustomActions
                 {
                     particle.On();
                 }
-
-                var value = _loopbackAudio.PostScaledMax * 0.02f;
-                particle.SetTrailWidthOverTrail(value < 0.01f ? 0.01f : value);
-           
-                particle.transform.position = _characterModeAdapter.GetWorldEatPoint();
+                 particle.SetTrailWidthOverTrail(_loopbackAudio.PostScaledMax * 0.07f);
+               // particle.SetTrailLifeTime(_loopbackAudio.PostScaledMax * 5);
+                //particle.SetVelocityOverLifetime(_loopbackAudio.PostScaledEnergy * 0.7f);
+                particle.transform.position = _characterModeAdapter.GetWorldEatPoint() + Vector3.up * 0.7f;
             
             }
         }

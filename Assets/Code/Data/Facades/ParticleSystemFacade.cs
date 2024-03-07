@@ -6,6 +6,7 @@ namespace Code.Data.Facades
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {
         [SerializeField] private ParticleSystem _particleSystem;
+       
 
         private ParticleSystem.EmissionModule _emission;
         private ParticleSystem.MainModule _main;

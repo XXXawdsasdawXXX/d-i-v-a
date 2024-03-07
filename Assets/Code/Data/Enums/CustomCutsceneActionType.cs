@@ -5,6 +5,7 @@ namespace Code.Infrastructure.CustomActions
         None,
         StarrySky,
         StarryMouse,
-        Electricity
+        Electricity,
+        Nimbus
     }
 }
