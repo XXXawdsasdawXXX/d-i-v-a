@@ -5,12 +5,14 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Electricity: CustomAction, IGameTickListener, IGameStartListener
     {
+        private bool _isDisable ;
         private readonly DIVA _diva;
         private ParticleSystemFacade[] _particlesSystems;
         private readonly LoopbackAudio _loopbackAudio;
@@ -21,6 +23,7 @@ namespace Code.Infrastructure.CustomActions
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
             if (!particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems))
             {
+                _isDisable = true;
                 Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.Electricity} не добавлен в библиотеку партиклов");
             }
 
@@ -37,6 +40,7 @@ namespace Code.Infrastructure.CustomActions
       
         public void GameStart()
         {
+            if(_isDisable)return;
             StartAction();
         }
 
@@ -44,7 +48,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameTick()
         {
-            
+            if(_isDisable)return;
             foreach (var particle in _particlesSystems)
             {
                 if (!particle.IsPlay)
@@ -52,8 +56,8 @@ namespace Code.Infrastructure.CustomActions
                     particle.On();
                 }
 
-                var value = _loopbackAudio.PostScaledMax * 0.02f;
-                particle.SetTrailWidthOverTrail(value < 0.01f ? 0.01f : value);
+                var value = _loopbackAudio.PostScaledEnergy * 0.02f;
+                particle.SetTrailWidthOverTrail(value/* < 0.01f ? 0.01f : value*/);
            
                 particle.transform.position = _characterModeAdapter.GetWorldEatPoint();
             

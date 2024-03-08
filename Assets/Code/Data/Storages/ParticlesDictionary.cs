@@ -13,8 +13,9 @@ namespace Code.Services
 
         public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
-            particleSystem = _particles.FirstOrDefault(p => p.Type == particleType)?.Objects;
-            return particleSystem != null;
+            var data = _particles.FirstOrDefault(p => p.Type == particleType);
+            particleSystem = data?.Objects;
+            return data is { IsDisable: false };
         }
     }
 }

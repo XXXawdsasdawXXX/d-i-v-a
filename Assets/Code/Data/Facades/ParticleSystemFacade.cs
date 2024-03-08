@@ -45,7 +45,7 @@ namespace Code.Data.Facades
    
         public void On()
         {
-            
+            if(gameObject.activeInHierarchy)
             _emission.enabled = true;
             /*_particleSystem.gameObject.SetActive(true);
             _particleSystem.Clear();
