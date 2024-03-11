@@ -5,7 +5,6 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
-using UnityEditor.Build;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
@@ -15,7 +14,7 @@ namespace Code.Infrastructure.CustomActions
         private bool _isDisable ;
         private readonly DIVA _diva;
         private ParticleSystemFacade[] _particlesSystems;
-        private readonly LoopbackAudio _loopbackAudio;
+        private readonly LoopbackAudioService _loopbackAudioService;
         private readonly CharacterModeAdapter _characterModeAdapter;
 
         public CustomAction_Electricity()
@@ -29,7 +28,7 @@ namespace Code.Infrastructure.CustomActions
 
             _diva = Container.Instance.FindEntity<DIVA>();
             _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
-            _loopbackAudio = Container.Instance.FindService<LoopbackAudio>();
+            _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
         
         
@@ -56,7 +55,7 @@ namespace Code.Infrastructure.CustomActions
                     particle.On();
                 }
 
-                var value = _loopbackAudio.PostScaledEnergy * 0.02f;
+                var value = _loopbackAudioService.PostScaledEnergy * 0.02f;
                 particle.SetTrailWidthOverTrail(value/* < 0.01f ? 0.01f : value*/);
            
                 particle.transform.position = _characterModeAdapter.GetWorldEatPoint();

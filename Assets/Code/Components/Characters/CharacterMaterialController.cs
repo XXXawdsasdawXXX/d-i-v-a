@@ -7,7 +7,7 @@ namespace Code.Components.Characters
 {
     public class CharacterMaterialController : MaterialController, IGameTickListener
     {
-        [SerializeField] private LoopbackAudio _loopbackAudio;
+        [SerializeField] private LoopbackAudioService loopbackAudioService;
 
         private List<FloatValueType> _floatObservers = new List<FloatValueType>();
 
@@ -15,19 +15,23 @@ namespace Code.Components.Characters
         
         public void GameTick()
         {
+            if (loopbackAudioService == null)
+            {
+                return;
+            }
             SetShineAngle();
             SetOutlLineSpeed();
         }
 
         private void SetOutlLineSpeed()
         {
-            SetFloatValue(FloatValueType._TextureScrollXSpeed, _loopbackAudio.PostScaledEnergy);
-            SetFloatValue(FloatValueType._TextureScrollYSpeed, _loopbackAudio.PostScaledEnergy);
+            SetFloatValue(FloatValueType._TextureScrollXSpeed, loopbackAudioService.PostScaledEnergy);
+            SetFloatValue(FloatValueType._TextureScrollYSpeed, loopbackAudioService.PostScaledEnergy);
         }
 
         private void SetShineAngle()
         {
-            _material.SetFloat(FloatValueType._ShineRotate.ToString(), _loopbackAudio.PostScaledMax);
+            _material.SetFloat(FloatValueType._ShineRotate.ToString(), loopbackAudioService.PostScaledMax);
         }
 
         [ContextMenu("SetDynamicMagicMaterial")]

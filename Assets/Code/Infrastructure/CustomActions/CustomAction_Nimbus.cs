@@ -13,7 +13,7 @@ namespace Code.Infrastructure.CustomActions
     {
         private readonly DIVA _diva;
         private ParticleSystemFacade[] _particlesSystems;
-        private readonly LoopbackAudio _loopbackAudio;
+        private readonly LoopbackAudioService _loopbackAudioService;
         private readonly CharacterModeAdapter _characterModeAdapter;
 
         public CustomAction_Nimbus()
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.CustomActions
 
             _diva = Container.Instance.FindEntity<DIVA>();
             _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
-            _loopbackAudio = Container.Instance.FindService<LoopbackAudio>();
+            _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
         
         
@@ -51,11 +51,8 @@ namespace Code.Infrastructure.CustomActions
                 {
                     particle.On();
                 }
-                 particle.SetTrailWidthOverTrail(_loopbackAudio.PostScaledMax * 0.07f);
-               // particle.SetTrailLifeTime(_loopbackAudio.PostScaledMax * 5);
-                //particle.SetVelocityOverLifetime(_loopbackAudio.PostScaledEnergy * 0.7f);
-                particle.transform.position = _characterModeAdapter.GetWorldEatPoint() + Vector3.up * 0.7f;
-            
+                particle.SetTrailWidthOverTrail(_loopbackAudioService.PostScaledMax * 0.07f);
+                particle.transform.position = _characterModeAdapter.GetWorldEatPoint() + Vector3.up * 0.5f;
             }
         }
 
@@ -66,7 +63,6 @@ namespace Code.Infrastructure.CustomActions
             foreach (var particle in _particlesSystems)
             {
                 particle.On();
-                //particle.SetColor(Color.black);
             }
         }
         public override void StopAction()
@@ -74,7 +70,5 @@ namespace Code.Infrastructure.CustomActions
           
         }
         
-        
-      
     }
 }

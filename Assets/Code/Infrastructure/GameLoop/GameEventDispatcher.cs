@@ -20,6 +20,10 @@ namespace Code.Infrastructure.GameLoop
 
         public void Awake()
         {
+            
+#if !UNITY_EDITOR
+            _isTestInit = false;
+#endif
             if (_isTestInit)
             {
                 _controller.gameObject.SetActive(false);
