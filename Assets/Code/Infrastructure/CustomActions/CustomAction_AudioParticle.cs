@@ -22,7 +22,7 @@ namespace Code.Infrastructure.CustomActions
 
         protected CustomAction_AudioParticle()
         {
-            var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
+            var particleDictionary = Container.Instance.FindService<ParticlesStorage>();
             if (particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
             {
                 _diva = Container.Instance.FindEntity<DIVA>();

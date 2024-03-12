@@ -27,6 +27,7 @@ namespace Code.Data.Facades
         private GradientsDictionary _gradientsDictionary;
         
         public bool IsPlay => _particleSystem.isPlaying;
+        private bool _isInit;
 
         public void GameInit()
         {
@@ -38,6 +39,7 @@ namespace Code.Data.Facades
             _colorOverLifetime = _particleSystem.colorOverLifetime;
             
             _gradientsDictionary = Container.Instance.FindService<GradientsDictionary>();
+            _isInit = true;
         }
 
         public void On()
@@ -57,7 +59,7 @@ namespace Code.Data.Facades
 
         public void SetTrailWidthOverTrail(float value)
         {
-            _trails.widthOverTrailMultiplier = value;
+            if(_isInit) _trails.widthOverTrailMultiplier = value;
         }
 
         public void SetSizeMultiplier(float value)

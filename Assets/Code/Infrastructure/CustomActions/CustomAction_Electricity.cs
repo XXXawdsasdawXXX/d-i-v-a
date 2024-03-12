@@ -19,7 +19,7 @@ namespace Code.Infrastructure.CustomActions
 
         public CustomAction_Electricity()
         {
-            var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
+            var particleDictionary = Container.Instance.FindService<ParticlesStorage>();
             if (particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems))
             {
                 _diva = Container.Instance.FindEntity<DIVA>();

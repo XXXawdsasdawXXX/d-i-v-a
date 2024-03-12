@@ -1017,19 +1017,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particles:
   - Type: 1
-    IsDisable: 1
     Objects:
     - {fileID: 7825032537486802329}
   - Type: 2
-    IsDisable: 1
     Objects:
     - {fileID: 7511574251352622774}
   - Type: 3
-    IsDisable: 0
     Objects:
     - {fileID: 5664426458150952008}
   - Type: 4
-    IsDisable: 1
     Objects:
     - {fileID: 6963766016917461680}
     - {fileID: 3669835114831055619}
@@ -3463,9 +3459,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System_nimbus
       objectReference: {fileID: 0}
-    - target: {fileID: 7752801918249470212, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: <Type>k__BackingField
-      value: 3
+    - target: {fileID: 5809537865495776335, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
