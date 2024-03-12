@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5809537865495776329}
   - component: {fileID: 5809537865495776334}
   - component: {fileID: 7752801918249470212}
-  - component: {fileID: 3251725532904845776}
+  - component: {fileID: 2576211046701084766}
   m_Layer: 0
   m_Name: Particle System_nimbus
   m_TagString: Untagged
@@ -4913,7 +4913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 5809537865495776329}
---- !u!114 &3251725532904845776
+--- !u!114 &2576211046701084766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4926,7 +4926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 7752801918249470212}
-  _isTesting: 0
+  _isActive: 0
   _params: 
-  _audio: 0
+  _audio: 1
+  _gradientType: 0
   _valueMultiplier: 1

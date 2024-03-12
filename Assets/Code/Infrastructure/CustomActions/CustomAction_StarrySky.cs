@@ -8,6 +8,7 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_StarrySky: CustomAction
     {
+        private readonly bool _isDisable;
         private readonly TimeObserver _timeObserver;
         private readonly ParticleSystemFacade _skyStarsParticle;
 
@@ -17,7 +18,7 @@ namespace Code.Infrastructure.CustomActions
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
             if (!particleDictionary.TryGetParticle(ParticleType.SkyStars, out var skyStarsParticle))
             {
-                Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.SkyStars} не добавлен в библиотеку партиклов");
+                _isDisable = true;
                 return;
             }
 
@@ -27,6 +28,7 @@ namespace Code.Infrastructure.CustomActions
 
         private void SubscribeToEvents(bool flag)
         {
+            if(_isDisable)return;
             if (flag)
             {
                 _timeObserver.StartNightEvent += StartAction;
@@ -41,11 +43,13 @@ namespace Code.Infrastructure.CustomActions
 
         public override void StartAction()
         {
+            if(_isDisable)return;
             _skyStarsParticle.On();
         }
         
         public override void StopAction()
         { 
+            if(_isDisable)return;
             _skyStarsParticle.Off();
             EndCustomActionEvent?.Invoke(this);
         }

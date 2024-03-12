@@ -6,21 +6,20 @@ using UnityEngine;
 
 namespace Code.Data.Facades
 {
-    [RequireComponent(typeof(AudioTestParticleFacade))]
+    [RequireComponent(typeof(AudioParticleModule))]
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {
         [SerializeField] private ParticleSystem _particleSystem;
 
-        [Header("Modules")]
-        private ParticleSystem.EmissionModule _emission;
+        [Header("Modules")] private ParticleSystem.EmissionModule _emission;
         private ParticleSystem.MainModule _main;
         private ParticleSystem.TrailModule _trails;
         private ParticleSystem.NoiseModule _noise;
         private ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
+        private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
         public bool IsPlay => _particleSystem.isPlaying;
 
-        [Header("Services")]
-        private GradientsDictionary _gradientsDictionary;
+        [Header("Services")] private GradientsDictionary _gradientsDictionary;
 
         public void GameInit()
         {
@@ -29,6 +28,8 @@ namespace Code.Data.Facades
             _trails = _particleSystem.trails;
             _noise = _particleSystem.noise;
             _velocityOverLifetime = _particleSystem.velocityOverLifetime;
+            _colorOverLifetime = _particleSystem.colorOverLifetime;
+
 
             _gradientsDictionary = Container.Instance.FindService<GradientsDictionary>();
         }
@@ -39,6 +40,7 @@ namespace Code.Data.Facades
             {
                 return;
             }
+
             _emission.enabled = true;
         }
 
@@ -51,12 +53,12 @@ namespace Code.Data.Facades
         {
             _trails.widthOverTrailMultiplier = value;
         }
-        
+
         public void SetSizeMultiplier(float value)
         {
             _main.startSizeMultiplier = value;
         }
-        
+
         public void SetVelocityOverLifetime(float value)
         {
             _velocityOverLifetime.speedModifier = value;
@@ -84,24 +86,55 @@ namespace Code.Data.Facades
             _trails.colorOverLifetime = gradient;
         }
 
-        public void SetTrailsGradientValue(float getValue)
+        public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {
-            _gradientsDictionary.TryGetGradient(GradientType.SoftBlue, out var gradientData);
-            var currentGradient = _trails.colorOverLifetime.gradient;
-            var colors = new GradientColorKey[2];
-            colors[0] = new GradientColorKey(gradientData.colorKeys[0].color, Mathf.Clamp(getValue,0,0.75f));
-            colors[1] = new GradientColorKey(gradientData.colorKeys[1].color, 1.0f);
-            var alphas = new GradientAlphaKey[2];
-            alphas[0] = new GradientAlphaKey(1.0f, 0.75f);
-            alphas[1] = new GradientAlphaKey(0f, 1.0f);
-            var newGradient = new Gradient();
-            newGradient.SetKeys(colors, alphas);
-            var gradient = new ParticleSystem.MinMaxGradient()
+            if (_gradientsDictionary.TryGetGradient(gradientType, out var gradientData))
             {
-                gradient = newGradient,
-                mode = ParticleSystemGradientMode.Gradient
-            };
-            _trails.colorOverLifetime = gradient;
+                var colors = new GradientColorKey[gradientData.colorKeys.Length];
+                for (int i = 0; i < colors.Length; i++)
+                {
+                    colors[i] = new GradientColorKey(gradientData.colorKeys[i].color,
+                        gradientData.colorKeys[i].time * Mathf.Clamp(getValue, 0, 1));
+                }
+
+                var alphas = new GradientAlphaKey[gradientData.alphaKeys.Length];
+                for (int i = 0; i < alphas.Length; i++)
+                {
+                    alphas[i] = new GradientAlphaKey(gradientData.alphaKeys[i].alpha, i / alphas.Length);
+                }
+
+                var newGradient = new Gradient();
+                newGradient.SetKeys(colors, alphas);
+                var gradient = new ParticleSystem.MinMaxGradient()
+                {
+                    gradient = newGradient,
+                    mode = ParticleSystemGradientMode.Gradient
+                };
+                _trails.colorOverLifetime = gradient;
+            }
+        }
+
+        public void SetLifetimeColor(float getValue, GradientType gradientType)
+        {
+            if (_gradientsDictionary.TryGetGradient(gradientType, out var gradientData))
+            {
+                var colors = new GradientColorKey[gradientData.colorKeys.Length];
+                for (int i = 0; i < colors.Length; i++)
+                {
+                    colors[i] = new GradientColorKey(gradientData.colorKeys[i].color,
+                        gradientData.colorKeys[i].time * Mathf.Clamp(getValue, 0, 1));
+                }
+
+                var alphas = gradientData.alphaKeys;
+                var newGradient = new Gradient();
+                newGradient.SetKeys(colors, alphas);
+                var minMaxGradient = new ParticleSystem.MinMaxGradient()
+                {
+                    gradient = newGradient,
+                    mode = ParticleSystemGradientMode.Gradient
+                };
+                _colorOverLifetime.color = minMaxGradient;
+            }
         }
     }
 }

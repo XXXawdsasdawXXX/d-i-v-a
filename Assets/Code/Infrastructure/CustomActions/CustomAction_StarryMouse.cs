@@ -13,6 +13,7 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_StarryMouse : CustomAction, IGameTickListener, IGameExitListener, IGameStartListener
     {
+        private readonly bool _isNotUsed;
         [Header("Character")] private readonly ColliderButton _characterButton;
         private readonly CharacterAnimationAnalytic _characterAnimationAnalytic;
         [Header("Services")] private readonly PositionService _positionService;
@@ -24,6 +25,15 @@ namespace Code.Infrastructure.CustomActions
 
         public CustomAction_StarryMouse()
         {
+            //static values
+            var particles = Container.Instance.FindService<ParticlesDictionary>();
+            if (!particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
+            {
+                _isNotUsed = true;
+                return;
+            }
+            _particle = particlesFacades[0];
+            _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
             //character
             var diva = Container.Instance.FindEntity<DIVA>();
             _characterButton = diva.FindCommonComponent<ColliderButton>();
@@ -31,49 +41,32 @@ namespace Code.Infrastructure.CustomActions
             //services 
             _positionService = Container.Instance.FindService<PositionService>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            //static values
-            _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
-            var particles = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
-            {
-                Debugging.Instance.ErrorLog(
-                    $"Партикл по типу {ParticleType.SkyStars} не добавлен в библиотеку партиклов");
-            }
-
-            _particle = particlesFacades[0];
-
+            
             SubscribeToEvents(true);
         }
 
         public void GameStart()
         {
+            if(_isNotUsed)return;
             _particle.Off();
         }
 
         public void GameExit()
         {
+            if(_isNotUsed)return;
             SubscribeToEvents(false);
         }
 
         public void GameTick()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartAction();
-            }
-
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                StopAction();
-            }
-
-
+            if(_isNotUsed)return;
             var currentMousePosition = _positionService.GetMouseWorldPosition();
             _particle.transform.position = currentMousePosition;
         }
 
         public sealed override void StartAction()
         {
+            if(_isNotUsed)return;
             _isActive = true;
             _particle.transform.position = _positionService.GetMouseWorldPosition();
             _particle.On();
@@ -83,6 +76,7 @@ namespace Code.Infrastructure.CustomActions
 
         public override void StopAction()
         {
+            if(_isNotUsed)return;
             _isActive = false;
             _particle.Off();
             Debugging.Instance.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
@@ -95,6 +89,7 @@ namespace Code.Infrastructure.CustomActions
 
         private void SubscribeToEvents(bool flag)
         {
+            if(_isNotUsed)return;
             if (flag)
             {
                 _characterButton.UpEvent += OnButtonUp;
@@ -107,6 +102,7 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnButtonUp(Vector2 _, float pressDuration)
         {
+            if(_isNotUsed)return;
             Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
                 Debugging.Type.CustomAction);
             if (pressDuration < 0.1 &&

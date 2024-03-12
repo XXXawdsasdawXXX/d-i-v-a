@@ -37,6 +37,7 @@ namespace Code.Data.Storages
     public enum GradientType
     {
         None,
-        SoftBlue
+        SoftBlue,
+        WhiteGhost,
     }
 }

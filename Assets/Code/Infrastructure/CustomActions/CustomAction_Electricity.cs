@@ -11,21 +11,21 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Electricity: CustomAction, IGameTickListener, IGameStartListener
     {
-        private bool _isDisable ;
+        private readonly bool _isDisable;
         private readonly DIVA _diva;
-        private ParticleSystemFacade[] _particlesSystems;
+        private readonly ParticleSystemFacade[] _particlesSystems;
         private readonly LoopbackAudioService _loopbackAudioService;
         private readonly CharacterModeAdapter _characterModeAdapter;
 
         public CustomAction_Electricity()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems))
+            if (!particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems) )
             {
                 _isDisable = true;
-                Debugging.Instance.ErrorLog($"Партикл по типу {ParticleType.Electricity} не добавлен в библиотеку партиклов");
+                return;
             }
-
+            
             _diva = Container.Instance.FindEntity<DIVA>();
             _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();

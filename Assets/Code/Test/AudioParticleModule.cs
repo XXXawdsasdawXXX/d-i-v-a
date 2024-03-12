@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Data.Facades;
+using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Test
 {
-    public class AudioTestParticleFacade : MonoBehaviour, IGameInitListener, IGameTickListener
+    public class AudioParticleModule : MonoBehaviour, IGameInitListener, IGameTickListener
     {
         private enum AudioType
         {
@@ -24,13 +25,15 @@ namespace Code.Test
             VelocityOverLifetime,
             NoiseSize,
             TrailLiveTime,
-            TrailGradient
+            TrailGradient,
+            ColorLiveTime
         }
 
         [SerializeField] private ParticleSystemFacade _particleSystem;
-        [SerializeField] private bool _isTesting;
+        [SerializeField] private bool _isActive;
         [SerializeField] private List<ParamType> _params;
         [SerializeField] private AudioType _audio;
+        [SerializeField] private GradientType _gradientType;
         [SerializeField] private float _valueMultiplier = 1;
 
         private LoopbackAudioService _loopbackAudioService;
@@ -42,7 +45,7 @@ namespace Code.Test
 
         public void GameTick()
         {
-            if (!_isTesting)
+            if (!_isActive)
             {
                 return;
             }
@@ -77,7 +80,10 @@ namespace Code.Test
                     _particleSystem.SetTrailsLifetimeMultiplier(GetValue());
                     break;
                 case ParamType.TrailGradient:
-                    _particleSystem.SetTrailsGradientValue(GetValue());
+                    _particleSystem.SetTrailsGradientValue(GetValue(),_gradientType);
+                    break;
+                case ParamType.ColorLiveTime:
+                    _particleSystem.SetLifetimeColor(GetValue(),_gradientType);
                     break;
             }
         }

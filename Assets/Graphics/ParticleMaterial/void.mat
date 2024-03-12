@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Test Particle 1
+  m_Name: void
   m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _ALPHABLEND_ON
@@ -95,7 +95,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.5707547, g: 0.64438564, b: 1, a: 0.22745098}
+    - _Color: {r: 0.5707547, g: 0.64438564, b: 1, a: 0}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.9528302, g: 0.92136884, b: 0.92136884, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

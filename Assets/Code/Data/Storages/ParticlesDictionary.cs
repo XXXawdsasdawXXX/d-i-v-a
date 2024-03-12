@@ -15,7 +15,7 @@ namespace Code.Services
         {
             var data = _particles.FirstOrDefault(p => p.Type == particleType);
             particleSystem = data?.Objects;
-            return data is { IsDisable: false };
+            return data != null && !data.IsDisable;
         }
     }
 }
