@@ -3415,58 +3415,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _isActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _valueMultiplier
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _params.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _loopBackAudioParam
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _params.Array.data[0]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _params.Array.data[1]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[0].AudioParam
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[0].Multiplier
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[1].AudioParam
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[1].Multiplier
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[0].ParticleParam
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[1].ParticleParam
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3511,26 +3459,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -57.11
       objectReference: {fileID: 0}
-    - target: {fileID: 5809537865495776329, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809537865495776329, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809537865495776329, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776335, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_Name
       value: Particle System_nimbus
       objectReference: {fileID: 0}
     - target: {fileID: 7752801918249470212, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _audio
-      value: 
-      objectReference: {fileID: 8472667786183563526}
+      propertyPath: <Type>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
 --- !u!1001 &2796542930122168742
@@ -4651,17 +4587,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
   m_PrefabInstance: {fileID: 2669343333911057740}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8472667786183563526 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-  m_PrefabInstance: {fileID: 2669343333911057740}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac53f55b4f8f442183e119c8cbc188ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8797180326722342425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2523651648797166466, guid: 368dd92508e49af458e4e54ccb5a6389, type: 3}
@@ -4793,17 +4718,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
-    - target: {fileID: 1721985980468734983, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
-      propertyPath: <Type>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6756616348297825180, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
       propertyPath: m_Name
       value: Particle System_StarrySky
-      objectReference: {fileID: 0}
-    - target: {fileID: 6756616348297825180, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9086602027583553255, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
       propertyPath: m_RootOrder
@@ -4849,8 +4766,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 305584136230551317, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
 --- !u!1001 &9159968684054742508
 PrefabInstance:

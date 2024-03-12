@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 3
   _particleSystem: {fileID: 5809537865495776329}
   _audio: {fileID: 2576211046701084766}
 --- !u!114 &2576211046701084766
