@@ -4836,11 +4836,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 7930661118140291055}
-  _isActive: 1
-  _params: 0300000007000000
-  _audio: 1
-  _gradientType: 1
+  _params: 
+  _loopBackAudioParam: 0
   _valueMultiplier: 0.5
+  _effectsData:
+  - ParticleParam: 3
+    AudioParam: 1
+    Multiplier: 0.5
+  - ParticleParam: 7
+    AudioParam: 1
+    Multiplier: 0.5
+  _gradient: 0
+  _isActive: 1
 --- !u!114 &7930661118140291055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4853,4 +4860,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 9
   _particleSystem: {fileID: 7930661118140291054}
+  _audio: {fileID: 7930661118140291048}

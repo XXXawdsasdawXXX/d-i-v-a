@@ -10,17 +10,16 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener,IGameInitListener
     {
-        protected readonly bool _isNotUsed;
+        protected  bool _isNotUsed;
+     
+        protected  ParticleSystemFacade[] _particlesSystems;
+        protected  CharacterModeAdapter _characterModeAdapter;
+        protected  DIVA _diva;
 
-        protected readonly ParticleSystemFacade[] _particlesSystems;
         private readonly List<AudioParticleModule> _audioParticles = new();
-        
-        protected readonly CharacterModeAdapter _characterModeAdapter;
-        protected readonly DIVA _diva;
-
-        protected CustomAction_AudioParticle()
+        public void GameInit()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesStorage>();
             if (particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
@@ -61,7 +60,6 @@ namespace Code.Infrastructure.CustomActions
 
         protected  override void StartAction()
         {
-
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}", Debugging.Type.CustomAction);
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();
@@ -76,5 +74,6 @@ namespace Code.Infrastructure.CustomActions
         }
 
         protected abstract void UpdateParticles();
+    
     }
 }

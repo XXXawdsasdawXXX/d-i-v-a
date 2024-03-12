@@ -17,6 +17,9 @@
         Light_0,
         Light_1,
         Light_2,
+        Shiny,
+        lsd_Trails,
+        lsd_sphereTrails
 
     }
 }

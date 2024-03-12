@@ -4937,7 +4937,7 @@ MonoBehaviour:
     Multiplier: 0.075
   - ParticleParam: 8
     AudioParam: 1
-    Multiplier: 1.07
+    Multiplier: 2.78
   - ParticleParam: 3
     AudioParam: 2
     Multiplier: 0.5

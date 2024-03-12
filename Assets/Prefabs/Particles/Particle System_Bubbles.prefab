@@ -4891,6 +4891,7 @@ GameObject:
   - component: {fileID: 2523651648797166466}
   - component: {fileID: 2523651648797166467}
   - component: {fileID: 2523651648797166468}
+  - component: {fileID: 566028089838470233}
   m_Layer: 0
   m_Name: Particle System_Bubbles
   m_TagString: Untagged
@@ -9708,6 +9709,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &566028089838470233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523651648797166469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 5
+  _particleSystem: {fileID: 2523651648797166467}
+  _audio: {fileID: 0}
 --- !u!1 &4093367506928977458
 GameObject:
   m_ObjectHideFlags: 0

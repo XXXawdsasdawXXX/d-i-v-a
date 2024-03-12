@@ -32,9 +32,13 @@ namespace Code.Infrastructure.Factories
 
         private ParticleSystemFacade CreateParticle(ParticleSystemFacade prefab, Transform root, Vector3 position)
         {
-            var particle = Object.Instantiate(prefab, position, Quaternion.identity);
+            var particle = Object.Instantiate(prefab, position, prefab.transform.rotation);
             particle.transform.SetParent(root);
             particle.GameInit();
+            if (!particle.gameObject.activeSelf)
+            {
+                particle.gameObject.SetActive(true);
+            }
             return particle;
         }
     }

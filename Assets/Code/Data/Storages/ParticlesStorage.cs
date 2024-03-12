@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Data.Configs;
 using Code.Data.Enums;
@@ -14,7 +15,7 @@ namespace Code.Services
 {
     public class ParticlesStorage : MonoBehaviour, IService, IGameInitListener
     {
-        [SerializeField] private ParticleData[] _particles;
+        [SerializeField] private List<ParticleSystemFacade> _particles;
 
         private VFXConfig _vfxConfig;
         private AssetsFactory _factory;
@@ -23,27 +24,27 @@ namespace Code.Services
         public void GameInit()
         {
             _factory = Container.Instance.FindService<AssetsFactory>();
+          
         }
 
         public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
-            var data = _particles.FirstOrDefault(p => p.Type == particleType);
+             particleSystem = _particles.Where(p => p.Type == particleType).ToArray();
             
-            if (data == null)
+            if (particleSystem.Length == 0)
             {
-                data = new ParticleData()
-                {
-                    Objects = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray(),
-                    Type = particleType
-                };
+                particleSystem = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray();
+                _particles.AddRange(particleSystem);
             }
-            else if(data.Objects.Length == 0)
-            {
-                data.Objects = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray();
-            }
-            
-            particleSystem = data?.Objects;
             return particleSystem != null && particleSystem.Length > 0;
+        }
+
+        [ContextMenu("Init")]
+        public void InitSceneParticles()
+        {
+            var allParticles = GetComponentsInChildren<ParticleSystemFacade>();
+            _particles.Clear();
+            _particles = allParticles.ToList();
         }
     }
 }

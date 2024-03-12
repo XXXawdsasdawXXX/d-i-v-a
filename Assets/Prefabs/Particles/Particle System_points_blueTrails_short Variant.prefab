@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: _isActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: _gradientType
@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: _params.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: _params.Array.data[1]
@@ -81,6 +81,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: _params.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[0].AudioParam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[0].Multiplier
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[1].AudioParam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[1].Multiplier
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[2].AudioParam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[2].Multiplier
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[0].ParticleParam
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[1].ParticleParam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796542930076596372, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
+      propertyPath: _effectsData.Array.data[2].ParticleParam
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2796542930076596374, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}

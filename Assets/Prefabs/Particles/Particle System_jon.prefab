@@ -4894,7 +4894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
   _particleSystem: {fileID: 7844463488720895855}
+  _audio: {fileID: 0}
 --- !u!114 &1201362099740787041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4908,11 +4910,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 6315837394211815778}
-  _isActive: 0
   _params: 
-  _audio: 0
-  _gradientType: 0
+  _loopBackAudioParam: 0
   _valueMultiplier: 1
+  _effectsData: []
+  _gradient: 0
+  _isActive: 0
 --- !u!1 &3657577636029400662
 GameObject:
   m_ObjectHideFlags: 0
@@ -9803,7 +9806,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
   _particleSystem: {fileID: 3657577636029400661}
+  _audio: {fileID: 0}
 --- !u!114 &221034295160989931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9816,7 +9821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
   _particleSystem: {fileID: 3657577636029400661}
+  _audio: {fileID: 0}
 --- !u!114 &3443678094252926288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9830,11 +9837,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 7184650767150671147}
-  _isActive: 0
   _params: 
-  _audio: 0
-  _gradientType: 0
+  _loopBackAudioParam: 0
   _valueMultiplier: 1
+  _effectsData: []
+  _gradient: 0
+  _isActive: 0
 --- !u!1 &3657577636239238000
 GameObject:
   m_ObjectHideFlags: 0
@@ -14777,7 +14785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 6
   _particleSystem: {fileID: 3657577636239238006}
+  _audio: {fileID: 7898781933776684879}
 --- !u!114 &7898781933776684879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14791,11 +14801,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 5861679389605902680}
-  _isActive: 1
-  _params: 04000000
-  _audio: 1
-  _gradientType: 0
+  _params: 
+  _loopBackAudioParam: 0
   _valueMultiplier: 1
+  _effectsData:
+  - ParticleParam: 4
+    AudioParam: 1
+    Multiplier: 1
+  _gradient: 0
+  _isActive: 0
 --- !u!1 &7184650767399676292
 GameObject:
   m_ObjectHideFlags: 0
