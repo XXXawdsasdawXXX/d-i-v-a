@@ -4901,7 +4901,6 @@ GameObject:
   - component: {fileID: 5057366709937168498}
   - component: {fileID: 7364363297757445691}
   - component: {fileID: 1721985980468734983}
-  - component: {fileID: 305584136230551317}
   m_Layer: 0
   m_Name: Particle System_StarrySky
   m_TagString: Untagged
@@ -4916,7 +4915,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6756616348297825180}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9726,24 +9725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
   _particleSystem: {fileID: 5057366709937168498}
---- !u!114 &305584136230551317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6756616348297825180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac53f55b4f8f442183e119c8cbc188ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _particleSystem: {fileID: 1721985980468734983}
-  _isTesting: 0
-  _params: 
-  _audio: 0
-  _valueMultiplier: 1
+  _audio: {fileID: 0}
 --- !u!1 &8898444920886306593
 GameObject:
   m_ObjectHideFlags: 0

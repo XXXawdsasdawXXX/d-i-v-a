@@ -15,7 +15,7 @@ namespace Code.Infrastructure.CustomActions
         public CustomAction_StarrySky()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (particleDictionary.TryGetParticle(ParticleType.SkyStars, out var skyStarsParticle))
+            if (particleDictionary.TryGetParticle(ParticleType.StarrySky, out var skyStarsParticle))
             {
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
                 _skyStarsParticle = skyStarsParticle[0];

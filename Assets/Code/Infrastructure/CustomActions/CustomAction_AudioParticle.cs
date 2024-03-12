@@ -14,20 +14,22 @@ namespace Code.Infrastructure.CustomActions
     {
         protected readonly bool _isNotUsed;
 
-        protected readonly CharacterModeAdapter _characterModeAdapter;
         protected readonly ParticleSystemFacade[] _particlesSystems;
         private readonly List<AudioParticleModule> _audioParticles = new();
+        
+        protected readonly CharacterModeAdapter _characterModeAdapter;
+        protected readonly DIVA _diva;
 
         protected CustomAction_AudioParticle()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
             if (particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
             {
-                var diva = Container.Instance.FindEntity<DIVA>();
-                _characterModeAdapter = diva.FindCharacterComponent<CharacterModeAdapter>();
+                _diva = Container.Instance.FindEntity<DIVA>();
+                _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
                 foreach (var particleSystem in _particlesSystems)
                 {
-                    if (particleSystem.TryGetComponent(out AudioParticleModule module))
+                    if (particleSystem.TryGetAudioModule(out AudioParticleModule module))
                     {
                         _audioParticles.Add(module);
                     }
@@ -42,6 +44,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameStart()
         {
+            if (_isNotUsed) return;
             StartAction();
         }
 
@@ -58,7 +61,7 @@ namespace Code.Infrastructure.CustomActions
 
         protected  override void StartAction()
         {
-            if (_isNotUsed) return;
+
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}", Debugging.Type.CustomAction);
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();

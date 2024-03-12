@@ -43,7 +43,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5809537865495776335}
   serializedVersion: 8
-  lengthInSec: 50
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -118,7 +118,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -864,7 +864,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
@@ -4912,7 +4912,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
   _particleSystem: {fileID: 5809537865495776329}
+  _audio: {fileID: 2576211046701084766}
 --- !u!114 &2576211046701084766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4925,9 +4927,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac53f55b4f8f442183e119c8cbc188ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isActive: 0
   _particleSystem: {fileID: 7752801918249470212}
-  _params: 02000000
-  _loopBackAudioParam: 1
-  _valueMultiplier: 0.07
+  _params: 
+  _loopBackAudioParam: 0
+  _valueMultiplier: 0
+  _effectsData:
+  - ParticleParam: 2
+    AudioParam: 1
+    Multiplier: 0.075
+  - ParticleParam: 8
+    AudioParam: 1
+    Multiplier: 1.07
+  - ParticleParam: 3
+    AudioParam: 2
+    Multiplier: 0.5
   _gradient: 0
+  _isActive: 1

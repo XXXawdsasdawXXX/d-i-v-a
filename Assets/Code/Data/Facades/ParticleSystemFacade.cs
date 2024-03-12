@@ -1,4 +1,5 @@
-﻿using Code.Data.Storages;
+﻿using Code.Data.Enums;
+using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Test;
@@ -6,11 +7,14 @@ using UnityEngine;
 
 namespace Code.Data.Facades
 {
-    [RequireComponent(typeof(AudioParticleModule))]
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {
+        [field: SerializeField] public ParticleType Type { get; private set; }
         [SerializeField] private ParticleSystem _particleSystem;
-
+        
+        [Header("Optional modules")] 
+        [SerializeField] private AudioParticleModule _audio;
+        
         [Header("Modules")] 
         private ParticleSystem.EmissionModule _emission;
         private ParticleSystem.MainModule _main;
@@ -18,10 +22,10 @@ namespace Code.Data.Facades
         private ParticleSystem.NoiseModule _noise;
         private ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
         private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
-
+        
         [Header("Services")] 
         private GradientsDictionary _gradientsDictionary;
-
+        
         public bool IsPlay => _particleSystem.isPlaying;
 
         public void GameInit()
@@ -75,8 +79,7 @@ namespace Code.Data.Facades
         {
             _trails.lifetimeMultiplier = value;
         }
-
-
+        
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {
@@ -127,6 +130,17 @@ namespace Code.Data.Facades
                 };
                 _colorOverLifetime.color = minMaxGradient;
             }
+        }
+
+        public bool TryGetAudioModule(out AudioParticleModule audioModule)
+        {
+            audioModule = _audio;
+            return audioModule != null;
+        }
+
+        public void SetLifetime(float getValue)
+        {
+            _main.startLifetimeMultiplier = getValue;
         }
     }
 }

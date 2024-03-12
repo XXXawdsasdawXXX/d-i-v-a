@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Code.Data.Enums;
 using Code.Data.Facades;
 using Code.Data.Interfaces;
@@ -11,6 +12,7 @@ namespace Code.Services
     {
         [SerializeField] private ParticleData[] _particles;
 
+        
         public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
             var data = _particles.FirstOrDefault(p => p.Type == particleType);
