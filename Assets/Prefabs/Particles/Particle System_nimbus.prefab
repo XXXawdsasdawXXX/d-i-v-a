@@ -4925,9 +4925,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac53f55b4f8f442183e119c8cbc188ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleSystem: {fileID: 7752801918249470212}
   _isActive: 0
-  _params: 
-  _audio: 1
-  _gradientType: 0
-  _valueMultiplier: 1
+  _particleSystem: {fileID: 7752801918249470212}
+  _params: 02000000
+  _loopBackAudioParam: 1
+  _valueMultiplier: 0.07
+  _gradient: 0

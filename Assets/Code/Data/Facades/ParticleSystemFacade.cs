@@ -11,15 +11,18 @@ namespace Code.Data.Facades
     {
         [SerializeField] private ParticleSystem _particleSystem;
 
-        [Header("Modules")] private ParticleSystem.EmissionModule _emission;
+        [Header("Modules")] 
+        private ParticleSystem.EmissionModule _emission;
         private ParticleSystem.MainModule _main;
         private ParticleSystem.TrailModule _trails;
         private ParticleSystem.NoiseModule _noise;
         private ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
         private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
-        public bool IsPlay => _particleSystem.isPlaying;
 
-        [Header("Services")] private GradientsDictionary _gradientsDictionary;
+        [Header("Services")] 
+        private GradientsDictionary _gradientsDictionary;
+
+        public bool IsPlay => _particleSystem.isPlaying;
 
         public void GameInit()
         {
@@ -29,8 +32,7 @@ namespace Code.Data.Facades
             _noise = _particleSystem.noise;
             _velocityOverLifetime = _particleSystem.velocityOverLifetime;
             _colorOverLifetime = _particleSystem.colorOverLifetime;
-
-
+            
             _gradientsDictionary = Container.Instance.FindService<GradientsDictionary>();
         }
 
@@ -59,7 +61,7 @@ namespace Code.Data.Facades
             _main.startSizeMultiplier = value;
         }
 
-        public void SetVelocityOverLifetime(float value)
+        public void SetVelocitySpeed(float value)
         {
             _velocityOverLifetime.speedModifier = value;
         }
@@ -74,17 +76,7 @@ namespace Code.Data.Facades
             _trails.lifetimeMultiplier = value;
         }
 
-        [ContextMenu("SetTrailsGradient")]
-        public void SetTrailsGradient()
-        {
-            _gradientsDictionary.TryGetGradient(GradientType.SoftBlue, out var blueGradient);
-            var gradient = new ParticleSystem.MinMaxGradient()
-            {
-                gradient = blueGradient,
-                mode = ParticleSystemGradientMode.Gradient
-            };
-            _trails.colorOverLifetime = gradient;
-        }
+
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {

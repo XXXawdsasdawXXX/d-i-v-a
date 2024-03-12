@@ -27,22 +27,23 @@ namespace Code.Infrastructure.CustomActions
         {
             //static values
             var particles = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
+            if (particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
             {
-                _isNotUsed = true;
+                _particle = particlesFacades[0];
+                _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
+                //character
+                var diva = Container.Instance.FindEntity<DIVA>();
+                _characterButton = diva.FindCommonComponent<ColliderButton>();
+                _characterAnimationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+                //services 
+                _positionService = Container.Instance.FindService<PositionService>();
+                _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+                
+                SubscribeToEvents(true);
                 return;
             }
-            _particle = particlesFacades[0];
-            _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
-            //character
-            var diva = Container.Instance.FindEntity<DIVA>();
-            _characterButton = diva.FindCommonComponent<ColliderButton>();
-            _characterAnimationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
-            //services 
-            _positionService = Container.Instance.FindService<PositionService>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             
-            SubscribeToEvents(true);
+            _isNotUsed = true;
         }
 
         public void GameStart()
@@ -64,7 +65,7 @@ namespace Code.Infrastructure.CustomActions
             _particle.transform.position = currentMousePosition;
         }
 
-        public sealed override void StartAction()
+        protected  sealed override void StartAction()
         {
             if(_isNotUsed)return;
             _isActive = true;
@@ -74,7 +75,7 @@ namespace Code.Infrastructure.CustomActions
             Debugging.Instance.Log($"[{GetActionType()}] [Start Action]", Debugging.Type.CustomAction);
         }
 
-        public override void StopAction()
+        protected  override void StopAction()
         {
             if(_isNotUsed)return;
             _isActive = false;

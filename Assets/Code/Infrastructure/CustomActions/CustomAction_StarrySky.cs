@@ -6,29 +6,28 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarrySky: CustomAction
+    public class CustomAction_StarrySky : CustomAction
     {
-        private readonly bool _isDisable;
+        private readonly bool _isNotUsed;
         private readonly TimeObserver _timeObserver;
         private readonly ParticleSystemFacade _skyStarsParticle;
 
-        public CustomAction_StarrySky() 
+        public CustomAction_StarrySky()
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particleDictionary.TryGetParticle(ParticleType.SkyStars, out var skyStarsParticle))
+            if (particleDictionary.TryGetParticle(ParticleType.SkyStars, out var skyStarsParticle))
             {
-                _isDisable = true;
+                _timeObserver = Container.Instance.FindService<TimeObserver>();
+                _skyStarsParticle = skyStarsParticle[0];
+                SubscribeToEvents(true);
                 return;
             }
-
-            _skyStarsParticle = skyStarsParticle[0];
-            SubscribeToEvents(true);
+            _isNotUsed = true;
         }
 
         private void SubscribeToEvents(bool flag)
         {
-            if(_isDisable)return;
+            if (_isNotUsed) return;
             if (flag)
             {
                 _timeObserver.StartNightEvent += StartAction;
@@ -41,15 +40,15 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public override void StartAction()
+        protected  override void StartAction()
         {
-            if(_isDisable)return;
+            if (_isNotUsed) return;
             _skyStarsParticle.On();
         }
-        
-        public override void StopAction()
-        { 
-            if(_isDisable)return;
+
+        protected  override void StopAction()
+        {
+            if (_isNotUsed) return;
             _skyStarsParticle.Off();
             EndCustomActionEvent?.Invoke(this);
         }

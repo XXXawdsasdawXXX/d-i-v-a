@@ -10,31 +10,33 @@ namespace Code.Test
 {
     public class AudioParticleModule : MonoBehaviour, IGameInitListener, IGameTickListener
     {
-        private enum AudioType
+        private enum LoopBackAudioParamType
         {
             None,
             ScaledMax,
             ScaledEnergy
         }
 
-        private enum ParamType
+        private enum ParticleParamType
         {
             None,
             SizeMultiplier,
             TrailWidthOverTrail,
-            VelocityOverLifetime,
+            VelocitySpeed,
             NoiseSize,
             TrailLiveTime,
             TrailGradient,
             ColorLiveTime
         }
 
-        [SerializeField] private ParticleSystemFacade _particleSystem;
         [SerializeField] private bool _isActive;
-        [SerializeField] private List<ParamType> _params;
-        [SerializeField] private AudioType _audio;
-        [SerializeField] private GradientType _gradientType;
+        [Space]
+        [SerializeField] private ParticleSystemFacade _particleSystem;
+        [SerializeField] private List<ParticleParamType> _params;
+        [SerializeField] private LoopBackAudioParamType _loopBackAudioParam;
         [SerializeField] private float _valueMultiplier = 1;
+        [Header("Optional")]
+        [SerializeField] private GradientType _gradient;
 
         private LoopbackAudioService _loopbackAudioService;
 
@@ -49,71 +51,72 @@ namespace Code.Test
             {
                 return;
             }
-
-
+            
             foreach (var paramType in _params)
             {
                 Refresh(paramType);
             }
         }
 
-        private void Refresh(ParamType param)
+        public virtual void On()
+        {
+            _isActive = true;
+        }
+
+        public virtual void Off()
+        {
+            _isActive = false;
+        }
+        private void Refresh(ParticleParamType param)
         {
             switch (param)
             {
-                case ParamType.None:
+                case ParticleParamType.None:
                 default:
                     break;
-                case ParamType.SizeMultiplier:
+                case ParticleParamType.SizeMultiplier:
                     _particleSystem.SetSizeMultiplier(GetValue());
                     break;
-                case ParamType.TrailWidthOverTrail:
+                case ParticleParamType.TrailWidthOverTrail:
                     _particleSystem.SetTrailWidthOverTrail(GetValue());
                     break;
-                case ParamType.VelocityOverLifetime:
-                    _particleSystem.SetVelocityOverLifetime(GetValue());
+                case ParticleParamType.VelocitySpeed:
+                    _particleSystem.SetVelocitySpeed(GetValue());
                     break;
-                case ParamType.NoiseSize:
+                case ParticleParamType.NoiseSize:
                     _particleSystem.SetNoiseSize(GetValue());
                     break;
-                case ParamType.TrailLiveTime:
+                case ParticleParamType.TrailLiveTime:
                     _particleSystem.SetTrailsLifetimeMultiplier(GetValue());
                     break;
-                case ParamType.TrailGradient:
-                    _particleSystem.SetTrailsGradientValue(GetValue(),_gradientType);
+                case ParticleParamType.TrailGradient:
+                    _particleSystem.SetTrailsGradientValue(GetValue(),_gradient);
                     break;
-                case ParamType.ColorLiveTime:
-                    _particleSystem.SetLifetimeColor(GetValue(),_gradientType);
+                case ParticleParamType.ColorLiveTime:
+                    _particleSystem.SetLifetimeColor(GetValue(),_gradient);
                     break;
             }
         }
 
         private float GetValue()
         {
-            float value = 0;
-            switch (_audio)
+            float value;
+            switch (_loopBackAudioParam)
             {
-                case AudioType.None:
+                case LoopBackAudioParamType.None:
                 default:
                     value = 0;
                     break;
-                case AudioType.ScaledMax:
+                case LoopBackAudioParamType.ScaledMax:
                     value = _loopbackAudioService.PostScaledMax;
                     break;
-                case AudioType.ScaledEnergy:
+                case LoopBackAudioParamType.ScaledEnergy:
                     value = _loopbackAudioService.PostScaledEnergy;
                     break;
             }
 
             return value * _valueMultiplier;
         }
-
-        private void OnValidate()
-        {
-            if (_particleSystem == null)
-            {
-                _particleSystem = GetComponent<ParticleSystemFacade>();
-            }
-        }
+        
     }
 }

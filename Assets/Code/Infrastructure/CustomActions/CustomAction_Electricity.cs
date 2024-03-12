@@ -11,7 +11,7 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Electricity: CustomAction, IGameTickListener, IGameStartListener
     {
-        private readonly bool _isDisable;
+        private readonly bool _isNotUsed;
         private readonly DIVA _diva;
         private readonly ParticleSystemFacade[] _particlesSystems;
         private readonly LoopbackAudioService _loopbackAudioService;
@@ -20,15 +20,15 @@ namespace Code.Infrastructure.CustomActions
         public CustomAction_Electricity()
         {
             var particleDictionary = Container.Instance.FindService<ParticlesDictionary>();
-            if (!particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems) )
+            if (particleDictionary.TryGetParticle(ParticleType.Electricity, out _particlesSystems))
             {
-                _isDisable = true;
+                _diva = Container.Instance.FindEntity<DIVA>();
+                _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
+                _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
                 return;
             }
             
-            _diva = Container.Instance.FindEntity<DIVA>();
-            _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
-            _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
+            _isNotUsed = true;
         }
         
         
@@ -39,7 +39,7 @@ namespace Code.Infrastructure.CustomActions
       
         public void GameStart()
         {
-            if(_isDisable)return;
+            if(_isNotUsed)return;
             StartAction();
         }
 
@@ -47,7 +47,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameTick()
         {
-            if(_isDisable)return;
+            if(_isNotUsed)return;
             foreach (var particle in _particlesSystems)
             {
                 if (!particle.IsPlay)
@@ -64,7 +64,7 @@ namespace Code.Infrastructure.CustomActions
         }
 
 
-        public override void StartAction()
+        protected  override void StartAction()
         {
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",Debugging.Type.CustomAction);
             foreach (var particle in _particlesSystems)
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.CustomActions
                 //particle.SetColor(Color.black);
             }
         }
-        public override void StopAction()
+        protected  override void StopAction()
         {
           
         }
