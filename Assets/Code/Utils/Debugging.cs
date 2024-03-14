@@ -26,7 +26,8 @@ namespace Code.Utils
             Position,
             GameState,
             Grass,
-            CustomAction
+            CustomAction,
+            Interaction
         }
 
         [Serializable]

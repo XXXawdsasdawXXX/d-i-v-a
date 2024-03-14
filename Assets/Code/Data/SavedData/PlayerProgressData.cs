@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Data.Enums;
 using Code.Data.SavedData;
 
 namespace Code.Infrastructure.Save
@@ -9,12 +10,13 @@ namespace Code.Infrastructure.Save
     {
         public CooldownSavedData Cooldowns;
         public List<LiveStateSavedData> LiveStatesData;
-
-
+        public Dictionary<InteractionType, int> Interactions;
+        
         public PlayerProgressData()
         {
             Cooldowns = new CooldownSavedData();
             LiveStatesData = new List<LiveStateSavedData>();
+            Interactions = new Dictionary<InteractionType, int>();
         }
     }
 }

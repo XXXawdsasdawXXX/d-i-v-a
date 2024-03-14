@@ -24,7 +24,6 @@ namespace Code.Services
         public void GameInit()
         {
             _factory = Container.Instance.FindService<AssetsFactory>();
-          
         }
 
         public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)

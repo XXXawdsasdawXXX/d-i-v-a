@@ -10,18 +10,22 @@ namespace Code.Components.Objects
 {
     public class ColliderButton : CommonComponent, IGameInitListener, IGameTickListener
     {
+        [Header("Services")]
+        private PositionService _positionService;
+        
+        [Header("Static values")]
+        private float _maxClickCooldown;
         public bool IsPressed { get; private set; }
+        
+        [Header("Dynamic values")]
+        private float _pressedTime;
+        private float _currentClickCooldown;
+        private int _clickNumber;
+
         public event Action<Vector2> DownEvent;
         public event Action<Vector2, float> UpEvent;
         public event Action<int> SeriesOfClicksEvent;
-
-        private float _pressedTime;
-
-
-        private float _maxClickCooldown, _currentClickCooldown;
-        private int _clickNumber;
-        private PositionService _positionService;
-
+        
         public void GameInit()
         {
             _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;

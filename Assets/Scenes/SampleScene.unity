@@ -2980,8 +2980,11 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0, g: 0, b: 0, a: 1}
   - Type: 15
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
+  - Type: 16
+    Active: 1
+    Color: {r: 0.7294118, g: 1, b: 0.8574564, a: 1}
 --- !u!114 &2009315528
 MonoBehaviour:
   m_ObjectHideFlags: 0
