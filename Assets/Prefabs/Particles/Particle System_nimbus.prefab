@@ -1033,7 +1033,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -4934,12 +4934,15 @@ MonoBehaviour:
   _effectsData:
   - ParticleParam: 2
     AudioParam: 1
-    Multiplier: 0.05
+    Multiplier: 0.75
   - ParticleParam: 8
     AudioParam: 1
-    Multiplier: 2.78
+    Multiplier: 10
+  - ParticleParam: 5
+    AudioParam: 1
+    Multiplier: 15
   - ParticleParam: 3
     AudioParam: 2
-    Multiplier: 0.5
+    Multiplier: 2
   _gradient: 0
   _isActive: 1

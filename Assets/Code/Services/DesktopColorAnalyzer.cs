@@ -11,7 +11,7 @@ namespace Code.Services
     {
         private UniWindowController _uniWindow;
         
-        private const float TOLERANCE = 0.25f;
+        private const float TOLERANCE = 0.1f;
 
         public void GameInit()
         {
