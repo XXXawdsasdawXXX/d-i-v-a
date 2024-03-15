@@ -4934,7 +4934,7 @@ MonoBehaviour:
   _effectsData:
   - ParticleParam: 2
     AudioParam: 1
-    Multiplier: 0.075
+    Multiplier: 0.05
   - ParticleParam: 8
     AudioParam: 1
     Multiplier: 2.78

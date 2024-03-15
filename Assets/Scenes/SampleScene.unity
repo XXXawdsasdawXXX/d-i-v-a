@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b2710f51334f488301151630e72154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTest: 0
+  _isTest: 1
   _image: {fileID: 869551391}
   _uniWindow: {fileID: 905365805009172329}
   _testObject: {fileID: 631771330}
@@ -4923,6 +4923,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
+    - target: {fileID: 5057366709937168498, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057366709937168498, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.a
+      value: 0.67058825
+      objectReference: {fileID: 0}
     - target: {fileID: 6756616348297825180, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
       propertyPath: m_Name
       value: Particle System_StarrySky
