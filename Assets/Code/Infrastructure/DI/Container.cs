@@ -8,6 +8,7 @@ using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Utils;
+using Kirurobo;
 using UnityEngine;
 
 namespace Code.Infrastructure.DI
@@ -17,7 +18,7 @@ namespace Code.Infrastructure.DI
         public static Container Instance;
         
         private MonoBehaviour[] _allObjects;
-        
+        [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
         private List<Storage> _storages = new();
@@ -67,9 +68,9 @@ namespace Code.Infrastructure.DI
                 Debugging.Type.DiContainer);
         }
 
-        public CustomAction[] GetCustomActions()
+        public UniWindowController GetUniWindowController()
         {
-            return _customActions.ToArray();
+            return _uniWindowController;
         }
         public T FindConfig<T>() where T : ScriptableObject
         {

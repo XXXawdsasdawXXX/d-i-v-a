@@ -10,7 +10,8 @@ namespace Code.Infrastructure.GameLoop
     public class GameEventDispatcher : MonoBehaviour
     {
         [SerializeField] private bool _isTestInit;
-        [SerializeField] private UniWindowController _controller;
+        private UniWindowController _controller;
+        
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
@@ -24,6 +25,7 @@ namespace Code.Infrastructure.GameLoop
 #if !UNITY_EDITOR
             _isTestInit = false;
 #endif
+            _controller = Container.Instance.GetUniWindowController();
             if (_isTestInit)
             {
                 _controller.gameObject.SetActive(false);

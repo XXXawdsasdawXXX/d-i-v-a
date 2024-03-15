@@ -5,10 +5,9 @@ using Code.Data.Storages;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
 using Code.Utils;
 
-namespace Code.Components.Character.LiveState
+namespace Code.Services
 {
     public class LiveStateTimer : IService, IGameInitListener, IGameExitListener
     {

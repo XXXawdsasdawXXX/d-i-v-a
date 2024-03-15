@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CSCore.DSP;
 
-namespace Assets.Scripts.Audio
+namespace Code.Services.LoopbackAudio.Audio
 {
     /// <summary>
     ///     BasicSpectrumProvider

@@ -83,5 +83,9 @@ namespace Code.Services
             ScreenToWorld(new Vector2(GetScreenSize().x - size.x, 0)) + center.AsVector3();
 
 
+        public Vector2 WorldToScreen(Vector3 transformPosition)
+        {
+            return _camera.WorldToScreenPoint(transformPosition);
+        }
     }
 }
