@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Test.Editor
@@ -13,7 +13,7 @@ namespace Code.Test.Editor
             
             if (GUILayout.Button("Move next point"))
             {
-                testDrive.MoveToNextPosition();
+               // testDrive.MoveToNextPosition();
             }
         }
     }
