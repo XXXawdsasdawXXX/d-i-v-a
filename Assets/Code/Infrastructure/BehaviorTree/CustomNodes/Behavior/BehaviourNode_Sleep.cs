@@ -153,14 +153,14 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += WakeUp;
                 _sleepState.ChangedEvent += OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
+               // _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= WakeUp;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
+               // _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
             }
         }
 

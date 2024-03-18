@@ -30,5 +30,10 @@ namespace Code.Utils
             new Vector3(vector.x, vector.y,0);     
         public static Vector2 AsVector2(this Vector3 vector) =>
             new Vector2(vector.x, vector.y);
+
+        public static bool IsMacOs()
+        {
+            return Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer;
+        }
     }
 }

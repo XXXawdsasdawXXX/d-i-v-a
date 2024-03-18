@@ -80,7 +80,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes
             if (flag)
             {
                 _collisionObserver.EnterEvent += StartReactionToObject;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
+               // _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
             }
             else
             {

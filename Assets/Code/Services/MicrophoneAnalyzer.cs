@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class MicrophoneAnalyzer : IService, IGameStartListener, IGameTickListener, IGameExitListener
+    public class MicrophoneAnalyzer : IService/*, IGameStartListener, IGameTickListener, IGameExitListener*/
     {
-        private const int SAMPLE_WINDOW = 128;
+        /*private const int SAMPLE_WINDOW = 128;
 
         [Header("Stats")] private string _device;
         private float _micLoudness;
@@ -28,12 +28,14 @@ namespace Code.Services
 
         public MicrophoneAnalyzer()
         {
+            if(Utils.Extensions.IsMacOs())
             Debugging.Instance.Log($"MicrophoneAnalyzer: Construct", Debugging.Type.Micro);
         }
 
         public void GameStart()
         {
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
+            //todo проверка на ос
             InitMic();
             Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
         }
@@ -120,6 +122,6 @@ namespace Code.Services
         {
             var db = 20 * Mathf.Log10(Mathf.Abs(_micLoudness));
             return db;
-        }
+        }*/
     }
 }
