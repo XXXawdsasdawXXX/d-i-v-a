@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class ColorChecker : CommonComponent, IGameInitListener, IGameStartListener
+    public class ColorChecker : CommonComponent/*, IGameInitListener, IGameStartListener*/
     {
-        [SerializeField] private bool _isCheck;
+        /*[SerializeField] private bool _isCheck;
         [SerializeField] private Color _lastColor = Color.red;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         private DesktopColorAnalyzer _desktopColorAnalyzer;
@@ -56,6 +56,6 @@ namespace Code.Components.Objects
         private Vector2 GetScreenPosition()
         {
             return _positionService.WorldToScreen(transform.position);
-        }
+        }*/
     }
 }
