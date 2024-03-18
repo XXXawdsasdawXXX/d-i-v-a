@@ -29,7 +29,7 @@ namespace Code.Test
         {
             _positionService = Container.Instance.FindService<PositionService>();
             _desktopColorAnalyzer = Container.Instance.FindService<DesktopColorAnalyzer>();
-            StartCoroutine(SetColor());
+           // StartCoroutine(SetColor());
         }
 
         private IEnumerator SetColor()
@@ -43,8 +43,8 @@ namespace Code.Test
                 }
                 else
                 {
-                _image.color = color;
-                Debugging.Instance.Log("Other color");    
+                    _image.color = color;
+                      Debugging.Instance.Log("Other color");    
                 }
             }
 
@@ -58,11 +58,12 @@ namespace Code.Test
                 return;
             }
 
-            if (Input.GetMouseButtonDown(0) && _coroutine == null)
+            /*if (Input.GetMouseButtonDown(0) && _coroutine == null)
             {
                 _coroutine = StartCoroutine(SetColor());
-            }
+            }*/
 
+            _image.color = _uniWindow.pickedColor;
             /*if(_uniWindow.TryGetColor(_positionService.WorldToScreen(_testObject.transform.position), out var color))
             {
                 _image.color = color;
