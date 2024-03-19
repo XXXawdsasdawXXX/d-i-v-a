@@ -1,66 +1,74 @@
 ﻿using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Services;
 using UnityEngine;
 
 namespace uWindowCapture
 {
-    public class TransformDisplayColorGetter : MonoBehaviour
+    public class TransformDisplayColorGetter : MonoBehaviour, IGameInitListener
     {
-        public Camera mainCamera; // Ссылка на камеру, которую вы используете в вашем проекте
 
-        [SerializeField] UwcWindowTexture uwcTexture;
+        [SerializeField] private UwcWindowTexture _uwcTexture;
         [SerializeField] private Transform _transform;
+        [SerializeField] private int _x = 100;
+        [SerializeField] private int _y = 100;
+        [SerializeField] private int _w = 1;
+        [SerializeField] private int _h = 1;
+    
+        private Texture2D _texture;
 
-        Material material_;
+        private Material _material;
         private PositionService _positionService;
-
-        void Start()
+        
+        public void GameInit()
         {
-            material_ = GetComponent<Renderer>().material;
-//            _positionService = Container.Instance.FindService<PositionService>();
+            _material = GetComponent<Renderer>().material; 
+            _positionService = Container.Instance.FindService<PositionService>();
         }
-
-        void Update()
+        
+        private void CreateTextureIfNeeded()
         {
-            Example();
-
-        }
-
-    
-
-        [SerializeField] int x = 100;
-        [SerializeField] int y = 100;
-        [SerializeField] int w = 1;
-        [SerializeField] int h = 1;
-    
-        public Texture2D texture;
-        Color32[] colors;
-
-        void CreateTextureIfNeeded()
-        {
-            if (!texture || texture.width != w || texture.height != h)
+            if (!_texture || _texture.width != _w || _texture.height != _h)
             {
-                colors = new Color32[w * h];
-                texture = new Texture2D(w, h, TextureFormat.RGBA32, false);
-                GetComponent<Renderer>().material.mainTexture = texture;
+                var colors = new Color32[_w * _h];
+                _texture = new Texture2D(_w, _h, TextureFormat.RGBA32, false);
+                GetComponent<Renderer>().material.mainTexture = _texture;
             }
         }
 
-     
-        void Example()
+
+        public Color32 GetColor()
         {
             CreateTextureIfNeeded();
 
-            var window = uwcTexture.window;
-            if (window == null || window.width == 0) return;
+            var window = _uwcTexture.window;
+            if (window == null || window.width == 0) return new Color32(255,255,255,255);
             
             Vector3 worldPosition = _transform.position;
-            Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
+            Vector2 screenPosition = _positionService.WorldToScreen(worldPosition);
             
-            // Получение ширины и высоты экрана
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
             
+            // Ограничение координат в пределах экрана
+            float displayX = Mathf.Clamp(screenPosition.x, 0, screenWidth) + GetTotalWidthOfPreviousDisplays(screenPosition);
+            float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
+            displayY = screenHeight - displayY; // Переворачиваем ось Y
+            
+            // Вывод координат на экран
+            Debug.Log("mouse X: " + Lib.GetCursorPosition().x + " mouse Y: " + Lib.GetCursorPosition().y);
+
+            // Вывод координат на экран
+            _x = Mathf.RoundToInt(displayX);
+            _y = Mathf.RoundToInt(displayY);
+            Debug.Log("X : " + displayX + ", Y: " + displayY);
+            
+            _material.color = window.GetPixel(_x, _y);
+            return _material.color;
+        }
+
+        private static float GetTotalWidthOfPreviousDisplays(Vector2 screenPosition)
+        {
             float totalWidthOfPreviousDisplays = 0f;
             for (int i = 0; i < Display.displays.Length; i++)
             {
@@ -70,28 +78,11 @@ namespace uWindowCapture
                 }
                 else
                 {
-                    break; // Если координата x объекта меньше ширины текущего экрана, прерываем цикл
+                    break; 
                 }
             }
 
-            // Ограничение координат в пределах экрана
-            float displayX = Mathf.Clamp(screenPosition.x, 0, screenWidth) + totalWidthOfPreviousDisplays;
-            float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
-            displayY = screenHeight - displayY; // Переворачиваем ось Y
-
-
-
-            // Вывод координат на экран
-            Debug.Log("mouse X: " + Lib.GetCursorPosition().x + " mouse Y: " + Lib.GetCursorPosition().y);
-
-            // Вывод координат на экран
-            x = Mathf.RoundToInt(displayX);
-            y = Mathf.RoundToInt(displayY);
-            Debug.Log("X : " + displayX + ", Y: " + displayY);
-
-            // GetPixels() can be run in another thread
-
-            material_.color = window.GetPixel(x, y);
+            return totalWidthOfPreviousDisplays;
         }
     }
 }

@@ -35,5 +35,20 @@ namespace Code.Utils
         {
             return Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer;
         }
+        
+        public static bool Equal(this Color32 color1, Color32 color2)
+        {
+            return color1.r == color2.r && color1.g == color2.g && color1.b == color2.b && color1.a == color2.a;
+        }
+        
+        public static bool Equal(this Color32 color1, Color32 color2, byte sensitivity = 0)
+        {
+            byte rDiff = (byte)Mathf.Abs(color1.r - color2.r);
+            byte gDiff = (byte)Mathf.Abs(color1.g - color2.g);
+            byte bDiff = (byte)Mathf.Abs(color1.b - color2.b);
+            byte aDiff = (byte)Mathf.Abs(color1.a - color2.a);
+
+            return rDiff <= sensitivity && gDiff <= sensitivity && bDiff <= sensitivity && aDiff <= sensitivity;
+        }
     }
 }

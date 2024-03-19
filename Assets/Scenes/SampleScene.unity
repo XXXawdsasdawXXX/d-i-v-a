@@ -3695,14 +3695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93bcf3d9beb41228d8e2987d907f4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
-  uwcTexture: {fileID: 5755422236661864695}
+  _uwcTexture: {fileID: 5755422236661864695}
   _transform: {fileID: 631771332}
-  x: 100
-  y: 100
-  w: 1
-  h: 1
-  texture: {fileID: 0}
+  _x: 100
+  _y: 100
+  _w: 1
+  _h: 1
 --- !u!212 &1789198338410884089
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5365,6 +5363,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb272bf883e4466b8dea413c2416378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isCheck: 1
+  _lastColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  _rigidbody2D: {fileID: 8893949036200222672}
+  _colorAnalyzer: {fileID: 1759214111149032155}
+  _colliderButton: {fileID: 8893949036200222671}
 --- !u!1001 &8898444920617734558
 PrefabInstance:
   m_ObjectHideFlags: 0

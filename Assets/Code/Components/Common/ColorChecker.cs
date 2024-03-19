@@ -1,61 +1,60 @@
-﻿using System.Collections;
-using Code.Infrastructure.DI;
-using Code.Infrastructure.GameLoop;
-using Code.Services;
+﻿using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
+using uWindowCapture;
 
 namespace Code.Components.Objects
 {
-    public class ColorChecker : CommonComponent/*, IGameInitListener, IGameStartListener*/
+    public class ColorChecker : CommonComponent, IGameInitListener, IGameTickListener, IGameExitListener
     {
-        /*[SerializeField] private bool _isCheck;
-        [SerializeField] private Color _lastColor = Color.red;
+        [SerializeField] private bool _isCheck;
+        [SerializeField] private Color32 _lastColor = Color.red;
         [SerializeField] private Rigidbody2D _rigidbody2D;
-        private DesktopColorAnalyzer _desktopColorAnalyzer;
-        private PositionService _positionService;
+        [SerializeField] private TransformDisplayColorGetter _colorAnalyzer;
+        [SerializeField] private ColliderButton _colliderButton;
 
         public void GameInit()
         {
-            _desktopColorAnalyzer = Container.Instance.FindService<DesktopColorAnalyzer>();
-            _positionService = Container.Instance.FindService<PositionService>();
+            SubscribeToEvents(true);
+        }
+
+        private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
+        {
+            _lastColor = _colorAnalyzer.GetColor();
         }
 
 
-        public void GameStart()
+        public void GameTick()
         {
-           // _lastColor = _desktopColorAnalyzer.GetColor(GetScreenPosition());
-            StartCoroutine(StartCheck());
-        }
-
-
-        public IEnumerator StartCheck()
-        {
-            if (_lastColor == Color.red)
+            if (!_isCheck)
             {
-                yield return new WaitForEndOfFrame();
-                _lastColor = _desktopColorAnalyzer.GetColor(GetScreenPosition());
+                return;
             }
-            while (_isCheck)
+            
+            if (!_lastColor.Equal(_colorAnalyzer.GetColor(), 3) && _rigidbody2D.bodyType != RigidbodyType2D.Kinematic)
             {
-                yield return new WaitForEndOfFrame();
-                if (_desktopColorAnalyzer.IsCurrentColor(GetScreenPosition(), _lastColor, out var newColor))
-                {
-                    yield return new WaitForSeconds(0.1f);
-                }
-                else
-                {
-                    _lastColor = newColor;
-                    _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-                    _rigidbody2D.velocity = Vector2.zero;
-                    Debugging.Instance.Log("COOOOLOOOOOR!!!");
-                }
+                _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                _rigidbody2D.velocity = Vector2.zero;
+                _lastColor = _colorAnalyzer.GetColor();
             }
         }
 
-        private Vector2 GetScreenPosition()
+        public void GameExit()
         {
-            return _positionService.WorldToScreen(transform.position);
-        }*/
+            SubscribeToEvents(false);
+        }
+
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _colliderButton.UpEvent += ColliderButtonOnUpEvent;
+            }
+            else
+            {
+                _colliderButton.UpEvent -= ColliderButtonOnUpEvent;
+            }
+        }
     }
 }
