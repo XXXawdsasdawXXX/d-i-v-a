@@ -68,6 +68,7 @@ namespace uWindowCapture
 
             // Вывод координат на экран
             Debug.Log("X Coordinate on Display: " + displayX + ", Y Coordinate on Display: " + displayY);
+            Debug.Log("mouse X: " + Lib.GetCursorPosition().x + " mouse Y: " + Lib.GetCursorPosition().y);
 
             // Вывод координат на экран
             x = Mathf.RoundToInt(displayX);
@@ -75,11 +76,8 @@ namespace uWindowCapture
             Debug.Log("X : " + displayX + ", Y: " + displayY);
 
             // GetPixels() can be run in another thread
-            
-            if (window.GetPixels(colors, x, y, w, h)) {
-                texture.SetPixels32(colors);
-                texture.Apply();
-            }
+
+            material_.color = window.GetPixel(x, y);
         }
     }
 }
