@@ -8,6 +8,7 @@ public class UwcWindow
 {
     public UwcWindow(int id)
     {
+        Debug.Log($"id: {id}");
         this.id = id;
         isAlive = true;
 
