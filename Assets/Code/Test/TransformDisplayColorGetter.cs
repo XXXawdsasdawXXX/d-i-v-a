@@ -57,17 +57,31 @@ namespace uWindowCapture
             Vector3 worldPosition = _transform.position;
             Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
             
-
             // Получение ширины и высоты экрана
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
+            
+            float totalWidthOfPreviousDisplays = 0f;
+            for (int i = 0; i < Display.displays.Length; i++)
+            {
+                if (screenPosition.x >= Display.displays[i].systemWidth)
+                {
+                    totalWidthOfPreviousDisplays += Display.displays[i].renderingWidth;
+                }
+                else
+                {
+                    break; // Если координата x объекта меньше ширины текущего экрана, прерываем цикл
+                }
+            }
 
             // Ограничение координат в пределах экрана
-            float displayX = Mathf.Clamp(screenPosition.x, 0, screenWidth);
+            float displayX = Mathf.Clamp(screenPosition.x, 0, screenWidth) + totalWidthOfPreviousDisplays;
             float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
+            displayY = screenHeight - displayY; // Переворачиваем ось Y
+
+
 
             // Вывод координат на экран
-            Debug.Log("X Coordinate on Display: " + displayX + ", Y Coordinate on Display: " + displayY);
             Debug.Log("mouse X: " + Lib.GetCursorPosition().x + " mouse Y: " + Lib.GetCursorPosition().y);
 
             // Вывод координат на экран
