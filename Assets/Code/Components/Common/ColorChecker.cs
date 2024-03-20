@@ -8,7 +8,7 @@ namespace Code.Components.Objects
     public class ColorChecker : CommonComponent, IGameInitListener, IGameTickListener, IGameExitListener
     {
         [SerializeField] private bool _isCheck;
-        [SerializeField] private Color32 _lastColor = Color.red;
+        [SerializeField] private Color32 _lastColor = Color.white;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private TransformDisplayColorGetter _colorAnalyzer;
         [SerializeField] private ColliderButton _colliderButton;
@@ -16,11 +16,6 @@ namespace Code.Components.Objects
         public void GameInit()
         {
             SubscribeToEvents(true);
-        }
-
-        private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
-        {
-            _lastColor = _colorAnalyzer.GetColor();
         }
 
 
@@ -55,6 +50,11 @@ namespace Code.Components.Objects
             {
                 _colliderButton.UpEvent -= ColliderButtonOnUpEvent;
             }
+        }
+
+        private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
+        {
+            _lastColor = _colorAnalyzer.GetColor();
         }
     }
 }

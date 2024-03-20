@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class ParticlesStorage : MonoBehaviour, IService, IGameInitListener
+    public class ParticlesStorage : MonoBehaviour, IStorage, IGameInitListener
     {
         [SerializeField] private List<ParticleSystemFacade> _particles;
 

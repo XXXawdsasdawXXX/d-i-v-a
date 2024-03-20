@@ -14,7 +14,7 @@ namespace Code.Infrastructure.CustomActions
 
         public CustomAction_StarrySky()
         {
-            var particleDictionary = Container.Instance.FindService<ParticlesStorage>();
+            var particleDictionary = Container.Instance.FindStorage<ParticlesStorage>();
             if (particleDictionary.TryGetParticle(ParticleType.StarrySky, out var skyStarsParticle))
             {
                 _timeObserver = Container.Instance.FindService<TimeObserver>();

@@ -17,7 +17,6 @@ namespace Code.Services
         [Header("Static data")]
         private InteractionStorage _interactionStorage;
 
-
         public void GameInit()
         {		
 			//Observer components
@@ -33,7 +32,6 @@ namespace Code.Services
         {
             SubscribeToEvents(false);
         }
-
 
         private void SubscribeToEvents(bool flag)
         {
@@ -61,7 +59,6 @@ namespace Code.Services
             }
             else
             {
-                
                 Debugging.Instance.Log($"[service] click bad series to character {click}",Debugging.Type.Interaction); 
                 _interactionStorage.Add(InteractionType.Bad);
             }

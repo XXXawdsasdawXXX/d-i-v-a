@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Data.Storages
 {
-    public class GradientsDictionary : MonoBehaviour, IService
+    public class GradientsStorage : MonoBehaviour, IStorage
     {
         [SerializeField] private GradientData[] _gradients;
 

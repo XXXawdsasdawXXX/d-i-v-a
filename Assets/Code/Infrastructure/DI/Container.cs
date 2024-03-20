@@ -21,7 +21,7 @@ namespace Code.Infrastructure.DI
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();
-        private List<Storage> _storages = new();
+        private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
         private List<Entity> _entities = new();
         
@@ -98,7 +98,7 @@ namespace Code.Infrastructure.DI
             return default;
         }
 
-        public T FindStorage<T>() where T : Storage
+        public T FindStorage<T>() where T : IStorage 
         {
             foreach (var storage in _storages)
             {

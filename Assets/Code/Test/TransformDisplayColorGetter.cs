@@ -55,13 +55,10 @@ namespace uWindowCapture
             float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
             displayY = screenHeight - displayY; // Переворачиваем ось Y
             
-            // Вывод координат на экран
-            Debug.Log("mouse X: " + Lib.GetCursorPosition().x + " mouse Y: " + Lib.GetCursorPosition().y);
 
             // Вывод координат на экран
             _x = Mathf.RoundToInt(displayX);
             _y = Mathf.RoundToInt(displayY);
-            Debug.Log("X : " + displayX + ", Y: " + displayY);
             
             _material.color = window.GetPixel(_x, _y);
             return _material.color;

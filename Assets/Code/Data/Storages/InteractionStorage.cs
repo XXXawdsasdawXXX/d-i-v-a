@@ -7,7 +7,7 @@ using Code.Utils;
 
 namespace Code.Services
 {
-    public class InteractionStorage :Storage, IProgressWriter
+    public class InteractionStorage : IStorage, IProgressWriter
     {
         private Dictionary<InteractionType, int> _interactions;
         

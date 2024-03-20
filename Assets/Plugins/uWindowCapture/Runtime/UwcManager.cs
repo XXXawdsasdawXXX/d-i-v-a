@@ -193,7 +193,6 @@ public class UwcManager : MonoBehaviour
     void UpdateMessages()
     {
         var messages = Lib.GetMessages();
-        Debug.Log($"messages: {messages.Length}");
         for (int i = 0; i < messages.Length; ++i) {
             var message = messages[i];
             var id = message.windowId;

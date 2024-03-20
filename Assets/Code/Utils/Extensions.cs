@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,6 +7,11 @@ namespace Code.Utils
 {
     public static class Extensions
     {
+        public  static bool IsEqualDay(DateTime lastVisit, DateTime currenVisit)
+        {
+            return  lastVisit != DateTime.MinValue && currenVisit != DateTime.MinValue && lastVisit.Day == currenVisit.Day;
+        }
+        
         public static void ShuffleList<T>(List<T> list)
         {
             var n = list.Count;

@@ -19,10 +19,16 @@ namespace Code.Infrastructure.CustomActions
         protected  DIVA _diva;
 
         private readonly List<AudioParticleModule> _audioParticles = new();
+        private ParticlesStorage _particleDictionary;
+
         public void GameInit()
         {
-            var particleDictionary = Container.Instance.FindService<ParticlesStorage>();
-            if (particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
+           _particleDictionary = Container.Instance.FindStorage<ParticlesStorage>();
+        }
+
+        public void GameStart()
+        {
+            if (_particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
             {
                 _diva = Container.Instance.FindEntity<DIVA>();
                 _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
@@ -39,11 +45,6 @@ namespace Code.Infrastructure.CustomActions
             }
 
             _isNotUsed = true;
-        }
-
-        public void GameStart()
-        {
-            if (_isNotUsed) return;
             StartAction();
         }
 

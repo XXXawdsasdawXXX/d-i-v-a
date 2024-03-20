@@ -6,28 +6,28 @@ using Code.Data.Interfaces;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Infrastructure.Save;
 using Code.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Code.Services
 {
-    public class TimeObserver : IService, IGameInitListener, IGameTickListener
+    public class TimeObserver : IService, IGameInitListener, IGameTickListener, IProgressWriter
     {
-        [Header("Static value")]
-        private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
+        [Header("Static value")] private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
         private RangedFloat _tickRangedTime;
-        private  float _tickTime;
-        
-        [Header("Dinamic value")]
-        private float _currentTickCooldown;
+        private float _tickTime;
+
+        [Header("Dinamic value")] private float _currentTickCooldown;
         private DateTime _currentTime;
         private bool _isInit;
         private bool _isNight;
+        private CoroutineRunner _coroutineRunner;
 
         public event Action TickEvent;
-        public event Action InitTimeEvent;
+        public event Action<bool> InitTimeEvent;
         public event Action StartDayEvent;
         public event Action StartNightEvent;
 
@@ -35,18 +35,22 @@ namespace Code.Services
         public void GameInit()
         {
             _tickRangedTime = Container.Instance.FindConfig<TimeConfig>().TickRangedTime;
-            
-            var coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            if (coroutineRunner == null)
-            {
-                Debugging.Instance.Log($"time observer can't find coroutine runner", Debugging.Type.Time);
-                return;
-            }
-
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickTime = _tickRangedTime.GetRandomValue();
-            coroutineRunner.StartRoutine(InitCurrentTime());
 
             Debugging.Instance.Log($"Current time {_currentTime}", Debugging.Type.Time);
+        }
+
+        public void LoadProgress(PlayerProgressData playerProgress)
+        {
+            _coroutineRunner.StartRoutine(InitCurrentTime(playerProgress));
+            Debugging.Instance.Log($"Load progress", Debugging.Type.Time);
+        }
+
+        public void UpdateProgress(PlayerProgressData playerProgress)
+        {
+            playerProgress.GameExitTime = _currentTime;
+            Debugging.Instance.Log($"Update progress", Debugging.Type.Time);
         }
 
         public void GameTick()
@@ -83,13 +87,13 @@ namespace Code.Services
             if (IsNightTime() && !_isNight)
             {
                 Debugging.Instance.Log($"Начало ночи", Debugging.Type.Time);
-                _isNight = true; 
+                _isNight = true;
                 StartNightEvent?.Invoke();
             }
             else if (!IsNightTime() && _isNight)
             {
                 Debugging.Instance.Log($"Начало дня", Debugging.Type.Time);
-                _isNight = false; 
+                _isNight = false;
                 StartDayEvent?.Invoke();
             }
         }
@@ -102,25 +106,36 @@ namespace Code.Services
 
 
         [Obsolete("Obsolete")]
-        private IEnumerator InitCurrentTime()
+        private IEnumerator InitCurrentTime(PlayerProgressData playerProgressData)
         {
             UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.google.com");
-            if (myHttpWebRequest == null)
+            if (myHttpWebRequest != null)
+            {
+                yield return myHttpWebRequest.Send();
+                string netTime = myHttpWebRequest.GetResponseHeader("date");
+                DateTime.TryParse(netTime, out _currentTime);
+                Debugging.Instance.Log($"init google time", Debugging.Type.Time);
+            }
+            else
             {
                 _currentTime = DateTime.UtcNow;
-                _isInit = true;
-                InitTimeEvent?.Invoke();
-                yield break;
+                Debugging.Instance.Log($"init standalone time", Debugging.Type.Time);
             }
+            
+            var lastVisit = playerProgressData.GameEnterTime; 
+            playerProgressData.GameEnterTime = _currentTime;
 
-            yield return myHttpWebRequest.Send();
-            string netTime = myHttpWebRequest.GetResponseHeader("date");
-            Debugging.Instance.Log($"net time {netTime}", Debugging.Type.Time);
-            DateTime.TryParse(netTime, out _currentTime);
-            InitTimeEvent?.Invoke();
-            _isInit = true;
             CheckTimeOfDay();
+            
+            _isInit = true;
+            
+            Debugging.Instance.Log($"End init: is first visit {!Extensions.IsEqualDay(lastVisit, _currentTime)}" +
+                                   $"\ncurrent {_currentTime} saving {lastVisit}", Debugging.Type.Time);
+
+            InitTimeEvent?.Invoke(!Extensions.IsEqualDay(lastVisit, _currentTime));
         }
+
+
 
         #region Editor
 
@@ -128,8 +143,7 @@ namespace Code.Services
         {
             return new KeyValuePair<float, float>(_currentTickCooldown, _tickTime);
         }
-        
+
         #endregion
-        
     }
 }

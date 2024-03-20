@@ -24,7 +24,7 @@ namespace Code.Data.Facades
         private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
         
         [Header("Services")] 
-        private GradientsDictionary _gradientsDictionary;
+        private GradientsStorage _gradientsStorage;
         
         public bool IsPlay => _particleSystem.isPlaying;
         private bool _isInit;
@@ -38,7 +38,7 @@ namespace Code.Data.Facades
             _velocityOverLifetime = _particleSystem.velocityOverLifetime;
             _colorOverLifetime = _particleSystem.colorOverLifetime;
             
-            _gradientsDictionary = Container.Instance.FindService<GradientsDictionary>();
+            _gradientsStorage = Container.Instance.FindStorage<GradientsStorage>();
             _isInit = true;
         }
 
@@ -85,7 +85,7 @@ namespace Code.Data.Facades
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {
-            if (_gradientsDictionary.TryGetGradient(gradientType, out var gradientData))
+            if (_gradientsStorage.TryGetGradient(gradientType, out var gradientData))
             {
                 var colors = new GradientColorKey[gradientData.colorKeys.Length];
                 for (int i = 0; i < colors.Length; i++)
@@ -113,7 +113,7 @@ namespace Code.Data.Facades
 
         public void SetLifetimeColor(float getValue, GradientType gradientType)
         {
-            if (_gradientsDictionary.TryGetGradient(gradientType, out var gradientData))
+            if (_gradientsStorage.TryGetGradient(gradientType, out var gradientData))
             {
                 var colors = new GradientColorKey[gradientData.colorKeys.Length];
                 for (int i = 0; i < colors.Length; i++)

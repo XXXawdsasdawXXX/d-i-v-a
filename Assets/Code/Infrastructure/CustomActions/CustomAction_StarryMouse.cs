@@ -26,7 +26,7 @@ namespace Code.Infrastructure.CustomActions
         public CustomAction_StarryMouse()
         {
             //static values
-            var particles = Container.Instance.FindService<ParticlesStorage>();
+            var particles = Container.Instance.FindStorage<ParticlesStorage>();
             if (particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
             {
                 _particle = particlesFacades[0];

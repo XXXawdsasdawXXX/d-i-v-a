@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Interfaces
 {
-    public class Storage
+    public interface IStorage
     {
         
     }
