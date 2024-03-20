@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class InteractionObserver : IService, IGameInitListener, IGameExitListener
+    public class InteractionObserver_ClickSeries : IMono, IGameInitListener, IGameExitListener
     {
         [Header("Observer components")]
         private ColliderButton _characterCollisionButton;

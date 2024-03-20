@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Code.Data.Enums;
 using Code.Data.SavedData;
-using Code.Infrastructure.CustomActions;
 
 namespace Code.Infrastructure.Save
 {
@@ -23,6 +22,5 @@ namespace Code.Infrastructure.Save
             LiveStatesData = new List<LiveStateSavedData>();
             Interactions = new Dictionary<InteractionType, int>();
         }
-
     }
 }

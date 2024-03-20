@@ -24,6 +24,7 @@ namespace Code.Infrastructure.DI
         private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
         private List<Entity> _entities = new();
+        private List<IMono> _mono = new();
         
         private void Awake()
         {
@@ -40,6 +41,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _storages);
             InitList(ref _entities); 
             InitList(ref _customActions);
+            InitList(ref _mono);
         }
 
         private void InitList<T>(ref List<T> list)
