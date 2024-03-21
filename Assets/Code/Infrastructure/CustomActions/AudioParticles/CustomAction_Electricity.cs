@@ -17,6 +17,12 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             return new[] { ParticleType.Electricity };
         }
 
+        protected override void Init()
+        {
+            _isUsed = false;
+            base.Init();
+        }
+
         protected override void UpdateParticles()
         {
             if (_particlesSystems == null)

@@ -19,6 +19,7 @@ namespace Code.Infrastructure.DI
         public static Container Instance;
         
         private MonoBehaviour[] _allObjects;
+        
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
         private List<IService> _services = new();

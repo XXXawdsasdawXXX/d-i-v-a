@@ -2844,7 +2844,7 @@ MonoBehaviour:
     Active: 1
     Color: {r: 1, g: 1, b: 1, a: 1}
   - Type: 10
-    Active: 0
+    Active: 1
     Color: {r: 0.92941177, g: 0.8878994, b: 0.5372549, a: 1}
   - Type: 11
     Active: 0
@@ -3561,6 +3561,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _isUsed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[0].Multiplier
       value: 0.15
       objectReference: {fileID: 0}
@@ -3940,6 +3944,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
+    - target: {fileID: 2290162586484750457, guid: 9b19747c80d86a9478b6531dbb789084, type: 3}
+      propertyPath: _isUsed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7824827441415750760, guid: 9b19747c80d86a9478b6531dbb789084, type: 3}
       propertyPath: m_Name
       value: Particle System_nimbus_dark
@@ -4749,7 +4757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
       propertyPath: EmissionModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
       propertyPath: ShapeModule.m_Position.y

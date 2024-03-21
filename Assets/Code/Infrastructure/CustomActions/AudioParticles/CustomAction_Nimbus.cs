@@ -4,13 +4,14 @@ using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Facades;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public class CustomAction_Nimbus : CustomAction_AudioParticle
+    public class CustomAction_Nimbus : CustomAction_AudioParticle, IGameExitListener
     {
         private CharacterAnimationAnalytic _animationAnalytic;
         private CoroutineRunner _coroutineRunner;
@@ -23,8 +24,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-
+            
+            SubscribeToEvents(true);
             base.Init();
+        }
+
+        public void GameExit()
+        {
+            SubscribeToEvents(false);
         }
 
         public override CustomCutsceneActionType GetActionType()
@@ -43,6 +50,11 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void StartAction()
         {
+            if (_animationAnalytic.GetAnimationMode() == CharacterAnimationMode.Sleep)
+            {
+                DisableCurrentNimbus();
+                return;
+            }
             _coroutineRunner.StartRoutine(AwaitStart());
         }
 
@@ -69,12 +81,16 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void UpdateParticles()
         {
-            if (_isNotUsed || _currentNimbus == null)
+            if (!_isUsed || _currentNimbus == null)
             {
                 return;
             }
 
-            _currentNimbus.transform.position = GetParticlePosition();
+            foreach (var particlesSystem in _particlesSystems)
+            {
+                particlesSystem.transform.position = GetParticlePosition();
+                
+            }
         }
 
         private void Show(ParticleType particleType)
@@ -106,7 +122,31 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         private Vector3 GetParticlePosition()
         {
-            return _characterModeAdapter.GetWorldHeatPoint() + Vector3.up * 0.5f;
+            return _characterModeAdapter.GetWorldHeatPoint() + Vector3.up * 0.2f;
+        }
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _interactionStorage.SwitchDominationTypeEvent += OnSwitchInteractionDominationType;
+                _animationAnalytic.SwitchModeEvent += OnSwitchAnimationMode;
+            }
+            else
+            {
+                _interactionStorage.SwitchDominationTypeEvent -= OnSwitchInteractionDominationType;
+                _animationAnalytic.SwitchModeEvent -= OnSwitchAnimationMode;
+            }
+        }
+
+        private void OnSwitchAnimationMode(CharacterAnimationMode mode)
+        {
+            StartAction();
+        }
+
+        private void OnSwitchInteractionDominationType(InteractionType currentType)
+        {
+            StartAction();
         }
     }
 }

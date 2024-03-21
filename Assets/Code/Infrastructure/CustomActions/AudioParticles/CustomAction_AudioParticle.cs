@@ -10,9 +10,10 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener, IGameInitListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener,
+        IGameInitListener
     {
-        protected bool _isNotUsed;
+        protected bool _isUsed;
 
         protected ParticleSystemFacade[] _particlesSystems;
         protected CharacterModeAdapter _characterModeAdapter;
@@ -23,8 +24,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameInit()
         {
-            _isNotUsed = Extensions.IsMacOs();
-            if (_isNotUsed)
+            _isUsed = !Extensions.IsMacOs();
+            if (!_isUsed)
             {
                 return;
             }
@@ -34,7 +35,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameStart()
         {
-            if (_isNotUsed)
+            if (!_isUsed)
             {
                 return;
             }
@@ -52,19 +53,17 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 }
 
                 Init();
-                StartAction();
                 return;
             }
 
-            Debugging.Instance.Log($"{GetActionType()} не нашел партикл", Debugging.Type.CustomAction);
-            _isNotUsed = true;
+            _isUsed = false;
         }
 
         protected abstract ParticleType[] GetParticleTypes();
 
         public void GameTick()
         {
-            if (_isNotUsed)
+            if (!_isUsed)
             {
                 return;
             }
@@ -72,7 +71,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             UpdateParticles();
         }
 
-  
 
         protected virtual void Init()
         {
@@ -80,33 +78,33 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void StartAction()
         {
-            if (_isNotUsed)
+            if (!_isUsed)
             {
                 return;
             }
-            
+
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
-            
+
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();
-            
+
             base.StartAction();
         }
 
         protected override void StopAction()
         {
-            if (_isNotUsed)
+            if (!_isUsed)
             {
                 return;
             }
 
             Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
-            
+
             foreach (var particle in _particlesSystems) particle.Off();
             foreach (var particleModule in _audioParticles) particleModule.Off();
-            
+
             base.StopAction();
         }
 

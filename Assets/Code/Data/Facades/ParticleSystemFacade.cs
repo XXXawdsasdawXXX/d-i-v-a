@@ -1,4 +1,5 @@
-﻿using Code.Data.Enums;
+﻿using System;
+using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -11,10 +12,10 @@ namespace Code.Data.Facades
     {
         [field: SerializeField] public ParticleType Type { get; private set; }
         [SerializeField] private ParticleSystem _particleSystem;
-        
+
         [Header("Optional modules")] 
         [SerializeField] private AudioParticleModule _audio;
-        
+
         [Header("Modules")] 
         private ParticleSystem.EmissionModule _emission;
         private ParticleSystem.MainModule _main;
@@ -22,12 +23,22 @@ namespace Code.Data.Facades
         private ParticleSystem.NoiseModule _noise;
         private ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
         private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
-        
+
         [Header("Services")] 
         private GradientsStorage _gradientsStorage;
-        
+
         public bool IsPlay => _particleSystem.isPlaying;
         private bool _isInit;
+
+        private FacadeSettings _defaultSettings = new FacadeSettings();
+
+
+        [Serializable]
+        private class FacadeSettings
+        {
+            public float TrailLiveTime;
+            public float LiveTime;
+        }
 
         public void GameInit()
         {
@@ -37,6 +48,9 @@ namespace Code.Data.Facades
             _noise = _particleSystem.noise;
             _velocityOverLifetime = _particleSystem.velocityOverLifetime;
             _colorOverLifetime = _particleSystem.colorOverLifetime;
+
+            _defaultSettings.TrailLiveTime = _trails.lifetimeMultiplier;
+            _defaultSettings.LiveTime = _main.startLifetimeMultiplier;
             
             _gradientsStorage = Container.Instance.FindStorage<GradientsStorage>();
             _isInit = true;
@@ -49,17 +63,27 @@ namespace Code.Data.Facades
                 return;
             }
 
+            _audio?.On();
+            
+            _trails.lifetimeMultiplier = _defaultSettings.TrailLiveTime;
+            _main.startLifetimeMultiplier = _defaultSettings.LiveTime;
+            
             _emission.enabled = true;
         }
 
         public void Off()
         {
+            _audio?.Off();
+            
+            _trails.lifetimeMultiplier = 0;
+            _main.startLifetimeMultiplier =0;
+            
             _emission.enabled = false;
         }
 
         public void SetTrailWidthOverTrail(float value)
         {
-            if(_isInit) _trails.widthOverTrailMultiplier = value;
+            if (_isInit) _trails.widthOverTrailMultiplier = value;
         }
 
         public void SetSizeMultiplier(float value)
@@ -81,7 +105,7 @@ namespace Code.Data.Facades
         {
             _trails.lifetimeMultiplier = value;
         }
-        
+
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {

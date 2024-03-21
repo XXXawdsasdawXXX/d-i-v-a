@@ -4934,15 +4934,16 @@ MonoBehaviour:
   _effectsData:
   - ParticleParam: 2
     AudioParam: 1
-    Multiplier: 0.3
+    Multiplier: 0.15
   - ParticleParam: 8
     AudioParam: 1
-    Multiplier: 10
+    Multiplier: 7
   - ParticleParam: 5
     AudioParam: 1
-    Multiplier: 15
+    Multiplier: 10
   - ParticleParam: 3
     AudioParam: 2
-    Multiplier: 2
+    Multiplier: 1.5
   _gradient: 0
+  _isUsed: 1
   _isActive: 1

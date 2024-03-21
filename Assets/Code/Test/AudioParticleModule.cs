@@ -5,6 +5,7 @@ using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services.LoopbackAudio.Audio;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Test
@@ -43,6 +44,7 @@ namespace Code.Test
         [Header("Services")]
         private LoopbackAudioService _loopbackAudioService;
         [Header("Dinamic value")]
+        [SerializeField] private bool _isUsed;
         [SerializeField] private bool _isActive;
 
         [Serializable]
@@ -51,16 +53,21 @@ namespace Code.Test
             public ParticleParamType ParticleParam;
             public LoopBackAudioParamType AudioParam;
             public float Multiplier = 1;
-            
         }
+        
         public void GameInit()
         {
+            if (_isUsed && Extensions.IsMacOs())
+            {
+                _isUsed = false;
+                return;
+            }
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
 
         public void GameTick()
         {
-            if (!_isActive)
+            if (!_isUsed || !_isActive)
             {
                 return;
             }
@@ -120,7 +127,37 @@ namespace Code.Test
         public virtual void Off()
         {
             _isActive = false;
+            foreach (var effect in _effectsData)
+            {
+                Reset(effect);
+            }
         }
+
+        private void Reset(Data effect)
+        {
+            switch (effect.ParticleParam)
+            {
+                case ParticleParamType.None:
+                default:
+                    break;
+                case ParticleParamType.SizeMultiplier:
+                    _particleSystem.SetSizeMultiplier(0);
+                    break;
+                case ParticleParamType.TrailWidthOverTrail:
+                    _particleSystem.SetTrailWidthOverTrail(0);
+                    break;
+                case ParticleParamType.NoiseSize:
+                    _particleSystem.SetNoiseSize(0);
+                    break;
+                case ParticleParamType.TrailLiveTime:
+                    _particleSystem.SetTrailsLifetimeMultiplier(0);
+                    break;
+                case ParticleParamType.LiveTime:
+                    _particleSystem.SetLifetime(0);
+                    break;
+            }
+        }
+
         private void Refresh(ParticleParamType param)
         {
             switch (param)
