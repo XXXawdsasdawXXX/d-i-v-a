@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class InteractionObserver_ClickSeries : IMono, IGameInitListener, IGameExitListener
+    public class InteractionObserver_ClickSeries : InteractionObserver, IGameInitListener, IGameExitListener
     {
         [Header("Observer components")]
         private ColliderButton _characterCollisionButton;
@@ -51,16 +51,19 @@ namespace Code.Services
             {
                 Debugging.Instance.Log($"[service] click good series to character {click}",Debugging.Type.Interaction);
                 _interactionStorage.Add(InteractionType.Good);
+               InvokeInteractionEvent();
             }
             else if (click < 3)
             {
                 Debugging.Instance.Log($"[service] click series to character {click}",Debugging.Type.Interaction);
                   _interactionStorage.Add(InteractionType.Normal);
+               InvokeInteractionEvent();
             }
             else
             {
                 Debugging.Instance.Log($"[service] click bad series to character {click}",Debugging.Type.Interaction); 
                 _interactionStorage.Add(InteractionType.Bad);
+               InvokeInteractionEvent();
             }
         }
 

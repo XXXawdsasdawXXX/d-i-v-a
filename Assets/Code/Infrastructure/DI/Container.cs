@@ -7,6 +7,7 @@ using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
+using Code.Services;
 using Code.Utils;
 using Kirurobo;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Code.Infrastructure.DI
         private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
         private List<Entity> _entities = new();
+        private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
         
         private void Awake()
@@ -41,6 +43,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _storages);
             InitList(ref _customActions);
             InitList(ref _entities); 
+            InitList(ref _interactionObservers); 
             InitList(ref _mono);
         }
 
@@ -121,6 +124,19 @@ namespace Code.Infrastructure.DI
                 if (entity is T findEntity)
                 {
                     return findEntity;
+                }
+            }
+
+            return default;
+        }
+        
+        public T FindInteractionObserver<T>() where T : InteractionObserver
+        {
+            foreach (var interactionObserver in _interactionObservers)
+            {
+                if (interactionObserver is T findInteractionObserver)
+                {
+                    return findInteractionObserver;
                 }
             }
 

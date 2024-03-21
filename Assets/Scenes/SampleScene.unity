@@ -3555,6 +3555,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[0].Multiplier
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[1].Multiplier
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[2].Multiplier
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[3].Multiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_RootOrder
       value: 2
