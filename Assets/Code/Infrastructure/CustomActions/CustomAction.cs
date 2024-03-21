@@ -4,7 +4,7 @@ namespace Code.Infrastructure.CustomActions
 {
     public abstract class CustomAction
     {
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; protected set; }
 
         protected virtual void StartAction()
         {

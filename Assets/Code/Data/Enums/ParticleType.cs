@@ -5,7 +5,7 @@
         None,
         StarrySky,
         StarryMouse,
-        Nimbus,
+        Nimbus_light,
         Electricity,
         Bubbles,
         Jon,
@@ -19,7 +19,7 @@
         Light_2,
         Shiny,
         lsd_Trails,
-        lsd_sphereTrails
-
+        lsd_sphereTrails,
+        Nimbus_dark
     }
 }

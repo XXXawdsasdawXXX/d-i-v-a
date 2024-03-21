@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.StaticData;
@@ -10,7 +12,10 @@ namespace Code.Services
     public class InteractionStorage : IStorage, IProgressWriter
     {
         private Dictionary<InteractionType, int> _interactions;
-        
+
+        public InteractionType _currentDominationType;
+
+        public event Action<InteractionType> SwitchDominationTypeEvent; 
         public void Add(InteractionDynamicData interactionData)
         {
            Add(interactionData.СlassificationType,interactionData.Value);
@@ -21,6 +26,11 @@ namespace Code.Services
             if (_interactions.ContainsKey(type))
             {
                 _interactions[type] += value;
+                if (_currentDominationType != GetDominantInteractionType())
+                {
+                    _currentDominationType = GetDominantInteractionType();
+                    SwitchDominationTypeEvent?.Invoke(_currentDominationType);
+                }
             }
             else
             {
@@ -33,10 +43,22 @@ namespace Code.Services
         public void LoadProgress(PlayerProgressData playerProgress)
         {
             _interactions = playerProgress.Interactions;
+            _currentDominationType = GetDominantInteractionType();
         }
         public void UpdateProgress(PlayerProgressData playerProgress)
         {
             playerProgress.Interactions = _interactions;
+        }
+
+        public InteractionType GetDominantInteractionType()
+        {
+            if (_interactions.Count == 0)
+            {
+                return InteractionType.None;
+            }
+
+            var maxPair = _interactions.OrderByDescending(pair => pair.Value).FirstOrDefault();
+            return maxPair.Key;
         }
     }
 }

@@ -11,27 +11,27 @@ namespace Code.Components.Objects
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            Debugging.Instance.Log($"Collision enter {col.gameObject.name}");
+            Debugging.Instance.Log($"[{col.gameObject.name}] Collision enter ",Debugging.Type.Collision);
             EnterEvent?.Invoke(col.gameObject);
         }
 
         private void OnCollisionExit2D(Collision2D col)
         {
-            Debugging.Instance.Log($"Collision exit {col.gameObject.name}");
+            Debugging.Instance.Log($"[{col.gameObject.name}] Collision exit ",Debugging.Type.Collision);
             ExitEvent?.Invoke(col.gameObject);
         }
 
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            Debugging.Instance.Log($"Trigger enter {col.gameObject.name}");
+            Debugging.Instance.Log($"[{col.gameObject.name}] Trigger enter ",Debugging.Type.Collision);
             EnterEvent?.Invoke(col.gameObject);
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D col)
         {
-            Debugging.Instance.Log($"Trigger exit {other.gameObject.name}");
-            ExitEvent?.Invoke(other.gameObject);
+            Debugging.Instance.Log($"[{col.gameObject.name}] Trigger exit ",Debugging.Type.Collision);
+            ExitEvent?.Invoke(col.gameObject);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            if (_particleStorage.TryGetParticle(GetParticleType(), out _particlesSystems))
+            if (_particleStorage.TryGetParticles(GetParticleTypes(), out _particlesSystems))
             {
                 _diva = Container.Instance.FindEntity<DIVA>();
                 _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
@@ -56,9 +56,11 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            Debugging.Instance.Log($"{GetParticleType()} не нашел партикл", Debugging.Type.CustomAction);
+            Debugging.Instance.Log($"{GetActionType()} не нашел партикл", Debugging.Type.CustomAction);
             _isNotUsed = true;
         }
+
+        protected abstract ParticleType[] GetParticleTypes();
 
         public void GameTick()
         {
@@ -70,7 +72,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             UpdateParticles();
         }
 
-        protected abstract ParticleType GetParticleType();
+  
 
         protected virtual void Init()
         {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7752801918249470212}
   - component: {fileID: 2576211046701084766}
   m_Layer: 0
-  m_Name: Particle System_nimbus
+  m_Name: Particle System_nimbus_light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

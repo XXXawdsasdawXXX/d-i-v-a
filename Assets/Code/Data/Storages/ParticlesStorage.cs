@@ -19,8 +19,7 @@ namespace Code.Services
 
         private VFXConfig _vfxConfig;
         private AssetsFactory _factory;
-
-
+        
         public void GameInit()
         {
             _factory = Container.Instance.FindService<AssetsFactory>();
@@ -44,6 +43,21 @@ namespace Code.Services
             var allParticles = GetComponentsInChildren<ParticleSystemFacade>();
             _particles.Clear();
             _particles = allParticles.ToList();
+        }
+
+        public bool TryGetParticles(IEnumerable<ParticleType> particleTypes, out ParticleSystemFacade[] particlesSystems)
+        {
+            var list = new List<ParticleSystemFacade>();
+            foreach (var particleType in particleTypes) 
+            {
+                if (TryGetParticle(particleType, out var typedParticles))
+                {
+                    list.AddRange(typedParticles);
+                }
+            }
+
+            particlesSystems = list.ToArray();
+            return particlesSystems.Length > 0;
         }
     }
 }

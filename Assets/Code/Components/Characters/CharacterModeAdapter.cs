@@ -35,6 +35,19 @@ namespace Code.Components.Characters
 
             return transform.position;
         }
+
+        public Vector3 GetWorldHeatPoint()
+        {
+            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
+            if (modeParam != null)
+            {
+                var localPosition = modeParam.HeadPoint;
+                return transform.TransformPoint(localPosition);
+            }
+
+            return transform.position;
+        }
+
         private void SubscribeToEvents()
         {
              _animationModeObserver.ModeEnteredEvent += OnModeEnteredEvent;   
@@ -62,6 +75,7 @@ namespace Code.Components.Characters
             public CharacterAnimationMode AnimationMode;
             public Vector2 ColliderSize;
             public Vector2 EatPoint;
+            public Vector2 HeadPoint;
         }
     }
     

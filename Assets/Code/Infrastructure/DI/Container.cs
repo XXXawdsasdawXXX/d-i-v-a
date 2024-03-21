@@ -161,6 +161,8 @@ namespace Code.Infrastructure.DI
             list.AddRange(_storages.OfType<T>().ToList());
             list.AddRange(_entities.OfType<T>().ToList());
             list.AddRange(_customActions.OfType<T>().ToList());
+            list.AddRange(_interactionObservers.OfType<T>().ToList());
+            list.AddRange(_mono.OfType<T>().ToList());
 
             var mbListeners = _allObjects.OfType<T>();
             foreach (var mbListener in mbListeners)

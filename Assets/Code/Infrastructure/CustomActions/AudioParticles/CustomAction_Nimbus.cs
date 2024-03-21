@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Linq;
 using Code.Components.Characters;
 using Code.Data.Enums;
+using Code.Data.Facades;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
@@ -12,22 +14,31 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     {
         private CharacterAnimationAnalytic _animationAnalytic;
         private CoroutineRunner _coroutineRunner;
+        private InteractionStorage _interactionStorage;
+
+        private ParticleSystemFacade _currentNimbus;
+
+        protected override void Init()
+        {
+            _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
+
+            base.Init();
+        }
 
         public override CustomCutsceneActionType GetActionType()
         {
             return CustomCutsceneActionType.Nimbus;
         }
 
-        protected override void Init()
+        protected override ParticleType[] GetParticleTypes()
         {
-            _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            base.Init();
-        }
-
-        protected override ParticleType GetParticleType()
-        {
-            return ParticleType.Nimbus;
+            return new[]
+            {
+                ParticleType.Nimbus_light,
+                ParticleType.Nimbus_dark,
+            };
         }
 
         protected override void StartAction()
@@ -37,28 +48,65 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         private IEnumerator AwaitStart()
         {
-            Debugging.Instance.Log("[nimbus] Await PLAY ",Debugging.Type.CustomAction);
-            yield return new WaitUntil(() =>  _animationAnalytic.GetCharacterAnimationState() != CharacterAnimationState.Enter);
-            Debugging.Instance.Log("[nimbus] PLAY ",Debugging.Type.CustomAction);
-            base.StartAction();
+            Debugging.Instance.Log("[nimbus] await PLAY ", Debugging.Type.CustomAction);
+            yield return new WaitUntil(() => _animationAnalytic.GetCharacterAnimationState() != CharacterAnimationState.Enter);
+            Debugging.Instance.Log("[nimbus] PLAY ", Debugging.Type.CustomAction);
+            IsActive = true;
+            var dominantInteractionType = _interactionStorage.GetDominantInteractionType();
+            if (dominantInteractionType == InteractionType.Good)
+            {
+                Show(ParticleType.Nimbus_light);
+            }
+            else if(dominantInteractionType == InteractionType.Bad)
+            {
+                Show(ParticleType.Nimbus_dark);
+            }
+            else
+            {
+                DisableCurrentNimbus();
+            }
         }
+
         protected override void UpdateParticles()
         {
-            if (_isNotUsed || _particlesSystems == null)
+            if (_isNotUsed || _currentNimbus == null)
             {
                 return;
             }
 
-            foreach (var particle in _particlesSystems)
+            _currentNimbus.transform.position = GetParticlePosition();
+        }
+
+        private void Show(ParticleType particleType)
+        {
+            if (_currentNimbus != null && _currentNimbus.Type != particleType)
             {
-                if (!particle.IsPlay) continue;
-                particle.transform.position = GetParticlePosition();
+                DisableCurrentNimbus();
             }
+
+            var nimbus_light = _particlesSystems.FirstOrDefault(p => p.Type ==particleType);
+
+            if (nimbus_light != null)
+            {
+                ActiveNimbus(nimbus_light);
+            }
+        }
+
+        private void ActiveNimbus(ParticleSystemFacade nimbus)
+        {
+            _currentNimbus = nimbus;
+            _currentNimbus.On();
+        }
+
+        private void DisableCurrentNimbus()
+        {
+            _currentNimbus?.Off();
+            _currentNimbus = null;
         }
 
         private Vector3 GetParticlePosition()
         {
-            return _characterModeAdapter.GetWorldEatPoint() + Vector3.up * 0.5f;
+            return _characterModeAdapter.GetWorldHeatPoint() + Vector3.up * 0.5f;
         }
     }
 }

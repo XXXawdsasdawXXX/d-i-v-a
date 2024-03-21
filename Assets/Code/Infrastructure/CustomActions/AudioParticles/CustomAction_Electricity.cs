@@ -3,18 +3,18 @@ using Code.Services.LoopbackAudio.Audio;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public class CustomAction_Electricity: CustomAction_AudioParticle
+    public class CustomAction_Electricity : CustomAction_AudioParticle
     {
-        private  LoopbackAudioService _loopbackAudioService;
+        private LoopbackAudioService _loopbackAudioService;
 
         public override CustomCutsceneActionType GetActionType()
         {
             return CustomCutsceneActionType.Electricity;
         }
-        
-        protected override ParticleType GetParticleType()
+
+        protected override ParticleType[] GetParticleTypes()
         {
-            return ParticleType.Electricity;
+            return new[] { ParticleType.Electricity };
         }
 
         protected override void UpdateParticles()
@@ -23,6 +23,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             {
                 return;
             }
+
             foreach (var particle in _particlesSystems)
             {
                 particle.transform.position = _diva.transform.position;
