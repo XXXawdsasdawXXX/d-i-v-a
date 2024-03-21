@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Code.Services
 {
-    public class InteractionObserver_ReturnAfterAbsence : InteractionObserver,IGameTickListener
+    public class Interaction_ReturnAfterAbsence : InteractionObserver,IGameTickListener
     {
         private const float NEEDED_MIN = 10;
-        private float _absenceTime;
+        private float _absenceSecond;
         private bool _isAbsence;
 
         public event Action<float> UserReturnEvent;
@@ -21,14 +21,14 @@ namespace Code.Services
                 if (_isAbsence)
                 {
                     _isAbsence = false;
-                    UserReturnEvent?.Invoke(_absenceTime);
+                    UserReturnEvent?.Invoke(_absenceSecond);
                 }
 
-                _absenceTime = 0;
+                _absenceSecond = 0;
             }
 
-            _absenceTime += Time.deltaTime;
-            if (_absenceTime >= NEEDED_MIN * 60 && !_isAbsence)
+            _absenceSecond += Time.deltaTime;
+            if (_absenceSecond >= NEEDED_MIN * 60 && !_isAbsence)
             {
                 _isAbsence = true;
                 InvokeInteractionEvent();

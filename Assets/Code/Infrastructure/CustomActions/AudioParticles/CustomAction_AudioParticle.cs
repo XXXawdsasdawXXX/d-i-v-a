@@ -82,11 +82,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             {
                 return;
             }
-
+            
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
+            
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();
+            
+            base.StartAction();
         }
 
         protected override void StopAction()
@@ -98,8 +101,11 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
             Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
+            
             foreach (var particle in _particlesSystems) particle.Off();
             foreach (var particleModule in _audioParticles) particleModule.Off();
+            
+            base.StopAction();
         }
 
         protected abstract void UpdateParticles();

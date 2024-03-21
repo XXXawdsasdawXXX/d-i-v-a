@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Code.Data.Configs;
 using Code.Data.Interfaces;
+using Code.Data.SavedData;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -132,7 +133,12 @@ namespace Code.Services
             Debugging.Instance.Log($"End init: is first visit {!Extensions.IsEqualDay(lastVisit, _currentTime)}" +
                                    $"\ncurrent {_currentTime} saving {lastVisit}", Debugging.Type.Time);
 
-            InitTimeEvent?.Invoke(!Extensions.IsEqualDay(lastVisit, _currentTime));
+            var isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
+            if (isFirstVisit)
+            {
+                playerProgressData.CustomActions = new CustomActionsSavedData();
+            }
+            InitTimeEvent?.Invoke(isFirstVisit);
         }
 
 
