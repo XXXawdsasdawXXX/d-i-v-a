@@ -50,6 +50,7 @@ namespace Code.Infrastructure.CustomActions
 
         protected override void StartAction()
         {
+            _isReviewed = true;
             foreach (var particleSystem in _particleSystems)
             {
                 particleSystem.On();
@@ -101,7 +102,11 @@ namespace Code.Infrastructure.CustomActions
             {
                 return;
             }
-            StartAction();
+
+            if (Random.Range(0, 101) > 70)
+            {
+                StartAction();
+            }
         }
 
         private void OnInitTimeEvent(bool isFirstVisit)
