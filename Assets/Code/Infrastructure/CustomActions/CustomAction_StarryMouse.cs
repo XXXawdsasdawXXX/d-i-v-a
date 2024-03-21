@@ -11,19 +11,24 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction, IGameTickListener, IGameExitListener, IGameStartListener
+    public class CustomAction_StarryMouse : CustomAction,IGameInitListener ,IGameStartListener, IGameTickListener, IGameExitListener
     {
-        private readonly bool _isNotUsed;
-        [Header("Character")] private readonly ColliderButton _characterButton;
-        private readonly CharacterAnimationAnalytic _characterAnimationAnalytic;
-        [Header("Services")] private readonly PositionService _positionService;
-        private readonly CoroutineRunner _coroutineRunner;
-        [Header("Statis values")] private readonly ParticleSystemFacade _particle;
+        private  bool _isNotUsed;
+        [Header("Character")] 
+        private  ColliderButton _characterButton;
+        private  CharacterAnimationAnalytic _characterAnimationAnalytic;
+        [Header("Services")] 
+        private  PositionService _positionService;
+        private  CoroutineRunner _coroutineRunner;
+        [Header("Statis values")] 
+        private  ParticleSystemFacade _particle;
         private float _duration;
-        [Header("Dinamic values")] private bool _isActive;
+        [Header("Dinamic values")] 
+        private bool _isActive;
         private Vector3 _lastPoint;
+        
 
-        public CustomAction_StarryMouse()
+        public void GameInit()
         {
             //static values
             var particles = Container.Instance.FindStorage<ParticlesStorage>();
@@ -44,6 +49,7 @@ namespace Code.Infrastructure.CustomActions
             }
             
             _isNotUsed = true;
+            
         }
 
         public void GameStart()

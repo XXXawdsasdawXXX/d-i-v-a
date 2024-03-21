@@ -7,6 +7,8 @@ namespace Code.Components.Characters.AnimationReader.State
 {
     public class CharacterAnimationStateObserver : MonoBehaviour, IAnimationStateReader
     {
+        [field: SerializeField] public CharacterAnimationState State { get; private set; }
+
         private readonly int _transition_Seat_Hash = Animator.StringToHash("TransitionSeat");
         private readonly int _transition_Stand_Hash = Animator.StringToHash("TransitionStand");
         private readonly int _transition_Sleep_Hash = Animator.StringToHash("TransitionSleep");
@@ -20,7 +22,6 @@ namespace Code.Components.Characters.AnimationReader.State
 
         public event Action<CharacterAnimationState> StateEnteredEvent;
         public event Action<CharacterAnimationState> StateExitedEvent;
-        public CharacterAnimationState State { get; private set; }
 
 
         public void EnteredState(int stateHash)
@@ -57,7 +58,7 @@ namespace Code.Components.Characters.AnimationReader.State
                 state = CharacterAnimationState.ReactionVoice;
             else if (stateHash == _reaction_Mouse_Hash)
                 state = CharacterAnimationState.ReactionMouse;
-            
+
             //Transitions
             else if (stateHash == _transition_Seat_Hash)
                 state = CharacterAnimationState.TransitionSeat;

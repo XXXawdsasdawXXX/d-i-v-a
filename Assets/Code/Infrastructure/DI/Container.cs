@@ -39,8 +39,8 @@ namespace Code.Infrastructure.DI
             _allObjects = FindObjectsOfType<MonoBehaviour>();
             InitList(ref _services);
             InitList(ref _storages);
-            InitList(ref _entities); 
             InitList(ref _customActions);
+            InitList(ref _entities); 
             InitList(ref _mono);
         }
 

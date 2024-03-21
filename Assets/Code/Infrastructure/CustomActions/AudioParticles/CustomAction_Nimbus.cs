@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
@@ -7,7 +6,7 @@ using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.CustomActions
+namespace Code.Infrastructure.CustomActions.AudioParticles
 {
     public class CustomAction_Nimbus : CustomAction_AudioParticle
     {
@@ -38,8 +37,9 @@ namespace Code.Infrastructure.CustomActions
 
         private IEnumerator AwaitStart()
         {
+            Debugging.Instance.Log("[nimbus] Await PLAY ",Debugging.Type.CustomAction);
             yield return new WaitUntil(() =>  _animationAnalytic.GetCharacterAnimationState() != CharacterAnimationState.Enter);
-            Debugging.Instance.Log("PLAY");
+            Debugging.Instance.Log("[nimbus] PLAY ",Debugging.Type.CustomAction);
             base.StartAction();
         }
         protected override void UpdateParticles()

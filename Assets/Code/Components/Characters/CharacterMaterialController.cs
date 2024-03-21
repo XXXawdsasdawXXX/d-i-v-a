@@ -11,7 +11,6 @@ namespace Code.Components.Characters
         [SerializeField] private LoopbackAudioService loopbackAudioService;
 
         private List<FloatValueType> _floatObservers = new List<FloatValueType>();
-
         
         
         public void GameTick()

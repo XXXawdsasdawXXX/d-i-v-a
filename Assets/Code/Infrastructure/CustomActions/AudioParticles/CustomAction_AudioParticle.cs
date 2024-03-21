@@ -8,27 +8,38 @@ using Code.Services;
 using Code.Test;
 using Code.Utils;
 
-namespace Code.Infrastructure.CustomActions
+namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener,IGameInitListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener, IGameInitListener
     {
-        protected  bool _isNotUsed;
-     
-        protected  ParticleSystemFacade[] _particlesSystems;
-        protected  CharacterModeAdapter _characterModeAdapter;
-        protected  DIVA _diva;
+        protected bool _isNotUsed;
+
+        protected ParticleSystemFacade[] _particlesSystems;
+        protected CharacterModeAdapter _characterModeAdapter;
+        protected DIVA _diva;
 
         private readonly List<AudioParticleModule> _audioParticles = new();
-        private ParticlesStorage _particleDictionary;
+        private ParticlesStorage _particleStorage;
 
         public void GameInit()
         {
-           _particleDictionary = Container.Instance.FindStorage<ParticlesStorage>();
+            _isNotUsed = Extensions.IsMacOs();
+            if (_isNotUsed)
+            {
+                return;
+            }
+
+            _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
         }
 
         public void GameStart()
         {
-            if (_particleDictionary.TryGetParticle(GetParticleType(), out _particlesSystems))
+            if (_isNotUsed)
+            {
+                return;
+            }
+
+            if (_particleStorage.TryGetParticle(GetParticleType(), out _particlesSystems))
             {
                 _diva = Container.Instance.FindEntity<DIVA>();
                 _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
@@ -41,15 +52,21 @@ namespace Code.Infrastructure.CustomActions
                 }
 
                 Init();
+                StartAction();
                 return;
             }
 
+            Debugging.Instance.Log($"{GetParticleType()} не нашел партикл", Debugging.Type.CustomAction);
             _isNotUsed = true;
-            StartAction();
         }
 
         public void GameTick()
         {
+            if (_isNotUsed)
+            {
+                return;
+            }
+
             UpdateParticles();
         }
 
@@ -59,22 +76,32 @@ namespace Code.Infrastructure.CustomActions
         {
         }
 
-        protected  override void StartAction()
+        protected override void StartAction()
         {
-            Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}", Debugging.Type.CustomAction);
+            if (_isNotUsed)
+            {
+                return;
+            }
+
+            Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
+                Debugging.Type.CustomAction);
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();
         }
 
         protected override void StopAction()
         {
-            if (_isNotUsed) return;
-            Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}", Debugging.Type.CustomAction);
+            if (_isNotUsed)
+            {
+                return;
+            }
+
+            Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
+                Debugging.Type.CustomAction);
             foreach (var particle in _particlesSystems) particle.Off();
             foreach (var particleModule in _audioParticles) particleModule.Off();
         }
 
         protected abstract void UpdateParticles();
-    
     }
 }

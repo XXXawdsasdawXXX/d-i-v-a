@@ -14,7 +14,7 @@ namespace Code.Components.Characters
         {
             return _characterAnimator.Mode;
         }
-
+        
         public CharacterAnimationState GetCharacterAnimationState()
         {
             return _animationStateObserver.State;

@@ -1122,6 +1122,17 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 4
+--- !u!114 &792848481 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929230702363934690, guid: 0e45339b56504444b94e0a67e67d40d3, type: 3}
+  m_PrefabInstance: {fileID: 334119737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92c638b1696f4343a3fedcf34286400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &822540755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,6 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dfa2f2579424c73bacc2a8f0ea04355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <State>k__BackingField: 0
 --- !u!114 &1360938016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1902,7 +1914,7 @@ MonoBehaviour:
   _isOn: 0
   valueType: 0
   _newFloatValue: 3.14
-  loopbackAudioService: {fileID: 0}
+  loopbackAudioService: {fileID: 792848481}
 --- !u!1 &1386471883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2830,10 +2842,10 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0.92941177, g: 0.8878994, b: 0.5372549, a: 1}
   - Type: 11
-    Active: 1
+    Active: 0
     Color: {r: 0.52022064, g: 0.13679248, b: 1, a: 1}
   - Type: 12
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.304368, b: 0.19339621, a: 1}
   - Type: 13
     Active: 1
@@ -2842,7 +2854,7 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0, g: 0, b: 0, a: 1}
   - Type: 15
-    Active: 0
+    Active: 1
     Color: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
   - Type: 16
     Active: 1
@@ -3532,9 +3544,10 @@ MonoBehaviour:
   - {fileID: 8893949036200222673}
   - {fileID: 8893949036200222671}
   - {fileID: 8893949036200222670}
+  - {fileID: 8893949036200222674}
   _reactions:
-  - {fileID: 631771334}
   - {fileID: 4808472806557089580}
+  - {fileID: 631771334}
 --- !u!1001 &2669343333911057740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3542,46 +3555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[0].Multiplier
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[1].AudioParam
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[1].Multiplier
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[2].AudioParam
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[2].Multiplier
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[3].AudioParam
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[3].Multiplier
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[2].ParticleParam
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: _effectsData.Array.data[3].ParticleParam
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3625,10 +3598,6 @@ PrefabInstance:
     - target: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -57.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809537865495776329, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
-      propertyPath: SizeModule.enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776335, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_Name
@@ -4159,6 +4128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 772439460}
     m_Modifications:
+    - target: {fileID: 5420802529997332915, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
+      propertyPath: _isActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5420802529997332924, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
       propertyPath: m_Name
       value: Particle System_Electric_blue
