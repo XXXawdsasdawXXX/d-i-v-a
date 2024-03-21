@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Data.Interfaces;
+using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Code.Services.LoopbackAudio.Audio
 {
-    public class LoopbackAudioService : MonoBehaviour, IService
+    public class LoopbackAudioService : MonoBehaviour, IService, IGameInitListener
     {
         #region Constants
 
@@ -17,7 +20,8 @@ namespace Code.Services.LoopbackAudio.Audio
         #region Private Member Variables
 
         private RealtimeAudio _realtimeAudio;
-        private List<float> _postScaleAverages = new List<float>();
+        private readonly List<float> _postScaleAverages = new List<float>();
+        public bool _isUsed;
 
         #endregion
 
@@ -42,8 +46,15 @@ namespace Code.Services.LoopbackAudio.Audio
 
         #region Startup / Shutdown
 
-        public void Awake()
+
+        public void GameInit()
         {
+            _isUsed = !Extensions.IsMacOs();
+            if (!_isUsed)
+            {
+                return;
+            }
+
             SpectrumData = new float[SpectrumSize];
             PostScaledSpectrumData = new float[SpectrumSize];
             PostScaledMinMaxSpectrumData = new float[SpectrumSize];
@@ -52,7 +63,7 @@ namespace Code.Services.LoopbackAudio.Audio
             float postScaleStep = 1.0f / SpectrumSize;
 
             // Setup loopback audio and start listening
-            _realtimeAudio = new RealtimeAudio(SpectrumSize, ScalingStrategy,(spectrumData) =>
+            _realtimeAudio = new RealtimeAudio(SpectrumSize, ScalingStrategy, (spectrumData) =>
             {
                 // Raw
                 SpectrumData = spectrumData;
@@ -76,8 +87,11 @@ namespace Code.Services.LoopbackAudio.Audio
                     }
                     else
                     {
-                        float postScaleValue = postScaledPoint * SpectrumData[i] * (RealtimeAudio.MaxAudioValue - (1.0f - postScaledPoint));
-                        PostScaledSpectrumData[i] = Mathf.Clamp(postScaleValue, 0, RealtimeAudio.MaxAudioValue); // TODO: Can this be done better than a clamp?
+                        float postScaleValue = postScaledPoint * SpectrumData[i] *
+                                               (RealtimeAudio.MaxAudioValue - (1.0f - postScaledPoint));
+                        PostScaledSpectrumData[i] =
+                            Mathf.Clamp(postScaleValue, 0,
+                                RealtimeAudio.MaxAudioValue); // TODO: Can this be done better than a clamp?
                     }
 
                     if (PostScaledSpectrumData[i] > postScaledMax)
@@ -117,11 +131,11 @@ namespace Code.Services.LoopbackAudio.Audio
                 {
                     float minMaxed = PostScaledSpectrumData[i];
 
-                    if(minMaxed <= postScaleAverage * ThresholdToMin)
+                    if (minMaxed <= postScaleAverage * ThresholdToMin)
                     {
                         minMaxed *= MinAmount;
                     }
-                    else if(minMaxed >= postScaleAverage * ThresholdToMax)
+                    else if (minMaxed >= postScaleAverage * ThresholdToMax)
                     {
                         minMaxed *= MaxAmount;
                     }
@@ -132,11 +146,6 @@ namespace Code.Services.LoopbackAudio.Audio
                 IsIdle = isIdle;
             });
             _realtimeAudio.StartListen();
-        }
-
-        public void Update()
-        {
-        
         }
 
         public void OnApplicationQuit()
@@ -150,6 +159,11 @@ namespace Code.Services.LoopbackAudio.Audio
 
         public float[] GetAllSpectrumData(AudioVisualizationStrategy strategy)
         {
+            _isUsed = !Extensions.IsMacOs();
+            if (!_isUsed)
+            {
+                return null;
+            }
             float[] spectrumData;
 
             switch (strategy)
@@ -172,6 +186,11 @@ namespace Code.Services.LoopbackAudio.Audio
 
         public float GetSpectrumData(AudioVisualizationStrategy strategy, int index = 0)
         {
+            _isUsed = !Extensions.IsMacOs();
+            if (!_isUsed)
+            {
+                return 0;
+            }
             float spectrumData = 0.0f;
 
             switch (strategy)

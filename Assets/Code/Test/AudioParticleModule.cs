@@ -32,19 +32,18 @@ namespace Code.Test
             LiveTime
         }
 
-        [Header("Base")]
+        [Header("Base")] 
         [SerializeField] private ParticleSystemFacade _particleSystem;
         [SerializeField] private List<ParticleParamType> _params;
         [SerializeField] private LoopBackAudioParamType _loopBackAudioParam;
         [SerializeField] private float _valueMultiplier = 1;
-        [Space] 
-        [SerializeField] private Data[] _effectsData;
-        [Header("Optional")]
-        [SerializeField] private GradientType _gradient;
-        [Header("Services")]
-        private LoopbackAudioService _loopbackAudioService;
-        [Header("Dinamic value")]
-        [SerializeField] private bool _isUsed;
+        [Space] [SerializeField] private Data[] _effectsData;
+        [Header("Optional")] [SerializeField] private GradientType _gradient;
+        [Header("Services")] private LoopbackAudioService _loopbackAudioService;
+
+        [Header("Dinamic value")] [SerializeField]
+        private bool _isUsed;
+
         [SerializeField] private bool _isActive;
 
         [Serializable]
@@ -54,7 +53,7 @@ namespace Code.Test
             public LoopBackAudioParamType AudioParam;
             public float Multiplier = 1;
         }
-        
+
         public void GameInit()
         {
             if (_isUsed && Extensions.IsMacOs())
@@ -62,6 +61,7 @@ namespace Code.Test
                 _isUsed = false;
                 return;
             }
+
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
 
@@ -71,12 +71,12 @@ namespace Code.Test
             {
                 return;
             }
-            
+
             foreach (var paramType in _params)
             {
                 Refresh(paramType);
             }
-            
+
             foreach (var effect in _effectsData)
             {
                 Refresh(effect);
@@ -85,47 +85,61 @@ namespace Code.Test
 
         private void Refresh(Data effect)
         {
+            if (!_isUsed)
+            {
+                return;
+            }
+
             switch (effect.ParticleParam)
             {
                 case ParticleParamType.None:
                 default:
                     break;
                 case ParticleParamType.SizeMultiplier:
-                    _particleSystem.SetSizeMultiplier(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetSizeMultiplier(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
                 case ParticleParamType.TrailWidthOverTrail:
-                    _particleSystem.SetTrailWidthOverTrail(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetTrailWidthOverTrail(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
                 case ParticleParamType.VelocitySpeed:
-                    _particleSystem.SetVelocitySpeed(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetVelocitySpeed(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
                 case ParticleParamType.NoiseSize:
-                    _particleSystem.SetNoiseSize(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetNoiseSize(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
                 case ParticleParamType.TrailLiveTime:
-                    _particleSystem.SetTrailsLifetimeMultiplier(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetTrailsLifetimeMultiplier(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
                 case ParticleParamType.TrailGradient:
-                    _particleSystem.SetTrailsGradientValue(GetValue(effect.AudioParam,effect.Multiplier),_gradient);
+                    _particleSystem.SetTrailsGradientValue(GetValue(effect.AudioParam, effect.Multiplier), _gradient);
                     break;
                 case ParticleParamType.ColorLiveTime:
-                    _particleSystem.SetLifetimeColor(GetValue(effect.AudioParam,effect.Multiplier),_gradient);
+                    _particleSystem.SetLifetimeColor(GetValue(effect.AudioParam, effect.Multiplier), _gradient);
                     break;
                 case ParticleParamType.LiveTime:
-                    _particleSystem.SetLifetime(GetValue(effect.AudioParam,effect.Multiplier));
+                    _particleSystem.SetLifetime(GetValue(effect.AudioParam, effect.Multiplier));
                     break;
             }
         }
 
-     
 
         public virtual void On()
         {
+            if (!_isUsed)
+            {
+                return;
+            }
+
             _isActive = true;
         }
 
         public virtual void Off()
         {
+            if (!_isUsed)
+            {
+                return;
+            }
+
             _isActive = false;
             foreach (var effect in _effectsData)
             {
@@ -135,6 +149,11 @@ namespace Code.Test
 
         private void Reset(Data effect)
         {
+            if (!_isUsed)
+            {
+                return;
+            }
+
             switch (effect.ParticleParam)
             {
                 case ParticleParamType.None:
@@ -160,6 +179,10 @@ namespace Code.Test
 
         private void Refresh(ParticleParamType param)
         {
+            if (!_isUsed)
+            {
+                return;
+            }
             switch (param)
             {
                 case ParticleParamType.None:
@@ -181,10 +204,10 @@ namespace Code.Test
                     _particleSystem.SetTrailsLifetimeMultiplier(GetValue());
                     break;
                 case ParticleParamType.TrailGradient:
-                    _particleSystem.SetTrailsGradientValue(GetValue(),_gradient);
+                    _particleSystem.SetTrailsGradientValue(GetValue(), _gradient);
                     break;
                 case ParticleParamType.ColorLiveTime:
-                    _particleSystem.SetLifetimeColor(GetValue(),_gradient);
+                    _particleSystem.SetLifetimeColor(GetValue(), _gradient);
                     break;
                 case ParticleParamType.LiveTime:
                     _particleSystem.SetLifetime(GetValue());
@@ -194,6 +217,10 @@ namespace Code.Test
 
         private float GetValue()
         {
+            if (!_isUsed)
+            {
+                return 0;
+            }
             float value;
             switch (_loopBackAudioParam)
             {
@@ -211,9 +238,14 @@ namespace Code.Test
 
             return value * _valueMultiplier;
         }
-        
+
         private float GetValue(LoopBackAudioParamType effectAudioParam, float effectMultiplier)
         {
+            if (!_isUsed)
+            {
+                return 0;
+            }
+
             float value;
             switch (effectAudioParam)
             {
@@ -231,6 +263,5 @@ namespace Code.Test
 
             return value * effectMultiplier;
         }
-        
     }
 }

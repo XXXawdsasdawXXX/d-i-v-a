@@ -1,37 +1,41 @@
-﻿using System.Collections.Generic;
-using Code.Components.Objects;
+﻿using Code.Components.Objects;
 using Code.Infrastructure.GameLoop;
 using Code.Services.LoopbackAudio.Audio;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterMaterialController : MaterialController, IGameTickListener
+    public class CharacterMaterialController : MaterialController, IGameInitListener, IGameTickListener
     {
-        [SerializeField] private LoopbackAudioService loopbackAudioService;
+        [SerializeField] private LoopbackAudioService _loopbackAudioService;
 
-        private List<FloatValueType> _floatObservers = new List<FloatValueType>();
-        
-        
+        private bool _isUsed;
+
+        public void GameInit()
+        {
+            _isUsed = !Extensions.IsMacOs();
+        }
+
         public void GameTick()
         {
-            if (loopbackAudioService == null)
+            if (!_isUsed || _loopbackAudioService == null)
             {
                 return;
             }
             SetShineAngle();
-            SetOutlLineSpeed();
+            SetOutLineSpeed();
         }
 
-        private void SetOutlLineSpeed()
+        private void SetOutLineSpeed()
         {
-            SetFloatValue(FloatValueType._TextureScrollXSpeed, loopbackAudioService.PostScaledEnergy);
-            SetFloatValue(FloatValueType._TextureScrollYSpeed, loopbackAudioService.PostScaledEnergy);
+            SetFloatValue(FloatValueType._TextureScrollXSpeed, _loopbackAudioService.PostScaledEnergy);
+            SetFloatValue(FloatValueType._TextureScrollYSpeed, _loopbackAudioService.PostScaledEnergy);
         }
 
         private void SetShineAngle()
         {
-            _material.SetFloat(FloatValueType._ShineRotate.ToString(), loopbackAudioService.PostScaledMax);
+            _material.SetFloat(FloatValueType._ShineRotate.ToString(), _loopbackAudioService.PostScaledMax);
         }
 
         [ContextMenu("SetDynamicMagicMaterial")]
@@ -39,9 +43,9 @@ namespace Code.Components.Characters
         {
            Clear();
            SetState(StateType.FADE_ON,true);
-            SetState(StateType.SHINE_ON,true);
+           SetState(StateType.SHINE_ON,true);
         }
-        
+
         [ContextMenu("SetStaticLightMaterial")]
         public void SetStaticLightMaterial()
         {
@@ -50,11 +54,6 @@ namespace Code.Components.Characters
             SetState(StateType.OUTBASE_ON,true);
         }
 
-        public void EnableOutlLine()
-        {
-            
-        }
-        
         [ContextMenu("Reset")]
         public void Reset()
         {

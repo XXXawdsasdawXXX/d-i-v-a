@@ -31,6 +31,10 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameExit()
         {
+            if (!_isUsed)
+            {
+                return;
+            }
             SubscribeToEvents(false);
         }
 
@@ -81,7 +85,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void UpdateParticles()
         {
-            if (!_isUsed || _currentNimbus == null)
+            if (!_isUsed || _particlesSystems == null)
             {
                 return;
             }
@@ -89,7 +93,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             foreach (var particlesSystem in _particlesSystems)
             {
                 particlesSystem.transform.position = GetParticlePosition();
-                
             }
         }
 

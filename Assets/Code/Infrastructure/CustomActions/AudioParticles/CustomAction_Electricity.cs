@@ -1,11 +1,17 @@
 ﻿using Code.Data.Enums;
 using Code.Services.LoopbackAudio.Audio;
+using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
     public class CustomAction_Electricity : CustomAction_AudioParticle
     {
         private LoopbackAudioService _loopbackAudioService;
+
+        public CustomAction_Electricity()
+        {
+            _isUsed = !Extensions.IsMacOs();
+        }
 
         public override CustomCutsceneActionType GetActionType()
         {

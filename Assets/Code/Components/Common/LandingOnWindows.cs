@@ -20,12 +20,11 @@ namespace Code.Components.Objects
 
         public void GameInit()
         {
-            if (_isUsed && Extensions.IsMacOs())
+            _isUsed = !Extensions.IsMacOs();
+            if (!_isUsed)
             {
-                _isUsed = false;
                 return;
             }
-            
             SubscribeToEvents(true);
         }
 

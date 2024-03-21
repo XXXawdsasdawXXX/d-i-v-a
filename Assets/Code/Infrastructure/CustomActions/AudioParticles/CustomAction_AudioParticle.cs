@@ -13,7 +13,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     public abstract class CustomAction_AudioParticle : CustomAction, IGameTickListener, IGameStartListener,
         IGameInitListener
     {
-        protected bool _isUsed;
+        protected bool _isUsed = true;
 
         protected ParticleSystemFacade[] _particlesSystems;
         protected CharacterModeAdapter _characterModeAdapter;
@@ -24,12 +24,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameInit()
         {
-            _isUsed = !Extensions.IsMacOs();
-            if (!_isUsed)
-            {
-                return;
-            }
-
             _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
         }
 
