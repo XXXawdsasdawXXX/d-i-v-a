@@ -48,6 +48,7 @@ namespace Code.Services
         {
             _interactions = playerProgress.Interactions;
             _currentDominationType = GetDominantInteractionType();
+            SwitchDominationTypeEvent?.Invoke(_currentDominationType);
         }
         public void UpdateProgress(PlayerProgressData playerProgress)
         {

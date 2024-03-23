@@ -9,8 +9,6 @@ namespace Code.Components.Objects
     {
         [Header("Static value")] 
         [SerializeField] private Vector2 _offset;
-
-
         [field: SerializeField] public Item SelectedItem { get; private set; }
 
         public void GameTick()
@@ -30,6 +28,7 @@ namespace Code.Components.Objects
         {
             var item = SelectedItem;
             SelectedItem = null;
+            
             return item;
         }
     }

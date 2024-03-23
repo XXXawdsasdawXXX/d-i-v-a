@@ -1071,6 +1071,7 @@ GameObject:
   - component: {fileID: 1159923085}
   - component: {fileID: 1159923084}
   - component: {fileID: 1159923087}
+  - component: {fileID: 1159923088}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -1191,6 +1192,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 0}
   <SelectedItem>k__BackingField: {fileID: 0}
+--- !u!114 &1159923088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159923079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00dbb89f4d59498ba422ee5f518328fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _material: {fileID: 2100000, guid: 0e66a58fccf72d746af471be4745a8c5, type: 2}
+  stateType: 0
+  _isOn: 0
+  valueType: 0
+  _newFloatValue: 3.14
+  _spriteRenderer: {fileID: 1389999599}
 --- !u!4 &1161120166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5420802529997332927, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}

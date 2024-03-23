@@ -5,21 +5,18 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class MaterialController : MonoBehaviour
+    public class MaterialController : CommonComponent
     {
-
         [SerializeField] protected Material _material;
         [SerializeField] private StateType stateType;
         [SerializeField] private bool _isOn;
         [Space] 
         [SerializeField] private FloatValueType valueType;
         [SerializeField] private float _newFloatValue = 3.14f; // Новое значение для угла в радианах
-
-
+        
         private Dictionary<StateType, bool> States;
         private Dictionary<FloatValueType, bool> Floats;
         
-
         public enum StateType
         {
             SHINE_ON,
@@ -46,9 +43,7 @@ namespace Code.Components.Objects
             _ColorChangeTarget2,
             _ColorChangeNewCol2,
         }
-
         
-
         #region Base methods
 
         public bool GetStateValue(StateType stateType) => _material != null && _material.shader.isSupported &&
@@ -90,7 +85,6 @@ namespace Code.Components.Objects
         
 
         #endregion
-  
 
         #region Editor
 
@@ -114,9 +108,5 @@ namespace Code.Components.Objects
                 SetState((StateType)value,false);
             }
         }
-
-
     }
-    
-    
 }

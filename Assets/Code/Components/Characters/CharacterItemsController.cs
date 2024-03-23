@@ -40,8 +40,8 @@ namespace Code.Components.Characters
                 return;
             }
             
-            apple.transform.position = _modeAdapter.GetWorldEatPoint();
             apple.ReadyForUse();
+            apple.transform.position = _modeAdapter.GetWorldEatPoint();
             _characterAnimator.StartPlayEat(OnReadyEat: () =>
             {
                 apple.Use(OnEnd: () =>

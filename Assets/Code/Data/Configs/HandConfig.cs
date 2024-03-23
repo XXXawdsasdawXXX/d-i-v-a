@@ -7,8 +7,11 @@ namespace Code.Data.Configs
     [CreateAssetMenu(fileName = "HandConfig", menuName = "Configs/Hand Config")]
     public class HandConfig : ScriptableObject
     {
+        public Material LightMaterial;
+        public  Material DarkMaterial;
         [SerializeField] private InteractionsValueData[] _voidTime;
         [SerializeField] private InteractionsValueData[] _appleDropChance;
+        
 
         public int GetVoidTime(int dailyInteractionCount)
         {

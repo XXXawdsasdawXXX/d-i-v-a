@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class ColliderDragAndDrop : CommonComponent, IGameInitListener,IGameTickListener, IActivated
+    public class ColliderDragAndDrop : CommonComponent, IGameInitListener,IGameTickListener, IToggle
     {
         [Header("Params")]
         [SerializeField] protected bool _isActive;
@@ -44,16 +45,18 @@ namespace Code.Components.Objects
         }
 
         #region Unique methods
-
-        public virtual void On()
+        public virtual void On(Action onTurnedOn = null)
         {
             _isActive = true;
+            onTurnedOn?.Invoke();
         }
 
-        public virtual void Off()
+        public virtual  void Off(Action onTurnedOff = null)
         {
             _isActive = false;
+            onTurnedOff?.Invoke();
         }
+        
 
         protected virtual void Init()
         {
@@ -119,5 +122,7 @@ namespace Code.Components.Objects
         }
         
         #endregion
+
+
     }
 }

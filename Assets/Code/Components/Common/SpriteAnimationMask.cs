@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Objects
 {
-    public class SpriteAnimationMask : CommonComponent, IActivated
+    public class SpriteAnimationMask : CommonComponent, IToggle
     {
         [SerializeField] private SpriteMask _spriteMask;
         [SerializeField] private float _frameDelay = 0.10f;
@@ -25,22 +25,7 @@ namespace Code.Components.Objects
         {
             _coroutine = StartCoroutine(ShowAnimation(OnShown));
         }
-
-        public void On()
-        {
-            _coroutine = StartCoroutine(ShowAnimation());
-        }
-
-        public void Off()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-            }
-            _spriteMask.enabled = false;
-            _spriteMask.sprite = _sprites[0];
-        }
-
+        
         private IEnumerator ShowAnimation(Action OnShown = null)
         {
             _spriteMask.enabled = true;
@@ -54,6 +39,21 @@ namespace Code.Components.Objects
             yield return period;
             Off();
         }
-        
+
+        public void On(Action onTurnedOn = null)
+        {
+            _coroutine = StartCoroutine(ShowAnimation(onTurnedOn));
+        }
+
+        public void Off(Action onTurnedOff = null)
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+            _spriteMask.enabled = false;
+            _spriteMask.sprite = _sprites[0];
+            onTurnedOff?.Invoke();
+        }
     }
 }

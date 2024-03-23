@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Configs;
@@ -17,7 +16,6 @@ namespace Code.Components.Apples
     {
         [Header("Components")] 
         [SerializeField] private AppleAnimator _appleAnimator;
-        [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColliderDragAndDrop _dragAndDrop;
         public ColliderButton ColliderButton => _colliderButton;
@@ -35,9 +33,7 @@ namespace Code.Components.Apples
         private bool _isBig;
         private int _currentStage;
         public bool IsActive { get; private set; }
-    
-
-
+        
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
@@ -51,11 +47,9 @@ namespace Code.Components.Apples
             IsActive = true;
             _isFall = false;
             _isBig = false;
-            _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            _rigidbody2D.velocity = Vector2.zero;
+            _dragAndDrop.Off();
             _currentStage = 0;
             
-            _dragAndDrop.On();
             _appleAnimator.PlayEnter();
             _appleAnimator.SetAppleStage(_currentStage);
 
@@ -64,14 +58,11 @@ namespace Code.Components.Apples
             Debugging.Instance.Log($"[Grow]", Debugging.Type.Apple);
         }
 
+      
         public void ReadyForUse()
         {
             _dragAndDrop.Off();
-            _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            _rigidbody2D.velocity = Vector2.zero;
-            Debugging.Instance.Log($"[ReadyForUse]", Debugging.Type.Apple);
         }
-
         public override void Use(Action OnEnd = null)
         {
             _appleAnimator.PlayUse(onEnd: () =>
@@ -95,14 +86,22 @@ namespace Code.Components.Apples
 
         public void Fall()
         {
+            if (_isFall)
+            {
+                return;
+            }
             _isFall = true;
-            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+            _dragAndDrop.On();
             Debugging.Instance.Log($"[Fall]", Debugging.Type.Apple);
         }
 
 
         public void Die()
         {
+            if (!IsActive)
+            {
+                return;
+            }
             _liveStateStorage.AddPercentageValue(_appleConfig.DieAppleEffect);
             Event.InvokeDieEvent();
             Debugging.Instance.Log($"[Die]", Debugging.Type.Apple);
@@ -141,5 +140,7 @@ namespace Code.Components.Apples
             }
 
         }
+
+    
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d381bbacf740c9a00d7e80303ba8a1, type: 3}
   m_Name: HandConfig
   m_EditorClassIdentifier: 
+  LightMaterial: {fileID: 2100000, guid: 0e66a58fccf72d746af471be4745a8c5, type: 2}
+  DarkMaterial: {fileID: 2100000, guid: 092c1b20a2df7ee46a3f1b1e74e49297, type: 2}
   _voidTime:
   - InteractionsCount:
       MinValue: 0
