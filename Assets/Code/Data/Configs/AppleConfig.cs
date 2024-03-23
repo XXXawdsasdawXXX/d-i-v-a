@@ -1,6 +1,7 @@
 ﻿using Code.Data.StaticData;
 using Code.Data.Value;
 using Code.Data.Value.RangeFloat;
+using Code.Data.Value.RangeInt;
 using UnityEngine;
 
 namespace Code.Data.Configs

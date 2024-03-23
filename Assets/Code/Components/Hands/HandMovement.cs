@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
@@ -6,31 +7,46 @@ using UnityEngine;
 
 namespace Code.Components.Hands
 {
-    public class HandMovement : MonoBehaviour, IGameInitListener, IGameTickListener
+    public class HandMovement : HandComponent, IGameInitListener, IGameTickListener, IToggle
     {
-        [Header("Static value")]
+        [Header("Static value")] 
         [SerializeField] private float _speed;
         [SerializeField] private float _stopDistance;
+     
         [Header("Dynamic value")] 
         private Vector3 _target;
-        [Header("Service")]
+        private bool _isMove;
+    
+        [Header("Service")] 
         private PositionService _positionService;
-
-
+        
         public void GameInit()
         {
             _positionService = Container.Instance.FindService<PositionService>();
         }
-
-
+        
         public void GameTick()
         {
-            var mouse = _positionService.GetMouseWorldPosition();
-            if (Vector3.Distance(transform.position,mouse) > _stopDistance)
+            if (_isMove)
             {
-                _target = mouse;
+                var mouse = _positionService.GetMouseWorldPosition();
+                if (Vector3.Distance(transform.position, mouse) > _stopDistance)
+                {
+                    _target = mouse;
+                }
+
+                transform.position = Vector3.Lerp(transform.position, _target, _speed * Time.deltaTime);
             }
-            transform.position = Vector3.Lerp(transform.position, _target, _speed * Time.deltaTime);
+        }
+        
+        public void On(Action onTurnedOn = null)
+        {
+            _isMove = true;
+        }
+
+        public void Off(Action onTurnedOff = null)
+        {
+            _isMove = false;
         }
     }
 }

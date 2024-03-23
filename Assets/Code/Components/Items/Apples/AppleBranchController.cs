@@ -26,7 +26,7 @@ namespace Code.Components.Apples
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _appleBranch = Container.Instance.FindEntity<AppleBranch>();
-            _apple = Container.Instance.FindEntity<Apple>();
+            _apple = Container.Instance.FindItem<Apple>();
 
             _animationAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterAnimationAnalytic>();
             _tickCounter = new TickCounter(isLoop: false);

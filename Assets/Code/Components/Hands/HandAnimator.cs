@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using Code.Infrastructure.GameLoop;
+using UnityEngine;
 
 namespace Code.Components.Hands
 {
-    public class HandAnimator : MonoBehaviour
+    public class HandAnimator : HandComponent, IGameInitListener
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        
         public void PlayEnter()
         {
             _spriteRenderer.enabled = true;
@@ -14,6 +16,11 @@ namespace Code.Components.Hands
         public void PlayExit()
         {
             _spriteRenderer.enabled = false;
+        }
+
+        public void GameInit()
+        {
+            PlayExit();
         }
     }
 }

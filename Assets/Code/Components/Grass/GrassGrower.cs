@@ -2,6 +2,7 @@
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeFloat;
+using Code.Data.Value.RangeInt;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
@@ -10,9 +11,9 @@ using UnityEngine;
 
 namespace Code.Components.Items.Grass
 {
-    public class GrassController : MonoBehaviour, IGameInitListener
+    public class GrassGrower : MonoBehaviour, IGameInitListener
     {
-        private Grass _grass;
+        private Entities.Grass _grass;
         
         private CharacterAnimator _characterAnimator;
         private DIVA _diva;
@@ -22,7 +23,7 @@ namespace Code.Components.Items.Grass
 
         public void GameInit()
         {
-            _grass = Container.Instance.FindEntity<Grass>();
+            _grass = Container.Instance.FindEntity<Entities.Grass>();
             _diva = Container.Instance.FindEntity<DIVA>();
             _characterAnimator = _diva.FindCharacterComponent<CharacterAnimator>();
             

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Code.Components.Characters.Reactions;
+using Code.Components.Entities;
 using Code.Components.Objects;
 using UnityEngine;
 

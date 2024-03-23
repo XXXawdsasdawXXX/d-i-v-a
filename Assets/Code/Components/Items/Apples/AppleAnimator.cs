@@ -1,7 +1,6 @@
 ﻿using System;
 using Code.Components.Objects;
 using Code.Utils;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Components.Apples

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components;
+using Code.Components.Entities;
+using Code.Components.Items;
 using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
@@ -26,6 +28,7 @@ namespace Code.Infrastructure.DI
         private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
         private List<Entity> _entities = new();
+        private List<Item> _items = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
         
@@ -44,6 +47,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _storages);
             InitList(ref _customActions);
             InitList(ref _entities); 
+            InitList(ref _items); 
             InitList(ref _interactionObservers); 
             InitList(ref _mono);
         }
@@ -131,6 +135,18 @@ namespace Code.Infrastructure.DI
             return default;
         }
         
+        public T FindItem<T>() where T : Item
+        {
+            foreach (var item in _items)
+            {
+                if (item is T findItem)
+                {
+                    return findItem;
+                }
+            }
+
+            return default;
+        }
         public T FindInteractionObserver<T>() where T : InteractionObserver
         {
             foreach (var interactionObserver in _interactionObservers)
@@ -161,6 +177,7 @@ namespace Code.Infrastructure.DI
             list.AddRange(_services.OfType<T>().ToList());
             list.AddRange(_storages.OfType<T>().ToList());
             list.AddRange(_entities.OfType<T>().ToList());
+            list.AddRange(_items.OfType<T>().ToList());
             list.AddRange(_customActions.OfType<T>().ToList());
             list.AddRange(_interactionObservers.OfType<T>().ToList());
             list.AddRange(_mono.OfType<T>().ToList());

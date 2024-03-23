@@ -12,10 +12,14 @@ namespace Code.Services
     public class InteractionStorage : IStorage, IProgressWriter
     {
         private Dictionary<InteractionType, int> _interactions;
+        private InteractionType _currentDominationType;
 
-        public InteractionType _currentDominationType;
-
-        public event Action<InteractionType> SwitchDominationTypeEvent; 
+        public event Action<InteractionType> SwitchDominationTypeEvent;
+        
+        public int GetSum()
+        {
+            return _interactions.Sum(interaction => interaction.Value);
+        }
         public void Add(InteractionDynamicData interactionData)
         {
            Add(interactionData.СlassificationType,interactionData.Value);

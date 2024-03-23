@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Data.Value.RangeFloat
+namespace Code.Data.Value.RangeInt
 {
 	public class MinMaxRangeIntAttribute : Attribute
 	{

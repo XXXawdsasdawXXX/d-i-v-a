@@ -27,7 +27,8 @@ namespace Code.Utils
             GameState,
             Grass,
             CustomAction,
-            Interaction
+            Interaction,
+            Hand
         }
 
         [Serializable]

@@ -42,7 +42,6 @@ namespace Code.Components.Apples
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-            
             _tickCounter = new TickCounter();
         }
 

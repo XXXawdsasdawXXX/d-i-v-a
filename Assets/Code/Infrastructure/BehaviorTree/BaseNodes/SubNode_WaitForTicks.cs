@@ -1,4 +1,5 @@
 using Code.Data.Value.RangeFloat;
+using Code.Data.Value.RangeInt;
 using Code.Services;
 using Code.Utils;
 

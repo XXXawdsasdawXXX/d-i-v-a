@@ -47,12 +47,13 @@ namespace Code.Services
             }
         }
 
-        public void StartWait(int count)
+        public void StartWait(int count, Action onWaited = null)
         {
             if (IsWaited && count > 0)
             {
                 IsWaited = false;
                 _tickCount = count;
+                onWaited?.Invoke();
                 SubscribeToEvents(true);
             }
         }

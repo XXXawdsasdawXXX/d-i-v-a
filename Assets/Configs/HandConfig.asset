@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d381bbacf740c9a00d7e80303ba8a1, type: 3}
+  m_Name: HandConfig
+  m_EditorClassIdentifier: 
+  _voidTime:
+  - InteractionsCount:
+      MinValue: 0
+      MaxValue: 20
+    Value:
+      MinValue: 25
+      MaxValue: 35
+  - InteractionsCount:
+      MinValue: 21
+      MaxValue: 45
+    Value:
+      MinValue: 10
+      MaxValue: 24
+  - InteractionsCount:
+      MinValue: 51
+      MaxValue: 200
+    Value:
+      MinValue: 1
+      MaxValue: 12
+  _appleDropChance:
+  - InteractionsCount:
+      MinValue: 0
+      MaxValue: 200
+    Value:
+      MinValue: 50
+      MaxValue: 100

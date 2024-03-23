@@ -27,7 +27,7 @@
             _node_Current.Run(this);
         }
 
-        protected virtual void SubscribeToEvents(bool b)
+        protected virtual void SubscribeToEvents(bool flag)
         {
             
         }

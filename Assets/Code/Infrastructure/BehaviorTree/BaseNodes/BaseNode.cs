@@ -51,7 +51,6 @@ namespace Code.Infrastructure.BehaviorTree
 
             _isRunning = false;
             OnReturn(success);
-          
             InvokeCallback(success);
         }
 

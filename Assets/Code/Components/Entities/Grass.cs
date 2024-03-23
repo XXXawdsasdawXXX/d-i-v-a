@@ -1,7 +1,8 @@
-﻿using Code.Utils;
+﻿using Code.Components.Items.Grass;
+using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Items.Grass
+namespace Code.Components.Entities
 {
     public class Grass : Entity
     {

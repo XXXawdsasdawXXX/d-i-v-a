@@ -1,16 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Code.Components.Hands;
 using Code.Components.Objects;
 using UnityEngine;
 
-namespace Code.Components.Items
+namespace Code.Components.Entities
 {
-    public abstract class Item : MonoBehaviour
+    public class Hand : Entity
     {
+        [SerializeField] private HandComponent[] _handComponents;
         [SerializeField] private CommonComponent[] _commonComponents;
-        public abstract void Use(Action OnEnd = null);
-
+        
         public T FindCommonComponent<T>() where T : CommonComponent
         {
             foreach (var component in _commonComponents)
@@ -22,10 +21,34 @@ namespace Code.Components.Items
             }
             return null;
         }
+
         
-        [ContextMenu("FindAllComponents")]
+        public T FindHandComponent<T>() where T : HandComponent
+        {
+            foreach (var component in _handComponents)
+            {
+                if (component is T handComponent)
+                {
+                    return handComponent;
+                }
+            }
+
+            return null;
+        }
+
         public void FindAllComponents()
         {
+            var handComponents = GetComponents<HandComponent>().ToList();
+            foreach (var componentsInChild in GetComponentsInChildren<HandComponent>())
+            {
+                if (!handComponents.Contains(componentsInChild))
+                {
+                    handComponents.Add(componentsInChild);
+                }
+            }
+            _handComponents = handComponents.ToArray();
+            
+            
             var commonComponents = GetComponents<CommonComponent>().ToList();
             foreach (var componentsInChild in GetComponentsInChildren<CommonComponent>())
             {

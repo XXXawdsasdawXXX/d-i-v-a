@@ -1,4 +1,5 @@
-﻿using Code.Components.Objects;
+﻿using Code.Components.Entities;
+using Code.Components.Objects;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
