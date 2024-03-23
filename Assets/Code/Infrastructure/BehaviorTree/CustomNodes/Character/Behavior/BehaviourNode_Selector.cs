@@ -1,12 +1,11 @@
 using Code.Components.Character.LiveState;
 using Code.Components.Characters;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.CustomNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 {
     public sealed class BehaviourNode_Selector : BaseNode, IBehaviourCallback
     {

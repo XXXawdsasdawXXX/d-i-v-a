@@ -13,6 +13,8 @@ namespace Code.Services.LoopbackAudio.Audio
     {
         #region Constants
 
+        private Rigidbody2D _rigidbody2D;
+
         private const int EnergyAverageCount = 100;
 
         #endregion
@@ -54,7 +56,7 @@ namespace Code.Services.LoopbackAudio.Audio
             {
                 return;
             }
-
+            
             SpectrumData = new float[SpectrumSize];
             PostScaledSpectrumData = new float[SpectrumSize];
             PostScaledMinMaxSpectrumData = new float[SpectrumSize];

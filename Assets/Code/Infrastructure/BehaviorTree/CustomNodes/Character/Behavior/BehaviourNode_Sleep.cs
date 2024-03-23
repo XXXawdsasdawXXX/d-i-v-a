@@ -6,13 +6,13 @@ using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
+using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes
+namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 {
     public class BehaviourNode_Sleep : BaseNode_Root, IProgressWriterNode
     {

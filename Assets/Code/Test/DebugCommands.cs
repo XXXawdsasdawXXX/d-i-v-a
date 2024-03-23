@@ -27,7 +27,6 @@ namespace Code.Test
             DebugLogConsole.AddCommand<int>("add.sleep", "", AddSleepValue);
             DebugLogConsole.AddCommand<int>("add.trust", "", AddTrustValue);
             DebugLogConsole.AddCommand<int>("add.eat", "", AddEatValue);
-            
 
             //DebugLogConsole.RemoveCommand("prefs.clear");
             DebugLogConsole.RemoveCommand("prefs.delete");

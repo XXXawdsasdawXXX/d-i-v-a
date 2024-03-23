@@ -3,14 +3,13 @@ using Code.Components.Characters;
 using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Sub;
+using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes
+namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 {
     public class BehaviourNode_Seat : BaseNode_Root
     {

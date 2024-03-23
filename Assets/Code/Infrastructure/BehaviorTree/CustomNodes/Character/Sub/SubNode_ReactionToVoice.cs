@@ -2,7 +2,7 @@
 using Code.Infrastructure.DI;
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Sub
+namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
 {
     public class SubNode_ReactionToVoice : BaseNode
     {
