@@ -13,7 +13,6 @@ namespace Code.Components.Objects
     {
         [Header("Params")]
         [SerializeField] protected bool _isActive;
-        [SerializeField] protected bool _isBindToMouse;
         [SerializeField] private Vector2 _offset;
         [SerializeField] protected ColliderButton _colliderButton;
 
@@ -92,11 +91,9 @@ namespace Code.Components.Objects
 
         protected virtual void OnPressDown(Vector2 obj)
         {
-            if (_isBindToMouse)
-            {
-                Vector3 clickPosition = _positionService.GetMouseWorldPosition();
-                _offset = transform.position - clickPosition;
-            }
+            Vector3 clickPosition = _positionService.GetMouseWorldPosition();
+            _offset = transform.position - clickPosition;
+            
             if (_coroutine != null)
             {
                 _coroutineRunner.StopRoutine(_coroutine);

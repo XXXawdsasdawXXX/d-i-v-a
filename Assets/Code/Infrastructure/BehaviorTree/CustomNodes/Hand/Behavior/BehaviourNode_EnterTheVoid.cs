@@ -12,6 +12,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
     {
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
+
         private readonly HandMovement _handMovement;
 
         [Header("Services")] 
@@ -25,14 +26,13 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         private float _cooldown;
 
 
-
         public BehaviourNode_EnterTheVoid()
         {
             //hand
             var hand = Container.Instance.FindEntity<Components.Entities.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
-         
+
 
             //services
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
@@ -49,22 +49,21 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         protected override void Run()
         {
             var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
-            Debugging.Instance.Log($"[showapple_run] enter the void! await {cooldownTicks} ticks",Debugging.Type.Hand);
-            _tickCounter.StartWait(cooldownTicks);
+            Debugging.Instance.Log($"[showapple_run] enter the void! await {cooldownTicks} ticks", Debugging.Type.Hand);
+            _tickCounter.StartWait(cooldownTicks, () => Return(true));
             if (_whiteBoard.TryGetData<bool>(WhiteBoard_Hand.Type.IsHidden, out bool isHidden) && !isHidden)
             {
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
                 _handAnimator.PlayExit();
                 _handMovement.Off();
             }
-            
+
             _tickCounter.WaitedEvent += TickCounterOnWaitedEvent;
         }
 
         private void TickCounterOnWaitedEvent()
         {
             _tickCounter.WaitedEvent -= TickCounterOnWaitedEvent;
-            Return(true);
         }
     }
 }
