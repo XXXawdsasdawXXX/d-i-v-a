@@ -42,5 +42,10 @@ namespace Code.Data.Configs
 
             return value;
         }
+
+        public int GetLiveTimeTicks()
+        {
+            return Random.Range(3, 8);
+        }
     }
 }

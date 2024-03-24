@@ -25,7 +25,7 @@ namespace Code.Components.Characters.Reactions
 
         public bool IsReady()
         {
-            return _tickCounter.IsWaited && _isReady;
+            return _tickCounter.IsExpectedStart && _isReady;
         }
 
        public virtual void StartReaction()

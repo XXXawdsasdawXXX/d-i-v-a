@@ -9,6 +9,8 @@ namespace Code.Components.Items
     public abstract class Item : MonoBehaviour
     {
         [SerializeField] private CommonComponent[] _commonComponents;
+
+        public Action<Item> UseEvent;
         public abstract void Use(Action OnEnd = null);
 
         public T FindCommonComponent<T>() where T : CommonComponent

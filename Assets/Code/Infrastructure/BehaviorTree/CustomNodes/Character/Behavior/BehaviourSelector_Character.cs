@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 {
-    public sealed class BehaviourNode_Selector : BaseNode, IBehaviourCallback
+    public sealed class BehaviourSelector_Character : BaseNode, IBehaviourCallback
     {
         [Header("Services")]
         private readonly CharacterLiveStatesAnalytic _stateAnalytic;
@@ -17,8 +17,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         private BaseNode _currentChild;
         private int _currentChildIndex;
 
-
-        public BehaviourNode_Selector()
+        public BehaviourSelector_Character()
         {
             _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
             
@@ -32,7 +31,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             SubscribeToEvents(true);
         }
 
-        ~BehaviourNode_Selector()
+        ~BehaviourSelector_Character()
         {
             SubscribeToEvents(false);
         }

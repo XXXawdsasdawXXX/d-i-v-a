@@ -27,6 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
         private readonly MicrophoneAnalyzer _microphoneAnalyzer;
+        private readonly CharacterCondition _characterCondition;
         
         [Header("Node")] 
         private readonly SubNode_ReactionToVoice _subNode_reactionToVoice;
@@ -34,8 +35,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         [Header("Static values")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
-        private readonly float _sleepHealValue;
-        private readonly int _stoppingTicksToMaximumSleepValues;
+
 
 
         public BehaviourNode_Sleep()
@@ -52,14 +52,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
             _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
+            _characterCondition = Container.Instance.FindService<CharacterCondition>();
             //node------------------------------------------------------------------------------------------------------
             _subNode_reactionToVoice = new SubNode_ReactionToVoice();
             //static values---------------------------------------------------------------------------------------------
             var liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
-            _sleepHealValue = liveStateConfig.GetStaticParam(LiveStateKey.Sleep).HealValue;
             _effectAwakeningValue = liveStateConfig.Awakening;
-            var timeConfig = Container.Instance.FindConfig<TimeConfig>();
-            _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
@@ -192,14 +190,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         private bool IsCanSleep()
         {
-            return _tickCounter.IsWaited && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < 0.5f) && 
-                   _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
+            return _characterCondition.IsCanSleep();
         }
 
         private bool IsCanExit()
         {
-            _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out var lowerStatePercent);
-            return lowerKey is LiveStateKey.Trust && lowerStatePercent <= 0.4f && Random.Range(0, 100) >= 50;
+            return _characterCondition.IsCanExitWhenSleep();
         }
 
         #endregion

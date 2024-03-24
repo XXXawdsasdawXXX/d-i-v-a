@@ -63,15 +63,6 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             }
         }
 
-        /*
-        public override void InvokeCallback(BaseNode node, bool success)
-        {
-            TrySeat();
-            base.InvokeCallback(node, success);
-        }
-        */
-
-        
         #region Events
 
         protected override void SubscribeToEvents(bool flag)
@@ -113,8 +104,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         private bool IsCanSeat()
         {
             return _statesAnalytic.TryGetLowerSate(out var key, out var statePercent)
-                   && statePercent < 0.4f
-                   && key is LiveStateKey.Trust or LiveStateKey.Hunger;
+                   && key is LiveStateKey.Trust or LiveStateKey.Hunger
+                   && statePercent < 0.4f;
         }
 
         #endregion

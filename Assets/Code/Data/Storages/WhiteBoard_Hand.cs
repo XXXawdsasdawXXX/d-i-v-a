@@ -9,16 +9,17 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
         {
             None,
             IsHidden,
-            IsHoldingObject
+            //IsHoldingObject,
+            IsShowApple
         }
 
         private readonly Dictionary<Type, object> _dataDictionary = new();
 
         public bool TryGetData<T>(Type type, out T data) 
         {
-            if (_dataDictionary.TryGetValue(type, out var result))
+            if (_dataDictionary.TryGetValue(type, out var result) && result is T value)
             {
-                data = (T) result;
+                data = value;
                 return true;
             }
             

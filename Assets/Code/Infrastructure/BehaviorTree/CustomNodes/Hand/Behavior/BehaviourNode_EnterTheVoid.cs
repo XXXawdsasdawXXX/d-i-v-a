@@ -12,16 +12,16 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
     {
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
-
         private readonly HandMovement _handMovement;
 
         [Header("Services")] 
         private readonly InteractionStorage _interactionStorage;
-        private readonly TickCounter _tickCounter = new();
+        private readonly TickCounter _tickCounter;
 
         [Header("Static values")] 
         private readonly HandConfig _handConfig;
         private readonly WhiteBoard_Hand _whiteBoard;
+        
         [Header("Dynamic values")] 
         private float _cooldown;
 
@@ -33,37 +33,40 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
 
-
             //services
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-
+            _tickCounter = new TickCounter(isLoop: false);
+            
             //static value
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _whiteBoard = Container.Instance.FindStorage<WhiteBoard_Hand>();
         }
-
-        ~BehaviourNode_EnterTheVoid()
-        {
-        }
+        
 
         protected override void Run()
         {
-            var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
-            Debugging.Instance.Log($"[showapple_run] enter the void! await {cooldownTicks} ticks", Debugging.Type.Hand);
-            _tickCounter.StartWait(cooldownTicks, () => Return(true));
-            if (_whiteBoard.TryGetData<bool>(WhiteBoard_Hand.Type.IsHidden, out bool isHidden) && !isHidden)
+            if (!_tickCounter.IsExpectedStart)
             {
-                _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
-                _handAnimator.PlayExit();
-                _handMovement.Off();
+                return;
             }
+            
+            _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
+            _handAnimator.PlayExit();
+            _handMovement.Off();
+      
 
-            _tickCounter.WaitedEvent += TickCounterOnWaitedEvent;
+            var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
+            _tickCounter.StartWait(cooldownTicks);
+            _tickCounter.WaitedEvent += OnWaitedTicksEvent;
+            
+            Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
         }
 
-        private void TickCounterOnWaitedEvent()
+        private void OnWaitedTicksEvent()
         {
-            _tickCounter.WaitedEvent -= TickCounterOnWaitedEvent;
+            _tickCounter.WaitedEvent -= OnWaitedTicksEvent;
+            Debugging.Instance.Log($"[enter the void!] дождался тиков, return(тру)", Debugging.Type.Hand);
+            Return(true);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
         
         protected override void Run()
         {
-            if (_tickCounter.IsWaited)
+            if (_tickCounter.IsExpectedStart)
             {
                 var tickCount = _cooldownRangedTick.GetRandomValue();
                 _tickCounter.StartWait(tickCount);

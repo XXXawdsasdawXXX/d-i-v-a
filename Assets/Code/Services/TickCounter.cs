@@ -1,72 +1,94 @@
 ﻿using System;
+using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 
 namespace Code.Services
 {
     [Serializable]
-    public class TickCounter 
+    public class TickCounter : IToggle
     {
         private readonly TimeObserver _timeObserver;
-        
+
         private int _tickCount;
         private int _currentTickNumber;
 
         private bool _isLoop;
-        public bool IsWaited { get; private set; } = true;
+        private bool _isActive;
+
+        public bool IsExpectedStart { get; private set; } = true;
         public event Action WaitedEvent;
-        
+
         #region Constructors
 
         public TickCounter(bool isLoop = true)
         {
             _isLoop = isLoop;
             _timeObserver = Container.Instance?.FindService<TimeObserver>();
+            SubscribeToEvents(true);
         }
-        
-        public TickCounter(int tickCount,bool isLoop = true)
+
+        public TickCounter(int tickCount, bool isLoop = true)
         {
             _isLoop = isLoop;
             _tickCount = tickCount;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            SubscribeToEvents(false);
         }
-        
+
         #endregion
 
         #region Methods
 
         public int GetRemainingTick()
         {
-            return _tickCount > 0 && !IsWaited ? _tickCount - _currentTickNumber : 0;
+            return _tickCount > 0 && !IsExpectedStart ? _tickCount - _currentTickNumber : 0;
         }
+
         public void StartWait()
         {
-            if (IsWaited && _tickCount > 0)
+            _currentTickNumber = 0;
+            if (IsExpectedStart && _tickCount > 0)
             {
-                IsWaited = false;
-                SubscribeToEvents(true);
+                IsExpectedStart = false;
+                On();
             }
         }
 
-        public void StartWait(int count, Action onWaited = null)
+        public void StartWait(int count, Action onStartWait = null)
         {
-            if (IsWaited && count > 0)
+            if (!IsExpectedStart)
             {
-                IsWaited = false;
+                StopWait();
+            }
+
+            if (IsExpectedStart && count > 0)
+            {
+                IsExpectedStart = false;
                 _tickCount = count;
-                onWaited?.Invoke();
-                SubscribeToEvents(true);
+                onStartWait?.Invoke();
+                On();
             }
         }
 
         public void StopWait(bool isStopLoop = false)
         {
             _currentTickNumber = 0;
-            IsWaited = true;
-           
+            IsExpectedStart = true;
+
             if (!_isLoop || (_isLoop && isStopLoop))
             {
-                SubscribeToEvents(false);
+                Off();
             }
+        }
+
+        public void On(Action onTurnedOn = null)
+        {
+            _isActive = true;
+        }
+
+        public void Off(Action onTurnedOff = null)
+        {
+            _isActive = false;
         }
 
         #endregion
@@ -87,11 +109,16 @@ namespace Code.Services
 
         private void OnTick()
         {
+            if (IsExpectedStart || !_isActive)
+            {
+                return;
+            }
+
             _currentTickNumber++;
             if (_currentTickNumber >= _tickCount)
             {
                 WaitedEvent?.Invoke();
-                StopWait(); 
+                StopWait();
             }
         }
 

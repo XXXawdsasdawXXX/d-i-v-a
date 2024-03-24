@@ -16,10 +16,7 @@ namespace Code.Components.Apples
     {
         [Header("Components")] 
         [SerializeField] private AppleAnimator _appleAnimator;
-        [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColliderDragAndDrop _dragAndDrop;
-        public ColliderButton ColliderButton => _colliderButton;
-        public AppleEvent Event { get; private set; } = new();
 
         [Header("Services")] 
         private LiveStateStorage _liveStateStorage;
@@ -33,6 +30,8 @@ namespace Code.Components.Apples
         private bool _isBig;
         private int _currentStage;
         public bool IsActive { get; private set; }
+        public event Action DieEvent;
+        public event Action ReadyForUseEvent;
         
         public void GameInit()
         {
@@ -40,8 +39,7 @@ namespace Code.Components.Apples
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             _tickCounter = new TickCounter();
         }
-
-
+        
         public void Grow()
         {
             IsActive = true;
@@ -59,18 +57,21 @@ namespace Code.Components.Apples
         }
 
       
-        public void ReadyForUse()
-        {
+        public void ReadyForUse(Vector3 position)
+        { 
+            ReadyForUseEvent?.Invoke();
             _dragAndDrop.Off();
+            transform.position = position;
         }
+        
         public override void Use(Action OnEnd = null)
         {
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 Debugging.Instance.Log($"[Use] анимация закончена, начисляются значения", Debugging.Type.Apple);
                 _liveStateStorage.AddPercentageValues(GetLiveStateValues());
-                Event?.InvokeUseEvent();
                 OnEnd?.Invoke();
+                UseEvent?.Invoke(this);
                 Reset();
             });
 
@@ -102,8 +103,8 @@ namespace Code.Components.Apples
             {
                 return;
             }
+            DieEvent?.Invoke();
             _liveStateStorage.AddPercentageValue(_appleConfig.DieAppleEffect);
-            Event.InvokeDieEvent();
             Debugging.Instance.Log($"[Die]", Debugging.Type.Apple);
             Reset();
         }
@@ -123,7 +124,6 @@ namespace Code.Components.Apples
             {
                 _isBig = true;
                 _appleAnimator.SetBigApple();
-                Event.InvokeSetBigAppleEvent();
                 Debugging.Instance.Log($"[OnTickCounterWaited] Set big apple", Debugging.Type.Apple);
             }
             else
@@ -133,14 +133,9 @@ namespace Code.Components.Apples
                 if (_currentStage == 2 && !_isFall)
                 {
                     Fall();
-                    Event.InvokeStartIllEvent();
                 }
-
                 _appleAnimator.SetAppleStage(_currentStage);
             }
-
         }
-
-    
     }
 }

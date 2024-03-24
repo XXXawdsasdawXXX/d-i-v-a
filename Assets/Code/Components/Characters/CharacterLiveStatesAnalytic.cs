@@ -10,9 +10,7 @@ using Code.Utils;
 
 namespace Code.Components.Character.LiveState
 {
-    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener,
-        IGameExitListener
-
+    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener, IGameExitListener
     {
         private TimeObserver _timeObserver;
         private LiveStateStorage _storage;

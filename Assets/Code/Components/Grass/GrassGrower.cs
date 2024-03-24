@@ -50,7 +50,7 @@ namespace Code.Components.Items.Grass
         private void OnCharacterSwitchAnimationMode(CharacterAnimationMode mode)
         {
             Debugging.Instance.Log($"Controller -> on swithc animation mode:  {mode} {_grass.IsActive}",Debugging.Type.Grass);
-            if (mode == CharacterAnimationMode.Seat && _tickCounter.IsWaited)
+            if (mode == CharacterAnimationMode.Seat && _tickCounter.IsExpectedStart)
             {
                 Debugging.Instance.Log($"Controller -> on swithc animation mode: start wait",Debugging.Type.Grass);
                _tickCounter.StartWait(_tickDelay.GetRandomValue());

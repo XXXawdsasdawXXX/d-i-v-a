@@ -1,14 +1,13 @@
-﻿using Code.Data.Interfaces;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior;
+using Code.Data.Interfaces;
+using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Services;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
+namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
 {
-    public class BehaviourTreeRunner_Hand: MonoBehaviour, IService, IGameInitListener, IGameTickListener,
-        IGameExitListener
+    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
     {
         [SerializeField] private bool _isRun;
 
@@ -56,7 +55,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
 
         private void TimeObserverOnInitTimeEvent(bool obj)
         {
-            _rootNode = new BehaviourNode_Selector();
+            _rootNode = new BehaviourSelector_Character();
             IsInitBehaviorTree = true;
         }
     }
