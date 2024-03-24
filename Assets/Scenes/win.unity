@@ -3144,9 +3144,10 @@ MonoBehaviour:
   - {fileID: 3664522051341101987}
   - {fileID: 3664522051341102000}
   - {fileID: 3664522050057852472}
+  _stoppedDistance: 0.2
+  _speed: 3
+  _distance: 0
   _appleAnimator: {fileID: 3664522049977289659}
-  _rigidbody2D: {fileID: 3664522051341101999}
-  _colliderButton: {fileID: 3664522051341101987}
   _dragAndDrop: {fileID: 3664522051341102000}
 --- !u!61 &3664522051341101998
 BoxCollider2D:
@@ -3194,7 +3195,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3664522051341102000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3946,7 +3947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.67
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.y

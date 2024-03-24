@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Configs;
@@ -30,8 +31,7 @@ namespace Code.Components.Apples
         private bool _isBig;
         private int _currentStage;
         public bool IsActive { get; private set; }
-        public event Action DieEvent;
-        public event Action ReadyForUseEvent;
+
         
         public void GameInit()
         {
@@ -57,15 +57,23 @@ namespace Code.Components.Apples
         }
 
       
-        public void ReadyForUse(Vector3 position)
+        public override void ReadyForUse(Vector3 position)
         { 
-            ReadyForUseEvent?.Invoke();
             _dragAndDrop.Off();
-            transform.position = position;
+            base.ReadyForUse(position);
         }
         
         public override void Use(Action OnEnd = null)
         {
+
+            StartCoroutine(PlayUse(OnEnd));
+
+            Debugging.Instance.Log($"[Use] стадия {_currentStage}", Debugging.Type.Apple);
+        }
+
+        private IEnumerator PlayUse(Action OnEnd = null)
+        {
+            yield return new WaitUntil(() => IsReady);
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 Debugging.Instance.Log($"[Use] анимация закончена, начисляются значения", Debugging.Type.Apple);
@@ -74,8 +82,6 @@ namespace Code.Components.Apples
                 UseEvent?.Invoke(this);
                 Reset();
             });
-
-            Debugging.Instance.Log($"[Use] стадия {_currentStage}", Debugging.Type.Apple);
         }
 
         private LiveStatePercentageValue[] GetLiveStateValues()
@@ -109,13 +115,14 @@ namespace Code.Components.Apples
             Reset();
         }
 
-        private void Reset()
+        public override void Reset()
         {
             IsActive = false;
             _currentStage = 0;
             _tickCounter.StopWait();
             _tickCounter.WaitedEvent -= OnTickCounterWaited;
             Debugging.Instance.Log($"[Reset]", Debugging.Type.Apple);
+            base.Reset();
         }
 
         private void OnTickCounterWaited()

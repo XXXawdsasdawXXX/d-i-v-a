@@ -98,7 +98,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 
         private void OnSwitchLowerLiveState(LiveStateKey key)
         {
-            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.BehaviorTree);
+            if (_currentChild is BehaviourNode_ShowApple)
+            { 
+                Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя - !ОТКАЗАНО!", Debugging.Type.Hand);
+                return;
+            }
+            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.Hand);
             _currentChild?.Break();
             Run();
         }
