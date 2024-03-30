@@ -57,6 +57,7 @@ namespace Code.Components.Apples
       
         public override void ReadyForUse(Vector3 position)
         { 
+            Debugging.Instance.Log($"[Ready For Use] драг энд дроп отключен", Debugging.Type.Apple);
             _dragAndDrop.Off();
             base.ReadyForUse(position);
         }
@@ -92,7 +93,10 @@ namespace Code.Components.Apples
                 return;
             }
             _isFall = true;
-            _dragAndDrop.On();
+            if(!_isUsing)
+            {
+                _dragAndDrop.On();
+            }
             Debugging.Instance.Log($"[Fall]", Debugging.Type.Apple);
         }
 
@@ -121,6 +125,10 @@ namespace Code.Components.Apples
 
         private void OnTickCounterWaited()
         {
+            if(_isUsing)
+            {
+                return;
+            }
             _currentStage++;
             Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
             if (_currentStage == 2 && !_isFall)
@@ -128,7 +136,6 @@ namespace Code.Components.Apples
                 Fall();
             }
             _appleAnimator.SetAppleStage(_currentStage);
-            
         }
     }
 }

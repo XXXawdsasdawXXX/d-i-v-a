@@ -72,3 +72,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isRun: 1
+  _runDelaySeconds: 3

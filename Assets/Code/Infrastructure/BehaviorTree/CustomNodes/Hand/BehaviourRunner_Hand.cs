@@ -1,4 +1,5 @@
-﻿using Code.Data.Interfaces;
+﻿using System.Collections;
+using Code.Data.Interfaces;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -11,15 +12,17 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
         IGameExitListener
     {
         [SerializeField] private bool _isRun;
-
+        [SerializeField] private float _runDelaySeconds = 5;
         private BaseNode _rootNode;
         private TimeObserver _timeObserver;
+        private CoroutineRunner _coroutineRunner;
 
         public bool IsInitBehaviorTree { get; private set; }
 
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             SubscribeToEvents(true);
         }
 
@@ -56,8 +59,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
 
         private void TimeObserverOnInitTimeEvent(bool obj)
         {
-            _rootNode = new BehaviourSelector_Hand();
-            IsInitBehaviorTree = true;
+            _coroutineRunner.StartActionWithDelay(() => 
+            {
+                _rootNode = new BehaviourSelector_Hand();
+                IsInitBehaviorTree = true;
+            },_runDelaySeconds);
         }
+
     }
 }

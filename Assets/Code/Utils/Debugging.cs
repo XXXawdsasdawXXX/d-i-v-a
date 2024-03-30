@@ -28,7 +28,8 @@ namespace Code.Utils
             Grass,
             CustomAction,
             Interaction,
-            Hand
+            Hand,
+            Items
         }
 
         [Serializable]

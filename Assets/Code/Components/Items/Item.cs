@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Code.Components.Objects;
 using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,10 +17,13 @@ namespace Code.Components.Items
 
         [Header("Debug")]
         [SerializeField] private float _distance;
-        public bool IsReady { get; private set; }
 
-        public  Action ReadyForUseEvent;
-        
+        [Header("Dynamic value")]
+        [SerializeField] protected bool _isUsing;
+        [field :SerializeField] public bool IsReady { get; private set; }
+
+        //Events
+        public  Action ReadyForUseEvent;        
         public Action<Item> UseEvent;
         public  Action DieEvent;
         
@@ -29,9 +33,12 @@ namespace Code.Components.Items
         public virtual void Reset()
         {
             IsReady = false;
+            _isUsing = false;
         }
+
         public virtual void ReadyForUse(Vector3 position)
         {
+            _isUsing = true;
             ReadyForUseEvent?.Invoke();
             StartCoroutine(MoveToPoint(position));
         }
@@ -41,6 +48,8 @@ namespace Code.Components.Items
             var period = new WaitForEndOfFrame();
             while (Vector3.Distance(transform.position, position) > _stoppedDistance)
             {
+                Debugging.Instance.Log($"[Move to point] " +
+                $"осталось двигаться {Vector3.Distance(transform.position, position) - _stoppedDistance}", Debugging.Type.Items);
                 transform.position = Vector3.Lerp(transform.position, position, _speed * Time.deltaTime);
                 _distance = Vector3.Distance(transform.position, position);
                 yield return period;
@@ -48,6 +57,7 @@ namespace Code.Components.Items
 
             IsReady = true;
         }
+
         public T FindCommonComponent<T>() where T : CommonComponent
         {
             foreach (var component in _commonComponents)

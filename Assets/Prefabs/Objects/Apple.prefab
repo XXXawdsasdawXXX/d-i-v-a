@@ -256,7 +256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7792592886189385790}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.5947, y: -0.0959, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -329,9 +329,11 @@ MonoBehaviour:
   - {fileID: 7792592886189385783}
   - {fileID: 7792592886189385764}
   - {fileID: 7792592884636620204}
-  _stoppedDistance: 0.2
+  _stoppedDistance: 0.05
   _speed: 3
   _distance: 0
+  _isUsing: 0
+  <IsReady>k__BackingField: 0
   _appleAnimator: {fileID: 7792592884858079279}
   _dragAndDrop: {fileID: 7792592886189385764}
 --- !u!114 &7792592886189385783
