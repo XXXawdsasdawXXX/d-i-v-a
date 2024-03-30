@@ -28,7 +28,6 @@ namespace Code.Components.Apples
 
         [Header("Dinamic value")] 
         private bool _isFall;
-        private bool _isBig;
         private int _currentStage;
         public bool IsActive { get; private set; }
 
@@ -44,7 +43,6 @@ namespace Code.Components.Apples
         {
             IsActive = true;
             _isFall = false;
-            _isBig = false;
             _dragAndDrop.Off();
             _currentStage = 0;
             
@@ -65,9 +63,7 @@ namespace Code.Components.Apples
         
         public override void Use(Action OnEnd = null)
         {
-
             StartCoroutine(PlayUse(OnEnd));
-
             Debugging.Instance.Log($"[Use] стадия {_currentStage}", Debugging.Type.Apple);
         }
 
@@ -86,9 +82,7 @@ namespace Code.Components.Apples
 
         private LiveStatePercentageValue[] GetLiveStateValues()
         {
-            return _isBig
-                ? _currentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.BigAppleValues[_currentStage].Values : null
-                : _currentStage < _appleConfig.BigAppleValues.Length ? _appleConfig.SmallAppleValues[_currentStage].Values : null;
+            return  _currentStage < _appleConfig.AppleValues.Length ? _appleConfig.AppleValues[_currentStage].Values : null;
         }
 
         public void Fall()
@@ -127,22 +121,14 @@ namespace Code.Components.Apples
 
         private void OnTickCounterWaited()
         {
-            if (!_isBig && !_isFall)
+            _currentStage++;
+            Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
+            if (_currentStage == 2 && !_isFall)
             {
-                _isBig = true;
-                _appleAnimator.SetBigApple();
-                Debugging.Instance.Log($"[OnTickCounterWaited] Set big apple", Debugging.Type.Apple);
+                Fall();
             }
-            else
-            {
-                _currentStage++;
-                Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
-                if (_currentStage == 2 && !_isFall)
-                {
-                    Fall();
-                }
-                _appleAnimator.SetAppleStage(_currentStage);
-            }
+            _appleAnimator.SetAppleStage(_currentStage);
+            
         }
     }
 }

@@ -25,12 +25,6 @@ namespace Code.Components.Apples
             Debugging.Instance.Log("Apple animation play enter", Debugging.Type.Apple);
         }
 
-        public void SetBigApple()
-        {
-            _animator.SetBool(Small, false);
-            Debugging.Instance.Log("Apple animation set big", Debugging.Type.Apple);
-        }
-
         public void SetAppleStage(int stage)
         {
             _animator.SetInteger(Stage, stage);

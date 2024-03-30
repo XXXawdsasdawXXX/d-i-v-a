@@ -18,8 +18,7 @@ namespace Code.Data.Configs
         public LiveStateRangePercentageValue DieAppleEffect;
         
         [Header("Apples stage params\nValue is a percentage of the state's maximum value.")]
-        public LiveStatePercentageValues[] SmallAppleValues;
-        public LiveStatePercentageValues[] BigAppleValues;
+        public LiveStatePercentageValues[] AppleValues;
 
     }
 }
