@@ -19,11 +19,10 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        
-        private MonoBehaviour[] _allObjects;
-        
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
+
+        private MonoBehaviour[] _allObjects;
         private List<IService> _services = new();
         private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
