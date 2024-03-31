@@ -6,5 +6,6 @@ namespace Code.Data.SavedData
     public class CustomActionsSavedData
     {
         public bool IsReviewedSakura;
+        public bool IsAlreadySaidHi;
     }
 }

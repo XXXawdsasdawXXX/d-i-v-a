@@ -7,6 +7,7 @@ namespace Code.Infrastructure.CustomActions
         StarryMouse,
         Electricity,
         Nimbus,
-        Sakura
+        Sakura,
+        Greeting
     }
 }
