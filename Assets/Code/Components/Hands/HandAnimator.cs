@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.GameLoop;
+﻿using System;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Components.Hands
@@ -7,10 +8,12 @@ namespace Code.Components.Hands
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        private Action _endEnterAnimationEvent;
         
-        public void PlayEnter()
+        public void PlayEnter(Action onEndEnter = null)
         {
             _spriteRenderer.enabled = true;
+            _endEnterAnimationEvent = onEndEnter;
         }
 
         public void PlayExit()
@@ -22,5 +25,14 @@ namespace Code.Components.Hands
         {
             PlayExit();
         }
+
+        #region Aimation events
+
+        private void InvokeEndEnterEvent()
+        {
+            _endEnterAnimationEvent?.Invoke();
+        }
+
+        #endregion
     }
 }
