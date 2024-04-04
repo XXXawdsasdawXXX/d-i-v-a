@@ -11,14 +11,12 @@ namespace Code.Components.Apples
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteAnimationMask _animationMask;
 
-        private static readonly int Small = Animator.StringToHash("Small");
         private static readonly int Stage = Animator.StringToHash("Stage");
         private static readonly int Active = Animator.StringToHash("Active");
         private static readonly int Use = Animator.StringToHash("Use");
         
         public void PlayEnter()
         {
-            _animator.SetBool(Small, true);
             _animator.SetBool(Active, true);
             _animator.SetInteger(Stage, 0);
 
