@@ -23,16 +23,24 @@ namespace Code.Components.Objects
 
         public override void On(Action onTurnedOn = null)
         {
-            _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-            _rigidbody2D.velocity = Vector2.zero;
+            SetPhysicsActive(true);
             base.On(onTurnedOn);
         }
 
         public override void Off(Action onTurnedOff = null)
         {
-            _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-            _rigidbody2D.velocity = Vector2.zero;
+            SetPhysicsActive(false);
             base.Off(onTurnedOff);
+        }
+
+        public void SetKinematicMode()
+        {
+            SetPhysicsActive(false);
+        }
+
+        public void SetDynamicMode()
+        {
+            SetPhysicsActive(true);
         }
 
         protected override void OnPressDown(Vector2 obj)

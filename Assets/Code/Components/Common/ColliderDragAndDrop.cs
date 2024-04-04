@@ -21,11 +21,10 @@ namespace Code.Components.Objects
         private PositionService _positionService;
         private CoroutineRunner _coroutineRunner;
 
-        [Header("Dinamic values")] 
+        [Header("Dynamic values")] 
         private Coroutine _coroutine;
         private bool _isDragging;
-
-
+        
         public void GameInit()
         {
             _positionService = Container.Instance.FindService<PositionService>();
@@ -48,6 +47,7 @@ namespace Code.Components.Objects
         public virtual void On(Action onTurnedOn = null)
         {
             _isActive = true;
+            Debugging.Instance.Log($" !!!!!!ON {_isActive}  {_isDragging}  {_colliderButton.IsPressed}");
             onTurnedOn?.Invoke();
         }
 
@@ -97,6 +97,7 @@ namespace Code.Components.Objects
             Vector3 clickPosition = _positionService.GetMouseWorldPosition();
             _offset = transform.position - clickPosition;
             
+            
             if (_coroutine != null)
             {
                 _coroutineRunner.StopRoutine(_coroutine);
@@ -122,7 +123,5 @@ namespace Code.Components.Objects
         }
         
         #endregion
-
-
     }
 }

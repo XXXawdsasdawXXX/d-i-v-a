@@ -17,25 +17,27 @@ namespace Code.Components.Apples
     {
         [Header("Components")] 
         [SerializeField] private AppleAnimator _appleAnimator;
-        [SerializeField] private ColliderDragAndDrop _dragAndDrop;
+        [SerializeField] private PhysicsDragAndDrop _dragAndDrop;
+        [SerializeField] private ColliderButton _colliderButton;
 
         [Header("Services")] 
         private LiveStateStorage _liveStateStorage;
+        private CoroutineRunner _coroutineRunner;
 
         [Header("Static value")] 
         private AppleConfig _appleConfig;
         private TickCounter _tickCounter;
 
-        [Header("Dinamic value")] 
+        [Header("Dynamic value")] 
         private bool _isFall;
         private int _currentStage;
         public bool IsActive { get; private set; }
-
         
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter();
         }
         
@@ -43,9 +45,8 @@ namespace Code.Components.Apples
         {
             IsActive = true;
             _isFall = false;
-            _dragAndDrop.Off();
             _currentStage = 0;
-            
+
             _appleAnimator.PlayEnter();
             _appleAnimator.SetAppleStage(_currentStage);
 
@@ -56,7 +57,14 @@ namespace Code.Components.Apples
 
       
         public override void ReadyForUse(Vector3 position)
-        { 
+        {
+            Debugging.Instance.Log($"[Ready For Use] ожидание отпускания кнопки яблока", Debugging.Type.Apple);
+            _coroutineRunner.StartCoroutine(ReadyForUseRoutine(position));
+        }
+
+        private IEnumerator ReadyForUseRoutine(Vector3 position)
+        {
+            yield return new WaitUntil(() => !_colliderButton.IsPressed);
             Debugging.Instance.Log($"[Ready For Use] драг энд дроп отключен", Debugging.Type.Apple);
             _dragAndDrop.Off();
             base.ReadyForUse(position);
@@ -85,22 +93,7 @@ namespace Code.Components.Apples
         {
             return  _currentStage < _appleConfig.AppleValues.Length ? _appleConfig.AppleValues[_currentStage].Values : null;
         }
-
-        public void Fall()
-        {
-            if (_isFall)
-            {
-                return;
-            }
-            _isFall = true;
-            if(!_isUsing)
-            {
-                _dragAndDrop.On();
-            }
-            Debugging.Instance.Log($"[Fall]", Debugging.Type.Apple);
-        }
-
-
+        
         public void Die()
         {
             if (!IsActive)
@@ -131,10 +124,6 @@ namespace Code.Components.Apples
             }
             _currentStage++;
             Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
-            if (_currentStage == 2 && !_isFall)
-            {
-                Fall();
-            }
             _appleAnimator.SetAppleStage(_currentStage);
         }
     }

@@ -28,7 +28,6 @@ namespace Code.Components.Objects
         {
             var item = SelectedItem;
             SelectedItem = null;
-            
             return item;
         }
     }

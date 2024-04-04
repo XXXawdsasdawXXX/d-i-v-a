@@ -4,7 +4,6 @@ using Code.Components.Items;
 using Code.Components.Objects;
 using Code.Data.Configs;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Services;
 using Code.Utils;
@@ -14,25 +13,29 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 {
     public class BehaviourNode_ShowApple : BaseNode
     {
-        [Header("Entities")] private readonly Apple _apple;
+        [Header("Apple")] 
+        private readonly Apple _apple;
+        private readonly ColliderButton _appleButton;
+        private readonly PhysicsDragAndDrop _applePhysicsDragAndDrop;
 
         [Header("Hand")] //☺
-        private readonly ColliderButton _handButton;
-
         private readonly HandMovement _handMovement;
         private readonly HandAnimator _handAnimator;
         private readonly ItemHolder _itemHolder;
 
-        [Header("Services")] private readonly TickCounter _tickCounter_cooldown;
+        [Header("Services")] 
+        private readonly TickCounter _tickCounter_cooldown;
         private readonly TickCounter _tickCounter_liveTime;
         private readonly CharacterCondition _characterCondition;
 
-        [Header("Static values")] private readonly HandConfig _handConfig;
+        [Header("Static values")] 
+        private readonly HandConfig _handConfig;
         private readonly InteractionStorage _interactionsStorage;
         private readonly WhiteBoard_Hand _whiteBoard;
         private readonly AppleConfig _appleConfig;
 
-        [Header("Dynamic values")] private bool _isExpectedStart = true;
+        [Header("Dynamic values")] 
+        private bool _isExpectedStart = true;
         private bool _isHidden = true;
 
 
@@ -40,10 +43,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         {
             //enitities
             _apple = Container.Instance.FindItem<Apple>();
+            _appleButton = _apple.FindCommonComponent<ColliderButton>();
+            _applePhysicsDragAndDrop = _apple.FindCommonComponent<PhysicsDragAndDrop>();
 
             //hand
             var hand = Container.Instance.FindEntity<Components.Entities.Hand>();
-            _handButton = hand.FindCommonComponent<ColliderButton>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
             _itemHolder = hand.FindCommonComponent<ItemHolder>();
@@ -86,9 +90,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
                 return;
             }
 
-            Debugging.Instance.Log(
-                $"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",
-                Debugging.Type.Hand);
+            Debugging.Instance.Log($"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",Debugging.Type.Hand);
             _isExpectedStart = true;
             Return(false);
         }
@@ -115,7 +117,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 
             GrowApple();
 
-            _handAnimator.PlayEnter();
+            _handAnimator.PlayEnterHand();
             _handMovement.On();
 
             StartWaitLiveTime();
@@ -128,8 +130,8 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             _whiteBoard.SetData(WhiteBoard_Hand.Type.IsShowApple, false);
 
             TryDropApple();
-
-            _handAnimator.PlayExit();
+            
+            _handAnimator.PlayExitHand();
             _handMovement.Off();
 
             StartWaitCooldown();
@@ -142,16 +144,14 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         {
             int liveTimeTicks = _handConfig.GetLiveTimeTicks();
             _tickCounter_liveTime.StartWait(liveTimeTicks);
-            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать конца {liveTimeTicks} жизненных тиков",
-                Debugging.Type.Hand);
+            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать конца {liveTimeTicks} жизненных тиков", Debugging.Type.Hand);
         }
 
         private void StartWaitCooldown()
         {
             var cooldownTicks = _appleConfig.SpawnCooldownTick.GetRandomValue();
             _tickCounter_cooldown.StartWait(cooldownTicks);
-            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать кулдаун {cooldownTicks} тиков",
-                Debugging.Type.Hand);
+            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать кулдаун {cooldownTicks} тиков", Debugging.Type.Hand);
         }
 
         private void GrowApple()
@@ -159,6 +159,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             Debugging.Instance.Log($"[showapple] вырастить яблоко", Debugging.Type.Hand);
             _itemHolder.SetItem(_apple);
             _apple.Grow();
+            _applePhysicsDragAndDrop.SetKinematicMode();
         }
 
         private void TryDropApple()
@@ -172,12 +173,15 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             Debugging.Instance.Log($"[showapple] получилось сбросить яблоко", Debugging.Type.Hand);
             _itemHolder.SetItem(_apple);
             _itemHolder.DropItem();
-            _apple.Fall();
+            if (!_appleButton.IsPressed)
+            {
+                _applePhysicsDragAndDrop.SetDynamicMode();
+            }
         }
 
         #endregion
 
-        #region Events
+        #region Local events
 
         //Local
         private void SubscribeToLocalEvents(bool flag)
@@ -187,14 +191,14 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
                 _apple.DieEvent += DieEvent;
                 _apple.ReadyForUseEvent += HideHand;
                 _apple.UseEvent += UseEvent;
-                _handButton.UpEvent += HandButtonOnUpEvent;
+                _appleButton.DownEvent += OnClickApple;
             }
             else
             {
                 _apple.DieEvent -= DieEvent;
                 _apple.ReadyForUseEvent -= HideHand;
                 _apple.UseEvent -= UseEvent;
-                _handButton.UpEvent -= HandButtonOnUpEvent;
+                _appleButton.DownEvent -= OnClickApple;
             }
         }
 
@@ -210,14 +214,17 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             Debugging.Instance.Log($"[showapple] ивент от использования итема ретерн(тру)", Debugging.Type.Hand);
         }
 
-        private void HandButtonOnUpEvent(Vector2 _, float __)
+        private void OnClickApple(Vector2 _)
         {
             HideHand();
             Return(true);
             Debugging.Instance.Log($"[showapple] ивент от нажатия по руке ретерн(тру)", Debugging.Type.Hand);
         }
 
-        //Global
+        #endregion
+
+        #region Global events
+        
         private void SubscribeToGlobalEvents(bool flag)
         {
             if (flag)

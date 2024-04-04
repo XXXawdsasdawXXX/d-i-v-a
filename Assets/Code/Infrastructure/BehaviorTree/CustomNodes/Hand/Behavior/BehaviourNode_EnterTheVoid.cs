@@ -51,7 +51,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             }
             
             _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
-            _handAnimator.PlayExit();
+            _handAnimator.PlayExitHand();
             _handMovement.Off();
       
 
