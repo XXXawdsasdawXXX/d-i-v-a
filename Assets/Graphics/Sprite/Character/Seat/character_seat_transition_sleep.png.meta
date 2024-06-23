@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 32a3a5c97db08d743be2f34179b92d5b
+guid: f88d32d28a0e6ff498d9d42e026d4319
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,8 +45,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.2}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a33654a58deab74b9cf520925e9b6f2
-      internalID: 304396598
+      spriteID: a25d79768a2ad3b418d399ad4a3bb4a9
+      internalID: -982894205
       vertices: []
       indices: 
       edges: []
@@ -176,56 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ded70468d63c3e4dad7a0c4741ffb88
-      internalID: -1071693885
+      spriteID: 2519280f95c340e4aafb885e749a6bd8
+      internalID: 301070366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: character_seat_transition_sleep_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b9cd8d7ac5dac5241ab887adf1973a9e
-      internalID: 1918956113
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_seat_transition_sleep_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 231474dcc61d8c04b8063adfd6646b4c
-      internalID: -668092916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_seat_transition_sleep_4
       rect:
         serializedVersion: 2
         x: 0
@@ -239,8 +197,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f95a56feb10e857419879af984421e4d
-      internalID: -190416659
+      spriteID: 69c4d62afcc2f7646a3b72273ddcf106
+      internalID: -1407249236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_seat_transition_sleep_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd628179c53a69d4abe61a70de721577
+      internalID: -1058797646
       vertices: []
       indices: 
       edges: []
@@ -256,11 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_seat_transition_sleep_0: 304396598
-      character_seat_transition_sleep_1: -1071693885
-      character_seat_transition_sleep_2: 1918956113
-      character_seat_transition_sleep_3: -668092916
-      character_seat_transition_sleep_4: -190416659
+      character_seat_transition_sleep_0: -982894205
+      character_seat_transition_sleep_1: 301070366
+      character_seat_transition_sleep_2: -1407249236
+      character_seat_transition_sleep_3: -1058797646
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

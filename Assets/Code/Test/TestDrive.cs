@@ -4,10 +4,6 @@ namespace Code.Test
 {
     public class TestDrive : MonoBehaviour
     {
-        void Update()
-        {
-          
-        }
     }
 
 }

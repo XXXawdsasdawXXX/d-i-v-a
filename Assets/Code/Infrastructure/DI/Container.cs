@@ -19,6 +19,7 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
+        
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
 
