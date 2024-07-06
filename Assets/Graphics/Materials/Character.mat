@@ -252,10 +252,10 @@ Material:
     - _ShakeUvY: 1
     - _ShineGlow: 1
     - _ShineLocation: 0.5
-    - _ShineRotate: 4.22449
+    - _ShineRotate: 0.00022365902
     - _ShineWidth: 0.208
-    - _TextureScrollXSpeed: 2.050211
-    - _TextureScrollYSpeed: 2.050211
+    - _TextureScrollXSpeed: 0.00009843916
+    - _TextureScrollYSpeed: 0.00009843916
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
