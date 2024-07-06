@@ -11,9 +11,9 @@ namespace Code.Test.Editor
             DrawDefaultInspector();
             TestDrive testDrive = (TestDrive)target;
             
-            if (GUILayout.Button("Move next point"))
+            if (GUILayout.Button("Set time scale"))
             {
-               // testDrive.MoveToNextPosition();
+                testDrive.SetTimeScale();
             }
         }
     }

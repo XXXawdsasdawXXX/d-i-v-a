@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b2710f51334f488301151630e72154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeScale: 0
 --- !u!4 &47181258
 Transform:
   m_ObjectHideFlags: 0
@@ -308,7 +309,7 @@ GameObject:
   - component: {fileID: 350180200}
   - component: {fileID: 350180199}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Test drive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b2710f51334f488301151630e72154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeScale: 0.25
 --- !u!4 &350180200
 Transform:
   m_ObjectHideFlags: 0

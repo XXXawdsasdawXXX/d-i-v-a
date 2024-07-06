@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2b18ea7ac33381e4a9b097ce6fcf3ab5
+guid: bfa1279414f3e61459f0c987bc45aca8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d0b9ddbf898de44a9ac2403528f93b8
-      internalID: 1368558590
+      spriteID: 7ec611d941d5a18479e10ff9f4ce8c78
+      internalID: -1834698581
       vertices: []
       indices: 
       edges: []
@@ -176,56 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7786ae7307b58f744a420cee155e65de
-      internalID: -850422514
+      spriteID: a29d1e93514d17b46bf93cde067e39c7
+      internalID: 820727609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: character_stand_eat_start_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5ccf52f644eb7145b5e4aba19a5836d
-      internalID: 2109828012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_eat_start_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa25470627ff18e42b823aa3ac9905ca
-      internalID: -1511449232
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_eat_start_4
       rect:
         serializedVersion: 2
         x: 0
@@ -239,8 +197,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97c6dbafbe893c740a6ea10fdbcf98f1
-      internalID: -1124080925
+      spriteID: 06d8f31783959664f9571a4b3a38f906
+      internalID: 1790822680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_stand_eat_start_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd22bcab57005445b687ae617c1c005
+      internalID: -1213599378
       vertices: []
       indices: 
       edges: []
@@ -256,11 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_stand_eat_start_0: 1368558590
-      character_stand_eat_start_1: -850422514
-      character_stand_eat_start_2: 2109828012
-      character_stand_eat_start_3: -1511449232
-      character_stand_eat_start_4: -1124080925
+      character_stand_eat_start_0: -1834698581
+      character_stand_eat_start_1: 820727609
+      character_stand_eat_start_2: 1790822680
+      character_stand_eat_start_3: -1213599378
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

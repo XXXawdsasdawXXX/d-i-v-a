@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 20d83a091b0a5f545b618e6b2c505978
+guid: 7aee8b55da5bfd24998c773284dfd599
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blueHair_front_sleep_enter_0
+      name: blueHair_stand_transition_seat_front_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 154750ae4ec463a4c9700a43d421a574
-      internalID: 539913512
+      spriteID: 493511d0aeec8b640b11ff6b6949fbb0
+      internalID: -555470984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blueHair_front_sleep_enter_1
+      name: blueHair_stand_transition_seat_front_1
       rect:
         serializedVersion: 2
         x: 256
@@ -176,14 +176,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 449e433e211ce3340949d5371cb403ae
-      internalID: -1742361497
+      spriteID: 6c8ff018257979f4381990872afc9127
+      internalID: -1466582975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blueHair_front_sleep_enter_2
+      name: blueHair_stand_transition_seat_front_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 859eab1f660f246468c537dc89063d1b
+      internalID: 2063421336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_stand_transition_seat_front_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2ee744c9aafd1f4f9fd34b1ced4da14
+      internalID: 1976862495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_stand_transition_seat_front_4
       rect:
         serializedVersion: 2
         x: 0
@@ -197,8 +239,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7a2cf63964814a4faebfb72078ec3c9
-      internalID: -1480297395
+      spriteID: f3aa50305f8b7cb4292ad6d0fe841908
+      internalID: -1803966333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_stand_transition_seat_front_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1929dad8737016142bbfae5428bee9aa
+      internalID: 114519954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_stand_transition_seat_front_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5f60ae191300e54ca79e0efd89dbb6a
+      internalID: -947070774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_stand_transition_seat_front_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4404a6e496236f049a63ec0efd21705f
+      internalID: 668829647
       vertices: []
       indices: 
       edges: []
@@ -214,9 +319,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      blueHair_front_sleep_enter_0: 539913512
-      blueHair_front_sleep_enter_1: -1742361497
-      blueHair_front_sleep_enter_2: -1480297395
+      blueHair_stand_transition_seat_front_0: -555470984
+      blueHair_stand_transition_seat_front_1: -1466582975
+      blueHair_stand_transition_seat_front_2: 2063421336
+      blueHair_stand_transition_seat_front_3: 1976862495
+      blueHair_stand_transition_seat_front_4: -1803966333
+      blueHair_stand_transition_seat_front_5: 114519954
+      blueHair_stand_transition_seat_front_6: -947070774
+      blueHair_stand_transition_seat_front_7: 668829647
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

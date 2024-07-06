@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d58d8f58ccc39724e87b916aeb175f5c
+guid: 076d846bb48e8b0429e1136633111aae
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -145,7 +145,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 512
+        y: 256
         width: 256
         height: 256
       alignment: 9
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2aee1cc5940bf5044ad1d3290391c627
-      internalID: 474926055
+      spriteID: 3025d176de1706546b86d11a4e892f3c
+      internalID: -1944558592
       vertices: []
       indices: 
       edges: []
@@ -166,7 +166,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 512
+        y: 256
         width: 256
         height: 256
       alignment: 9
@@ -176,8 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da89b3723dd044d4399e7d68db93a3ac
-      internalID: -990568592
+      spriteID: 26ed2245836f1d049a3f54e658bc7973
+      internalID: 1601597906
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 512
+        y: 256
         width: 256
         height: 256
       alignment: 9
@@ -197,8 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56de019f23442c943844ed5a300268fc
-      internalID: -1270573081
+      spriteID: 1741dee8e82f3be44957a237087f3ecc
+      internalID: 1097062439
       vertices: []
       indices: 
       edges: []
@@ -208,7 +208,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 768
-        y: 512
+        y: 256
         width: 256
         height: 256
       alignment: 9
@@ -218,98 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32ec73fe7aad25647926dd9748a746a9
-      internalID: 1912702095
+      spriteID: fca5a189900d5f6489bb334134fd1d1b
+      internalID: -1421505007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: character_stand_transition_seat_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cfeaa72a58c2c740945b633ec089170
-      internalID: -467597683
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_transition_seat_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a51467ccdf2384648b37dc19a5a67a68
-      internalID: -1449090299
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_transition_seat_6
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c2e1ade033d4d8489231e7a2fef668f
-      internalID: -254288774
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_transition_seat_7
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a744a978c1a89954e8de25435fc7c5cc
-      internalID: -486866675
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_transition_seat_8
       rect:
         serializedVersion: 2
         x: 0
@@ -323,8 +239,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7e1c27e3f5738a4b94ea0e9e3e9d284
-      internalID: 1508066657
+      spriteID: 3ba0e752aaa91f646856bc25e8aa45cf
+      internalID: -1192886115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_stand_transition_seat_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede47a3d9e4f0bf479808b67a5cad655
+      internalID: 793396030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_stand_transition_seat_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f16a667d5d9a4d418b958f3ef69a668
+      internalID: -1841299946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: character_stand_transition_seat_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4621cfac92648744bb74a484437ce8d3
+      internalID: 1222838670
       vertices: []
       indices: 
       edges: []
@@ -340,15 +319,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_stand_transition_seat_0: 474926055
-      character_stand_transition_seat_1: -990568592
-      character_stand_transition_seat_2: -1270573081
-      character_stand_transition_seat_3: 1912702095
-      character_stand_transition_seat_4: -467597683
-      character_stand_transition_seat_5: -1449090299
-      character_stand_transition_seat_6: -254288774
-      character_stand_transition_seat_7: -486866675
-      character_stand_transition_seat_8: 1508066657
+      character_stand_transition_seat_0: -1944558592
+      character_stand_transition_seat_1: 1601597906
+      character_stand_transition_seat_2: 1097062439
+      character_stand_transition_seat_3: -1421505007
+      character_stand_transition_seat_4: -1192886115
+      character_stand_transition_seat_5: 793396030
+      character_stand_transition_seat_6: -1841299946
+      character_stand_transition_seat_7: 1222838670
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
