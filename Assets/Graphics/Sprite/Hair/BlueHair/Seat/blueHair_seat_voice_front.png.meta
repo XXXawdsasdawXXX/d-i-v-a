@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 076d846bb48e8b0429e1136633111aae
+guid: e4a7a2ab46ba83a4787627832de7f32d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_stand_transition_seat_0
+      name: blueHair_seat_voice_front_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3025d176de1706546b86d11a4e892f3c
-      internalID: -1944558592
+      spriteID: 16720657118add04ea5b5a6508363a82
+      internalID: -68203014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_1
+      name: blueHair_seat_voice_front_1
       rect:
         serializedVersion: 2
         x: 256
@@ -176,14 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26ed2245836f1d049a3f54e658bc7973
-      internalID: 1601597906
+      spriteID: 0b1705a7073ba8345ba9495cc2af921c
+      internalID: -429528547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_2
+      name: blueHair_seat_voice_front_2
       rect:
         serializedVersion: 2
         x: 512
@@ -197,14 +197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1741dee8e82f3be44957a237087f3ecc
-      internalID: 1097062439
+      spriteID: bbb5e6953f81b8a4e999e76bbf8c15b4
+      internalID: 964670177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_3
+      name: blueHair_seat_voice_front_3
       rect:
         serializedVersion: 2
         x: 768
@@ -218,14 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fca5a189900d5f6489bb334134fd1d1b
-      internalID: -1421505007
+      spriteID: 352e0a0e55ae3b245b869a9538ba8a1b
+      internalID: -844667776
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_4
+      name: blueHair_seat_voice_front_4
       rect:
         serializedVersion: 2
         x: 0
@@ -239,14 +239,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ba0e752aaa91f646856bc25e8aa45cf
-      internalID: -1192886115
+      spriteID: d671cd18d95c88642a9c314161721de1
+      internalID: -1702727944
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_5
+      name: blueHair_seat_voice_front_5
       rect:
         serializedVersion: 2
         x: 256
@@ -260,14 +260,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ede47a3d9e4f0bf479808b67a5cad655
-      internalID: 793396030
+      spriteID: 2b458e71dfe51bc4f89875fb05e3cea5
+      internalID: 456490724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_stand_transition_seat_6
+      name: blueHair_seat_voice_front_6
       rect:
         serializedVersion: 2
         x: 512
@@ -281,29 +281,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f16a667d5d9a4d418b958f3ef69a668
-      internalID: -1841299946
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_stand_transition_seat_7
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4621cfac92648744bb74a484437ce8d3
-      internalID: 1222838670
+      spriteID: 81b7a016e46da8645960c38addde0896
+      internalID: -1297490382
       vertices: []
       indices: 
       edges: []
@@ -319,14 +298,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_stand_transition_seat_0: -1944558592
-      character_stand_transition_seat_1: 1601597906
-      character_stand_transition_seat_2: 1097062439
-      character_stand_transition_seat_3: -1421505007
-      character_stand_transition_seat_4: -1192886115
-      character_stand_transition_seat_5: 793396030
-      character_stand_transition_seat_6: -1841299946
-      character_stand_transition_seat_7: 1222838670
+      blueHair_seat_voice_front_0: -68203014
+      blueHair_seat_voice_front_1: -429528547
+      blueHair_seat_voice_front_2: 964670177
+      blueHair_seat_voice_front_3: -844667776
+      blueHair_seat_voice_front_4: -1702727944
+      blueHair_seat_voice_front_5: 456490724
+      blueHair_seat_voice_front_6: -1297490382
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
