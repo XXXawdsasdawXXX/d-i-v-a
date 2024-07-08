@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4bb2c5281be8f394a9e895fe863edf87
+guid: 9d6cccf1cecc0694782d763ca6318b94
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,7 +45,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
+  alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_sleep_idle_0
+      name: blueHair_sleep_reaction_voice_front_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a76145c7ff7a34469a8bdf1f1e07030
-      internalID: 1026880177
+      spriteID: 39e30496918212748a0f1285acf13a45
+      internalID: -2145410196
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_sleep_idle_1
+      name: blueHair_sleep_reaction_voice_front_1
       rect:
         serializedVersion: 2
         x: 256
@@ -176,14 +176,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9da771550dffe1c41bb1c1d65194e57f
-      internalID: -1571428619
+      spriteID: db9e402010b25344eacca2f9bae4bd90
+      internalID: 155177013
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_sleep_idle_2
+      name: blueHair_sleep_reaction_voice_front_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87215964998bf574fbd69f141029464e
+      internalID: 850037515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_sleep_reaction_voice_front_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 651014816d82959479e3762457b91dd5
+      internalID: -356061818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_sleep_reaction_voice_front_4
       rect:
         serializedVersion: 2
         x: 0
@@ -197,8 +239,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75afc98858e2fd748940d576f2ceabe5
-      internalID: 1653513625
+      spriteID: 92591f568df59bb41a17fcdef010a3a4
+      internalID: -1254816729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blueHair_sleep_reaction_voice_front_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07987dc4c8c3acb4a8b512377a5c62a7
+      internalID: -245505431
       vertices: []
       indices: 
       edges: []
@@ -214,9 +277,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_sleep_idle_0: 1026880177
-      character_sleep_idle_1: -1571428619
-      character_sleep_idle_2: 1653513625
+      blueHair_sleep_reaction_voice_front_0: -2145410196
+      blueHair_sleep_reaction_voice_front_1: 155177013
+      blueHair_sleep_reaction_voice_front_2: 850037515
+      blueHair_sleep_reaction_voice_front_3: -356061818
+      blueHair_sleep_reaction_voice_front_4: -1254816729
+      blueHair_sleep_reaction_voice_front_5: -245505431
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

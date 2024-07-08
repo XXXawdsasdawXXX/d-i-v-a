@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b2710f51334f488301151630e72154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeScale: 0.25
+  _timeScale: 1
 --- !u!4 &350180200
 Transform:
   m_ObjectHideFlags: 0
@@ -3262,32 +3262,8 @@ PrefabInstance:
       propertyPath: _colorAnalyzer
       value: 
       objectReference: {fileID: 1759214111149032155}
-    - target: {fileID: 2382659428691322174, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851512021651845967, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: 530942b147474e9419ed062695c50969, type: 2}
-    - target: {fileID: 4046890328778834066, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.014
-      objectReference: {fileID: 0}
-    - target: {fileID: 4359766694140986590, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1509260401, guid: a0d28c0be3a8d1243a3cd61175273218, type: 3}
     - target: {fileID: 4359766694140986590, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5084075187126152152, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: 5865b4bb4b3472d44acb70b9cd7eddd0, type: 2}
-    - target: {fileID: 6353415473997138802, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652672, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
@@ -3338,18 +3314,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7024979022035233823, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7024979022035233826, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: _loopbackAudioService
       value: 
       objectReference: {fileID: 1772634759}
-    - target: {fileID: 8766607813122606075, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1714338200, guid: ebd2ddbf610388c40bb98af5cc3b7695, type: 3}
     - target: {fileID: 8766607813122606075, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
