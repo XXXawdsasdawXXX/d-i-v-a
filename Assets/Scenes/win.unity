@@ -1697,6 +1697,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Debug
       objectReference: {fileID: 0}
+    - target: {fileID: 5377439444576147690, guid: 86eea1db947d02341aa78199c661189f, type: 3}
+      propertyPath: _debugParams.Array.data[5].Active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377439444576147690, guid: 86eea1db947d02341aa78199c661189f, type: 3}
+      propertyPath: _debugParams.Array.data[6].Active
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5377439444576147691, guid: 86eea1db947d02341aa78199c661189f, type: 3}
       propertyPath: m_RootOrder
       value: 1
