@@ -57,11 +57,9 @@ Material:
   m_Name: Character
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_ValidKeywords:
-  - FADE_ON
   - GLOWTEX_ON
   - OUTBASEPIXELPERF_ON
   - OUTTEX_ON
-  - SHINE_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -254,10 +252,10 @@ Material:
     - _ShakeUvY: 1
     - _ShineGlow: 1
     - _ShineLocation: 0.5
-    - _ShineRotate: 1.905543
+    - _ShineRotate: 0.7082316
     - _ShineWidth: 0.208
-    - _TextureScrollXSpeed: 0.8254291
-    - _TextureScrollYSpeed: 0.8254291
+    - _TextureScrollXSpeed: 0.40520197
+    - _TextureScrollYSpeed: 0.40520197
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5

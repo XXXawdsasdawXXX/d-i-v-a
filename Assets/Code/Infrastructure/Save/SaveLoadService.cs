@@ -10,14 +10,17 @@ namespace Code.Infrastructure.Save
 {
     public class SaveLoadService: IService, IGameLoadListener, IGameExitListener
     {
-        private const string progressKey = "Progress";
+        private const string PROGRESS_KEY = "Progress";
 
         private  PlayerProgressData _playerProgress;
 
         private List<IProgressWriter> _progressWriters = new();
         private List<IProgressReader> _progressReader = new();
+        
+        
         public void GameLoad()
         {
+         
             _progressReader = Container.Instance.GetProgressReaders();
             foreach (var progressReader in _progressReader)
             {
@@ -45,9 +48,9 @@ namespace Code.Infrastructure.Save
                 progressWriter.UpdateProgress(_playerProgress);
             }
 
-            PlayerPrefs.SetString(progressKey, _playerProgress.ToJson());
+            PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
                  
-            var data = PlayerPrefs.GetString(progressKey);
+            var data = PlayerPrefs.GetString(PROGRESS_KEY);
             Debugging.Instance.Log($"Save progress -> " +
                                    $"{_playerProgress != null} " +
                                    $"{_playerProgress?.LiveStatesData != null}" +
@@ -57,8 +60,8 @@ namespace Code.Infrastructure.Save
 
         private void LoadProgress()
         {
-            var data = PlayerPrefs.GetString(progressKey);
-            _playerProgress =  PlayerPrefs.GetString(progressKey)?.ToDeserialized<PlayerProgressData>();
+            var data = PlayerPrefs.GetString(PROGRESS_KEY);
+            _playerProgress =  PlayerPrefs.GetString(PROGRESS_KEY)?.ToDeserialized<PlayerProgressData>();
             
             Debugging.Instance.Log($"Load progress -> " +
                                    $"{_playerProgress != null} " +

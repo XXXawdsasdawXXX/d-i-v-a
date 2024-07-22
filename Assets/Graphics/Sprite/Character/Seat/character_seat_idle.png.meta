@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e2fd2603af0ca5b4ba1c0dc948a74596
+guid: 26ee8a78deb15194ca1a915150a0513e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,8 +45,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.2}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -67,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55d997b84ff40c7489a6257da1390592
-      internalID: -1918605505
+      spriteID: b5cb532ce4431ca42809a2660d613ab9
+      internalID: -250668861
       vertices: []
       indices: 
       edges: []
@@ -176,8 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c60030f4d45f20e4f81febb544ef5df0
-      internalID: 1623628430
+      spriteID: e4726ff8d8126b74197d07f656eca6c8
+      internalID: 2096673843
       vertices: []
       indices: 
       edges: []
@@ -193,8 +193,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_seat_idle_0: -1918605505
-      character_seat_idle_1: 1623628430
+      character_seat_idle_0: -250668861
+      character_seat_idle_1: 2096673843
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

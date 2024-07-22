@@ -11,7 +11,7 @@ namespace Code.Services
 {
     public class MicrophoneAnalyzer : IService/*, IGameStartListener, IGameTickListener, IGameExitListener*/
     {
-        /*private const int SAMPLE_WINDOW = 128;
+        private const int SAMPLE_WINDOW = 128;
 
         [Header("Stats")] private string _device;
         private float _micLoudness;
@@ -28,12 +28,21 @@ namespace Code.Services
 
         public MicrophoneAnalyzer()
         {
-            if(Utils.Extensions.IsMacOs())
+            if (Utils.Extensions.IsMacOs())
+            {
+                return;
+            }
+
+            _isInitialized = true;
             Debugging.Instance.Log($"MicrophoneAnalyzer: Construct", Debugging.Type.Micro);
         }
 
         public void GameStart()
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
             //todo проверка на ос
             InitMic();
@@ -122,6 +131,6 @@ namespace Code.Services
         {
             var db = 20 * Mathf.Log10(Mathf.Abs(_micLoudness));
             return db;
-        }*/
+        }
     }
 }
