@@ -13,13 +13,15 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
 {
-    public class CharacterCondition: IService, IGameInitListener, IGameLoadListener
+    public class CharacterCondition: IService, IGameInitListener
     {
         [Header("Character")]
         private CharacterLiveStatesAnalytic _statesAnalytic;
+        private CharacterLiveState _sleepState;
+        
         [Header("Services")]
         private TimeObserver _timeObserver;
-        private CharacterLiveState _sleepState;
+      
         [Header("Static values")]
         private float _sleepHealValue;
         private int _stoppingTicksToMaximumSleepValues;
@@ -38,26 +40,54 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
             _sleepHealValue = liveStateConfig.GetStaticParam(LiveStateKey.Sleep).HealValue;
             var timeConfig = Container.Instance.FindConfig<TimeConfig>();
             _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
-        }
-            
-        public void GameLoad()
-        {
-            if (!_liveStateStorage.TryGetLiveState(LiveStateKey.Sleep, out _sleepState))
-            {
-                Debugging.Instance.ErrorLog("[CharacterCondition] не нашел стейт сна");
-            }
-        }
 
+            _liveStateStorage.OnInit += () =>
+            {
+                if (!_liveStateStorage.TryGetLiveState(LiveStateKey.Sleep, out _sleepState))
+                {
+                    Debugging.Instance.ErrorLog("[CharacterCondition] не нашел стейт сна");
+                }
+            };
+        }
+        
+        public bool IsCanSeat()
+        {
+            return _statesAnalytic.TryGetLowerSate(out var key, out var statePercent)
+                   && key is LiveStateKey.Trust or LiveStateKey.Hunger
+                   && statePercent < 0.4f;
+        }
+        
         public bool IsCanSleep(float sleepStatePercent = 0.5f)
         {
+            Debugging.Instance.Log($"Проверка на сон:" +
+                                   $" {_sleepState != null}" +
+                                   $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < sleepStatePercent})" +
+                                   $" && {_sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max}",
+                Debugging.Type.BehaviorTree);
+            
             return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < sleepStatePercent) && 
                    _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
+            return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState?.GetPercent() < sleepStatePercent);
         }
 
         public bool IsCanExitWhenSleep()
         {
             _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out var lowerStatePercent);
-            return lowerKey is LiveStateKey.Trust && lowerStatePercent <= 0.4f && Random.Range(0, 100) >= 50;
+           
+            var randomResult = Random.Range(0, 100) >= 50;
+           
+            Debugging.Instance.Log($"Проверка на выход во сне:" +
+                                   $" {lowerKey is LiveStateKey.Trust}" +
+                                   $" && ({lowerStatePercent <= 0.4f})" +
+                                   $" && {randomResult}",
+                Debugging.Type.BehaviorTree);
+            
+            return lowerKey is LiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
+        }
+
+        public bool IsCanStand()
+        {
+            return true;
         }
     }
 }

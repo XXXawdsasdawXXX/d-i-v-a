@@ -38,15 +38,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         
         protected override void Run()
         {
-            if (_orderedNodes == null || _orderedNodes.Length <= 0)
+            if (IsCanRun())
             {
-                Return(false);
+                _currentChildIndex = 0;
+                _currentChild = _orderedNodes[_currentChildIndex];
+                _currentChild.Run(callback: this);
                 return;
             }
+            
+            Return(false);
+        }
 
-            _currentChildIndex = 0;
-            _currentChild = _orderedNodes[_currentChildIndex];
-            _currentChild.Run(callback: this);
+        protected override bool IsCanRun()
+        {
+            return _orderedNodes is { Length: > 0 };
         }
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)

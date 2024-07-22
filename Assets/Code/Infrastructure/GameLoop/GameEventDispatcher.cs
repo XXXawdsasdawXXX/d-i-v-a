@@ -38,7 +38,7 @@ namespace Code.Infrastructure.GameLoop
             }
             else
             {
-                _controller.OnStateChanged += ControllerOnOnStateChanged;
+                _controller.OnStateChanged += OnWindowControllerStateChanged;
                 Debugging.Instance.Log("Subscribe", Debugging.Type.GameState);
                 InitializeListeners();
                 NotifyGameInit();
@@ -47,7 +47,7 @@ namespace Code.Infrastructure.GameLoop
             }
         }
         
-        private void ControllerOnOnStateChanged(UniWindowController.WindowStateEventType type)
+        private void OnWindowControllerStateChanged(UniWindowController.WindowStateEventType type)
         {
             StartCoroutine(StartWithDelay());
         }
@@ -55,7 +55,7 @@ namespace Code.Infrastructure.GameLoop
 
         private IEnumerator StartWithDelay()
         {
-            _controller.OnStateChanged -= ControllerOnOnStateChanged;
+            _controller.OnStateChanged -= OnWindowControllerStateChanged;
             yield return new WaitForSeconds(1);
             NotifyGameStart();
             Debugging.Instance.Log("Start", Debugging.Type.GameState);

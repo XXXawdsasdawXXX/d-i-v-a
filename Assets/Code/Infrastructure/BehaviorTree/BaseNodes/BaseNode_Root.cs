@@ -1,9 +1,9 @@
 ﻿namespace Code.Infrastructure.BehaviorTree
 {
-    public class BaseNode_Root : BaseNode,IBehaviourCallback
+    public abstract class BaseNode_Root : BaseNode,IBehaviourCallback
     {
         private BaseNode _node_Current;
-        protected override void Run() { }
+
         protected override void OnBreak()
         {
             _node_Current?.Break();

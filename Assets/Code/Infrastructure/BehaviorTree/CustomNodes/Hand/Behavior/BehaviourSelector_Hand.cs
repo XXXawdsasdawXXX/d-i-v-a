@@ -50,6 +50,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             _currentChild.Run(callback: this);
         }
 
+        protected override bool IsCanRun()
+        {
+            return _orderedNodes is { Length: > 0 };
+        }
+
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
             if (success)

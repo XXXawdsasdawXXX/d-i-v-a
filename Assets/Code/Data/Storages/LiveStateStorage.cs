@@ -18,6 +18,7 @@ namespace Code.Data.Storages
         private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
 
+        public event Action OnInit; 
         public void GameInit()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
@@ -117,6 +118,8 @@ namespace Code.Data.Storages
                 ? InitNewStates()
                 : LoadSavedStates(playerProgress.LiveStatesData);
 
+            OnInit?.Invoke();
+            
             Debugging.Instance.Log($"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
                 Debugging.Type.LiveState);
         }

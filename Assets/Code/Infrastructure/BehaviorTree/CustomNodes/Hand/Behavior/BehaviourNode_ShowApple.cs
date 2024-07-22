@@ -76,30 +76,24 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 
         protected override void Run()
         {
-            if (!IsCanShowApple())
+            if (IsCanRun())
             {
-                Return(false);
-                return;
-            }
+                var dropChance = _handConfig.GetAppleDropChance(_interactionsStorage.GetSum());
+                var random = Random.Range(0, 101);
+                if (random <= dropChance)
+                {
+                    ShowHandWithApple();
+                    return;
+                }
 
-            var dropChance = _handConfig.GetAppleDropChance(_interactionsStorage.GetSum());
-            var random = Random.Range(0, 101);
-            if (random <= dropChance)
-            {
-                ShowHandWithApple();
-                return;
+                Debugging.Instance.Log($"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",Debugging.Type.Hand);
+                _isExpectedStart = true;
             }
-
-            Debugging.Instance.Log($"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",Debugging.Type.Hand);
-            _isExpectedStart = true;
+            
             Return(false);
         }
 
-        #endregion
-
-        #region Conditions
-
-        private bool IsCanShowApple()
+        protected override bool IsCanRun()
         {
             return _isExpectedStart
                    && _tickCounter_cooldown.IsExpectedStart
@@ -107,6 +101,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         }
 
         #endregion
+
 
         #region Unique methods
 

@@ -45,21 +45,23 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 
         protected override void Run()
         {
-            if (!_tickCounter.IsExpectedStart)
+            if (IsCanRun())
             {
-                return;
+                _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
+                _handAnimator.PlayExitHand();
+                _handMovement.Off();
+                
+                var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
+                _tickCounter.StartWait(cooldownTicks);
+                _tickCounter.WaitedEvent += OnWaitedTicksEvent;
+                
+                Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
             }
-            
-            _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
-            _handAnimator.PlayExitHand();
-            _handMovement.Off();
-      
+        }
 
-            var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
-            _tickCounter.StartWait(cooldownTicks);
-            _tickCounter.WaitedEvent += OnWaitedTicksEvent;
-            
-            Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
+        protected override bool IsCanRun()
+        {
+            return _tickCounter.IsExpectedStart;
         }
 
         private void OnWaitedTicksEvent()

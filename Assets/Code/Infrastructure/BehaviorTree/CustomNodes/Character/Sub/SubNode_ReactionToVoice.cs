@@ -18,15 +18,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
         {
             Return(true);
         }
-
-        public bool IsReady()
-        {
-            return _audioReaction.IsReady();
-        }
-
+        
         protected override void Run()
         {
-            if (IsReady())
+            if (IsCanRun())
             {
                 Debugging.Instance.Log($"Саб нода реакция на звук: запуск", Debugging.Type.BehaviorTree);
                 _audioReaction.StartReaction();
@@ -37,6 +32,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
                 Debugging.Instance.Log($"Саб нода реакция на звук: отказ", Debugging.Type.BehaviorTree);
                 Return(false);
             }
+        }
+
+        protected override bool IsCanRun()
+        {
+            return _audioReaction.IsReady();
         }
     }
 }

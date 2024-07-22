@@ -23,12 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
         
         protected override void Run()
         {
-            if (_item == null)
-            {
-                Debugging.Instance.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана", Debugging.Type.BehaviorTree);
-                Return(false);
-            }
-            else
+            if (IsCanRun())
             {
                 Debugging.Instance.Log($"Саб нода реакции на объект: запущена", Debugging.Type.BehaviorTree);
                 _itemsController.StartReactionToObject(_item, OnEndReaction: () =>
@@ -37,6 +32,16 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
                     _item = null;
                 });
             }
+            else
+            {
+                Debugging.Instance.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана", Debugging.Type.BehaviorTree);
+                Return(false);
+            }
+        }
+
+        protected override bool IsCanRun()
+        {
+            return _item != null;
         }
 
         protected override void OnReturn(bool success)

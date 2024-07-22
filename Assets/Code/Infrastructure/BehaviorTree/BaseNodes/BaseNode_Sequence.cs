@@ -16,15 +16,20 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         
         protected override void Run()
         {
-            if (_orderNodes.Length <= 0)
+            if (IsCanRun())
             {
-                Return(true);
+                _currentNodeIndex = 0;
+                _currentChild = _orderNodes[_currentNodeIndex];
+                _currentChild.Run(callback: this);
                 return;
             }
+            
+            Return(false);
+        }
 
-            _currentNodeIndex = 0;
-            _currentChild = _orderNodes[_currentNodeIndex];
-            _currentChild.Run(callback: this);
+        protected override bool IsCanRun()
+        {
+            return _orderNodes is { Length: > 0 };
         }
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)

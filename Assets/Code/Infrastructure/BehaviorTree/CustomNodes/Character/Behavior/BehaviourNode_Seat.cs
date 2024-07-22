@@ -15,11 +15,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
     {
         [Header("Character")]
         private readonly CharacterAnimator _characterAnimator;
-        private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
         
         [Header("Services")]
         private readonly MicrophoneAnalyzer _microphoneAnalyzer;
+        private readonly CharacterCondition _characterCondition;
         
         [Header("Sub nodes")] 
         private readonly SubNode_ReactionToItems _node_ReactionToItem;
@@ -30,9 +30,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             var character = Container.Instance.FindEntity<DIVA>();
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
-            _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
             //services--------------------------------------------------------------------------------------------------
+            _characterCondition = Container.Instance.FindService<CharacterCondition>();
             _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
             //nodes-----------------------------------------------------------------------------------------------------
             _node_ReactionToItem = new SubNode_ReactionToItems();
@@ -41,12 +41,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         protected override void Run()
         {
-            TrySeat();
-        }
-        
-        private void TrySeat()
-        {
-            if (IsCanSeat())
+            if (IsCanRun())
             {
                 SubscribeToEvents(true);
                 
@@ -63,6 +58,12 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             }
         }
 
+        protected override bool IsCanRun()
+        {
+           return  _characterCondition.IsCanSeat();
+        }
+
+
         #region Events
 
         protected override void SubscribeToEvents(bool flag)
@@ -70,20 +71,23 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             if (flag)
             {
                 _collisionObserver.EnterEvent += StartReactionToObject;
+                //todo найти назначение подписки
                // _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
             }
             else
             {
                 _collisionObserver.EnterEvent -= StartReactionToObject;
+               // _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
             }
         }
 
+        //todo найти назначение метода
         private void OnMaxDecibelRecordedEvent()
         {
-            if (_node_ReactionToVoice.IsReady())
-            {
+            // if (_node_ReactionToVoice.IsReady())
+            // {
                 RunNode(_node_ReactionToVoice);
-            }
+            //}
         }
 
         private void StartReactionToObject(GameObject obj)
@@ -94,18 +98,6 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
                 _node_ReactionToItem.SetCurrentItem(item);
                 RunNode(_node_ReactionToItem);
             }
-        }
-
-        #endregion
-
-        
-        #region Condition
-
-        private bool IsCanSeat()
-        {
-            return _statesAnalytic.TryGetLowerSate(out var key, out var statePercent)
-                   && key is LiveStateKey.Trust or LiveStateKey.Hunger
-                   && statePercent < 0.4f;
         }
 
         #endregion

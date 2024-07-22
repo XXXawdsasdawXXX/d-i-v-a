@@ -20,6 +20,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
         private readonly CollisionObserver _collisionObserver;
 
         [Header("Services")]
+        private readonly CharacterCondition _characterCondition;
 
         [Header("Node")] 
         private readonly BaseNode_RandomSequence _node_randomSequence;
@@ -34,7 +35,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
             //services--------------------------------------------------------------------------------------------------
-           
+            _characterCondition = Container.Instance.FindService<CharacterCondition>();
             //node------------------------------------------------------------------------------------------------------
             _node_randomSequence = new BaseNode_RandomSequence(new BaseNode[]
             {
@@ -46,7 +47,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         protected override void Run()
         {
-            if (IsCanStand())
+            if (IsCanRun())
             {
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Stand);
                 
@@ -61,6 +62,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
                 Debugging.Instance.Log($"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytic.CurrentLowerLiveStateKey}", Debugging.Type.BehaviorTree);
                 Return(false);
             }
+        }
+
+        protected override bool IsCanRun()
+        {
+            return _characterCondition.IsCanStand();
         }
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
@@ -98,13 +104,6 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         #endregion
 
-        #region Conditions
-
-        private bool IsCanStand()
-        {
-            return true;
-        }
-
-        #endregion
+      
     }
 }

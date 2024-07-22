@@ -65,7 +65,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         protected override void Run()
         {
-            if (IsCanSleep())
+            if (IsCanRun())
             {
                 Debugging.Instance.Log($"Нода сна: выбрано", Debugging.Type.BehaviorTree);
 
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
                 _sleepState?.SetHealUpdate();
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
 
-                if (IsCanExit())
+                if (_characterCondition.IsCanExitWhenSleep())
                 {
                     Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТАРТ", Debugging.Type.BehaviorTree);
                     _coroutineRunner.StartRoutine(PlayExitAnimationRoutine());
@@ -84,6 +84,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
                 Debugging.Instance.Log($"Нода сна: отказ", Debugging.Type.BehaviorTree);
                 Return(false);
             }
+        }
+        
+        protected override bool IsCanRun()
+        {
+            return _characterCondition.IsCanSleep();
         }
 
         protected override void OnBreak()
@@ -162,6 +167,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             }
         }
 
+        //todo найти приминение метода, почему он был закоментирован?
         private void OnMaxDecibelRecorder()
         {
            RunNode(_subNode_reactionToVoice);
@@ -188,15 +194,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
 
         #region Conditions
 
-        private bool IsCanSleep()
-        {
-            return _characterCondition.IsCanSleep();
-        }
 
-        private bool IsCanExit()
-        {
-            return _characterCondition.IsCanExitWhenSleep();
-        }
 
         #endregion
 

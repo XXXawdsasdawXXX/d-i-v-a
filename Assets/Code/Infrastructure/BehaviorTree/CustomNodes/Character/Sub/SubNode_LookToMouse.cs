@@ -19,15 +19,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
 
         protected override void Run()
         {
-            if (!IsReady())
+            if (IsCanRun())
             {
-                Return(false);
+                Debugging.Instance.Log($"Саб нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
+                _mouseReaction.StartReaction();
+                _waitFor.Run(this);
                 return;
             }
-        
-            Debugging.Instance.Log($"Саб нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
-            _mouseReaction.StartReaction();
-            _waitFor.Run(this);
+            
+            Return(false);
+        }
+
+        protected override bool IsCanRun()
+        {
+            return _mouseReaction.IsReady();
         }
 
         protected override void OnBreak()
@@ -43,11 +48,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
             Debugging.Instance.Log($"Саб нода смотреть за курсором: ретерн {success}", Debugging.Type.BehaviorTree);
             base.OnReturn(success);
         }
-
-        private bool IsReady()
-        {
-            return _mouseReaction.IsReady();
-        }
+        
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {

@@ -1,4 +1,3 @@
-using Code.Data.Value.RangeFloat;
 using Code.Data.Value.RangeInt;
 using Code.Services;
 using Code.Utils;
@@ -19,7 +18,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
         
         protected override void Run()
         {
-            if (_tickCounter.IsExpectedStart)
+            if (IsCanRun())
             {
                 var tickCount = _cooldownRangedTick.GetRandomValue();
                 _tickCounter.StartWait(tickCount);
@@ -29,6 +28,11 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
             {
                 Return(false);
             }
+        }
+
+        protected override bool IsCanRun()
+        {
+            return _tickCounter.IsExpectedStart;
         }
 
         protected override void OnBreak()

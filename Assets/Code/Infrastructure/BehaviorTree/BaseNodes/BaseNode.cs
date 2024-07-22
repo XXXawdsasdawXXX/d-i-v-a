@@ -14,7 +14,6 @@ namespace Code.Infrastructure.BehaviorTree
 
         private IBehaviourCallback _callback; // через это нод говорит родительскому узлу, что он успешен или не успешен
 
-        //одиновская кнопка
         public void Run(IBehaviourCallback callback)
         {
             if (_isRunning)
@@ -27,7 +26,6 @@ namespace Code.Infrastructure.BehaviorTree
             Run();
         }
 
-        //одиновская кнопка
         public void Break()
         {
             if (!_isRunning)
@@ -42,6 +40,7 @@ namespace Code.Infrastructure.BehaviorTree
 
         protected abstract void Run();
 
+        protected abstract bool IsCanRun();
         protected void Return(bool success)
         {
             if (!_isRunning)
