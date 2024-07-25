@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -331,17 +332,7 @@ public class UwcManager : MonoBehaviour
         return null;
     }
 
-    static public List<UwcWindow> FindAll(string title)
-    {
-        var list = new List<UwcWindow>();
-        foreach (var kv in windows) {
-            var window = kv.Value;
-            if (window.title.IndexOf(title) != -1) {
-                list.Add(window);
-            }
-        }
-        return list;
-    }
+   
 
     static public UwcWindow FindParent(int id)
     {
@@ -353,6 +344,11 @@ public class UwcManager : MonoBehaviour
         return parent;
     }
 
+    [CanBeNull]
+    static public List<int> GetAllDesktop()
+    {
+        return instance.desktops_;
+    }
     static public UwcWindow FindDesktop(int index)
     {
         if (index < 0 || index >= desktopCount) return null;

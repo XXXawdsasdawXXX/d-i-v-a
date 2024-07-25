@@ -47,7 +47,6 @@ namespace Code.Components.Objects
         public virtual void On(Action onTurnedOn = null)
         {
             _isActive = true;
-            Debugging.Instance.Log($" !!!!!!ON {_isActive}  {_isDragging}  {_colliderButton.IsPressed}");
             onTurnedOn?.Invoke();
         }
 
