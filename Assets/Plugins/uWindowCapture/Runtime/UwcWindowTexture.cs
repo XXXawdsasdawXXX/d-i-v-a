@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace uWindowCapture
 {
@@ -211,8 +214,36 @@ public class UwcWindowTexture : MonoBehaviour
         material_ = renderer_.material; // clone
         meshFilter_ = GetComponent<MeshFilter>();
         collider_ = GetComponent<Collider>();
+    }
 
-        list_.Add(this);
+    private void Start()
+    {
+        StartCoroutine(InitDesktopRoutine());
+
+    }
+
+    private IEnumerator InitDesktopRoutine()
+    {
+        yield return new WaitUntil(() => window != null);
+        for (int i = 0; i < 5; i++)
+        {
+            UpdateTargetWindow();
+            UpdateScale();
+            if (window == null)
+            {
+                Debug.Log("ops");
+                break;
+            }
+            if (Screen.mainWindowDisplayInfo.height == window.height && Screen.mainWindowDisplayInfo.width == window.width)
+            {
+                Debug.Log("!");
+              
+                break;
+            }
+            desktopIndex++;
+            Debug.Log($"!!");
+           
+        }
     }
 
     void OnDestroy()
@@ -347,7 +378,11 @@ public class UwcWindowTexture : MonoBehaviour
 
     void UpdateTargetWindow()
     {
-        if (!shouldUpdateWindow) return;
+        if (!shouldUpdateWindow)
+        {
+            Debug.Log("!shouldUpdateWindow");
+            return;
+        }
 
         switch (type)
         {

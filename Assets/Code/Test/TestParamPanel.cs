@@ -7,22 +7,34 @@ namespace Code.Test
 {
     public class TestParamPanel : MonoBehaviour
     {
-        private LiveStateStorage _storage;
         [SerializeField] private Text _paramText;
-        
+        [SerializeField] private GameObject _body;
 
+        private LiveStateStorage _storage;
+        
         private void Start()
         {
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
+            
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                _body.SetActive(!_body.activeSelf);
+            }
+
+            if (!_body.activeSelf)
+            {
+             return;   
+            }
             string text = null;
             foreach (var state in _storage.LiveStates)
             {
                 text += $"<color=#86FFBB>{state.Key}</color>: {state.Value.Current,11}/{state.Value.Max}\t{state.Value.GetPercent(),15}%\n"; 
             }
+
             _paramText.text = text;
         }
 
