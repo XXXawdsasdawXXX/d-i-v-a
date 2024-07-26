@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using Kirurobo;
-using Unity.VisualScripting;
 using UnityEngine;
-using uWindowCapture;
 
 namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
         [SerializeField] private bool _isTestInit;
-        [SerializeField] private UwcWindowTexture _uwcWindowTexture;
         private UniWindowController _controller;
         
         private readonly List<IGameInitListener> _initListeners = new();
@@ -21,16 +18,8 @@ namespace Code.Infrastructure.GameLoop
         private readonly List<IGameTickListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
 
-
         public void Awake()
         {
-            for (int i = 0; i < UwcManager.desktopCount; i++)
-            {
-               // Debug.Log($"{UwcManager.Find(i).}");
-            }
-
-            
-           Debug.Log($"{Screen.mainWindowDisplayInfo.height} {Screen.mainWindowDisplayInfo.width}"); 
 #if !UNITY_EDITOR
             _isTestInit = false;
 #endif
@@ -60,7 +49,6 @@ namespace Code.Infrastructure.GameLoop
         {
             StartCoroutine(StartWithDelay());
         }
-
 
         private IEnumerator StartWithDelay()
         {

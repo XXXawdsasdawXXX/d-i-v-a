@@ -63,6 +63,21 @@ namespace Code.Utils
             }
         }
 
+        public void Log(object invoker,string message, Type type = Type.None)
+        {
+            var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            if (debugParam != null)
+            {
+                if (debugParam.Active)
+                {
+                    ColorLog($"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
+                }
+            }
+            else
+            {
+                ColorLog(message, Color.white);
+            }
+        }
         public void TestLog(string message)
         {
             ColorLog(message, Color.green);
@@ -95,6 +110,14 @@ namespace Code.Utils
             }
 
             return result.ToString().Trim(); // Удаляем возможный пробел в начале строки
+        }
+
+        public void DisableAll()
+        {
+            foreach (var debugParam in _debugParams)
+            {
+                debugParam.Active = false;
+            }
         }
     }
 }

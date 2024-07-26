@@ -77,6 +77,7 @@ public class CustomAction_Greeting : CustomAction, IProgressWriter,IGameInitList
 
     private void TrySayHi(Vector2 _)
     {
+        Debugging.Instance.Log($"[Greeting][TrySayHi] Trying", Debugging.Type.CustomAction);
         if(_isAlreadySaidHi || !_isActive)
         {
             Debugging.Instance.Log($"[Greeting][TrySayHi] is return", Debugging.Type.CustomAction);

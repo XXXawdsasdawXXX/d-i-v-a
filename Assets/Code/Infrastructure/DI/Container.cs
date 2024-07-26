@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Code.Components;
 using Code.Components.Entities;
 using Code.Components.Items;
 using Code.Data.Interfaces;
@@ -13,6 +12,7 @@ using Code.Services;
 using Code.Utils;
 using Kirurobo;
 using UnityEngine;
+
 
 namespace Code.Infrastructure.DI
 {
@@ -31,6 +31,7 @@ namespace Code.Infrastructure.DI
         private List<Item> _items = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
+        private List<IProvider> _providers = new();
         
         private void Awake()
         {
@@ -50,6 +51,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _items); 
             InitList(ref _interactionObservers); 
             InitList(ref _mono);
+            InitList(ref _providers);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -82,6 +84,7 @@ namespace Code.Infrastructure.DI
         {
             return _uniWindowController;
         }
+        
         public T FindConfig<T>() where T : ScriptableObject
         {
             foreach (var scriptableObject in _configs)
@@ -104,10 +107,22 @@ namespace Code.Infrastructure.DI
                     return findService;
                 }
             }
-
             return default;
         }
 
+        
+        public T FindProvider<T>() where T : class
+        {
+            foreach (var provider in _providers)
+            {
+                if (provider is T findProvider)
+                {
+                    return findProvider;
+                }
+            }
+            return default;
+        }
+        
         public T FindStorage<T>() where T : IStorage 
         {
             foreach (var storage in _storages)

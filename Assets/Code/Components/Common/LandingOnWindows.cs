@@ -1,4 +1,6 @@
-﻿using Code.Infrastructure.GameLoop;
+﻿using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
+using Code.Providers;
 using Code.Utils;
 using UnityEngine;
 using uWindowCapture;
@@ -14,7 +16,7 @@ namespace Code.Components.Objects
         [Header("components")]
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
-        [SerializeField] private TransformDisplayColorGetter _colorAnalyzer;
+        private DisplayColor _colorAnalyzer;
         [Header("dynamic value")]
         [SerializeField] private Color32 _lastColor = Color.white;
 
@@ -25,6 +27,8 @@ namespace Code.Components.Objects
             {
                 return;
             }
+        
+            _colorAnalyzer = Container.Instance.FindProvider<DisplayColorProvider>().Get() as DisplayColor;
             SubscribeToEvents(true);
         }
 

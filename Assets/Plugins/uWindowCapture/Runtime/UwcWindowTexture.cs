@@ -225,24 +225,19 @@ public class UwcWindowTexture : MonoBehaviour
     private IEnumerator InitDesktopRoutine()
     {
         yield return new WaitUntil(() => window != null);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             UpdateTargetWindow();
             UpdateScale();
             if (window == null)
             {
-                Debug.Log("ops");
                 break;
             }
             if (Screen.mainWindowDisplayInfo.height == window.height && Screen.mainWindowDisplayInfo.width == window.width)
             {
-                Debug.Log("!");
-              
                 break;
             }
             desktopIndex++;
-            Debug.Log($"!!");
-           
         }
     }
 
@@ -380,7 +375,6 @@ public class UwcWindowTexture : MonoBehaviour
     {
         if (!shouldUpdateWindow)
         {
-            Debug.Log("!shouldUpdateWindow");
             return;
         }
 

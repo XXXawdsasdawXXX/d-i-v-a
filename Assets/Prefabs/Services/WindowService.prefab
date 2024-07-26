@@ -53,7 +53,7 @@ MonoBehaviour:
   _shouldFitMonitor: 0
   _allowDropFiles: 0
   isHitTestEnabled: 1
-  hitTestType: 1
+  hitTestType: 2
   opacityThreshold: 0.1
   autoSwitchCameraBackground: 1
   forceWindowed: 1
