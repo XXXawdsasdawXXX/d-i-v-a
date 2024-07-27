@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Objects.Editor
+namespace Code.Components.Common.Editor
 {
     [CustomEditor(typeof(PositionInitializer))]
     public class PositionInitializerEditor : UnityEditor.Editor

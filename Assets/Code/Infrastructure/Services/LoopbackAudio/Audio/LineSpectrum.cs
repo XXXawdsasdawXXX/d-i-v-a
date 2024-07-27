@@ -2,7 +2,7 @@
 using System.Linq;
 using CSCore.DSP;
 
-namespace Code.Services.LoopbackAudio.Audio
+namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
     internal class LineSpectrum : SpectrumBase
     {

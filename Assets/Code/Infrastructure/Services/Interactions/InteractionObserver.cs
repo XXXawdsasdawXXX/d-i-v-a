@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services.Interactions
 {
     public abstract class InteractionObserver
     {

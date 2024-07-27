@@ -1,11 +1,11 @@
 ﻿using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Providers;
+using Code.Infrastructure.Providers;
+using Code.Test;
 using Code.Utils;
 using UnityEngine;
-using uWindowCapture;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class LandingOnWindows : CommonComponent, IGameInitListener, IGameTickListener, IGameExitListener
     {

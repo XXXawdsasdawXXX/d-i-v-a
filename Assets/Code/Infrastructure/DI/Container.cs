@@ -8,7 +8,7 @@ using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
-using Code.Services;
+using Code.Infrastructure.Services.Interactions;
 using Code.Utils;
 using Kirurobo;
 using UnityEngine;

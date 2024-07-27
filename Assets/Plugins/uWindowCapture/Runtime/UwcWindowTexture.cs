@@ -219,7 +219,6 @@ public class UwcWindowTexture : MonoBehaviour
     private void Start()
     {
         StartCoroutine(InitDesktopRoutine());
-
     }
 
     private IEnumerator InitDesktopRoutine()

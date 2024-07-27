@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 
-namespace Code.Components.Character.LiveState
+namespace Code.Components.Characters
 {
     public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener, IGameExitListener
     {

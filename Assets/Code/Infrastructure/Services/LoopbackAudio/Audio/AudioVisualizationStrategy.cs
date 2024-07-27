@@ -1,4 +1,4 @@
-﻿namespace Code.Services.LoopbackAudio.Audio
+﻿namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
     public enum AudioVisualizationStrategy
     {

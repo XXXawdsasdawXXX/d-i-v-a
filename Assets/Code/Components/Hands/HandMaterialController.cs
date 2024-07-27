@@ -1,10 +1,10 @@
 ﻿using System;
-using Code.Components.Objects;
+using Code.Components.Common;
 using Code.Data.Configs;
 using Code.Data.Enums;
+using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
 using UnityEngine;
 
 namespace Code.Components.Hands

@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Components.Apples;
 using Code.Components.Items;
+using Code.Components.Items.Apples;
 using UnityEngine;
 
 namespace Code.Components.Characters

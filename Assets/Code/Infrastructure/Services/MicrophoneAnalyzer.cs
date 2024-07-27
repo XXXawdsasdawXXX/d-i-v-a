@@ -7,9 +7,9 @@ using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services
 {
-    public class MicrophoneAnalyzer : IService/*, IGameStartListener, IGameTickListener, IGameExitListener*/
+    public class MicrophoneAnalyzer : IService, IGameInitListener, IGameTickListener, IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;
 
@@ -26,7 +26,8 @@ namespace Code.Services
         public event Action MaxDecibelRecordedEvent;
         public event Action MinDecibelRecordedEvent;
 
-        public MicrophoneAnalyzer()
+   
+        public void GameInit()
         {
             if (Utils.Extensions.IsMacOs())
             {
@@ -35,19 +36,14 @@ namespace Code.Services
 
             _isInitialized = true;
             Debugging.Instance.Log($"MicrophoneAnalyzer: Construct", Debugging.Type.Micro);
-        }
-
-        public void GameStart()
-        {
-            if (!_isInitialized)
-            {
-                return;
-            }
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
             //todo проверка на ос
             InitMic();
             Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
+            
         }
+
+
 
         public void GameTick()
         {

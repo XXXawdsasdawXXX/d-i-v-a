@@ -2,7 +2,7 @@
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services
 {
     [Serializable]
     public class TickCounter : IToggle

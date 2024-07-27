@@ -1,5 +1,5 @@
-﻿using Code.Components.Character.LiveState;
-using Code.Components.Characters;
+﻿using Code.Components.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
@@ -7,7 +7,7 @@ using Code.Data.Storages;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 

@@ -3,7 +3,7 @@ using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class ItemHolder : CommonComponent, IGameTickListener
     {

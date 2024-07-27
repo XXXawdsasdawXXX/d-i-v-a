@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using Code.Components.Objects;
+using Code.Components.Common;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using Unity.VisualScripting;

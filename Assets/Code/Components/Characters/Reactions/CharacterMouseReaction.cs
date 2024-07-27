@@ -1,12 +1,11 @@
-﻿using Code.Components.Characters.Reactions;
-using Code.Data.Configs;
+﻿using Code.Data.Configs;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Characters
+namespace Code.Components.Characters.Reactions
 {
     public class CharacterMouseReaction : CharacterReaction ,IGameTickListener
     {

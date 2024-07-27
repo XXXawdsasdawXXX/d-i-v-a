@@ -180,17 +180,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a84ddb24f9768fd4bb9f11878a57f173, type: 3}
---- !u!114 &113907789 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1477577699072830000, guid: a84ddb24f9768fd4bb9f11878a57f173, type: 3}
-  m_PrefabInstance: {fileID: 113907788}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93bcf3d9beb41228d8e2987d907f4aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &227784491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -246,12 +235,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ---TEMP---
       objectReference: {fileID: 0}
-    - target: {fileID: 77189372522176666, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
-      propertyPath: _camera
-      value: 
-      objectReference: {fileID: 1440791506}
-    - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
-      propertyPath: _debugParams.Array.data[4].Active
+    - target: {fileID: 77189373177566367, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -331,10 +316,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3186278796947198985, guid: a2744401bf832e54081f231d4449a92d, type: 3}
-      propertyPath: _colorAnalyzer
-      value: 
-      objectReference: {fileID: 113907789}
     - target: {fileID: 6294422773507763098, guid: a2744401bf832e54081f231d4449a92d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -392,6 +373,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 157734354079673081, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1897250021500368448, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
       propertyPath: m_Name
       value: ---BASE---
@@ -442,11 +427,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
---- !u!20 &1440791506 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 157734354079672839, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
-  m_PrefabInstance: {fileID: 1330282921}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1752139577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,6 +437,10 @@ PrefabInstance:
     - target: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_Name
       value: IngameDebugConsole
+      objectReference: {fileID: 0}
+    - target: {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22426080, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x

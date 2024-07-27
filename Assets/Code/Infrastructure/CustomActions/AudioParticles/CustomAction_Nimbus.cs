@@ -3,9 +3,10 @@ using System.Linq;
 using Code.Components.Characters;
 using Code.Data.Enums;
 using Code.Data.Facades;
+using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 

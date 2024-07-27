@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class PhysicsDragAndDrop : ColliderDragAndDrop
     {

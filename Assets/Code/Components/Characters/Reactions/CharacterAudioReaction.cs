@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Components.Characters.AnimationReader.State;
-using Code.Components.Characters.Reactions;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
@@ -9,7 +8,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Characters
+namespace Code.Components.Characters.Reactions
 {
     public class CharacterAudioReaction : CharacterReaction, IGameExitListener
     {

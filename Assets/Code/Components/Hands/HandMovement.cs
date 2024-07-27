@@ -2,7 +2,7 @@
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
 
 namespace Code.Components.Hands

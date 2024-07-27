@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public abstract class CommonComponent : MonoBehaviour
     {

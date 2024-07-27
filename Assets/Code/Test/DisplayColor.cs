@@ -1,9 +1,10 @@
 ﻿using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
+using uWindowCapture;
 
-namespace uWindowCapture
+namespace Code.Test
 {
     public class DisplayColor : MonoBehaviour, IGameInitListener
     {

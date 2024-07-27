@@ -1,4 +1,4 @@
-namespace Code.Infrastructure.CustomActions
+namespace Code.Data.Enums
 {
     public enum CustomCutsceneActionType
     {

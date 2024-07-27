@@ -1,4 +1,4 @@
-﻿namespace Code.Infrastructure.BehaviorTree
+﻿namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public abstract class BaseNode_Root : BaseNode,IBehaviourCallback
     {

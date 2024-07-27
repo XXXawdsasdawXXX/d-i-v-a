@@ -3,12 +3,12 @@ using Code.Data.Interfaces;
 using Code.Data.StaticData;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Providers;
+using Code.Infrastructure.Providers;
 using Code.Utils;
 using UnityEngine;
 using UnityEngine.U2D;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services
 {
     public class PositionService : MonoBehaviour,IService, IGameInitListener
     {
@@ -20,7 +20,7 @@ namespace Code.Services
         public void GameInit()
         {
             _camera = Container.Instance.FindProvider<CameraProvider>().Get() as Camera;
-            _camera.TryGetComponent(out _perfectCamera);
+            _perfectCamera = Container.Instance.FindProvider<PixelPerfectProvider>().Get() as  PixelPerfectCamera;
         }
 
         public Vector3 GetPosition(PointAnchor pointAnchor, EntityBounds entityBounds = null)
@@ -57,7 +57,9 @@ namespace Code.Services
 
         private  Vector3 ScreenToWorld(Vector2 screenPoint)
         {
-            var worldPoint = _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint));
+            var worldPoint = _perfectCamera.enabled 
+                ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint)) 
+                : _camera.ScreenToWorldPoint(screenPoint);
             return new Vector3(worldPoint.x, worldPoint.y, 0);
         }
 

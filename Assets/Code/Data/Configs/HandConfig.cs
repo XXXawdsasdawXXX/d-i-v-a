@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Code.Data.StaticData;
+using Code.Data.Value;
 using UnityEngine;
 
 namespace Code.Data.Configs

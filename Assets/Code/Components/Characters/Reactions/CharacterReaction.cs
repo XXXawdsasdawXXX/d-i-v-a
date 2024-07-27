@@ -1,5 +1,5 @@
 ﻿using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
 
 namespace Code.Components.Characters.Reactions

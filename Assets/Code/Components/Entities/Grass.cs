@@ -1,4 +1,4 @@
-﻿using Code.Components.Items.Grass;
+﻿using Code.Components.Grass;
 using Code.Utils;
 using UnityEngine;
 

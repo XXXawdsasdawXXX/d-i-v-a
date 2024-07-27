@@ -12,7 +12,7 @@ using Code.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services
 {
     public class TimeObserver : IService, IGameInitListener, IGameTickListener, IProgressWriter
     {

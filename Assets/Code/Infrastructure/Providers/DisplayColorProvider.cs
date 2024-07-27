@@ -1,10 +1,10 @@
 ﻿using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
+using Code.Test;
 using Code.Utils;
 using UnityEngine;
-using uWindowCapture;
 
-namespace Code.Providers
+namespace Code.Infrastructure.Providers
 {
     public class DisplayColorProvider: MonoBehaviour, IProvider, IGameInitListener
     {

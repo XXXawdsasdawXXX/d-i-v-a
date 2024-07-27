@@ -1,6 +1,7 @@
-﻿using Code.Components.Character.LiveState;
-using Code.Components.Characters;
+﻿using Code.Components.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;

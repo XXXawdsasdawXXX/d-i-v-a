@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Code.Components.Entities;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Characters.Editor

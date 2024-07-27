@@ -1,5 +1,5 @@
 ﻿using Code.Data.Enums;
-using Code.Services.LoopbackAudio.Audio;
+using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles

@@ -1,30 +1,32 @@
 using Code.Infrastructure.GameLoop;
-using Code.Services;
 using UnityEngine;
 
-public class Interaction_WriteWorld : InteractionObserver,IGameInitListener ,IGameTickListener
+namespace Code.Infrastructure.Services.Interactions
 {
-    public enum InputWorlds
+    public class Interaction_WriteWorld : InteractionObserver,IGameInitListener ,IGameTickListener
     {
-        None,
-        Hello,
-        Hi,
-        Привет,
-        Yo,
-        Love,
-    }
-    public void GameInit()
-    {
-     
-    }
-
-    public void GameTick()
-    {
-        foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
+        public enum InputWorlds
         {
-            if (Input.GetKeyDown(kcode))
+            None,
+            Hello,
+            Hi,
+            Привет,
+            Yo,
+            Love,
+        }
+        public void GameInit()
+        {
+     
+        }
+
+        public void GameTick()
+        {
+            foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
             {
-                Debug.Log("Клавиша нажата: " + kcode);
+                if (Input.GetKeyDown(kcode))
+                {
+                    Debug.Log("Клавиша нажата: " + kcode);
+                }
             }
         }
     }

@@ -5,9 +5,8 @@ using Code.Data.Interfaces;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace Code.Services.LoopbackAudio.Audio
+namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
     public class LoopbackAudioService : MonoBehaviour, IService, IGameInitListener
     {

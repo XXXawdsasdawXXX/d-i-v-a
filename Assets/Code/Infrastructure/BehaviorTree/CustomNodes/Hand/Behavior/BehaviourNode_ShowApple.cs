@@ -1,11 +1,13 @@
-﻿using Code.Components.Apples;
+﻿using Code.Components.Common;
 using Code.Components.Hands;
 using Code.Components.Items;
-using Code.Components.Objects;
+using Code.Components.Items.Apples;
 using Code.Data.Configs;
+using Code.Data.Storages;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
 using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 

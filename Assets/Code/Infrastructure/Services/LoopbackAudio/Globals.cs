@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Services.LoopbackAudio
+namespace Code.Infrastructure.Services.LoopbackAudio
 {
     public static class Globals
     {

@@ -1,25 +1,29 @@
 using Code.Data.Configs;
+using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-public class AudioEventsService : MonoBehaviour, IService, IGameInitListener
+namespace Code.Infrastructure.Services
 {
-    [SerializeField] private AudioSource _audioSource;
-    private AudioConfig _config;
-
-    void IGameInitListener.GameInit()
+    public class AudioEventsService : MonoBehaviour, IService, IGameInitListener
     {
-        _config = Container.Instance.FindConfig<AudioConfig>();
-    }
+        [SerializeField] private AudioSource _audioSource;
+        private AudioConfig _config;
 
-    public void PlayAudio(AudioEventType type)
-    {
-        var audio = _config.GetRandomAudioEvent(type);
-        if(audio != null)
+        void IGameInitListener.GameInit()
         {
-            audio.Play(_audioSource);
+            _config = Container.Instance.FindConfig<AudioConfig>();
+        }
+
+        public void PlayAudio(AudioEventType type)
+        {
+            var audio = _config.GetRandomAudioEvent(type);
+            if(audio != null)
+            {
+                audio.Play(_audioSource);
+            }
         }
     }
 }

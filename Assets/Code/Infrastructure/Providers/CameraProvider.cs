@@ -2,7 +2,7 @@
 using Code.Data.Interfaces;
 using UnityEngine;
 
-namespace Code.Providers
+namespace Code.Infrastructure.Providers
 {
     public class CameraProvider : MonoBehaviour, IProvider
     {

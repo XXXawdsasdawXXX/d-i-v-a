@@ -6,7 +6,7 @@ using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using Unity.VisualScripting;
 using UnityEngine;
-using CoroutineRunner = Code.Services.CoroutineRunner;
+using CoroutineRunner = Code.Infrastructure.Services.CoroutineRunner;
 
 namespace Code.Components.Characters
 {

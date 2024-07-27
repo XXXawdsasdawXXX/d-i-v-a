@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections;
-using Code.Components.Items;
-using Code.Components.Objects;
+using Code.Components.Common;
 using Code.Data.Configs;
 using Code.Data.Storages;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Apples
+namespace Code.Components.Items.Apples
 {
     public class Apple : Item, IGameInitListener
     {

@@ -1,8 +1,7 @@
-﻿using Code.Components.Objects;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Characters.Editor
+namespace Code.Components.Common.Editor
 {
     [CustomEditor(typeof(MaterialController)),CanEditMultipleObjects]
     public class MaterialControllerEditor: UnityEditor.Editor

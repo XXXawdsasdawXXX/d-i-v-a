@@ -1,9 +1,9 @@
 ﻿using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.UI;
+using uWindowCapture;
 
-namespace uWindowCapture
+namespace Code.Test
 {
     public class MouseDisplayColorGetter : MonoBehaviour
     {

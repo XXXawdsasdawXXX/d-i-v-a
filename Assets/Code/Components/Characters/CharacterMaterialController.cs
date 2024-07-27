@@ -1,6 +1,6 @@
-﻿using Code.Components.Objects;
+﻿using Code.Components.Common;
 using Code.Infrastructure.GameLoop;
-using Code.Services.LoopbackAudio.Audio;
+using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
 using UnityEngine;
 

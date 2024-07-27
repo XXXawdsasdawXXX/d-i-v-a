@@ -1,15 +1,15 @@
 ﻿using Code.Components.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
-using Code.Data.Value.RangeFloat;
 using Code.Data.Value.RangeInt;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Items.Grass
+namespace Code.Components.Grass
 {
     public class GrassGrower : MonoBehaviour, IGameInitListener
     {

@@ -1,11 +1,12 @@
-using Code.Components.Character.LiveState;
 using Code.Components.Characters;
+using Code.Components.Common;
+using Code.Components.Entities;
 using Code.Components.Items;
-using Code.Components.Objects;
 using Code.Data.Enums;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
 using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -71,23 +72,20 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             if (flag)
             {
                 _collisionObserver.EnterEvent += StartReactionToObject;
-                //todo найти назначение подписки
-               // _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
+               
+               _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
             }
             else
             {
                 _collisionObserver.EnterEvent -= StartReactionToObject;
-               // _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
+               _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
             }
         }
 
         //todo найти назначение метода
         private void OnMaxDecibelRecordedEvent()
         {
-            // if (_node_ReactionToVoice.IsReady())
-            // {
-                RunNode(_node_ReactionToVoice);
-            //}
+            RunNode(_node_ReactionToVoice);
         }
 
         private void StartReactionToObject(GameObject obj)

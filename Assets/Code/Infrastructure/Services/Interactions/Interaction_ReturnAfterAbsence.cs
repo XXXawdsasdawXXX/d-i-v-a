@@ -2,8 +2,7 @@ using System;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-
-namespace Code.Services
+namespace Code.Infrastructure.Services.Interactions
 {
     public class Interaction_ReturnAfterAbsence : InteractionObserver, IGameTickListener
     {

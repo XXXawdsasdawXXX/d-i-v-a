@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Data.Enums;
 using Code.Infrastructure.CustomActions;
 
 namespace Code.Data.SavedData

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Components.Items.Grass
+namespace Code.Components.Grass
 {
     public class GrassAnimator : MonoBehaviour
     {

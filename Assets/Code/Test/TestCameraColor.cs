@@ -1,19 +1,23 @@
 ﻿using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Providers;
+using Code.Infrastructure.Providers;
 using UnityEngine;
 
 namespace Code.Test
 {
-    public class TestCameraColor : MonoBehaviour, IGameInitListener
+    public class TestCameraColor : MonoBehaviour
     {
         [SerializeField] private Color32 _cameraColor;
         private Camera _camera;
         
 #if UNITY_EDITOR
-        public void GameInit()
+        public void Start()
         {
-            var camera = Container.Instance.FindProvider<CameraProvider>().Get() as Camera;
+            _camera = Container.Instance.FindProvider<CameraProvider>().Get() as Camera;
+            if (_camera == null)
+            {
+                _camera = FindObjectOfType<Camera>();
+            }
             _camera.backgroundColor = _cameraColor;
         }
 #endif

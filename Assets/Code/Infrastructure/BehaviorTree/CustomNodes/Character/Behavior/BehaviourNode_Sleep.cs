@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using Code.Components.Character.LiveState;
 using Code.Components.Characters;
-using Code.Components.Objects;
+using Code.Components.Common;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
 using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -155,19 +156,19 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             {
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += WakeUp;
-                _sleepState.ChangedEvent += OnChangedSleepStateValue;
-               // _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
+                _sleepState.ChangedEvent += OnChangedSleepStateValue; 
+                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= WakeUp;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
-               // _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
+               _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
             }
         }
 
-        //todo найти приминение метода, почему он был закоментирован?
+    
         private void OnMaxDecibelRecorder()
         {
            RunNode(_subNode_reactionToVoice);

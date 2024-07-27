@@ -4,11 +4,11 @@ using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class ColliderDragAndDrop : CommonComponent, IGameInitListener,IGameTickListener, IToggle
     {

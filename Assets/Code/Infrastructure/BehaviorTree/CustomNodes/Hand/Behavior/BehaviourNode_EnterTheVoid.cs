@@ -1,8 +1,9 @@
 ﻿using Code.Components.Hands;
-using Code.Components.Objects;
 using Code.Data.Configs;
+using Code.Data.Storages;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 

@@ -1,14 +1,14 @@
-﻿using Code.Components.Character.LiveState;
-using Code.Components.Characters;
-using Code.Components.Objects;
+﻿using Code.Components.Characters;
+using Code.Components.Common;
+using Code.Components.Entities;
 using Code.Data.Enums;
-using Code.Data.Interfaces;
+using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services.Interactions
 {
     public class InteractionObserver_ClickSeries : InteractionObserver, IGameInitListener, IGameStartListener,IGameExitListener
     {

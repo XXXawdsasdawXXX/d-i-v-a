@@ -7,7 +7,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 
-namespace Code.Services
+namespace Code.Infrastructure.Services
 {
     public class LiveStateTimer : IService, IGameInitListener, IGameExitListener
     {

@@ -4,7 +4,7 @@ using CSCore.DSP;
 using CSCore.SoundIn;
 using CSCore.Streams;
 
-namespace Code.Services.LoopbackAudio.Audio
+namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
     public class RealtimeAudio
     {

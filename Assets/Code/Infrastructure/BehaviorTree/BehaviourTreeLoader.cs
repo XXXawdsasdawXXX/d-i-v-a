@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Code.Data.Interfaces;
+using Code.Data.SavedData;
 using Code.Infrastructure.Save;
 using UnityEngine;
 

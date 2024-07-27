@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using Code.Components.Characters;
 using Code.Components.Characters.Reactions;
-using Code.Components.Entities;
-using Code.Components.Objects;
+using Code.Components.Common;
 using UnityEngine;
 
-namespace Code.Components.Characters
+namespace Code.Components.Entities
 {
     public class DIVA : Entity
     {

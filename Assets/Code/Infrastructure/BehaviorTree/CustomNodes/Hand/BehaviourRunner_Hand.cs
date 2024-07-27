@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using Code.Data.Interfaces;
+using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
