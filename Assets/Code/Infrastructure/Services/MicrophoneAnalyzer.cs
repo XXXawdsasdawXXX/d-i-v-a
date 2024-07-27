@@ -9,13 +9,14 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
-    public class MicrophoneAnalyzer : IService, IGameInitListener, IGameTickListener, IGameExitListener
+    public class MicrophoneAnalyzer : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;
 
-        [Header("Stats")] private string _device;
-        private float _micLoudness;
-        private float _micDecibels;
+        [Header("Stats")] 
+        [SerializeField] private string _device;
+        [SerializeField] private float _micLoudness;
+        [SerializeField]  private float _micDecibels;
 
         private MicrophoneAnalyzerData _analyzerData;
         private AudioClip _clipRecord;
@@ -29,21 +30,18 @@ namespace Code.Infrastructure.Services
    
         public void GameInit()
         {
-            if (Utils.Extensions.IsMacOs())
+            if (Extensions.IsMacOs())
             {
                 return;
             }
-
             _isInitialized = true;
-            Debugging.Instance.Log($"MicrophoneAnalyzer: Construct", Debugging.Type.Micro);
-            _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
-            //todo проверка на ос
-            InitMic();
-            Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
             
+            _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
+
+            InitMic();
+            
+            Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
         }
-
-
 
         public void GameTick()
         {
@@ -64,7 +62,6 @@ namespace Code.Infrastructure.Services
             {
                 MaxDecibelRecordedEvent?.Invoke();
             }
-            //   Debugging.Instance.Log($"MicrophoneAnalyzer: GameTick {_micDecibels}", Debugging.Type.Micro);
         }
 
         public void GameExit()
