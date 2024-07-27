@@ -72,17 +72,16 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
             if (flag)
             {
                 _collisionObserver.EnterEvent += StartReactionToObject;
-               
-               _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
+                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
             }
             else
             {
                 _collisionObserver.EnterEvent -= StartReactionToObject;
-               _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
+                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
             }
         }
 
-        //todo найти назначение метода
+
         private void OnMaxDecibelRecordedEvent()
         {
             RunNode(_node_ReactionToVoice);

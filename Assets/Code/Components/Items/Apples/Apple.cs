@@ -20,7 +20,6 @@ namespace Code.Components.Items.Apples
         [SerializeField] private ColliderButton _colliderButton;
 
         [Header("Services")] 
-        private LiveStateStorage _liveStateStorage;
         private CoroutineRunner _coroutineRunner;
 
         [Header("Static value")] 
@@ -35,7 +34,6 @@ namespace Code.Components.Items.Apples
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
-            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter();
         }
@@ -81,14 +79,14 @@ namespace Code.Components.Items.Apples
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 Debugging.Instance.Log($"[Use] анимация закончена, начисляются значения", Debugging.Type.Apple);
-                _liveStateStorage.AddPercentageValues(GetLiveStateValues());
+            
                 OnEnd?.Invoke();
                 UseEvent?.Invoke(this);
                 Reset();
             });
         }
 
-        private LiveStatePercentageValue[] GetLiveStateValues()
+        public LiveStatePercentageValue[] GetPercentageValues()
         {
             return  _currentStage < _appleConfig.AppleValues.Length ? _appleConfig.AppleValues[_currentStage].Values : null;
         }
@@ -100,7 +98,6 @@ namespace Code.Components.Items.Apples
                 return;
             }
             DieEvent?.Invoke();
-            _liveStateStorage.AddPercentageValue(_appleConfig.DieAppleEffect);
             Debugging.Instance.Log($"[Die]", Debugging.Type.Apple);
             Reset();
         }
