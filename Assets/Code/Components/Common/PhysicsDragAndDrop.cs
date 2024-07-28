@@ -43,14 +43,14 @@ namespace Code.Components.Common
             SetPhysicsActive(true);
         }
 
-        protected override void OnPressDown(Vector2 obj)
+        protected override void OnDown(Vector2 obj)
         {
             if (!_isActive)
             {
                 return;
             }
             SetPhysicsActive(false);
-            base.OnPressDown(obj);
+            base.OnDown(obj);
         }
 
         protected override void OnPressUp(Vector2 arg1, float arg2)

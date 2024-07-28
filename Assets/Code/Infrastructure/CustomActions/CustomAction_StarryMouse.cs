@@ -51,7 +51,6 @@ namespace Code.Infrastructure.CustomActions
             }
             
             _isNotUsed = true;
-            
         }
 
         public void GameStart()

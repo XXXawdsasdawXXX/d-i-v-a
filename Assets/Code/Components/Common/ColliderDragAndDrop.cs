@@ -16,6 +16,7 @@ namespace Code.Components.Common
         [SerializeField] protected bool _isActive;
         [SerializeField] private Vector2 _offset;
         [SerializeField] protected ColliderButton _colliderButton;
+        private Vector2 _boarder;
 
         [Header("Services")]
         private PositionService _positionService;
@@ -24,11 +25,13 @@ namespace Code.Components.Common
         [Header("Dynamic values")] 
         private Coroutine _coroutine;
         private bool _isDragging;
+        private Vector3 _target;
         
         public void GameInit()
         {
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>(); 
             _positionService = Container.Instance.FindService<PositionService>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _boarder = (Vector2)_positionService.GetPosition(PointAnchor.LowerRight);
             
             Init();
             
@@ -39,8 +42,9 @@ namespace Code.Components.Common
         {
             if (_isActive && _isDragging && _colliderButton.IsPressed)
             {
-                Move();
-            }
+                SetTarget();
+                transform.position = Vector3.Lerp(transform.position,_target,15 * Time.deltaTime);
+            }   
         }
 
         #region Unique methods
@@ -62,10 +66,19 @@ namespace Code.Components.Common
             
         }
 
-        protected virtual void Move()
+        protected virtual void SetTarget()
         {
             Vector3 pos = _positionService.GetMouseWorldPosition();
-            transform.position = pos + _offset.AsVector3();
+            var targetPosition =  pos + _offset.AsVector3();
+
+            bool isCorrectPosition = targetPosition.y > _boarder.y
+                                     && targetPosition.x < _boarder.x
+                                     && targetPosition.x > -_boarder.x;
+
+            if (isCorrectPosition)
+            {
+                _target = targetPosition;
+            }
         }
 
         #endregion
@@ -75,12 +88,12 @@ namespace Code.Components.Common
         {
             if (flag)
             {
-                _colliderButton.DownEvent += OnPressDown;
+                _colliderButton.DownEvent += OnDown;
                 _colliderButton.UpEvent += OnPressUp;
             }
             else
             {
-                _colliderButton.DownEvent -= OnPressDown;
+                _colliderButton.DownEvent -= OnDown;
                 _colliderButton.UpEvent -= OnPressUp;
             }
         }
@@ -88,33 +101,34 @@ namespace Code.Components.Common
         protected virtual void OnPressUp(Vector2 arg1, float arg2)
         {
             _isDragging = false;
-            MoveUp();
+            OnUp();
         }
 
-        protected virtual void OnPressDown(Vector2 obj)
+        protected virtual void OnDown(Vector2 obj)
         {
             Vector3 clickPosition = _positionService.GetMouseWorldPosition();
+
             _offset = transform.position - clickPosition;
-            
             
             if (_coroutine != null)
             {
                 _coroutineRunner.StopRoutine(_coroutine);
             }
+            
             _isDragging = true;
         }
 
 
-        private void MoveUp()
+        private void OnUp()
         { 
             _coroutine = _coroutineRunner.StartRoutine(MoveUpRoutine());
         }
         
         private IEnumerator MoveUpRoutine()
         {
-            var lowerPosition = _positionService.GetPosition(PointAnchor.LowerCenter);
             var period = new WaitForEndOfFrame();
-            while (transform.position.y < lowerPosition.y)
+            
+            while (transform.position.y < _boarder.y)
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
                 yield return period;
