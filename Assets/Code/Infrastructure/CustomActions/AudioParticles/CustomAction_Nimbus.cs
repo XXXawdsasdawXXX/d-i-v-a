@@ -133,12 +133,12 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             if (flag)
             {
-                _interactionStorage.SwitchDominationTypeEvent += OnSwitchInteractionDominationType;
+                _interactionStorage.OnSwitchDominationTypeEvent += OnSwitchInteractionDominationType;
                 _animationAnalytic.SwitchModeEvent += OnSwitchAnimationMode;
             }
             else
             {
-                _interactionStorage.SwitchDominationTypeEvent -= OnSwitchInteractionDominationType;
+                _interactionStorage.OnSwitchDominationTypeEvent -= OnSwitchInteractionDominationType;
                 _animationAnalytic.SwitchModeEvent -= OnSwitchAnimationMode;
             }
         }

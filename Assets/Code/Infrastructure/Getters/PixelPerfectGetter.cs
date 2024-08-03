@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Providers
 {
-    public class PixelPerfectProvider: MonoBehaviour, IProvider, IGameInitListener
+    public class PixelPerfectGetter: MonoBehaviour, IGetter, IGameInitListener
     {
         [SerializeField] private PixelPerfectCamera _pixelPerfect;
         public void GameInit()

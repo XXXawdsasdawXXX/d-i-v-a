@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
+    //todo убрать monobehavior
     public class MicrophoneAnalyzer : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Providers
 {
-    public class CameraProvider : MonoBehaviour, IProvider
+    public class CameraGetter : MonoBehaviour, IGetter
     {
         [SerializeField] private Camera _camera;
 

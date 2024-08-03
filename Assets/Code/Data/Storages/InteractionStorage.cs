@@ -14,18 +14,14 @@ namespace Code.Data.Storages
     {
         private Dictionary<InteractionType, int> _interactions;
         private InteractionType _currentDominationType;
+        public event Action<InteractionType> OnSwitchDominationTypeEvent;
+        public event Action<InteractionType, float> OnAdd;  
 
-        public event Action<InteractionType> SwitchDominationTypeEvent;
-        
         public int GetSum()
         {
             return _interactions.Sum(interaction => interaction.Value);
         }
-        public void Add(InteractionDynamicData interactionData)
-        {
-           Add(interactionData.СlassificationType,interactionData.Value);
-        }
-        
+
         public void Add(InteractionType type, int value = 1)
         {
             if (_interactions.ContainsKey(type))
@@ -34,7 +30,7 @@ namespace Code.Data.Storages
                 if (_currentDominationType != GetDominantInteractionType())
                 {
                     _currentDominationType = GetDominantInteractionType();
-                    SwitchDominationTypeEvent?.Invoke(_currentDominationType);
+                    OnSwitchDominationTypeEvent?.Invoke(_currentDominationType);
                 }
             }
             else
@@ -42,6 +38,7 @@ namespace Code.Data.Storages
                 _interactions.Add(type,value);
             }
             
+            OnAdd?.Invoke(type, value);
             Debugging.Instance.Log($"[storage] add {type} {_interactions[type]}",Debugging.Type.Interaction);
         }
         
@@ -49,8 +46,9 @@ namespace Code.Data.Storages
         {
             _interactions = playerProgress.Interactions;
             _currentDominationType = GetDominantInteractionType();
-            SwitchDominationTypeEvent?.Invoke(_currentDominationType);
+            OnSwitchDominationTypeEvent?.Invoke(_currentDominationType);
         }
+        
         public void UpdateProgress(PlayerProgressData playerProgress)
         {
             playerProgress.Interactions = _interactions;

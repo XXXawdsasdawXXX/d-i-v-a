@@ -31,7 +31,7 @@ namespace Code.Infrastructure.DI
         private List<Item> _items = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
-        private List<IProvider> _providers = new();
+        private List<IGetter> _getters = new();
         
         private void Awake()
         {
@@ -51,7 +51,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _items); 
             InitList(ref _interactionObservers); 
             InitList(ref _mono);
-            InitList(ref _providers);
+            InitList(ref _getters);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -111,13 +111,13 @@ namespace Code.Infrastructure.DI
         }
 
         
-        public T FindProvider<T>() where T : class
+        public T FindGetter<T>() where T : class
         {
-            foreach (var provider in _providers)
+            foreach (var getter in _getters)
             {
-                if (provider is T findProvider)
+                if (getter is T findGetter)
                 {
-                    return findProvider;
+                    return findGetter;
                 }
             }
             return default;

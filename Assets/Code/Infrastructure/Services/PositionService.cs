@@ -19,8 +19,8 @@ namespace Code.Infrastructure.Services
 
         public void GameInit()
         {
-            _camera = Container.Instance.FindProvider<CameraProvider>().Get() as Camera;
-            _perfectCamera = Container.Instance.FindProvider<PixelPerfectProvider>().Get() as  PixelPerfectCamera;
+            _camera = Container.Instance.FindGetter<CameraGetter>().Get() as Camera;
+            _perfectCamera = Container.Instance.FindGetter<PixelPerfectGetter>().Get() as  PixelPerfectCamera;
         }
 
         public Vector3 GetPosition(PointAnchor pointAnchor, EntityBounds entityBounds = null)

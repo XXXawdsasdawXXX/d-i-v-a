@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Providers
 {
-    public class DisplayColorProvider: MonoBehaviour, IProvider, IGameInitListener
+    public class DisplayColorGetter: MonoBehaviour, IGetter, IGameInitListener
     {
         [SerializeField] private DisplayColor _displayColor;
 

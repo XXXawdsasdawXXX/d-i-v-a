@@ -2,7 +2,7 @@
 
 namespace Code.Data.Interfaces
 {
-    public interface IProvider
+    public interface IGetter
     {
         object Get();
     }

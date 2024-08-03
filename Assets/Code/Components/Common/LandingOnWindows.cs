@@ -28,7 +28,7 @@ namespace Code.Components.Common
                 return;
             }
         
-            _colorAnalyzer = Container.Instance.FindProvider<DisplayColorProvider>().Get() as DisplayColor;
+            _colorAnalyzer = Container.Instance.FindGetter<DisplayColorGetter>().Get() as DisplayColor;
             SubscribeToEvents(true);
         }
 
