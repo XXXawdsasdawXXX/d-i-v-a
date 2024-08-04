@@ -14,6 +14,7 @@ namespace Code.Infrastructure.Services
     {
         [SerializeField] private RectTransform _canvas;
 
+        private Vector2 _offset = new(75,75); 
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 
@@ -46,7 +47,7 @@ namespace Code.Infrastructure.Services
 
         private Vector2 GetScreenSize()
         {
-            return _canvas.sizeDelta;
+            return _canvas.sizeDelta - _offset;
         }
 
         public  Vector3 GetMouseWorldPosition()
