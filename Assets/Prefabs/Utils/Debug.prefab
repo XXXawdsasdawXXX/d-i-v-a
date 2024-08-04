@@ -100,6 +100,9 @@ MonoBehaviour:
   - Type: 18
     Active: 0
     Color: {r: 0.26258454, g: 0.23137254, b: 1, a: 1}
+  - Type: 19
+    Active: 1
+    Color: {r: 1, g: 0.64764583, b: 0.23137254, a: 1}
 --- !u!114 &5377439444576147685
 MonoBehaviour:
   m_ObjectHideFlags: 0

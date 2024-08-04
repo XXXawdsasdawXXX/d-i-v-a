@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class InteractionObserver_ClickSeries : InteractionObserver, IGameInitListener,IGameExitListener
+    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IGameInitListener,IGameExitListener
     {
         [Header("Observer components")] 
         private ColliderButton _characterCollisionButton;
@@ -19,7 +19,7 @@ namespace Code.Infrastructure.Services.Interactions
         [Header("Static data")] 
         private InteractionStorage _interactionStorage;
 
-        public InteractionObserver_ClickSeries()
+        public InteractionObserver_ClickOnCharacter()
         {
             Debugging.Instance.Log($"construct click series",Debugging.Type.Interaction);
         }

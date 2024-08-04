@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_WriteWorld : InteractionObserver,IGameInitListener ,IGameTickListener
+    public class Interaction_KeyDown : InteractionObserver,IGameInitListener ,IGameTickListener
     {
         public enum InputWorlds
         {
@@ -14,6 +14,7 @@ namespace Code.Infrastructure.Services.Interactions
             Yo,
             Love,
         }
+        
         public void GameInit()
         {
      

@@ -431,20 +431,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 1878030412303906767}
+  _landingOnWindows: {fileID: 1878030412303906768}
   _animationModeObserver: {fileID: 7024979021285652677}
   _sizeParams:
   - AnimationMode: 1
     ColliderSize: {x: 0.3, y: 1.6}
     EatPoint: {x: 0, y: 1.06}
     HeadPoint: {x: 0, y: 1.55}
+    LegPoint: {x: 0, y: 0}
   - AnimationMode: 2
     ColliderSize: {x: 0.3, y: 0.7}
     EatPoint: {x: 0.01, y: 0.18}
     HeadPoint: {x: 0, y: 0.5}
+    LegPoint: {x: 0, y: -0.15}
   - AnimationMode: 3
     ColliderSize: {x: 0.9, y: 0.3}
     EatPoint: {x: 0, y: 0}
     HeadPoint: {x: -0.3, y: 0}
+    LegPoint: {x: 0, y: -0.15}
 --- !u!114 &1878030412303906766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +610,6 @@ MonoBehaviour:
   _offset: {x: 0, y: 0}
   _rigidbody2D: {fileID: 1878030412303906770}
   _colliderButton: {fileID: 1878030412303906765}
-  _colorAnalyzer: {fileID: 0}
   _lastColor:
     serializedVersion: 2
     rgba: 4278190335

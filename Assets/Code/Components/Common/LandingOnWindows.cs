@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.DI;
+﻿using System;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Providers;
 using Code.Test;
@@ -40,11 +41,24 @@ namespace Code.Components.Common
                 return;
             }
             
-            if (IsDifferentColorDetected() && _rigidbody2D.bodyType != RigidbodyType2D.Kinematic)
+            if (IsDifferentColorDetected())
             {
-                _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-                _rigidbody2D.velocity = Vector2.zero;
-                _lastColor = _colorAnalyzer.GetColor(transform.position);
+                var otherColor = _colorAnalyzer.GetColor(transform.position + _offset.AsVector3());
+                var current = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>current</color>";
+                var other = $"<color=#{ColorUtility.ToHtmlStringRGBA(otherColor)}>other</color>";
+                Debugging.Instance.Log(this,$"Find other color {current} vs {other} " +
+                                            $"is dynamic {_rigidbody2D.bodyType == RigidbodyType2D.Dynamic}", Debugging.Type.Window);
+                
+                if (_rigidbody2D.bodyType == RigidbodyType2D.Dynamic)
+                {
+                    _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                    _rigidbody2D.velocity = Vector2.zero;
+                }
+                else if(_rigidbody2D.bodyType == RigidbodyType2D.Kinematic)
+                {
+                    _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                }
+                _lastColor = otherColor;
             }
         }
 
@@ -57,11 +71,15 @@ namespace Code.Components.Common
             SubscribeToEvents(false);
         }
 
+        public void SetOffset(Vector2 offset)
+        {
+            _offset = offset;
+        }
+
         private bool IsDifferentColorDetected()
         {
             return !_lastColor.Equal(_colorAnalyzer.GetColor(transform.position + _offset.AsVector3()), _sensitivity);
         }
-
 
         private void SubscribeToEvents(bool flag)
         {
@@ -78,6 +96,12 @@ namespace Code.Components.Common
         private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
         {
             _lastColor = _colorAnalyzer.GetColor(transform.position + _offset.AsVector3());
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(transform.position + _offset.AsVector3(), 0.05f);
         }
     }
 }

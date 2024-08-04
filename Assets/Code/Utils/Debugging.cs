@@ -29,7 +29,8 @@ namespace Code.Utils
             CustomAction,
             Interaction,
             Hand,
-            Items
+            Items,
+            Window
         }
 
         [Serializable]
