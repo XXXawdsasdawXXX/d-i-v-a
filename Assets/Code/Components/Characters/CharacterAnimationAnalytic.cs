@@ -12,8 +12,7 @@ namespace Code.Components.Characters
         [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
 
         public event Action<CharacterAnimationMode> SwitchModeEvent;
-
-
+        
         public void GameInit()
         {
             SubscribeToEvents(true);

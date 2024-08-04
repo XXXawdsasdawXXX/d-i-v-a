@@ -1,8 +1,11 @@
-﻿using Code.Components.Common;
+﻿using Code.Components.Characters;
+using Code.Components.Common;
+using Code.Components.Entities;
 using Code.Components.Hands;
 using Code.Components.Items;
 using Code.Components.Items.Apples;
 using Code.Data.Configs;
+using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
@@ -15,6 +18,9 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 {
     public class BehaviourNode_ShowApple : BaseNode
     {
+        [Header("D I V A")] 
+        private readonly CharacterAnimationAnalytic _animationAnalytic;
+
         [Header("Apple")] 
         private readonly Apple _apple;
         private readonly ColliderButton _appleButton;
@@ -43,6 +49,10 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
 
         public BehaviourNode_ShowApple()
         {
+            //d i v a
+            var diva = Container.Instance.FindEntity<DIVA>();
+            _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            
             //enitities
             _apple = Container.Instance.FindItem<Apple>();
             _appleButton = _apple.FindCommonComponent<ColliderButton>();
@@ -99,6 +109,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         {
             return _isExpectedStart
                    && _tickCounter_cooldown.IsExpectedStart
+                   && _animationAnalytic.GetAnimationMode() != CharacterAnimationMode.Sleep
                    && !_characterCondition.IsCanSleep(sleepStatePercent: 0.6f);
         }
 
