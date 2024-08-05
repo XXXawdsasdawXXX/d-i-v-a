@@ -24,7 +24,10 @@ namespace Code.Infrastructure.Services
         
         public void StopRoutine(Coroutine coroutine)
         {
-            StopCoroutine(coroutine);
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
         }
         
         public void GameExit()

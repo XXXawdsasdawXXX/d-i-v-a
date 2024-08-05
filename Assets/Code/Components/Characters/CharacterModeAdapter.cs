@@ -16,6 +16,7 @@ namespace Code.Components.Characters
         [Header("Sizes")] 
         [SerializeField] private ModeParam[] _sizeParams;
 
+
         private void OnEnable()
         {
             SubscribeToEvents();
@@ -50,14 +51,25 @@ namespace Code.Components.Characters
             return transform.position;
         }
 
+        public float GetHeatDistance(CharacterAnimationMode a, CharacterAnimationMode b)
+        {
+            var paramA = _sizeParams.FirstOrDefault(p => p.AnimationMode == a);
+            Vector3 pointA = transform.TransformPoint( paramA.HeadPoint);;
+       
+            var paramB = _sizeParams.FirstOrDefault(p => p.AnimationMode == b);
+            Vector3 pointB = transform.TransformPoint( paramB.HeadPoint);;
+
+            return Vector3.Distance(pointA, pointB);
+        }
+        
         private void SubscribeToEvents()
         {
-             _animationModeObserver.ModeEnteredEvent += OnModeEnteredEvent;   
+             _animationModeObserver.OnModeEntered += OnModeEnteredEvent;   
         }
 
         private void UnsubscribeToEvents()
         {
-            _animationModeObserver.ModeEnteredEvent -= OnModeEnteredEvent;
+            _animationModeObserver.OnModeEntered -= OnModeEnteredEvent;
         }
 
         private void OnModeEnteredEvent(CharacterAnimationMode mode)
@@ -72,6 +84,7 @@ namespace Code.Components.Characters
             }
         }
 
+        
         [Serializable]
         private class ModeParam
         {

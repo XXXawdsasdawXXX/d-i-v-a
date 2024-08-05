@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Code.Data.Facades;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
@@ -11,26 +10,13 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class AudioParticleModule : MonoBehaviour, IGameInitListener, IGameTickListener
+    public class AudioParticleModule : MonoBehaviour, IGameInitListener, IGameTickListener, IGameStartListener
     {
         private enum LoopBackAudioParamType
         {
             None,
             ScaledMax,
             ScaledEnergy
-        }
-
-        private enum ParticleParamType
-        {
-            None,
-            SizeMultiplier,
-            TrailWidthOverTrail,
-            VelocitySpeed,
-            NoiseSize,
-            TrailLiveTime,
-            TrailGradient,
-            ColorLiveTime,
-            LiveTime
         }
 
         [Header("Base")] 
@@ -45,9 +31,12 @@ namespace Code.Test
         [Header("Services")] 
         private LoopbackAudioService _loopbackAudioService;
 
-        [Header("Dinamic value")] 
+        [Header("Dynamic data")] 
         [SerializeField] private bool _isUsed;
         [SerializeField] private bool _isActive;
+        [SerializeField] private float _disableSpeed = 1;
+       
+        private float _enabledTime;
 
         [Serializable]
         private class Data
@@ -55,7 +44,7 @@ namespace Code.Test
             public ParticleParamType ParticleParam;
             public LoopBackAudioParamType AudioParam;
             public float Multiplier = 1;
-            [MinMaxRangeFloat(0,50)] public RangedFloat Range;
+            [MinMaxRangeFloat(0, 50)] public RangedFloat Range;
         }
 
         public void GameInit()
@@ -65,38 +54,79 @@ namespace Code.Test
                 _isUsed = false;
                 return;
             }
-
+            
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
 
-        public void GameTick()
+        public void GameStart()
         {
-            if (!_isUsed || !_isActive)
-            {
-                return;
-            }
-
-
             foreach (var effect in _effectsData)
             {
-                Refresh(effect);
+                SetMinValues(effect);
             }
         }
 
-        private void Refresh(Data effect)
+        public void GameTick()
         {
             if (!_isUsed)
             {
                 return;
             }
 
+            _enabledTime += Time.deltaTime;
+            foreach (var effect in _effectsData)
+            {
+                Refresh(effect);
+            }
+        }
+
+        public bool IsSleep()
+        {
+            foreach (var effect in _effectsData)
+            {
+                var value = _particleSystem.GetValue(effect.ParticleParam);
+                if (value > effect.Range.MinValue)
+                {
+                    Debugging.Instance.Log($"{_particleSystem.Type} sleep -> {effect.ParticleParam}", Debugging.Type.VFX);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public virtual void On()
+        {
+            if (!_isUsed)
+            {
+                return;
+            }
+
+            _isActive = true;
+            _enabledTime = 0;
+            Debugging.Instance.Log($"On {_particleSystem.Type}", Debugging.Type.VFX);
+        }
+
+        public virtual void Off()
+        {
+            if (!_isUsed)
+            {
+                return;
+            }
+
+            _isActive = false;
+            Debugging.Instance.Log($"Off {_particleSystem.Type}", Debugging.Type.VFX);
+        }
+
+        private void Refresh(Data effect)
+        {
             switch (effect.ParticleParam)
             {
                 case ParticleParamType.None:
                 default:
                     break;
                 case ParticleParamType.SizeMultiplier:
-                    _particleSystem.SetSizeMultiplier(GetValue(effect));
+                    _particleSystem.SetMainStartSizeMultiplier(GetValue(effect));
                     break;
                 case ParticleParamType.TrailWidthOverTrail:
                     _particleSystem.SetTrailWidthOverTrail(GetValue(effect));
@@ -117,65 +147,45 @@ namespace Code.Test
                     _particleSystem.SetLifetimeColor(GetValue(effect), _gradient);
                     break;
                 case ParticleParamType.LiveTime:
-                    _particleSystem.SetLifetime(GetValue(effect));
+                    _particleSystem.SetMainLifetime(GetValue(effect));
                     break;
             }
         }
 
-        public virtual void On()
+        private void SetMinValues(Data effect)
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-
-            _isActive = true;
-        }
-
-        public virtual void Off()
-        {
-            if (!_isUsed)
-            {
-                return;
-            }
-
-            _isActive = false;
-            foreach (var effect in _effectsData)
-            {
-                Reset(effect);
-            }
-        }
-
-        private void Reset(Data effect)
-        {
-            if (!_isUsed)
-            {
-                return;
-            }
-
             switch (effect.ParticleParam)
             {
                 case ParticleParamType.None:
                 default:
                     break;
                 case ParticleParamType.SizeMultiplier:
-                    _particleSystem.SetSizeMultiplier(0);
+                    _particleSystem.SetMainStartSizeMultiplier(effect.Range.MinValue);
                     break;
                 case ParticleParamType.TrailWidthOverTrail:
-                    _particleSystem.SetTrailWidthOverTrail(0);
+                    _particleSystem.SetTrailWidthOverTrail(effect.Range.MinValue);
+                    break;
+                case ParticleParamType.VelocitySpeed:
+                    _particleSystem.SetVelocitySpeed(effect.Range.MinValue);
                     break;
                 case ParticleParamType.NoiseSize:
-                    _particleSystem.SetNoiseSize(0);
+                    _particleSystem.SetNoiseSize(effect.Range.MinValue);
                     break;
                 case ParticleParamType.TrailLiveTime:
-                    _particleSystem.SetTrailsLifetimeMultiplier(0);
+                    _particleSystem.SetTrailsLifetimeMultiplier(effect.Range.MinValue);
+                    break;
+                case ParticleParamType.TrailGradient:
+                    _particleSystem.SetTrailsGradientValue(effect.Range.MinValue, _gradient);
+                    break;
+                case ParticleParamType.ColorLiveTime:
+                    _particleSystem.SetLifetimeColor(effect.Range.MinValue, _gradient);
                     break;
                 case ParticleParamType.LiveTime:
-                    _particleSystem.SetLifetime(0);
+                    _particleSystem.SetMainLifetime(effect.Range.MinValue);
                     break;
             }
-        }
 
+        }
 
         private float GetValue(Data effect)
         {
@@ -184,47 +194,41 @@ namespace Code.Test
                 return 0;
             }
 
-            float value;
+            var currentValue = _particleSystem.GetValue(effect.ParticleParam);
+            float targetValue;
+    
             switch (effect.AudioParam)
             {
                 case LoopBackAudioParamType.None:
                 default:
-                    value = 0;
+                    targetValue = 0;
                     break;
                 case LoopBackAudioParamType.ScaledMax:
-                    value = _loopbackAudioService.PostScaledMax;
+                    targetValue = _loopbackAudioService.PostScaledMax;
                     break;
                 case LoopBackAudioParamType.ScaledEnergy:
-                    value = _loopbackAudioService.PostScaledEnergy;
+                    targetValue = _loopbackAudioService.PostScaledEnergy;
                     break;
             }
-
-            return Mathf.Clamp(value * effect.Multiplier, effect.Range.MinValue, effect.Range.MaxValue);
-        }
-
-        private float GetValue(LoopBackAudioParamType effectAudioParam, float effectMultiplier)
-        {
-            if (!_isUsed)
+    
+            if (_isActive)
             {
-                return 0;
+                targetValue = Mathf.Clamp(targetValue * effect.Multiplier, effect.Range.MinValue, effect.Range.MaxValue);
+                targetValue = Mathf.MoveTowards(currentValue, targetValue, _enabledTime * Time.deltaTime);
             }
-
-            float value;
-            switch (effectAudioParam)
+            else
             {
-                case LoopBackAudioParamType.None:
-                default:
-                    value = 0;
-                    break;
-                case LoopBackAudioParamType.ScaledMax:
-                    value = _loopbackAudioService.PostScaledMax;
-                    break;
-                case LoopBackAudioParamType.ScaledEnergy:
-                    value = _loopbackAudioService.PostScaledEnergy;
-                    break;
+                if (currentValue > effect.Range.MinValue)
+                {
+                    targetValue = Mathf.MoveTowards(currentValue, effect.Range.MinValue, _disableSpeed * Time.deltaTime);
+                    return targetValue;
+                }
+                else
+                {
+                    targetValue = effect.Range.MinValue;
+                }
             }
-
-            return value * effectMultiplier;
+            return targetValue;
         }
     }
 }

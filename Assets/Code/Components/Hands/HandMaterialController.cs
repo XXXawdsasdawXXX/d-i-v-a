@@ -35,11 +35,11 @@ namespace Code.Components.Hands
         {
             if (flag)
             {
-                _interactionStorage.OnSwitchDominationTypeEvent += InteractionStorageOnSwitchDominationTypeEvent;
+                _interactionStorage.OnSwitchDominationType += InteractionStorageOnSwitchDominationTypeEvent;
             }
             else
             {
-                _interactionStorage.OnSwitchDominationTypeEvent -= InteractionStorageOnSwitchDominationTypeEvent;
+                _interactionStorage.OnSwitchDominationType -= InteractionStorageOnSwitchDominationTypeEvent;
             }
         }
 

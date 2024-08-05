@@ -442,7 +442,7 @@ MonoBehaviour:
   - AnimationMode: 2
     ColliderSize: {x: 0.3, y: 0.7}
     EatPoint: {x: 0.01, y: 0.18}
-    HeadPoint: {x: 0, y: 0.5}
+    HeadPoint: {x: 0, y: 0.6}
     LegPoint: {x: 0, y: -0.15}
   - AnimationMode: 3
     ColliderSize: {x: 0.9, y: 0.3}

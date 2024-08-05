@@ -37,12 +37,12 @@ namespace Code.Components.Grass
         {
             if (flag)
             {
-                _characterAnimator.ModeEnteredEvent += OnCharacterSwitchAnimationMode;
+                _characterAnimator.OnModeEntered += OnCharacterSwitchAnimationMode;
                 _tickCounter.WaitedEvent += OnWaitedTickCounter;
             }
             else
             {
-                _characterAnimator.ModeEnteredEvent -= OnCharacterSwitchAnimationMode;
+                _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimationMode;
                 _tickCounter.WaitedEvent -= OnWaitedTickCounter;
             }
         }

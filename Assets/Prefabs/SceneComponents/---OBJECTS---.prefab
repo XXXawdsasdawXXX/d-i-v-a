@@ -105,14 +105,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6294422773507763098}
     m_Modifications:
-    - target: {fileID: 1878030412303906768, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: _colorAnalyzer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4359766694140986590, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652672, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_Name
       value: d i v a
@@ -160,14 +152,6 @@ PrefabInstance:
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7024979022035233826, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: _loopbackAudioService
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766607813122606075, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}

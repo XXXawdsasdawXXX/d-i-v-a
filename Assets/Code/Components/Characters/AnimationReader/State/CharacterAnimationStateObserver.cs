@@ -20,21 +20,21 @@ namespace Code.Components.Characters.AnimationReader.State
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         private readonly int _reaction_Mouse_Hash = Animator.StringToHash("ReactionMouse");
 
-        public event Action<CharacterAnimationState> StateEnteredEvent;
-        public event Action<CharacterAnimationState> StateExitedEvent;
+        public event Action<CharacterAnimationState> OnStateEntered;
+        public event Action<CharacterAnimationState> OnStateExited;
 
 
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
-            StateEnteredEvent?.Invoke(State);
+            OnStateEntered?.Invoke(State);
             Debugging.Instance?.Log($"Animation entered state: {State}", Debugging.Type.AnimationState);
         }
 
         public void ExitedState(int stateHash)
         {
             var state = StateFor(stateHash);
-            StateExitedEvent?.Invoke(StateFor(stateHash));
+            OnStateExited?.Invoke(StateFor(stateHash));
             Debugging.Instance?.Log($"Animation exited state: {State}", Debugging.Type.AnimationState);
         }
 

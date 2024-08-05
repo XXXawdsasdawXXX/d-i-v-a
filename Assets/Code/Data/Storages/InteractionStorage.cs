@@ -14,7 +14,7 @@ namespace Code.Data.Storages
     {
         private Dictionary<InteractionType, int> _interactions;
         private InteractionType _currentDominationType;
-        public event Action<InteractionType> OnSwitchDominationTypeEvent;
+        public event Action<InteractionType> OnSwitchDominationType;
         public event Action<InteractionType, float> OnAdd;  
 
         public int GetSum()
@@ -30,7 +30,7 @@ namespace Code.Data.Storages
                 if (_currentDominationType != GetDominantInteractionType())
                 {
                     _currentDominationType = GetDominantInteractionType();
-                    OnSwitchDominationTypeEvent?.Invoke(_currentDominationType);
+                    OnSwitchDominationType?.Invoke(_currentDominationType);
                 }
             }
             else
@@ -46,7 +46,7 @@ namespace Code.Data.Storages
         {
             _interactions = playerProgress.Interactions;
             _currentDominationType = GetDominantInteractionType();
-            OnSwitchDominationTypeEvent?.Invoke(_currentDominationType);
+            OnSwitchDominationType?.Invoke(_currentDominationType);
         }
         
         public void UpdateProgress(PlayerProgressData playerProgress)

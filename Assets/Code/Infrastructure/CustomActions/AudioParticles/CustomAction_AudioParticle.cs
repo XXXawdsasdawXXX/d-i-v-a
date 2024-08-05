@@ -23,6 +23,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         private readonly List<AudioParticleModule> _audioParticles = new();
         private ParticlesStorage _particleStorage;
 
+        
+
         public void GameInit()
         {
             _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
@@ -71,7 +73,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
         }
 
-        protected override void StartAction()
+        protected override void TryStartAction()
         {
             if (!_isUsed)
             {
@@ -84,7 +86,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             foreach (var particle in _particlesSystems) particle.On();
             foreach (var particleModule in _audioParticles) particleModule.On();
 
-            base.StartAction();
+            base.TryStartAction();
         }
 
         protected override void StopAction()

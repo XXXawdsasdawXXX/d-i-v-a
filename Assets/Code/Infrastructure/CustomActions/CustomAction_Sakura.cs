@@ -51,14 +51,14 @@ namespace Code.Infrastructure.CustomActions
             SubscribeToEvents(false);
         }
 
-        protected override void StartAction()
+        protected override void TryStartAction()
         {
             _isReviewed = true;
             foreach (var particleSystem in _particleSystems)
             {
                 particleSystem.On();
             }
-            base.StartAction();
+            base.TryStartAction();
         }
 
         protected override void StopAction()
@@ -108,7 +108,7 @@ namespace Code.Infrastructure.CustomActions
 
             if (Random.Range(0, 101) > 70)
             {
-                StartAction();
+                TryStartAction();
             }
         }
 

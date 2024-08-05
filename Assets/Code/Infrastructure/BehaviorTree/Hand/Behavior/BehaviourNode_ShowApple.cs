@@ -110,7 +110,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             return _isExpectedStart
                    && _tickCounter_cooldown.IsExpectedStart
                    && _animationAnalytic.GetAnimationMode() != CharacterAnimationMode.Sleep
-                   && !_characterCondition.IsCanSleep(sleepStatePercent: 0.6f);
+                   && !_characterCondition.IsCanSleep();
         }
 
         #endregion

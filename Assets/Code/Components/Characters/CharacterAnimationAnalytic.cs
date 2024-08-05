@@ -2,6 +2,7 @@
 using Code.Components.Characters.AnimationReader.State;
 using Code.Data.Enums;
 using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Characters
@@ -11,8 +12,15 @@ namespace Code.Components.Characters
         [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
 
-        public event Action<CharacterAnimationMode> SwitchModeEvent;
-        
+        public event Action<CharacterAnimationMode> OnEnteredMode;
+        public event Action<CharacterAnimationState> OnSwitchState;
+        public event Action<CharacterAnimationState> OnStateExit;
+
+        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State 
+                                        is CharacterAnimationState.TransitionSeat
+                                        or CharacterAnimationState.TransitionSleep 
+                                        or CharacterAnimationState.TransitionStand;
+
         public void GameInit()
         {
             SubscribeToEvents(true);
@@ -28,7 +36,7 @@ namespace Code.Components.Characters
             return _characterAnimator.Mode;
         }
 
-        public CharacterAnimationState GetCharacterAnimationState()
+        public CharacterAnimationState GetAnimationState()
         {
             return _animationStateObserver.State;
         }
@@ -37,17 +45,26 @@ namespace Code.Components.Characters
         {
             if (flag)
             {
-                _characterAnimator.ModeEnteredEvent += CharacterAnimatorOnModeEnteredEvent;
+                _characterAnimator.OnModeEntered += OnEnteredModeEvent;
+                _animationStateObserver.OnStateEntered += OnSwitchStateEvent;
+                _animationStateObserver.OnStateExited += OnSwitchStateEvent;
             }
             else
             {
-                _characterAnimator.ModeEnteredEvent -= CharacterAnimatorOnModeEnteredEvent;
+                _characterAnimator.OnModeEntered -= OnEnteredModeEvent;
+                _animationStateObserver.OnStateEntered -= OnSwitchStateEvent;
+                _animationStateObserver.OnStateExited -= OnSwitchStateEvent;
             }
         }
 
-        private void CharacterAnimatorOnModeEnteredEvent(CharacterAnimationMode mode)
+        private void OnSwitchStateEvent(CharacterAnimationState obj)
         {
-            SwitchModeEvent?.Invoke(mode);
+            OnSwitchState?.Invoke(obj);
+        }
+
+        private void OnEnteredModeEvent(CharacterAnimationMode mode)
+        {
+            OnEnteredMode?.Invoke(mode);
         }
     }
 }

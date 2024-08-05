@@ -31,17 +31,17 @@ namespace Code.Infrastructure.CustomActions
             if (_isNotUsed) return;
             if (flag)
             {
-                _timeObserver.StartNightEvent += StartAction;
+                _timeObserver.StartNightEvent += TryStartAction;
                 _timeObserver.StartDayEvent += StopAction;
             }
             else
             {
-                _timeObserver.StartNightEvent -= StartAction;
+                _timeObserver.StartNightEvent -= TryStartAction;
                 _timeObserver.StartDayEvent -= StopAction;
             }
         }
 
-        protected  override void StartAction()
+        protected  override void TryStartAction()
         {
             if (_isNotUsed) return;
             _skyStarsParticle.On();

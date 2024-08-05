@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5809537865495776328}
   - component: {fileID: 5809537865495776329}
+  - component: {fileID: 3055086394606424608}
   - component: {fileID: 5809537865495776334}
-  - component: {fileID: 7752801918249470212}
   - component: {fileID: 2576211046701084766}
   m_Layer: 0
   m_Name: Particle System_nimbus_light
@@ -4827,6 +4827,21 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3055086394606424608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809537865495776335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20552d92c9b5430a80b7bacb90783def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 3
+  _particleSystem: {fileID: 5809537865495776329}
+  _audio: {fileID: 2576211046701084766}
 --- !u!199 &5809537865495776334
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4900,21 +4915,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7752801918249470212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5809537865495776335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28eba9c1b9cd4e33a5115aa8dc5438fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Type>k__BackingField: 3
-  _particleSystem: {fileID: 5809537865495776329}
-  _audio: {fileID: 2576211046701084766}
 --- !u!114 &2576211046701084766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4927,20 +4927,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac53f55b4f8f442183e119c8cbc188ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleSystem: {fileID: 7752801918249470212}
+  _particleSystem: {fileID: 3055086394606424608}
   _effectsData:
   - ParticleParam: 2
     AudioParam: 1
-    Multiplier: 0.15
+    Multiplier: 0.075
     Range:
-      MinValue: 1.0346612
-      MaxValue: 4.1386447
+      MinValue: 0
+      MaxValue: 6.202098
   - ParticleParam: 8
     AudioParam: 1
     Multiplier: 7
     Range:
-      MinValue: 0
-      MaxValue: 3.362649
+      MinValue: 0.25793138
+      MaxValue: 6.4095984
   - ParticleParam: 5
     AudioParam: 1
     Multiplier: 10
@@ -4949,10 +4949,11 @@ MonoBehaviour:
       MaxValue: 12.933266
   - ParticleParam: 3
     AudioParam: 2
-    Multiplier: 1.5
+    Multiplier: 1
     Range:
       MinValue: 0.2586653
-      MaxValue: 3.362649
+      MaxValue: 5.9419627
   _gradient: 0
   _isUsed: 1
-  _isActive: 1
+  _isActive: 0
+  _disableSpeed: 5

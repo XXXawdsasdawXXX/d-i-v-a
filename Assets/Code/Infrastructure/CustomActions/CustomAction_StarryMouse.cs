@@ -72,7 +72,7 @@ namespace Code.Infrastructure.CustomActions
             _particle.transform.position = currentMousePosition;
         }
 
-        protected  sealed override void StartAction()
+        protected  sealed override void TryStartAction()
         {
             if(_isNotUsed)return;
             _isActive = true;
@@ -121,7 +121,7 @@ namespace Code.Infrastructure.CustomActions
                     return;
                 }
 
-                StartAction();
+                TryStartAction();
             }
         }
     }

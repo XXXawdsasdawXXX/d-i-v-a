@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Code.Utils
 {
@@ -30,7 +32,9 @@ namespace Code.Utils
             Interaction,
             Hand,
             Items,
-            Window
+            Window,
+            CharacterCondition,
+            VFX
         }
 
         [Serializable]
@@ -84,11 +88,16 @@ namespace Code.Utils
             ColorLog(message, Color.green);
         }
 
+        public void ErrorLog(Object obj, string message)
+        {
+            ColorLog($"{obj.GetType()} {message}", Color.red);
+        }
+        
         public void ErrorLog(string message)
         {
             ColorLog(message, Color.red);
         }
-
+        
         private void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");

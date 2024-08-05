@@ -4,6 +4,7 @@ using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Test;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Data.Facades
@@ -12,29 +13,25 @@ namespace Code.Data.Facades
     {
         [field: SerializeField] public ParticleType Type { get; private set; }
         [SerializeField] private ParticleSystem _particleSystem;
-
+        
         [Header("Optional modules")] 
-        [SerializeField] private AudioParticleModule _audio;
+        [SerializeField] protected AudioParticleModule _audio;
 
         [Header("Modules")] 
-        private ParticleSystem.EmissionModule _emission;
-        private ParticleSystem.MainModule _main;
-        private ParticleSystem.TrailModule _trails;
-        private ParticleSystem.NoiseModule _noise;
-        private ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
-        private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
+        protected  ParticleSystem.EmissionModule _emission;
+        protected  ParticleSystem.MainModule _main;
+        protected  ParticleSystem.TrailModule _trails;
+        protected  ParticleSystem.NoiseModule _noise;
+        protected  ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
+        protected  ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
 
         [Header("Services")] 
-        private GradientsStorage _gradientsStorage;
-
-        public bool IsPlay => _particleSystem.isPlaying;
-        private bool _isInit;
-
-        private FacadeSettings _defaultSettings = new FacadeSettings();
-
+        protected  GradientsStorage _gradientsStorage;
+        
+        protected readonly FacadeSettings _defaultSettings = new();
 
         [Serializable]
-        private class FacadeSettings
+        protected class FacadeSettings
         {
             public float TrailLiveTime;
             public float LiveTime;
@@ -53,10 +50,9 @@ namespace Code.Data.Facades
             _defaultSettings.LiveTime = _main.startLifetimeMultiplier;
             
             _gradientsStorage = Container.Instance.FindStorage<GradientsStorage>();
-            _isInit = true;
         }
 
-        public void On()
+        public virtual void On()
         {
             if (!gameObject.activeInHierarchy)
             {
@@ -71,7 +67,7 @@ namespace Code.Data.Facades
             _emission.enabled = true;
         }
 
-        public void Off()
+        public virtual  void Off()
         {
             _audio?.Off();
             
@@ -81,19 +77,20 @@ namespace Code.Data.Facades
             _emission.enabled = false;
         }
 
+        
         public void SetTrailWidthOverTrail(float value)
         {
-            if (_isInit) _trails.widthOverTrailMultiplier = value;
+            _trails.widthOverTrailMultiplier = value;
         }
 
-        public void SetSizeMultiplier(float value)
+        public void SetMainStartSizeMultiplier(float value)
         {
             _main.startSizeMultiplier = value;
         }
 
         public void SetVelocitySpeed(float value)
         {
-            _velocityOverLifetime.speedModifier = value;
+            _velocityOverLifetime.speedModifierMultiplier = value;
         }
 
         public void SetNoiseSize(float value)
@@ -106,6 +103,10 @@ namespace Code.Data.Facades
             _trails.lifetimeMultiplier = value;
         }
 
+        public void SetMainLifetime(float getValue)
+        {
+            _main.startLifetimeMultiplier = getValue;
+        }
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {
@@ -158,15 +159,34 @@ namespace Code.Data.Facades
             }
         }
 
+        public float GetValue(ParticleParamType paramType)
+        {
+            switch (paramType)
+            {
+                case ParticleParamType.None:
+                case ParticleParamType.TrailGradient:
+                case ParticleParamType.ColorLiveTime:
+                default:
+                    return 0;
+                case ParticleParamType.SizeMultiplier:
+                    return _main.startSizeMultiplier;
+                case ParticleParamType.TrailWidthOverTrail:
+                    return _trails.widthOverTrailMultiplier;
+                case ParticleParamType.VelocitySpeed:
+                    return _velocityOverLifetime.speedModifierMultiplier;
+                case ParticleParamType.NoiseSize:
+                    return _noise.sizeAmount.constant;
+                case ParticleParamType.TrailLiveTime:
+                    return _trails.lifetimeMultiplier;
+                case ParticleParamType.LiveTime:
+                    return _main.startLifetimeMultiplier;
+            }
+        }
+
         public bool TryGetAudioModule(out AudioParticleModule audioModule)
         {
             audioModule = _audio;
             return audioModule != null;
-        }
-
-        public void SetLifetime(float getValue)
-        {
-            _main.startLifetimeMultiplier = getValue;
         }
     }
 }

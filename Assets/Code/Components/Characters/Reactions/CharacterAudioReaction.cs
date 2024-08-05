@@ -59,15 +59,15 @@ namespace Code.Components.Characters.Reactions
         {
             if (flag)
             {
-                _stateReader.StateExitedEvent += OnAnimationStateExitedEvent;
+                _stateReader.OnStateExited += OnAnimationOnStateExited;
             }
             else
             {
-                _stateReader.StateExitedEvent -= OnAnimationStateExitedEvent;
+                _stateReader.OnStateExited -= OnAnimationOnStateExited;
             }
         }
 
-        private void OnAnimationStateExitedEvent(CharacterAnimationState obj)
+        private void OnAnimationOnStateExited(CharacterAnimationState obj)
         {
             if (obj == CharacterAnimationState.ReactionVoice)
             {
