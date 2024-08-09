@@ -41,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[1].Range.MinValue
-      value: 0.25793138
+      value: 3.276975
       objectReference: {fileID: 0}
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[2].Range.MaxValue

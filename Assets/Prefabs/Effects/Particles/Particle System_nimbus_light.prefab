@@ -4939,7 +4939,7 @@ MonoBehaviour:
     AudioParam: 1
     Multiplier: 7
     Range:
-      MinValue: 0.25793138
+      MinValue: 3.276975
       MaxValue: 6.4095984
   - ParticleParam: 5
     AudioParam: 1
