@@ -15,16 +15,27 @@ namespace Code.Components.Characters
         [SerializeField] private CharacterAnimator _animationModeObserver;
         [Header("Sizes")] 
         [SerializeField] private ModeParam[] _sizeParams;
-
-
+   
         private void OnEnable()
         {
-            SubscribeToEvents();
+            SubscribeToEvents(true);
         }
 
         private void OnDisable()
         {
-            UnsubscribeToEvents();
+            SubscribeToEvents(false);
+        }
+
+        private void SubscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _animationModeObserver.OnModeEntered += OnModeEnteredEvent;
+            }
+            else
+            {
+                _animationModeObserver.OnModeEntered -= OnModeEnteredEvent;
+            }
         }
 
         public Vector3 GetWorldEatPoint()
@@ -51,25 +62,16 @@ namespace Code.Components.Characters
             return transform.position;
         }
 
-        public float GetHeatDistance(CharacterAnimationMode a, CharacterAnimationMode b)
+        public Vector3 GetLegPoint()
         {
-            var paramA = _sizeParams.FirstOrDefault(p => p.AnimationMode == a);
-            Vector3 pointA = transform.TransformPoint( paramA.HeadPoint);;
-       
-            var paramB = _sizeParams.FirstOrDefault(p => p.AnimationMode == b);
-            Vector3 pointB = transform.TransformPoint( paramB.HeadPoint);;
+            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
+            if (modeParam != null)
+            {
+                var localPosition = modeParam.LegPoint;
+                return transform.TransformPoint(localPosition);
+            }
 
-            return Vector3.Distance(pointA, pointB);
-        }
-        
-        private void SubscribeToEvents()
-        {
-             _animationModeObserver.OnModeEntered += OnModeEnteredEvent;   
-        }
-
-        private void UnsubscribeToEvents()
-        {
-            _animationModeObserver.OnModeEntered -= OnModeEnteredEvent;
+            return transform.position;
         }
 
         private void OnModeEnteredEvent(CharacterAnimationMode mode)

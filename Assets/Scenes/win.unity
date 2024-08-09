@@ -253,31 +253,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[0].Active
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[1].Active
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[3].Active
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
+      propertyPath: _debugParams.Array.data[4].Active
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[7].Active
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
-      propertyPath: _debugParams.Array.data[18].Active
+      propertyPath: _debugParams.Array.data[14].Active
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
-      propertyPath: _debugParams.Array.data[19].Active
+      propertyPath: _debugParams.Array.data[18].Active
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
+      propertyPath: _debugParams.Array.data[19].Active
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[20].Active
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[19].Color.a
@@ -445,10 +453,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 157734354079673081, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1897250021500368448, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
       propertyPath: m_Name
       value: ---BASE---
@@ -496,6 +500,18 @@ PrefabInstance:
     - target: {fileID: 1897250021500368455, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897250022247188008, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
+      propertyPath: _radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897250022247188008, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
+      propertyPath: _softKnee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897250022247188008, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}
+      propertyPath: _intensity
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b47b2c5b21f7bb41b30b3db2561a7ba, type: 3}

@@ -8,31 +8,41 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class LandingOnWindows : CommonComponent, IGameInitListener, IGameTickListener, IGameExitListener
+    public class LandingOnWindows : CommonComponent, IGameInitListener,IGameStartListener ,IGameTickListener, IGameExitListener
     {
         [Header("static values")]
         [SerializeField] private bool _isUsed;
         [SerializeField] private byte _sensitivity = 3;
-        [SerializeField] private Vector2 _offset;
+        [SerializeField] private Vector3 _landingOffset;
         [Header("components")]
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
         private DisplayColor _colorAnalyzer;
+       
         [Header("dynamic value")]
         [SerializeField] private Color32 _lastColor = Color.white;
+        private Vector3 _objectOffset;
 
+        [Header("Debug")] 
+        [SerializeField] private Transform _debugPoint;
+        
         public void GameInit()
         {
             _isUsed = !Extensions.IsMacOs();
+         
             if (!_isUsed)
             {
                 return;
             }
         
             _colorAnalyzer = Container.Instance.FindGetter<DisplayColorGetter>().Get() as DisplayColor;
-            SubscribeToEvents(true);
         }
 
+
+        public void GameStart()
+        {
+            SubscribeToEvents(true);
+        }
 
         public void GameTick()
         {
@@ -41,22 +51,30 @@ namespace Code.Components.Common
                 return;
             }
             
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _sensitivity += 1;
+                 Debugging.Instance.Log(this,$"Sentivity = {_sensitivity}", Debugging.Type.Window);
+            }
+            
             if (IsDifferentColorDetected())
             {
-                var otherColor = _colorAnalyzer.GetColor(transform.position + _offset.AsVector3());
+                
+                var otherColor = _colorAnalyzer.GetColor(GetCheckPosition());
                 var current = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>current</color>";
                 var other = $"<color=#{ColorUtility.ToHtmlStringRGBA(otherColor)}>other</color>";
                 Debugging.Instance.Log(this,$"Find other color {current} vs {other} " +
                                             $"is dynamic {_rigidbody2D.bodyType == RigidbodyType2D.Dynamic}", Debugging.Type.Window);
                 
-                if (_rigidbody2D.bodyType == RigidbodyType2D.Dynamic)
+                switch (_rigidbody2D.bodyType)
                 {
-                    _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-                    _rigidbody2D.velocity = Vector2.zero;
-                }
-                else if(_rigidbody2D.bodyType == RigidbodyType2D.Kinematic)
-                {
-                    _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                    case RigidbodyType2D.Kinematic:
+                        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                        break;
+                    case RigidbodyType2D.Dynamic:
+                        _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                        _rigidbody2D.velocity = Vector2.zero;
+                        break;
                 }
                 _lastColor = otherColor;
             }
@@ -71,16 +89,6 @@ namespace Code.Components.Common
             SubscribeToEvents(false);
         }
 
-        public void SetOffset(Vector2 offset)
-        {
-            _offset = offset;
-        }
-
-        private bool IsDifferentColorDetected()
-        {
-            return !_lastColor.Equal(_colorAnalyzer.GetColor(transform.position + _offset.AsVector3()), _sensitivity);
-        }
-
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -93,15 +101,35 @@ namespace Code.Components.Common
             }
         }
 
+        public void SetOffset(Vector2 offset)
+        {
+            _objectOffset = offset;
+            if (_debugPoint != null)
+            {
+                _debugPoint.localPosition = _objectOffset + _landingOffset + new Vector3(0,_debugPoint.localScale.y / 2 - 0.4f,0);
+            }
+        }
+
+        private bool IsDifferentColorDetected()
+        {
+            return !_lastColor.Equal(_colorAnalyzer.GetColor(GetCheckPosition()), _sensitivity);
+        }
+
+        private Vector3 GetCheckPosition()
+        {
+            return transform.position + _objectOffset + _landingOffset;
+        }
+
         private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
         {
-            _lastColor = _colorAnalyzer.GetColor(transform.position + _offset.AsVector3());
+            _lastColor = _colorAnalyzer.GetColor(transform.position + _objectOffset + _landingOffset);
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawSphere(transform.position + _offset.AsVector3(), 0.05f);
+            Gizmos.DrawSphere(transform.position + _objectOffset + _landingOffset, 0.05f);
         }
+
     }
 }
