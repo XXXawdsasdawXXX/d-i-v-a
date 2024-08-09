@@ -379,10 +379,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ---VFX---
       objectReference: {fileID: 0}
-    - target: {fileID: 316153750549945990, guid: 0cdede8171b8b20448c6a14369bccc06, type: 3}
-      propertyPath: _valueSpeed
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cdede8171b8b20448c6a14369bccc06, type: 3}
 --- !u!1001 &1275521998
