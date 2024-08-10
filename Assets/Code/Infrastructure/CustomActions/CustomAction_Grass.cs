@@ -1,6 +1,6 @@
-﻿using Code.Components.Characters;
-using Code.Components.Common;
-using Code.Components.Grass;
+﻿using Code.Components.Common;
+using Code.Components.Entities.Characters;
+using Code.Components.Entities.Grass;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeInt;

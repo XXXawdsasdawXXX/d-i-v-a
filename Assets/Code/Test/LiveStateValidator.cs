@@ -1,4 +1,4 @@
-﻿using Code.Components.Characters;
+﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;

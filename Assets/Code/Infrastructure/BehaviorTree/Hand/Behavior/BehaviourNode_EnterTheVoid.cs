@@ -1,4 +1,4 @@
-﻿using Code.Components.Hands;
+﻿using Code.Components.Entities.Hands;
 using Code.Data.Configs;
 using Code.Data.Storages;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
@@ -30,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         public BehaviourNode_EnterTheVoid()
         {
             //hand
-            var hand = Container.Instance.FindEntity<Components.Hands.Hand>();
+            var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
 

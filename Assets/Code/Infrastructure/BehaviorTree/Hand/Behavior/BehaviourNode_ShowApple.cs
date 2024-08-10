@@ -1,6 +1,6 @@
-﻿using Code.Components.Characters;
-using Code.Components.Common;
-using Code.Components.Hands;
+﻿using Code.Components.Common;
+using Code.Components.Entities.Characters;
+using Code.Components.Entities.Hands;
 using Code.Components.Items;
 using Code.Components.Items.Apples;
 using Code.Data.Configs;
@@ -58,7 +58,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             _applePhysicsDragAndDrop = _apple.FindCommonComponent<PhysicsDragAndDrop>();
 
             //hand
-            var hand = Container.Instance.FindEntity<Components.Hands.Hand>();
+            var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
             _itemHolder = hand.FindCommonComponent<ItemHolder>();

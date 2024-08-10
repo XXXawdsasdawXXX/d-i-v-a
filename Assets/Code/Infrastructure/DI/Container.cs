@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components;
+using Code.Components.Entities;
 using Code.Components.Items;
 using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;

@@ -1,5 +1,5 @@
-﻿using Code.Components.Characters;
-using Code.Components.Common;
+﻿using Code.Components.Common;
+using Code.Components.Entities.Characters;
 using Code.Components.Items;
 using Code.Data.Configs;
 using Code.Data.Enums;

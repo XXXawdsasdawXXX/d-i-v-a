@@ -1,4 +1,4 @@
-﻿using Code.Components.Characters;
+﻿using Code.Components.Entities.Characters;
 using Code.Components.Items;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
