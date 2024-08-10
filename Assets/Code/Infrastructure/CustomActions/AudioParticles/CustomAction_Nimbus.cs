@@ -31,11 +31,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         
         protected override void Init()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-            
             _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
@@ -48,11 +43,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameExit()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-            
             SubscribeToEvents(false);
         }
 
@@ -128,7 +118,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         
         protected override void UpdateParticles()
         {
-            if (!_isUsed || !IsActive)
+            if (!IsActive)
             {
                 return;
             }

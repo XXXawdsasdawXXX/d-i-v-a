@@ -1,4 +1,6 @@
 ﻿using Code.Components.Common;
+using Code.Data.Interfaces;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
@@ -6,23 +8,17 @@ using UnityEngine;
 
 namespace Code.Components.Characters
 {
-    public class CharacterMaterialController : MaterialController, IGameInitListener, IGameTickListener
+    public class CharacterMaterialController : MaterialController, IWindowsSpecific,IGameInitListener ,IGameTickListener
     {
-        [SerializeField] private LoopbackAudioService _loopbackAudioService;
-
-        private bool _isUsed;
+        private LoopbackAudioService _loopbackAudioService;
 
         public void GameInit()
         {
-            _isUsed = !Extensions.IsMacOs();
+            _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
 
         public void GameTick()
         {
-            if (!_isUsed || _loopbackAudioService == null)
-            {
-                return;
-            }
             SetShineAngle();
             SetOutLineSpeed();
         }

@@ -6,21 +6,17 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Providers
 {
-    public class DisplayColorGetter: MonoBehaviour, IGetter, IGameInitListener
+    public class DisplayColorGetter : MonoBehaviour, IWindowsSpecific, IGetter, IGameInitListener
     {
         [SerializeField] private DisplayColor _displayColor;
 
         public void GameInit()
         {
-            var isUsed = !Extensions.IsMacOs();
-            if (!isUsed)
+            var components = GetComponentsInChildren<MonoBehaviour>();
+            foreach (var behaviour in components)
             {
-               var components = GetComponentsInChildren<MonoBehaviour>();
-               foreach (var behaviour in components)
-               {
-                   behaviour.enabled = false;
-               }
-            }    
+                behaviour.enabled = false;
+            }
         }
 
         public object Get()

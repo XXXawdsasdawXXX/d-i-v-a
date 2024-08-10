@@ -8,6 +8,7 @@ namespace Code.Data.Enums
         Electricity,
         Nimbus,
         Sakura,
-        Greeting
+        Greeting,
+        Grass
     }
 }

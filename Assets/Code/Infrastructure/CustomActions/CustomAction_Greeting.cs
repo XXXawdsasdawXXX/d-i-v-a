@@ -66,7 +66,7 @@ namespace Code.Infrastructure.CustomActions
         #region Events
         private void SubscribeToEvents(bool flag)
         {
-            if(flag)
+            /*if(flag)
             {
                 _timeObserver.InitTimeEvent += OnInitTime;
                 _colliderButton.DownEvent += TrySayHi;
@@ -75,7 +75,7 @@ namespace Code.Infrastructure.CustomActions
             {
                 _timeObserver.InitTimeEvent -= OnInitTime;
                 _colliderButton.DownEvent -= TrySayHi;
-            }
+            }*/
         }
 
         private void TrySayHi(Vector2 _)

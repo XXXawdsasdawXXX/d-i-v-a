@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Code.Infrastructure.Services
 {
     //todo убрать monobehavior
-    public class MicrophoneAnalyzer : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
+    public class MicrophoneAnalyzer : MonoBehaviour, IWindowsSpecific, IService, IGameInitListener, IGameTickListener, IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;
 
@@ -31,12 +31,7 @@ namespace Code.Infrastructure.Services
    
         public void GameInit()
         {
-            if (Extensions.IsMacOs())
-            {
-                return;
-            }
-            _isInitialized = true;
-            
+
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
 
             InitMic();
@@ -46,10 +41,6 @@ namespace Code.Infrastructure.Services
 
         public void GameTick()
         {
-            if (!_isInitialized)
-            {
-                return;
-            }
 
             _micLoudness = MicrophoneLevelMax();
             _micDecibels = MicrophoneLevelMaxDecibels();

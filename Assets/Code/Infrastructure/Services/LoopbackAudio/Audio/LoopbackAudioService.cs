@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
-    public class LoopbackAudioService : MonoBehaviour, IService, IGameInitListener
+    public class LoopbackAudioService : MonoBehaviour, IService, IGameInitListener, IWindowsSpecific
     {
         #region Constants
 
@@ -22,7 +22,6 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         private RealtimeAudio _realtimeAudio;
         private readonly List<float> _postScaleAverages = new List<float>();
-        public bool _isUsed;
 
         #endregion
 
@@ -49,12 +48,6 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
         
         public void GameInit()
         {
-            _isUsed = !Extensions.IsMacOs();
-            if (!_isUsed)
-            {
-                return;
-            }
-            
             SpectrumData = new float[SpectrumSize];
             PostScaledSpectrumData = new float[SpectrumSize];
             PostScaledMinMaxSpectrumData = new float[SpectrumSize];
@@ -159,11 +152,6 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         public float[] GetAllSpectrumData(AudioVisualizationStrategy strategy)
         {
-            _isUsed = !Extensions.IsMacOs();
-            if (!_isUsed)
-            {
-                return null;
-            }
             float[] spectrumData;
 
             switch (strategy)
@@ -186,11 +174,6 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         public float GetSpectrumData(AudioVisualizationStrategy strategy, int index = 0)
         {
-            _isUsed = !Extensions.IsMacOs();
-            if (!_isUsed)
-            {
-                return 0;
-            }
             float spectrumData = 0.0f;
 
             switch (strategy)

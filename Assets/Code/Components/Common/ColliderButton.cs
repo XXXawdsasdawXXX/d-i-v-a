@@ -23,7 +23,7 @@ namespace Code.Components.Common
         private int _clickNumber;
 
         public event Action<Vector2> DownEvent;
-        public event Action<Vector2, float> UpEvent;
+        public event Action<Vector2, float> OnPressedUp;
         public event Action<int> SeriesOfClicksEvent;
         
         public void GameInit()
@@ -67,7 +67,7 @@ namespace Code.Components.Common
         private void OnMouseUp()
         {
             IsPressed = false;
-            UpEvent?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
+            OnPressedUp?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
             _pressedTime = 0;
 
             Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);

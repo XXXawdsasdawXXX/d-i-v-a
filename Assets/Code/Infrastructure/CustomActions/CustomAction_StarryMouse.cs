@@ -100,15 +100,15 @@ namespace Code.Infrastructure.CustomActions
             if(_isNotUsed)return;
             if (flag)
             {
-                _characterButton.UpEvent += OnButtonUp;
+                _characterButton.OnPressedUp += OnPressedUp;
             }
             else
             {
-                _characterButton.UpEvent -= OnButtonUp;
+                _characterButton.OnPressedUp -= OnPressedUp;
             }
         }
 
-        private void OnButtonUp(Vector2 _, float pressDuration)
+        private void OnPressedUp(Vector2 _, float pressDuration)
         {
             if(_isNotUsed)return;
             Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",

@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Data.Facades;
+using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class AudioParticleModule : MonoBehaviour, IGameInitListener, IGameTickListener, IGameStartListener
+    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameTickListener, IGameStartListener
     {
         private enum LoopBackAudioParamType
         {
@@ -31,8 +32,7 @@ namespace Code.Test
         [Header("Services")] 
         private LoopbackAudioService _loopbackAudioService;
 
-        [Header("Dynamic data")] 
-        [SerializeField] private bool _isUsed;
+        [Header("Dynamic data")]
         [SerializeField] private bool _isActive;
         [SerializeField] private float _disableSpeed = 1;
        
@@ -49,12 +49,6 @@ namespace Code.Test
 
         public void GameInit()
         {
-            if (_isUsed && Extensions.IsMacOs())
-            {
-                _isUsed = false;
-                return;
-            }
-            
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }
 
@@ -68,11 +62,6 @@ namespace Code.Test
 
         public void GameTick()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-
             _enabledTime += Time.deltaTime;
             foreach (var effect in _effectsData)
             {
@@ -97,11 +86,6 @@ namespace Code.Test
 
         public virtual void On()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-
             _isActive = true;
             _enabledTime = 0;
             Debugging.Instance.Log($"On {_particleSystem.Type}", Debugging.Type.VFX);
@@ -109,11 +93,6 @@ namespace Code.Test
 
         public virtual void Off()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
-
             _isActive = false;
             Debugging.Instance.Log($"Off {_particleSystem.Type}", Debugging.Type.VFX);
         }
@@ -189,11 +168,6 @@ namespace Code.Test
 
         private float GetValue(Data effect)
         {
-            if (!_isUsed)
-            {
-                return 0;
-            }
-
             var currentValue = _particleSystem.GetValue(effect.ParticleParam);
             float targetValue;
     

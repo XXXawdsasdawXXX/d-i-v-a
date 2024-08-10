@@ -89,16 +89,16 @@ namespace Code.Components.Common
             if (flag)
             {
                 _colliderButton.DownEvent += OnDown;
-                _colliderButton.UpEvent += OnPressUp;
+                _colliderButton.OnPressedUp += OnPressedUp;
             }
             else
             {
                 _colliderButton.DownEvent -= OnDown;
-                _colliderButton.UpEvent -= OnPressUp;
+                _colliderButton.OnPressedUp -= OnPressedUp;
             }
         }
 
-        protected virtual void OnPressUp(Vector2 arg1, float arg2)
+        protected virtual void OnPressedUp(Vector2 arg1, float arg2)
         {
             _isDragging = false;
             OnUp();

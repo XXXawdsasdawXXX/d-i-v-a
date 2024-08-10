@@ -8,20 +8,6 @@ namespace Code.Components.Entities
     public class Hand : Entity
     {
         [SerializeField] private HandComponent[] _handComponents;
-        [SerializeField] private CommonComponent[] _commonComponents;
-        
-        public T FindCommonComponent<T>() where T : CommonComponent
-        {
-            foreach (var component in _commonComponents)
-            {
-                if (component is T commonComponent)
-                {
-                    return commonComponent;
-                }
-            }
-            return null;
-        }
-
         
         public T FindHandComponent<T>() where T : HandComponent
         {
@@ -35,6 +21,8 @@ namespace Code.Components.Entities
 
             return null;
         }
+
+        #region Editor
 
         public void FindAllComponents()
         {
@@ -59,5 +47,7 @@ namespace Code.Components.Entities
             }
             _commonComponents = commonComponents.ToArray();
         }
+
+        #endregion
     }
 }

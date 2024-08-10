@@ -15,6 +15,7 @@ namespace Code.Components.Characters.Editor
             if (GUILayout.Button("Find all components"))
             {
                 diva.FindAllComponents();
+                EditorUtility.SetDirty(diva);
             }
         }
     }

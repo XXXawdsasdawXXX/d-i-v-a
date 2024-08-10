@@ -2,6 +2,7 @@
 using Code.Components.Characters;
 using Code.Components.Characters.Reactions;
 using Code.Components.Common;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Entities
@@ -9,23 +10,8 @@ namespace Code.Components.Entities
     public class DIVA : Entity
     {
         [SerializeField] private CharacterComponent[] _characterComponent;
-        [SerializeField] private CommonComponent[] _commonComponent;
         [SerializeField] private CharacterReaction[] _reactions;
-
-     
-        public T FindCommonComponent<T>() where T : CommonComponent
-        {
-            foreach (var component in _commonComponent)
-            {
-                if (component is T commonComponent)
-                {
-                    return commonComponent;
-                }
-            }
-
-            return null;
-        }
-
+        
         public T FindCharacterComponent<T>() where T : CharacterComponent
         {
             foreach (var component in _characterComponent)
@@ -35,7 +21,6 @@ namespace Code.Components.Entities
                     return characterComponent;
                 }
             }
-
             return null;
         }
 
@@ -48,9 +33,10 @@ namespace Code.Components.Entities
                     return characterReaction;
                 }
             }
-
             return null;
         }
+
+        #region Editor
 
         public void FindAllComponents()
         {
@@ -72,7 +58,7 @@ namespace Code.Components.Entities
                     commonComponents.Add(componentsInChild);
                 }
             }
-            _commonComponent = commonComponents.ToArray();
+            _commonComponents = commonComponents.ToArray();
             
             var reactions = GetComponents<CharacterReaction>().ToList();
             foreach (var componentsInChild in GetComponentsInChildren<CharacterReaction>())
@@ -82,7 +68,10 @@ namespace Code.Components.Entities
                     reactions.Add(componentsInChild);
                 }
             }
-             _reactions = reactions.ToArray();
+            _reactions = reactions.ToArray();
+            
         }
+
+        #endregion
     }
 }

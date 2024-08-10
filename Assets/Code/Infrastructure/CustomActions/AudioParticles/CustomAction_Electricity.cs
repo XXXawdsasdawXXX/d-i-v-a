@@ -7,12 +7,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     public class CustomAction_Electricity : CustomAction_AudioParticle
     {
         private LoopbackAudioService _loopbackAudioService;
-
-        public CustomAction_Electricity()
-        {
-            _isUsed = !Extensions.IsMacOs();
-        }
-
+        
         public override CustomCutsceneActionType GetActionType()
         {
             return CustomCutsceneActionType.Electricity;
@@ -22,13 +17,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             return new[] { ParticleType.Electricity };
         }
-
-        protected override void Init()
-        {
-            _isUsed = false;
-            base.Init();
-        }
-
+        
         protected override void UpdateParticles()
         {
             if (_particlesSystems == null)

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using Kirurobo;
@@ -73,8 +75,38 @@ namespace Code.Infrastructure.GameLoop
         private void InitializeListeners()
         {
             var gameListeners = Container.Instance.GetGameListeners();
+            if (Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer)
+            {
+                gameListeners = gameListeners
+                    .Where(l => l is not IWindowsSpecific) 
+                    .ToList(); 
+            }
 
             foreach (var listener in gameListeners)
+            {
+                if (listener is IGameInitListener initListener)
+                    _initListeners.Add(initListener);
+                if (listener is IGameLoadListener loadListener)
+                    _loadListeners.Add(loadListener);
+                if (listener is IGameStartListener startListener)
+                    _startListeners.Add(startListener);
+                if (listener is IGameTickListener tickListener)
+                    _tickListeners.Add(tickListener);
+                if (listener is IGameExitListener exitListener)
+                    _exitListeners.Add(exitListener);
+            }
+        }
+        
+        private void MacInitializeListeners()
+        { 
+            var gameListeners = Container.Instance.GetGameListeners();
+           var macListener =  gameListeners.Where(l =>
+           {
+               var specific = l as IWindowsSpecific;
+               return specific == null;
+           });
+            
+            foreach (var listener in macListener)
             {
                 if (listener is IGameInitListener initListener)
                     _initListeners.Add(initListener);
