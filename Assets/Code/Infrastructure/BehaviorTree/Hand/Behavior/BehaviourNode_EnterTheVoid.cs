@@ -7,7 +7,7 @@ using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
     public class BehaviourNode_EnterTheVoid : BaseNode
     {
@@ -30,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
         public BehaviourNode_EnterTheVoid()
         {
             //hand
-            var hand = Container.Instance.FindEntity<Components.Entities.Hand>();
+            var hand = Container.Instance.FindEntity<Components.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
 

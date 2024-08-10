@@ -1,16 +1,15 @@
 ﻿using Code.Components.Characters;
 using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Components.Items;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub;
+using Code.Infrastructure.BehaviorTree.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
     public class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {

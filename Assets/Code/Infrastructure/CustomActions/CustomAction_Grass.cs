@@ -1,6 +1,6 @@
 ﻿using Code.Components.Characters;
 using Code.Components.Common;
-using Code.Components.Entities;
+using Code.Components.Grass;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeInt;
@@ -20,7 +20,7 @@ namespace Code.Infrastructure.CustomActions
         
         [Header("Grass Components")]
         private Grass _grass;
-        private ColorChecker _grassChecker;
+        private ColorChecker _colorChecker;
         
         [Header("Action Delay")]
         private TickCounter _tickCounter;
@@ -34,7 +34,7 @@ namespace Code.Infrastructure.CustomActions
             _characterAnimator = _diva.FindCharacterComponent<CharacterAnimator>();
         
             _grass = Container.Instance.FindEntity<Grass>();
-            _grassChecker = _grass.FindCommonComponent<ColorChecker>();
+            _colorChecker = _grass.FindCommonComponent<ColorChecker>();
             
             _tickCounter = new TickCounter(isLoop: false);
             _tickDelay = Container.Instance.FindConfig<TimeConfig>().Delay.GrassGrow;
@@ -55,41 +55,42 @@ namespace Code.Infrastructure.CustomActions
             if (flag)
             {
                 _characterAnimator.OnModeEntered += OnCharacterSwitchAnimationMode;
-                _tickCounter.WaitedEvent += OnWaitedTickCounter;
-                _grassChecker.OnFoundedNewColor += OnFoundedNewColor;
+                _tickCounter.WaitedEvent += OnTick;
+                _colorChecker.OnFoundedNewColor += OnFoundedNewColor;
             }
             else
             {
                 _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimationMode;
-                _tickCounter.WaitedEvent -= OnWaitedTickCounter;
-                _grassChecker.OnFoundedNewColor -= OnFoundedNewColor;
+                _tickCounter.WaitedEvent -= OnTick;
+                _colorChecker.OnFoundedNewColor -= OnFoundedNewColor;
             }
-        }
-
-        private void OnFoundedNewColor(Color obj)
-        {
-            _tickCounter.StopWait();
-            _grass.Die();
         }
 
         private void OnCharacterSwitchAnimationMode(CharacterAnimationMode mode)
         {
             Debugging.Instance.Log($"Controller -> on swithc animation mode:  {mode} {_grass.IsActive}",
                 Debugging.Type.Grass);
+           
             if (mode == CharacterAnimationMode.Seat && _tickCounter.IsExpectedStart)
             {
                 Debugging.Instance.Log($"Controller -> on swithc animation mode: start wait", Debugging.Type.Grass);
+              
                 _tickCounter.StartWait(_tickDelay.GetRandomValue());
             }
             else if (_grass.IsActive)
             {
                 Debugging.Instance.Log($"Controller -> on swithc animation mode: start sie", Debugging.Type.Grass);
-                _tickCounter.StopWait();
-                _grass.Die();
+               
+                Stop();
             }
         }
 
-        private void OnWaitedTickCounter()
+        private void OnFoundedNewColor(Color obj)
+        {
+             Stop();
+        }
+
+        private void OnTick()
         {
             if (_grass.IsActive)
             {
@@ -97,8 +98,22 @@ namespace Code.Infrastructure.CustomActions
             }
 
             Debugging.Instance.Log($"Controller -> OnWaitedTickCounter", Debugging.Type.Grass);
+            Start();
+        }
+
+        private void Start()
+        { 
             _grass.transform.position = _diva.transform.position;
+            _colorChecker.RefreshLastColor();
+            _colorChecker.SetEnable(true);
             _grass.Grow();
+        }
+
+        private void Stop()
+        {
+            _tickCounter.StopWait();
+            _colorChecker.SetEnable(false);
+            _grass.Die();
         }
     }
 }

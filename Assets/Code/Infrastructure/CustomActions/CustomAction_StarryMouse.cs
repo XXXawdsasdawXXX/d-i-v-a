@@ -1,10 +1,9 @@
 ﻿using Code.Components.Characters;
 using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
-using Code.Data.Facades;
 using Code.Data.Storages;
+using Code.Data.VFX;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;

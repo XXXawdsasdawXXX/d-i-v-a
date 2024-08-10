@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using Code.Data.Interfaces;
+﻿using Code.Data.Interfaces;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior;
+using Code.Infrastructure.BehaviorTree.Hand.Behavior;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
+namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourRunner_Hand: MonoBehaviour, IService, IGameInitListener, IGameTickListener,
         IGameExitListener

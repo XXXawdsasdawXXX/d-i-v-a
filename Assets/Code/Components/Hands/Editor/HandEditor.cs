@@ -1,5 +1,4 @@
-﻿using Code.Components.Entities;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Code.Components.Hands.Editor

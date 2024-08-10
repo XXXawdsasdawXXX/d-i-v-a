@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Components.Characters;
-using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;

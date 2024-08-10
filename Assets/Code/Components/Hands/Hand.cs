@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using Code.Components.Common;
-using Code.Components.Hands;
 using UnityEngine;
 
-namespace Code.Components.Entities
+namespace Code.Components.Hands
 {
     public class Hand : Entity
     {

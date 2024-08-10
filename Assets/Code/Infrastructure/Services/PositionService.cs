@@ -3,7 +3,7 @@ using Code.Data.Interfaces;
 using Code.Data.StaticData;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Providers;
+using Code.Infrastructure.Getters;
 using Code.Utils;
 using UnityEngine;
 using UnityEngine.U2D;

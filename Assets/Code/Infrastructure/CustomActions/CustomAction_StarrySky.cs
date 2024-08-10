@@ -1,15 +1,14 @@
 ﻿using Code.Data.Enums;
-using Code.Data.Facades;
 using Code.Data.Storages;
+using Code.Data.VFX;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
-using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarrySky : CustomAction
+    public class CustomAction_StarrySky : CustomAction, IGameStartListener, IGameExitListener
     {
-        private readonly bool _isNotUsed;
         private readonly TimeObserver _timeObserver;
         private readonly ParticleSystemFacade _skyStarsParticle;
 
@@ -20,15 +19,21 @@ namespace Code.Infrastructure.CustomActions
             {
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
                 _skyStarsParticle = skyStarsParticle[0];
-                SubscribeToEvents(true);
-                return;
             }
-            _isNotUsed = true;
         }
 
+        public void GameStart()
+        {
+            SubscribeToEvents(true);
+        }
+
+        public void GameExit()
+        {
+            SubscribeToEvents(false);
+        }
+        
         private void SubscribeToEvents(bool flag)
         {
-            if (_isNotUsed) return;
             if (flag)
             {
                 _timeObserver.StartNightEvent += TryStartAction;
@@ -43,13 +48,11 @@ namespace Code.Infrastructure.CustomActions
 
         protected  override void TryStartAction()
         {
-            if (_isNotUsed) return;
             _skyStarsParticle.On();
         }
 
         protected  override void StopAction()
         {
-            if (_isNotUsed) return;
             _skyStarsParticle.Off();
             EndCustomActionEvent?.Invoke(this);
         }

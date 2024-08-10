@@ -1,6 +1,5 @@
 ﻿using Code.Components.Characters;
 using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Components.Hands;
 using Code.Components.Items;
 using Code.Components.Items.Apples;
@@ -8,13 +7,13 @@ using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
+using Code.Infrastructure.BehaviorTree.Character;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
     public class BehaviourNode_ShowApple : BaseNode
     {
@@ -59,7 +58,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand.Behavior
             _applePhysicsDragAndDrop = _apple.FindCommonComponent<PhysicsDragAndDrop>();
 
             //hand
-            var hand = Container.Instance.FindEntity<Components.Entities.Hand>();
+            var hand = Container.Instance.FindEntity<Components.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
             _itemHolder = hand.FindCommonComponent<ItemHolder>();

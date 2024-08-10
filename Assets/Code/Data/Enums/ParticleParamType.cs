@@ -1,4 +1,4 @@
-﻿namespace Code.Test
+﻿namespace Code.Data.Enums
 {
     public enum ParticleParamType
     {

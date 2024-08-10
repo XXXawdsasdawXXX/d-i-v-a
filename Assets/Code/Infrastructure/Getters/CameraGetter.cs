@@ -2,7 +2,7 @@
 using Code.Data.Interfaces;
 using UnityEngine;
 
-namespace Code.Infrastructure.Providers
+namespace Code.Infrastructure.Getters
 {
     public class CameraGetter : MonoBehaviour, IGetter
     {

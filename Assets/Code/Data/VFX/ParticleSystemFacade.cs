@@ -3,11 +3,9 @@ using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Test;
-using Code.Utils;
 using UnityEngine;
 
-namespace Code.Data.Facades
+namespace Code.Data.VFX
 {
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {

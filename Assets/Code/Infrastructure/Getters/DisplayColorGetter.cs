@@ -1,9 +1,8 @@
 ﻿using Code.Data.Interfaces;
-using Code.Test;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.Providers
+namespace Code.Infrastructure.Getters
 {
     public class DisplayColorGetter : MonoBehaviour,IGetter
     {

@@ -1,7 +1,7 @@
 ﻿using Code.Components.Common;
 using UnityEngine;
 
-namespace Code.Components.Entities
+namespace Code.Components
 {
     public abstract class Entity : MonoBehaviour
     {

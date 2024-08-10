@@ -3,7 +3,7 @@ using Code.Infrastructure.GameLoop;
 using UnityEngine;
 using UnityEngine.U2D;
 
-namespace Code.Infrastructure.Providers
+namespace Code.Infrastructure.Getters
 {
     public class PixelPerfectGetter: MonoBehaviour, IGetter, IGameInitListener
     {

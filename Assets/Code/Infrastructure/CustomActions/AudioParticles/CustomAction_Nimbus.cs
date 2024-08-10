@@ -2,10 +2,10 @@
 using System.Linq;
 using Code.Components.Characters;
 using Code.Data.Enums;
-using Code.Data.Facades;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Character;
+using Code.Data.VFX;
+using Code.Infrastructure.BehaviorTree.Character;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -76,35 +76,44 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             }
         }
 
-        private void OnSwitchAnimationState(CharacterAnimationState obj) => TryStartAction();
+        private void OnSwitchAnimationState(CharacterAnimationState characterAnimationState)
+        {
+            if (characterAnimationState == CharacterAnimationState.Enter)
+            {
+                foreach (var particlesSystem in _particlesSystems)
+                {
+                    particlesSystem.transform.position = GetParticlePosition();
+                }
+            }
+            TryStartAction();
+        }
 
 
-        private void OnSwitchInteractionType(InteractionType currentType) => TryStartAction();
-        
-        
+        private void OnSwitchInteractionType(InteractionType currentType)
+        {
+            TryStartAction();
+        }
+
         #endregion
 
         protected override void TryStartAction()
         {
-            if (!_characterCondition.IsCanShowNimbus())
+            if (!_characterCondition.CanShowNimbus())
             {
-                Disable();
+                Stop();
                 return;
             }
 
-            var particleType = _interactionStorage.GetDominantInteractionType() == InteractionType.Good 
-                ? ParticleType.Nimbus_light
-                :ParticleType.Nimbus_dark;
+            var particleType = GetParticleType();
             
             if (_currentNimbus != null)
             {
                 if (_currentNimbus.Type == particleType)
                 {
-                    Debugging.Instance.Log(this,$"Try restars nimbus {particleType} (return)", Debugging.Type.VFX);
                     return;
                 }
-                else
-                    Disable();
+
+                Stop();
             }
 
             var particle = _particlesSystems.FirstOrDefault(p => p.Type == particleType);
@@ -112,12 +121,21 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             if (particle != null)
             {
                 _coroutineRunner.StopRoutine(_activateCoroutine);
-                _activateCoroutine = _coroutineRunner.StartRoutine(ActiveRoutine(particle));
+                _activateCoroutine = _coroutineRunner.StartRoutine(StartRoutine(particle));
             }
         }
-        
+
+        private ParticleType GetParticleType()
+        {
+            return _interactionStorage.GetDominantInteractionType() == InteractionType.Good 
+                ? ParticleType.Nimbus_light
+                :ParticleType.Nimbus_dark;
+        }
+
         protected override void UpdateParticles()
         {
+            MoveParticles();
+            
             if (!IsActive)
             {
                 return;
@@ -125,12 +143,20 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             
             if (_animationAnalytic.IsTransition)
             { 
-                Disable();
+                Stop();
             }
 
             if (_currentMoveSpeed < _speedRange.MaxValue)
             {
                 _currentMoveSpeed = Mathf.MoveTowards(_currentMoveSpeed, _speedRange.MaxValue, 3 * Time.deltaTime);
+            }
+        }
+
+        private void MoveParticles()
+        {
+            if (_particlesSystems == null)
+            {
+                return;
             }
             
             foreach (var particle in _particlesSystems)
@@ -138,11 +164,12 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 var target = GetParticlePosition();
                 var currentPos = particle.transform.position;
                 var distance = Vector3.Distance(currentPos, target);
-                particle.transform.position = Vector3.MoveTowards(currentPos, target,_currentMoveSpeed * distance * Time.deltaTime);
+                particle.transform.position =
+                    Vector3.MoveTowards(currentPos, target, _currentMoveSpeed * distance * Time.deltaTime);
             }
         }
-        
-        private void Active(ParticleSystemFacade nimbus)
+
+        private void Start(ParticleSystemFacade nimbus)
         {
             _currentMoveSpeed = _speedRange.MinValue;
             _currentNimbus = nimbus;
@@ -150,14 +177,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             IsActive = true;
         }
 
-        private IEnumerator ActiveRoutine(ParticleSystemFacade nimbus)
+        private IEnumerator StartRoutine(ParticleSystemFacade nimbus)
         {
             nimbus.TryGetAudioModule(out var audioModule);
             yield return new WaitUntil(() => audioModule.IsSleep());
-            Active(nimbus);
+            Start(nimbus);
         }
         
-        private void Disable()
+        private void Stop()
         {
             if (!IsActive)
             {

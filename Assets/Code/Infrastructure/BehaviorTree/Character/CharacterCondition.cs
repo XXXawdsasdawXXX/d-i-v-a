@@ -1,5 +1,4 @@
 ﻿using Code.Components.Characters;
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
@@ -11,7 +10,7 @@ using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
+namespace Code.Infrastructure.BehaviorTree.Character
 {
     public class CharacterCondition: IService, IGameInitListener
     {
@@ -102,7 +101,7 @@ namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
         #endregion
 
         #region VFX
-        public bool IsCanShowNimbus()
+        public bool CanShowNimbus()
         {
             var isCorrectState = _animationAnalytic.GetAnimationState()
                 is not CharacterAnimationState.Enter

@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Data.Facades;
+using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
@@ -9,7 +9,7 @@ using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Test
+namespace Code.Data.VFX
 {
     public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameTickListener, IGameStartListener
     {

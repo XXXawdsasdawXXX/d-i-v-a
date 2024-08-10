@@ -3,7 +3,7 @@ using Code.Data.Configs;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Providers;
+using Code.Infrastructure.Getters;
 using Code.Test;
 using Code.Utils;
 using UnityEngine;

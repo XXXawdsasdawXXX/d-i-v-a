@@ -1,12 +1,12 @@
 using Code.Data.Interfaces;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.CustomNodes.Character.Behavior;
+using Code.Infrastructure.BehaviorTree.Character.Behavior;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character
+namespace Code.Infrastructure.BehaviorTree.Character
 {
     public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
     {

@@ -5,7 +5,7 @@ using Code.Infrastructure.Services;
 using UnityEngine;
 using uWindowCapture;
 
-namespace Code.Test
+namespace Code
 {
     public class DisplayColor : MonoBehaviour,IWindowsSpecific ,IGameInitListener
     {

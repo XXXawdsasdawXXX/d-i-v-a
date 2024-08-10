@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Code.Components.Characters;
-using Code.Components.Entities;
 using Code.Data.Enums;
-using Code.Data.Facades;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
+using Code.Data.VFX;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Test;
