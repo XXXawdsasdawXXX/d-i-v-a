@@ -7,7 +7,7 @@ namespace Code.Components.Entities
     public class Grass : Entity
     {
         [SerializeField] private GrassAnimator _grassAnimator;
-        public bool IsActive;/*{ get; private set; }*/
+        public bool IsActive{ get; private set; }
 
         public void Grow()
         {
@@ -22,5 +22,6 @@ namespace Code.Components.Entities
             Debugging.Instance.Log($"Die",Debugging.Type.Grass);
             _grassAnimator.PlayDie();
         }
+        
     }
 }

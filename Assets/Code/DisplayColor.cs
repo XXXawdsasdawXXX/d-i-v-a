@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.DI;
+﻿using Code.Data.Interfaces;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using UnityEngine;
@@ -6,7 +7,7 @@ using uWindowCapture;
 
 namespace Code.Test
 {
-    public class DisplayColor : MonoBehaviour, IGameInitListener
+    public class DisplayColor : MonoBehaviour,IWindowsSpecific ,IGameInitListener
     {
         [SerializeField] private UwcWindowTexture _uwcTexture;
         [SerializeField] private int _w = 1;

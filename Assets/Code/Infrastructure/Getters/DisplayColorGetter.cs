@@ -1,21 +1,23 @@
 ﻿using Code.Data.Interfaces;
-using Code.Infrastructure.GameLoop;
 using Code.Test;
 using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.Providers
 {
-    public class DisplayColorGetter : MonoBehaviour, IWindowsSpecific, IGetter, IGameInitListener
+    public class DisplayColorGetter : MonoBehaviour,IGetter
     {
         [SerializeField] private DisplayColor _displayColor;
-
-        public void GameInit()
+        
+        private void OnEnable()
         {
-            var components = GetComponentsInChildren<MonoBehaviour>();
-            foreach (var behaviour in components)
+            if (Extensions.IsMacOs())
             {
-                behaviour.enabled = false;
+                var components = GetComponentsInChildren<MonoBehaviour>();
+                foreach (var behaviour in components)
+                {
+                    behaviour.enabled = false;
+                }
             }
         }
 

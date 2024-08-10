@@ -21,9 +21,8 @@ namespace Code.Components.Common
         private DisplayColor _colorAnalyzer;
         
         [Header("Dynamic value")] 
-        private Color32 _lastColor = Color.white;
+        [SerializeField] private Color32 _lastColor = Color.white;
         private Vector3 _additionalOffset;
-
         
         [Header("Debug")] 
         [SerializeField] private Transform _debugPoint;
@@ -35,10 +34,7 @@ namespace Code.Components.Common
             _colorAnalyzer = Container.Instance.FindGetter<DisplayColorGetter>().Get() as DisplayColor;
             _sensitivity = Container.Instance.FindConfig<SettingsConfig>().ColorCheckSensitivity;
         
-            if (_debugPoint != null)
-            {
-                _debugPoint.localPosition = _offset;
-            }
+            TrySetDebugPointPosition();
         }
         
         public void GameTick()
@@ -75,6 +71,7 @@ namespace Code.Components.Common
         public void SetAdditionalOffset(Vector3 offset)
         {
             _additionalOffset = offset;
+            TrySetDebugPointPosition();
         }
 
         private bool IsDifferentColorDetected()
@@ -85,6 +82,25 @@ namespace Code.Components.Common
         private Vector3 GetCheckPosition()
         {
             return transform.position + _offset + _additionalOffset;
+        }
+
+        private void TrySetDebugPointPosition()
+        {
+            if (_debugPoint != null)
+            {
+                _debugPoint.position = GetCheckPosition() + new Vector3(0,_debugPoint.localScale.y / 2 - 0.1f,0);
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(GetCheckPosition(), 0.01f);
+        }
+
+        private void OnValidate()
+        {
+            TrySetDebugPointPosition();
         }
     }
 }

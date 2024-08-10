@@ -3,7 +3,6 @@ using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services.LoopbackAudio.Audio;
-using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Characters

@@ -7,6 +7,10 @@ namespace Code.Utils
 {
     public static class Extensions
     {
+        public static bool IsMacOs()
+        {
+           return Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer;
+        }
         public  static bool IsEqualDay(DateTime lastVisit, DateTime currenVisit)
         {
             return  lastVisit != DateTime.MinValue && currenVisit != DateTime.MinValue && lastVisit.Day == currenVisit.Day;
@@ -41,8 +45,7 @@ namespace Code.Utils
         {
             return new Vector2(vector.x, vector.y);
         }
-
-
+        
         public static bool Equal(this Color32 color1, Color32 color2)
         {
             return color1.r == color2.r && color1.g == color2.g && color1.b == color2.b && color1.a == color2.a;

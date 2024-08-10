@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bcdfadfe7d496996523d7ce2420696, type: 3}
   m_Name: SettingsConfig
   m_EditorClassIdentifier: 
-  ColorCheckSensitivity: 8
+  ColorCheckSensitivity: 9

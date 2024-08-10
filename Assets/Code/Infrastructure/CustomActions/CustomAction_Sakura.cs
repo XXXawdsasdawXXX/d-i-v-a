@@ -11,18 +11,19 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Sakura : CustomAction, IGameInitListener,IGameTickListener,IGameExitListener,IProgressWriter
+    public class CustomAction_Sakura : CustomAction, IGameInitListener,IGameStartListener, IGameTickListener,IGameExitListener,IProgressWriter
     {
+        private const float MAX_ACTIVE_MIN = 20;
+        private const float NEEDED_ABSENCE_SEC = 60 * 60;
+        
         private Interaction_ReturnAfterAbsence _interaction_returnAfterAbsence;
         private TimeObserver _timeObserver;
 
         private bool _isReviewed;
         private float _currentActiveSec;
-        private const float MAX_ACTIVE_MIN = 60;
-        private const float NEEDED_ABSENCE_SEC = 60 * 60;
         
-
         private ParticleSystemFacade[] _particleSystems;
+
         public void GameInit()
         {
             var particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
@@ -30,8 +31,12 @@ namespace Code.Infrastructure.CustomActions
             {
                 _interaction_returnAfterAbsence =Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
-                SubscribeToEvents(true);
             }
+        }
+        
+        public void GameStart()
+        {
+            SubscribeToEvents(true);
         }
 
         public void GameTick()
@@ -101,7 +106,7 @@ namespace Code.Infrastructure.CustomActions
 
         private void TryStartAction(float absenceSecond)
         {
-            if (_isReviewed || absenceSecond < NEEDED_ABSENCE_SEC)
+            if (_isReviewed || _timeObserver.IsNightTime() || absenceSecond < NEEDED_ABSENCE_SEC)
             {
                 return;
             }
@@ -119,5 +124,7 @@ namespace Code.Infrastructure.CustomActions
                 _isReviewed = false;
             }
         }
+
+    
     }
 }
