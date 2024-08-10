@@ -40,10 +40,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         private readonly InteractionStorage _interactionsStorage;
         private readonly WhiteBoard_Hand _whiteBoard;
         private readonly AppleConfig _appleConfig;
-
-        [Header("Dynamic values")] 
-        private bool _isExpectedStart = true;
-        private bool _isHidden = true;
+        
 
 
         public BehaviourNode_ShowApple()
@@ -98,7 +95,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 }
 
                 Debugging.Instance.Log($"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",Debugging.Type.Hand);
-                _isExpectedStart = true;
             }
             
             Return(false);
@@ -106,8 +102,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 
         protected override bool IsCanRun()
         {
-            return _isExpectedStart
-                   && _tickCounter_cooldown.IsExpectedStart
+            return _tickCounter_cooldown.IsExpectedStart
                    && _animationAnalytic.GetAnimationMode() != CharacterAnimationMode.Sleep
                    && !_characterCondition.IsCanSleep();
         }
@@ -120,14 +115,13 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         private void ShowHandWithApple()
         {
             _whiteBoard.SetData(WhiteBoard_Hand.Type.IsShowApple, true);
-            _isExpectedStart = false;
 
             GrowApple();
 
             _handAnimator.PlayEnterHand();
             _handMovement.On();
 
-            StartWaitLiveTime();
+            StartWaitHandLiveTime();
             SubscribeToLocalEvents(true);
             Debugging.Instance.Log($"[showapple_ShowWhitApple] показал яблоко", Debugging.Type.Hand);
         }
@@ -141,20 +135,21 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             _handAnimator.PlayExitHand();
             _handMovement.Off();
 
-            StartWaitCooldown();
+            StartWaitSpawnAppleCooldown();
             SubscribeToLocalEvents(false);
 
+            Return(true);
             Debugging.Instance.Log($"[showapple_HideHand] спрятал руку", Debugging.Type.Hand);
         }
 
-        private void StartWaitLiveTime()
+        private void StartWaitHandLiveTime()
         {
             int liveTimeTicks = _handConfig.GetLiveTimeTicks();
             _tickCounter_liveTime.StartWait(liveTimeTicks);
             Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать конца {liveTimeTicks} жизненных тиков", Debugging.Type.Hand);
         }
 
-        private void StartWaitCooldown()
+        private void StartWaitSpawnAppleCooldown()
         {
             var cooldownTicks = _appleConfig.SpawnCooldownTick.GetRandomValue();
             _tickCounter_cooldown.StartWait(cooldownTicks);
@@ -236,12 +231,10 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         {
             if (flag)
             {
-                _tickCounter_cooldown.WaitedEvent += TickCounter_cooldownOnWaitedEvent;
                 _tickCounter_liveTime.WaitedEvent += TickCounter_liveTimeOnWaitedEvent;
             }
             else
             {
-                _tickCounter_cooldown.WaitedEvent -= TickCounter_cooldownOnWaitedEvent;
                 _tickCounter_liveTime.WaitedEvent -= TickCounter_liveTimeOnWaitedEvent;
             }
         }
@@ -255,14 +248,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             }
         }
 
-        private void TickCounter_cooldownOnWaitedEvent()
-        {
-            if (!_isExpectedStart)
-            {
-                _isExpectedStart = true;
-                Debugging.Instance.Log($"[showapple] готов к старту", Debugging.Type.Hand);
-            }
-        }
 
         #endregion
     }

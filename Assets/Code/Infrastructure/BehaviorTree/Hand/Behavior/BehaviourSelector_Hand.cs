@@ -23,8 +23,9 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             
             _orderedNodes = new BaseNode[]
             {
+                new BehaviourNode_WaitCharacterWakeUp(),
                 new BehaviourNode_ShowApple(),
-                new BehaviourNode_EnterTheVoid(),
+                new BehaviourNode_WaitTick(),
             };
             
             SubscribeToEvents(true);

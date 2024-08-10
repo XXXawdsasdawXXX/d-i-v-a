@@ -38,8 +38,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
                 _rootNode.Run(null);
             }
         }
-
-
+        
         public void GameExit()
         {
             SubscribeToEvents(false);

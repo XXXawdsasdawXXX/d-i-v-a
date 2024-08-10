@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
-    public class BehaviourNode_EnterTheVoid : BaseNode
+    public class BehaviourNode_WaitTick : BaseNode
     {
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         private float _cooldown;
 
 
-        public BehaviourNode_EnterTheVoid()
+        public BehaviourNode_WaitTick()
         {
             //hand
             var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
@@ -54,6 +54,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 
                 var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
                 _tickCounter.StartWait(cooldownTicks);
+            
                 _tickCounter.WaitedEvent += OnWaitedTicksEvent;
                 
                 Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
