@@ -1,79 +1,85 @@
-﻿using Code.Infrastructure.GameLoop;
+﻿using Code.Data.Interfaces;
+using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
-using uWindowCapture;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
-    public class LandingOnWindows : CommonComponent, IGameInitListener, IGameTickListener, IGameExitListener
+    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IGameStartListener , IGameExitListener
     {
-        [Header("static values")]
-        [SerializeField] private bool _isUsed;
-        [SerializeField] private byte _sensitivity = 3;
-        [SerializeField] private Vector2 _offset;
-        [Header("components")]
+        [Header("Components")]
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
-        [SerializeField] private TransformDisplayColorGetter _colorAnalyzer;
-        [Header("dynamic value")]
-        [SerializeField] private Color32 _lastColor = Color.white;
+        [SerializeField] private ColorChecker _colorChecker;
 
-        public void GameInit()
+        [Header("Dynamic Data")]
+        [SerializeField] private bool _isEnable = true;
+        
+        public void GameStart()
         {
-            _isUsed = !Extensions.IsMacOs();
-            if (!_isUsed)
-            {
-                return;
-            }
-            SubscribeToEvents(true);
+            SetEnable(_isEnable);
         }
-
-
-        public void GameTick()
-        {
-            if (!_isUsed)
-            {
-                return;
-            }
-            
-            if (IsDifferentColorDetected() && _rigidbody2D.bodyType != RigidbodyType2D.Kinematic)
-            {
-                _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-                _rigidbody2D.velocity = Vector2.zero;
-                _lastColor = _colorAnalyzer.GetColor(transform.position);
-            }
-        }
-
+        
         public void GameExit()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
             SubscribeToEvents(false);
         }
 
-        private bool IsDifferentColorDetected()
-        {
-            return !_lastColor.Equal(_colorAnalyzer.GetColor(transform.position + _offset.AsVector3()), _sensitivity);
-        }
+        #region Events
 
 
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _colliderButton.UpEvent += ColliderButtonOnUpEvent;
+                _colliderButton.OnPressedUp += OnPressedUp;
+                _colorChecker.OnFoundedNewColor += OnFoundedNewColor;
             }
             else
             {
-                _colliderButton.UpEvent -= ColliderButtonOnUpEvent;
+                _colliderButton.OnPressedUp -= OnPressedUp;
+                _colorChecker.OnFoundedNewColor -= OnFoundedNewColor;
             }
         }
 
-        private void ColliderButtonOnUpEvent(Vector2 arg1, float arg2)
+        private void OnPressedUp(Vector2 arg1, float arg2)
         {
-            _lastColor = _colorAnalyzer.GetColor(transform.position + _offset.AsVector3());
+            Debugging.Instance.Log(this,$"{gameObject.name} OnPressedUp", Debugging.Type.Window);
+            _colorChecker.RefreshLastColor();
         }
+
+        private void OnFoundedNewColor(Color obj)
+        {
+            Debugging.Instance.Log(this,$"{gameObject.name} OnFoundedNewColor", Debugging.Type.Window);
+            switch (_rigidbody2D.bodyType)
+            {
+                case RigidbodyType2D.Kinematic:
+                    _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                    break;
+                case RigidbodyType2D.Dynamic:
+                    _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                    _rigidbody2D.velocity = Vector2.zero;
+                    break;
+            }
+        }
+        
+        #endregion
+
+        #region Public Methods
+
+        public void SetOffset(Vector2 offset)
+        {
+            _colorChecker.SetAdditionalOffset(offset);
+        }
+        
+        public void SetEnable(bool isEnable)
+        {
+            Debugging.Instance.Log(this,$"{gameObject.name} SetEnable {isEnable}", Debugging.Type.Window);
+            _isEnable = isEnable;
+            _colorChecker.SetEnable(isEnable);
+            SubscribeToEvents(isEnable);
+        }
+        
+        #endregion
     }
 }

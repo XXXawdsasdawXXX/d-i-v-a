@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Data.Interfaces;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Hand
+namespace Code.Data.Storages
 {
     public class WhiteBoard_Hand : IStorage
     {

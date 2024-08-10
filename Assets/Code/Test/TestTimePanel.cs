@@ -1,7 +1,7 @@
 ﻿using System;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
-using Code.Services;
+using Code.Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.UI;
 

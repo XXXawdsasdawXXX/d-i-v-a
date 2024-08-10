@@ -1,7 +1,7 @@
 using System;
 using Code.Data.Value.RangeInt;
 
-namespace Code.Data.StaticData
+namespace Code.Data.Value
 {
     [Serializable]
     public class InteractionsValueData

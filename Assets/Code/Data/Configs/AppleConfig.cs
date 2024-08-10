@@ -1,6 +1,4 @@
-﻿using Code.Data.StaticData;
-using Code.Data.Value;
-using Code.Data.Value.RangeFloat;
+﻿using Code.Data.Value;
 using Code.Data.Value.RangeInt;
 using UnityEngine;
 
@@ -13,10 +11,7 @@ namespace Code.Data.Configs
         [MinMaxRangeInt(1, 100)] public RangedInt SpawnCooldownTick;
         [Header("Time for one apple stage")]
         [MinMaxRangeInt(1, 100)] public RangedInt OneStageLiveTimeTick;
-      
-        [Space]
-        public LiveStateRangePercentageValue DieAppleEffect;
-        
+
         [Header("Apples stage params\nValue is a percentage of the state's maximum value.")]
         public LiveStatePercentageValues[] AppleValues;
 

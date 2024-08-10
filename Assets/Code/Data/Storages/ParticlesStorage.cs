@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Data.Configs;
 using Code.Data.Enums;
-using Code.Data.Facades;
 using Code.Data.Interfaces;
-using Code.Data.StaticData;
+using Code.Data.VFX;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Services
+namespace Code.Data.Storages
 {
     public class ParticlesStorage : MonoBehaviour, IStorage, IGameInitListener
     {

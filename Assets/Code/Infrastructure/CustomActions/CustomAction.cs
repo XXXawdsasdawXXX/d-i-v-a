@@ -1,4 +1,5 @@
 using System;
+using Code.Data.Enums;
 
 namespace Code.Infrastructure.CustomActions
 {
@@ -6,7 +7,7 @@ namespace Code.Infrastructure.CustomActions
     {
         public bool IsActive { get; protected set; }
 
-        protected virtual void StartAction()
+        protected virtual void TryStartAction()
         {
             IsActive = true;
         }

@@ -17,8 +17,8 @@ namespace Code.Data.Storages
     {
         private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
-
         public event Action OnInit; 
+        
         public void GameInit()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
@@ -55,13 +55,14 @@ namespace Code.Data.Storages
         {
             if (values == null)
             {
-                Debugging.Instance.Log($"[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
+                Debugging.Instance.Log(this,$"[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
                 return;
             }
             foreach (var liveStateValue in values)
             {
                 if (TryGetLiveState(liveStateValue.Key, out var state))
                 {
+                    Debugging.Instance.Log(this,$"[AddPercentageValues] add {liveStateValue.Key} { liveStateValue.Value}", Debugging.Type.LiveState);
                     Add(state, liveStateValue.Value);
                 }
             }
@@ -96,7 +97,7 @@ namespace Code.Data.Storages
         {
             var max = state.Max;
             var result = max / 100 * GetCorrectValue(randomValue);
-            Debugging.Instance.Log($"[Add] {max} / 100 * `{randomValue}` = {result}", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this,$"[Add] {max} / 100 * `{randomValue}` = {result}", Debugging.Type.LiveState);
             state.Add(result);
         }
 
@@ -120,7 +121,7 @@ namespace Code.Data.Storages
 
             OnInit?.Invoke();
             
-            Debugging.Instance.Log($"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
+            Debugging.Instance.Log(this,$"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
                 Debugging.Type.LiveState);
         }
 
@@ -161,7 +162,7 @@ namespace Code.Data.Storages
                 characterLiveStates.Add((LiveStateKey)i, state);
             }
 
-            Debugging.Instance.Log($"init new", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this,$"init new", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
@@ -180,7 +181,7 @@ namespace Code.Data.Storages
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 
-            Debugging.Instance.Log($"load states", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this,$"load states", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
@@ -205,7 +206,7 @@ namespace Code.Data.Storages
         {
             foreach (var liveState in LiveStates)
             {
-                Debugging.Instance.Log($"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
+                Debugging.Instance.Log(this,$"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
             }
         }
 

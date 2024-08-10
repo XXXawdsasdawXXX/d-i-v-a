@@ -1,25 +1,29 @@
 ﻿using Code.Data.Enums;
-using Code.Data.Facades;
+using Code.Data.SavedData;
+using Code.Data.Storages;
+using Code.Data.VFX;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
-using Code.Services;
+using Code.Infrastructure.Services;
+using Code.Infrastructure.Services.Interactions;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Sakura : CustomAction, IGameInitListener,IGameTickListener,IGameExitListener,IProgressWriter
+    public class CustomAction_Sakura : CustomAction, IGameInitListener,IGameStartListener, IGameTickListener,IGameExitListener,IProgressWriter
     {
+        private const float MAX_ACTIVE_MIN = 20;
+        private const float NEEDED_ABSENCE_SEC = 60 * 60;
+        
         private Interaction_ReturnAfterAbsence _interaction_returnAfterAbsence;
         private TimeObserver _timeObserver;
 
         private bool _isReviewed;
         private float _currentActiveSec;
-        private const float MAX_ACTIVE_MIN = 60;
-        private const float NEEDED_ABSENCE_SEC = 60 * 60;
         
-
         private ParticleSystemFacade[] _particleSystems;
+
         public void GameInit()
         {
             var particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
@@ -27,8 +31,12 @@ namespace Code.Infrastructure.CustomActions
             {
                 _interaction_returnAfterAbsence =Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
-                SubscribeToEvents(true);
             }
+        }
+        
+        public void GameStart()
+        {
+            SubscribeToEvents(true);
         }
 
         public void GameTick()
@@ -48,14 +56,14 @@ namespace Code.Infrastructure.CustomActions
             SubscribeToEvents(false);
         }
 
-        protected override void StartAction()
+        protected override void TryStartAction()
         {
             _isReviewed = true;
             foreach (var particleSystem in _particleSystems)
             {
                 particleSystem.On();
             }
-            base.StartAction();
+            base.TryStartAction();
         }
 
         protected override void StopAction()
@@ -98,14 +106,14 @@ namespace Code.Infrastructure.CustomActions
 
         private void TryStartAction(float absenceSecond)
         {
-            if (_isReviewed || absenceSecond < NEEDED_ABSENCE_SEC)
+            if (_isReviewed || _timeObserver.IsNightTime() || absenceSecond < NEEDED_ABSENCE_SEC)
             {
                 return;
             }
 
             if (Random.Range(0, 101) > 70)
             {
-                StartAction();
+                TryStartAction();
             }
         }
 
@@ -116,5 +124,7 @@ namespace Code.Infrastructure.CustomActions
                 _isReviewed = false;
             }
         }
+
+    
     }
 }

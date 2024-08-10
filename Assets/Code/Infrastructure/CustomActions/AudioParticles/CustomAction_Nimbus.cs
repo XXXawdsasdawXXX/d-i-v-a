@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Linq;
-using Code.Components.Characters;
+using Code.Components.Entities.Characters;
 using Code.Data.Enums;
-using Code.Data.Facades;
+using Code.Data.Storages;
+using Code.Data.Value.RangeFloat;
+using Code.Data.VFX;
+using Code.Infrastructure.BehaviorTree.Character;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -14,16 +17,25 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     public class CustomAction_Nimbus : CustomAction_AudioParticle, IGameExitListener
     {
         private CharacterAnimationAnalytic _animationAnalytic;
-        private CoroutineRunner _coroutineRunner;
+        private CharacterCondition _characterCondition;
         private InteractionStorage _interactionStorage;
 
+        private CoroutineRunner _coroutineRunner;
+        
         private ParticleSystemFacade _currentNimbus;
 
+        private Coroutine _activateCoroutine;
+        
+        private RangedFloat _speedRange = new() { MinValue = 3, MaxValue = 20};
+        private float _currentMoveSpeed;
+        
         protected override void Init()
         {
             _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
+            _characterCondition = Container.Instance.FindService<CharacterCondition>();
+
+            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             
             SubscribeToEvents(true);
             base.Init();
@@ -31,10 +43,6 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         public void GameExit()
         {
-            if (!_isUsed)
-            {
-                return;
-            }
             SubscribeToEvents(false);
         }
 
@@ -52,104 +60,145 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             };
         }
 
-        protected override void StartAction()
+        #region Events
+        
+        private void SubscribeToEvents(bool flag)
         {
-            if (_animationAnalytic.GetAnimationMode() == CharacterAnimationMode.Sleep)
+            if (flag)
             {
-                DisableCurrentNimbus();
-                return;
-            }
-            _coroutineRunner.StartRoutine(AwaitStart());
-        }
-
-        private IEnumerator AwaitStart()
-        {
-            Debugging.Instance.Log("[nimbus] await PLAY ", Debugging.Type.CustomAction);
-            yield return new WaitUntil(() => _animationAnalytic.GetCharacterAnimationState() != CharacterAnimationState.Enter);
-            Debugging.Instance.Log("[nimbus] PLAY ", Debugging.Type.CustomAction);
-            IsActive = true;
-            var dominantInteractionType = _interactionStorage.GetDominantInteractionType();
-            if (dominantInteractionType == InteractionType.Good)
-            {
-                Show(ParticleType.Nimbus_light);
-            }
-            else if(dominantInteractionType == InteractionType.Bad)
-            {
-                Show(ParticleType.Nimbus_dark);
+                _interactionStorage.OnSwitchDominationType += OnSwitchInteractionType;
+                _animationAnalytic.OnSwitchState += OnSwitchAnimationState;
             }
             else
             {
-                DisableCurrentNimbus();
+                _interactionStorage.OnSwitchDominationType -= OnSwitchInteractionType;
+                _animationAnalytic.OnSwitchState -= OnSwitchAnimationState;
             }
+        }
+
+        private void OnSwitchAnimationState(CharacterAnimationState characterAnimationState)
+        {
+            if (characterAnimationState == CharacterAnimationState.Enter)
+            {
+                foreach (var particlesSystem in _particlesSystems)
+                {
+                    particlesSystem.transform.position = GetParticlePosition();
+                }
+            }
+            TryStartAction();
+        }
+
+
+        private void OnSwitchInteractionType(InteractionType currentType)
+        {
+            TryStartAction();
+        }
+
+        #endregion
+
+        protected override void TryStartAction()
+        {
+            if (!_characterCondition.CanShowNimbus())
+            {
+                Stop();
+                return;
+            }
+
+            var particleType = GetParticleType();
+            
+            if (_currentNimbus != null)
+            {
+                if (_currentNimbus.Type == particleType)
+                {
+                    return;
+                }
+
+                Stop();
+            }
+
+            var particle = _particlesSystems.FirstOrDefault(p => p.Type == particleType);
+
+            if (particle != null)
+            {
+                _coroutineRunner.StopRoutine(_activateCoroutine);
+                _activateCoroutine = _coroutineRunner.StartRoutine(StartRoutine(particle));
+            }
+        }
+
+        private ParticleType GetParticleType()
+        {
+            return _interactionStorage.GetDominantInteractionType() == InteractionType.Good 
+                ? ParticleType.Nimbus_light
+                :ParticleType.Nimbus_dark;
         }
 
         protected override void UpdateParticles()
         {
-            if (!_isUsed || _particlesSystems == null)
+            MoveParticles();
+            
+            if (!IsActive)
             {
                 return;
             }
+            
+            if (_animationAnalytic.IsTransition)
+            { 
+                Stop();
+            }
 
-            foreach (var particlesSystem in _particlesSystems)
+            if (_currentMoveSpeed < _speedRange.MaxValue)
             {
-                particlesSystem.transform.position = GetParticlePosition();
+                _currentMoveSpeed = Mathf.MoveTowards(_currentMoveSpeed, _speedRange.MaxValue, 3 * Time.deltaTime);
             }
         }
 
-        private void Show(ParticleType particleType)
+        private void MoveParticles()
         {
-            if (_currentNimbus != null && _currentNimbus.Type != particleType)
+            if (_particlesSystems == null)
             {
-                DisableCurrentNimbus();
+                return;
             }
-
-            var nimbus_light = _particlesSystems.FirstOrDefault(p => p.Type ==particleType);
-
-            if (nimbus_light != null)
+            
+            foreach (var particle in _particlesSystems)
             {
-                ActiveNimbus(nimbus_light);
+                var target = GetParticlePosition();
+                var currentPos = particle.transform.position;
+                var distance = Vector3.Distance(currentPos, target);
+                particle.transform.position =
+                    Vector3.MoveTowards(currentPos, target, _currentMoveSpeed * distance * Time.deltaTime);
             }
         }
 
-        private void ActiveNimbus(ParticleSystemFacade nimbus)
+        private void Start(ParticleSystemFacade nimbus)
         {
+            _currentMoveSpeed = _speedRange.MinValue;
             _currentNimbus = nimbus;
             _currentNimbus.On();
+            IsActive = true;
         }
 
-        private void DisableCurrentNimbus()
+        private IEnumerator StartRoutine(ParticleSystemFacade nimbus)
         {
+            nimbus.TryGetAudioModule(out var audioModule);
+            yield return new WaitUntil(() => audioModule.IsSleep());
+            Start(nimbus);
+        }
+        
+        private void Stop()
+        {
+            if (!IsActive)
+            {
+                return;
+            }
+            
             _currentNimbus?.Off();
             _currentNimbus = null;
+            IsActive = false;
         }
 
         private Vector3 GetParticlePosition()
         {
             return _characterModeAdapter.GetWorldHeatPoint() + Vector3.up * 0.2f;
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _interactionStorage.SwitchDominationTypeEvent += OnSwitchInteractionDominationType;
-                _animationAnalytic.SwitchModeEvent += OnSwitchAnimationMode;
-            }
-            else
-            {
-                _interactionStorage.SwitchDominationTypeEvent -= OnSwitchInteractionDominationType;
-                _animationAnalytic.SwitchModeEvent -= OnSwitchAnimationMode;
-            }
-        }
-
-        private void OnSwitchAnimationMode(CharacterAnimationMode mode)
-        {
-            StartAction();
-        }
-
-        private void OnSwitchInteractionDominationType(InteractionType currentType)
-        {
-            StartAction();
         }
     }
 }

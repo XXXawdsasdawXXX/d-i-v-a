@@ -2,11 +2,11 @@
 using Code.Data.StaticData;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class PositionInitializer : CommonComponent, IGameInitListener,IGameStartListener
     {
@@ -20,11 +20,11 @@ namespace Code.Components.Objects
         {
             _positionService = Container.Instance.FindService<PositionService>();
         }
+        
         public void GameStart()
         {
             SetDefaultPosition();
         }
-
         
         public void SetDefaultPosition()
         {

@@ -9,13 +9,13 @@ namespace Code.Test
     {
         [SerializeField] private Text _paramText;
         [SerializeField] private GameObject _body;
+        [SerializeField] private GameObject _console;
 
         private LiveStateStorage _storage;
         
         private void Start()
         {
-            _storage = Container.Instance.FindStorage<LiveStateStorage>();
-            
+            _storage = Container.Instance.FindStorage<LiveStateStorage>();  
         }
 
         private void Update()
@@ -23,6 +23,7 @@ namespace Code.Test
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 _body.SetActive(!_body.activeSelf);
+                _console.SetActive(!_console.activeSelf);
             }
 
             if (!_body.activeSelf)

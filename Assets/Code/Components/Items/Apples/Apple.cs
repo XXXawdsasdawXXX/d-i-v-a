@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections;
-using Code.Components.Items;
-using Code.Components.Objects;
+using Code.Components.Common;
 using Code.Data.Configs;
 using Code.Data.Storages;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Apples
+namespace Code.Components.Items.Apples
 {
     public class Apple : Item, IGameInitListener
     {
@@ -21,7 +20,6 @@ namespace Code.Components.Apples
         [SerializeField] private ColliderButton _colliderButton;
 
         [Header("Services")] 
-        private LiveStateStorage _liveStateStorage;
         private CoroutineRunner _coroutineRunner;
 
         [Header("Static value")] 
@@ -36,7 +34,6 @@ namespace Code.Components.Apples
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
-            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter();
         }
@@ -82,14 +79,14 @@ namespace Code.Components.Apples
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 Debugging.Instance.Log($"[Use] анимация закончена, начисляются значения", Debugging.Type.Apple);
-                _liveStateStorage.AddPercentageValues(GetLiveStateValues());
+            
                 OnEnd?.Invoke();
                 UseEvent?.Invoke(this);
                 Reset();
             });
         }
 
-        private LiveStatePercentageValue[] GetLiveStateValues()
+        public LiveStatePercentageValue[] GetPercentageValues()
         {
             return  _currentStage < _appleConfig.AppleValues.Length ? _appleConfig.AppleValues[_currentStage].Values : null;
         }
@@ -101,7 +98,6 @@ namespace Code.Components.Apples
                 return;
             }
             DieEvent?.Invoke();
-            _liveStateStorage.AddPercentageValue(_appleConfig.DieAppleEffect);
             Debugging.Instance.Log($"[Die]", Debugging.Type.Apple);
             Reset();
         }

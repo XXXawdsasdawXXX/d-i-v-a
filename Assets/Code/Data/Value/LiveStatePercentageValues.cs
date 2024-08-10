@@ -1,7 +1,6 @@
 ﻿using System;
-using Code.Data.Value;
 
-namespace Code.Data.StaticData
+namespace Code.Data.Value
 {
     [Serializable]
     public class LiveStatePercentageValues

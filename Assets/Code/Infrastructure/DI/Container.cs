@@ -9,10 +9,11 @@ using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
-using Code.Services;
+using Code.Infrastructure.Services.Interactions;
 using Code.Utils;
 using Kirurobo;
 using UnityEngine;
+
 
 namespace Code.Infrastructure.DI
 {
@@ -31,6 +32,7 @@ namespace Code.Infrastructure.DI
         private List<Item> _items = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
+        private List<IGetter> _getters = new();
         
         private void Awake()
         {
@@ -50,6 +52,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _items); 
             InitList(ref _interactionObservers); 
             InitList(ref _mono);
+            InitList(ref _getters);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -82,6 +85,7 @@ namespace Code.Infrastructure.DI
         {
             return _uniWindowController;
         }
+        
         public T FindConfig<T>() where T : ScriptableObject
         {
             foreach (var scriptableObject in _configs)
@@ -104,10 +108,22 @@ namespace Code.Infrastructure.DI
                     return findService;
                 }
             }
-
             return default;
         }
 
+        
+        public T FindGetter<T>() where T : class
+        {
+            foreach (var getter in _getters)
+            {
+                if (getter is T findGetter)
+                {
+                    return findGetter;
+                }
+            }
+            return default;
+        }
+        
         public T FindStorage<T>() where T : IStorage 
         {
             foreach (var storage in _storages)

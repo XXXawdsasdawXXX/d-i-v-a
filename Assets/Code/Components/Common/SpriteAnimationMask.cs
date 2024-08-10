@@ -3,7 +3,7 @@ using System.Collections;
 using Code.Data.Interfaces;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class SpriteAnimationMask : CommonComponent, IToggle
     {

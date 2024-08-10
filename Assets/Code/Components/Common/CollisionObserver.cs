@@ -2,7 +2,7 @@
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class CollisionObserver : CommonComponent
     {

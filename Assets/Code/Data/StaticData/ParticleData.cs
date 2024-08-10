@@ -1,6 +1,6 @@
 ﻿using System;
 using Code.Data.Enums;
-using Code.Data.Facades;
+using Code.Data.VFX;
 
 namespace Code.Data.StaticData
 {

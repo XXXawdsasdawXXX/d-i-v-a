@@ -1,8 +1,8 @@
 using Code.Data.Value.RangeInt;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.CustomNodes.Character.Sub
+namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public sealed class SubNode_WaitForTicks : BaseNode
     {

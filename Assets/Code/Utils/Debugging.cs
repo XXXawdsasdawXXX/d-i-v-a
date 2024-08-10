@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Code.Utils
 {
@@ -29,7 +30,10 @@ namespace Code.Utils
             CustomAction,
             Interaction,
             Hand,
-            Items
+            Items,
+            Window,
+            CharacterCondition,
+            VFX
         }
 
         [Serializable]
@@ -63,16 +67,36 @@ namespace Code.Utils
             }
         }
 
+        public void Log(object invoker,string message, Type type = Type.None)
+        {
+            var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            if (debugParam != null)
+            {
+                if (debugParam.Active)
+                {
+                    ColorLog($"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
+                }
+            }
+            else
+            {
+                ColorLog(message, Color.white);
+            }
+        }
         public void TestLog(string message)
         {
             ColorLog(message, Color.green);
         }
 
+        public void ErrorLog(Object obj, string message)
+        {
+            ColorLog($"{obj.GetType()} {message}", Color.red);
+        }
+        
         public void ErrorLog(string message)
         {
             ColorLog(message, Color.red);
         }
-
+        
         private void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
@@ -95,6 +119,14 @@ namespace Code.Utils
             }
 
             return result.ToString().Trim(); // Удаляем возможный пробел в начале строки
+        }
+
+        public void DisableAll()
+        {
+            foreach (var debugParam in _debugParams)
+            {
+                debugParam.Active = false;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[0].Multiplier
-      value: 0.05
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[1].Multiplier
@@ -25,7 +25,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: _effectsData.Array.data[3].Multiplier
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[0].Range.MaxValue
+      value: 6.202098
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[0].Range.MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[1].Range.MaxValue
+      value: 6.4095984
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[1].Range.MinValue
+      value: 3.276975
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[2].Range.MaxValue
+      value: 12.933266
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[2].Range.MinValue
+      value: 2.0693223
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[3].Range.MaxValue
+      value: 5.9419627
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576211046701084766, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: _effectsData.Array.data[3].Range.MinValue
+      value: 0.2586653
+      objectReference: {fileID: 0}
+    - target: {fileID: 3055086394606424608, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5809537865495776328, guid: d28fdd3f84ca94e4ba32e3c7879b8274, type: 3}
       propertyPath: m_RootOrder

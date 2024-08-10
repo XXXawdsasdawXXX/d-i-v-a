@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Code.Infrastructure.BehaviorTree
+namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public abstract class BaseNode 
     {

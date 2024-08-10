@@ -2,11 +2,11 @@
 using Code.Data.Configs;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services;
+using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class ColliderButton : CommonComponent, IGameInitListener, IGameTickListener
     {
@@ -23,7 +23,7 @@ namespace Code.Components.Objects
         private int _clickNumber;
 
         public event Action<Vector2> DownEvent;
-        public event Action<Vector2, float> UpEvent;
+        public event Action<Vector2, float> OnPressedUp;
         public event Action<int> SeriesOfClicksEvent;
         
         public void GameInit()
@@ -67,7 +67,7 @@ namespace Code.Components.Objects
         private void OnMouseUp()
         {
             IsPressed = false;
-            UpEvent?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
+            OnPressedUp?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
             _pressedTime = 0;
 
             Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);

@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using Kirurobo;
-using Unity.VisualScripting;
 using UnityEngine;
-using uWindowCapture;
 
 namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour
     {
         [SerializeField] private bool _isTestInit;
-        [SerializeField] private UwcWindowTexture _uwcWindowTexture;
         private UniWindowController _controller;
         
         private readonly List<IGameInitListener> _initListeners = new();
@@ -21,16 +20,8 @@ namespace Code.Infrastructure.GameLoop
         private readonly List<IGameTickListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
 
-
         public void Awake()
         {
-            for (int i = 0; i < UwcManager.desktopCount; i++)
-            {
-               // Debug.Log($"{UwcManager.Find(i).}");
-            }
-
-            
-           Debug.Log($"{Screen.mainWindowDisplayInfo.height} {Screen.mainWindowDisplayInfo.width}"); 
 #if !UNITY_EDITOR
             _isTestInit = false;
 #endif
@@ -61,7 +52,6 @@ namespace Code.Infrastructure.GameLoop
             StartCoroutine(StartWithDelay());
         }
 
-
         private IEnumerator StartWithDelay()
         {
             _controller.OnStateChanged -= OnWindowControllerStateChanged;
@@ -85,6 +75,12 @@ namespace Code.Infrastructure.GameLoop
         private void InitializeListeners()
         {
             var gameListeners = Container.Instance.GetGameListeners();
+            if (Extensions.IsMacOs())
+            {
+                gameListeners = gameListeners
+                    .Where(l => l is not IWindowsSpecific) 
+                    .ToList(); 
+            }
 
             foreach (var listener in gameListeners)
             {
@@ -100,7 +96,7 @@ namespace Code.Infrastructure.GameLoop
                     _exitListeners.Add(exitListener);
             }
         }
-
+        
         private void NotifyGameInit()
         {
             foreach (var listener in _initListeners)

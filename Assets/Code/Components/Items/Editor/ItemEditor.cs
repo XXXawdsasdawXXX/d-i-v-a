@@ -1,8 +1,7 @@
-﻿using Code.Components.Items;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Apples.Editor
+namespace Code.Components.Items.Editor
 {
     [CustomEditor(typeof(Item))]
     public class ItemEditor : UnityEditor.Editor

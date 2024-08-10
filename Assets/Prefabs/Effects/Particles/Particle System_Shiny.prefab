@@ -4842,18 +4842,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 1847215902944464658}
-  _params: 
-  _loopBackAudioParam: 0
-  _valueMultiplier: 0.05
   _effectsData:
   - ParticleParam: 1
     AudioParam: 1
     Multiplier: 0.05
+    Range:
+      MinValue: 0
+      MaxValue: 0
   - ParticleParam: 7
     AudioParam: 1
     Multiplier: 0.05
+    Range:
+      MinValue: 0
+      MaxValue: 0
   - ParticleParam: 3
     AudioParam: 1
     Multiplier: 0.05
+    Range:
+      MinValue: 0
+      MaxValue: 0
   _gradient: 1
   _isActive: 0
+  _disableSpeed: 1

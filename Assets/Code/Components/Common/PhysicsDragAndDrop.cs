@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.Components.Objects
+namespace Code.Components.Common
 {
     public class PhysicsDragAndDrop : ColliderDragAndDrop
     {
@@ -43,24 +43,24 @@ namespace Code.Components.Objects
             SetPhysicsActive(true);
         }
 
-        protected override void OnPressDown(Vector2 obj)
+        protected override void OnDown(Vector2 obj)
         {
             if (!_isActive)
             {
                 return;
             }
             SetPhysicsActive(false);
-            base.OnPressDown(obj);
+            base.OnDown(obj);
         }
 
-        protected override void OnPressUp(Vector2 arg1, float arg2)
+        protected override void OnPressedUp(Vector2 arg1, float arg2)
         {
             if (!_isActive)
             {
                 return;
             }
             SetPhysicsActive(true);
-            base.OnPressUp(arg1, arg2);
+            base.OnPressedUp(arg1, arg2);
         }
 
         private void SetPhysicsActive(bool isActive)

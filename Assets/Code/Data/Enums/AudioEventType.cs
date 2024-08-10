@@ -1,9 +1,12 @@
-public enum AudioEventType
+namespace Code.Data.Enums
 {
-    None,
-    Voice,
-    Screamer,
-    Hi,
-    Trail,
-    Song
+    public enum AudioEventType
+    {
+        None,
+        Voice,
+        Screamer,
+        Hi,
+        Trail,
+        Song
+    }
 }
