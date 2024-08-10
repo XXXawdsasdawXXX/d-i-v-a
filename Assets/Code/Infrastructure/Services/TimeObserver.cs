@@ -102,7 +102,7 @@ namespace Code.Infrastructure.Services
         public bool IsNightTime()
         {
             TimeSpan timeOfDay = _currentTime.TimeOfDay;
-            return (timeOfDay >= NightStart || timeOfDay < NightEnd);
+            return (timeOfDay >= NightStart && timeOfDay < NightEnd);
         }
 
 
