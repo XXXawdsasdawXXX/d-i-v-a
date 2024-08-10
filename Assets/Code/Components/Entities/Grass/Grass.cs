@@ -1,4 +1,5 @@
-﻿using Code.Utils;
+﻿using Code.Components.Common;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Entities.Grass
@@ -21,6 +22,14 @@ namespace Code.Components.Entities.Grass
             Debugging.Instance.Log($"Die",Debugging.Type.Grass);
             _grassAnimator.PlayDie();
         }
-        
+
+        #region Editor
+
+        public void FindAllComponents()
+        {
+            _commonComponents = GetComponentsInChildren<CommonComponent>(true);
+        }
+
+        #endregion
     }
 }
