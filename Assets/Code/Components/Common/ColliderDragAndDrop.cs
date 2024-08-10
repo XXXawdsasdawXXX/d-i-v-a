@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ColliderDragAndDrop : CommonComponent, IGameInitListener,IGameTickListener, IToggle
+    public class ColliderDragAndDrop : CommonComponent, IGameInitListener,IGameStartListener,IGameTickListener, IToggle
     {
         [Header("Params")]
         [SerializeField] protected bool _isActive;
@@ -31,10 +31,13 @@ namespace Code.Components.Common
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>(); 
             _positionService = Container.Instance.FindService<PositionService>();
-            _boarder = (Vector2)_positionService.GetPosition(PointAnchor.LowerRight);
             
             Init();
-            
+        }
+
+        public void GameStart()
+        {
+            _boarder = (Vector2)_positionService.GetPosition(PointAnchor.LowerRight);
             SubscribeToEvents(true);
         }
 
@@ -48,6 +51,7 @@ namespace Code.Components.Common
         }
 
         #region Unique methods
+
         public virtual void On(Action onTurnedOn = null)
         {
             _isActive = true;
@@ -59,7 +63,7 @@ namespace Code.Components.Common
             _isActive = false;
             onTurnedOff?.Invoke();
         }
-        
+
 
         protected virtual void Init()
         {
@@ -84,6 +88,7 @@ namespace Code.Components.Common
         #endregion
 
         #region Events
+
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -123,7 +128,7 @@ namespace Code.Components.Common
         { 
             _coroutine = _coroutineRunner.StartRoutine(MoveUpRoutine());
         }
-        
+
         private IEnumerator MoveUpRoutine()
         {
             var period = new WaitForEndOfFrame();
@@ -134,7 +139,7 @@ namespace Code.Components.Common
                 yield return period;
             }
         }
-        
+
         #endregion
     }
 }

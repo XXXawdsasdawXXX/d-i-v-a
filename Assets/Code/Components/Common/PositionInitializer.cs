@@ -20,11 +20,11 @@ namespace Code.Components.Common
         {
             _positionService = Container.Instance.FindService<PositionService>();
         }
+        
         public void GameStart()
         {
             SetDefaultPosition();
         }
-
         
         public void SetDefaultPosition()
         {

@@ -14,7 +14,7 @@ namespace Code.Infrastructure.Services
     {
         [SerializeField] private RectTransform _canvas;
 
-        private Vector2 _offset = new(75,75); 
+        private readonly Vector2 _offset = new(75,75); 
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 
@@ -58,7 +58,7 @@ namespace Code.Infrastructure.Services
 
         private  Vector3 ScreenToWorld(Vector2 screenPoint)
         {
-            var worldPoint = _perfectCamera.enabled 
+            var worldPoint = _perfectCamera != null && _perfectCamera.enabled 
                 ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint)) 
                 : _camera.ScreenToWorldPoint(screenPoint);
             return new Vector3(worldPoint.x, worldPoint.y, 0);
