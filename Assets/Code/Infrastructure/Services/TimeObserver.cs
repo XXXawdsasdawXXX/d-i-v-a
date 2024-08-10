@@ -16,7 +16,8 @@ namespace Code.Infrastructure.Services
 {
     public class TimeObserver : IService, IGameInitListener, IGameTickListener, IProgressWriter
     {
-        [Header("Static value")] private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
+        [Header("Static value")]
+        private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
         private RangedFloat _tickRangedTime;
         private float _tickTime;
@@ -85,13 +86,14 @@ namespace Code.Infrastructure.Services
 
         private void CheckTimeOfDay()
         {
-            if (IsNightTime() && !_isNight)
+            var isNightTime = IsNightTime();
+            if (isNightTime && !_isNight)
             {
                 Debugging.Instance.Log($"Начало ночи", Debugging.Type.Time);
                 _isNight = true;
                 StartNightEvent?.Invoke();
             }
-            else if (!IsNightTime() && _isNight)
+            else if (!isNightTime && _isNight)
             {
                 Debugging.Instance.Log($"Начало дня", Debugging.Type.Time);
                 _isNight = false;
@@ -102,7 +104,13 @@ namespace Code.Infrastructure.Services
         public bool IsNightTime()
         {
             TimeSpan timeOfDay = _currentTime.TimeOfDay;
-            return (timeOfDay >= NightStart && timeOfDay < NightEnd);
+    
+            if (NightStart < NightEnd)
+            {
+                return timeOfDay >= NightStart && timeOfDay < NightEnd;
+            }
+            
+            return timeOfDay >= NightStart || timeOfDay < NightEnd;
         }
 
 
