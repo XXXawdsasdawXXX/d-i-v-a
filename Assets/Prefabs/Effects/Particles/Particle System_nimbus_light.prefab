@@ -4954,6 +4954,5 @@ MonoBehaviour:
       MinValue: 0.2586653
       MaxValue: 5.9419627
   _gradient: 0
-  _isUsed: 1
   _isActive: 0
   _disableSpeed: 5

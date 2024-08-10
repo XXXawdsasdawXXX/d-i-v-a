@@ -105,13 +105,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6294422773507763098}
     m_Modifications:
-    - target: {fileID: 1742243356498071232, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4564643590682870040, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15499878
+      value: -0.15500009
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652672, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_Name
@@ -123,11 +119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.67
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -160,14 +156,6 @@ PrefabInstance:
     - target: {fileID: 7024979021285652678, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9099996171478609854, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: _offset.y
-      value: -0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 9099996171478609854, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
-      propertyPath: _lastColor.rgba
-      value: 4281150975
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dd56b805a895d24cbfc5f6610f48fd5, type: 3}
@@ -255,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8130108482925967796, guid: 0ccea45db7799435baea22cbf47ac11d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 8130108482925967796, guid: 0ccea45db7799435baea22cbf47ac11d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -355,10 +343,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass
       objectReference: {fileID: 0}
-    - target: {fileID: 5829983786022775230, guid: ee5c7827291d2489cbb2ee9cefd3c315, type: 3}
-      propertyPath: _lastColor.rgba
-      value: 4294946048
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee5c7827291d2489cbb2ee9cefd3c315, type: 3}
 --- !u!4 &6294422774224063785 stripped
@@ -366,46 +350,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4343087466431061560, guid: ee5c7827291d2489cbb2ee9cefd3c315, type: 3}
   m_PrefabInstance: {fileID: 7719160019032347409}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6294422774224063786 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4343087466431061563, guid: ee5c7827291d2489cbb2ee9cefd3c315, type: 3}
-  m_PrefabInstance: {fileID: 7719160019032347409}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1339676849530667873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294422774224063786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1e55abeeb647909d28884195d5b18b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &7292664642873432598
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294422774224063786}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.5}
-  m_EdgeRadius: 0

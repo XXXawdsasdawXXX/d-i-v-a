@@ -194,17 +194,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191640460248794672}
     m_Modifications:
-    - target: {fileID: 1523479085223020837, guid: 6da82e0c16f24b74ebbf57635ca3d3ae, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1523479085223020842, guid: 6da82e0c16f24b74ebbf57635ca3d3ae, type: 3}
       propertyPath: m_Name
       value: Particle System_lsd_sphere
-      objectReference: {fileID: 0}
-    - target: {fileID: 1523479085223020842, guid: 6da82e0c16f24b74ebbf57635ca3d3ae, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1523479085223020843, guid: 6da82e0c16f24b74ebbf57635ca3d3ae, type: 3}
       propertyPath: m_RootOrder
@@ -323,14 +315,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System_Shiny
       objectReference: {fileID: 0}
-    - target: {fileID: 3654662041475122831, guid: e52a423debc55894ea6bcef925a7592d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654662041475122834, guid: e52a423debc55894ea6bcef925a7592d, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e52a423debc55894ea6bcef925a7592d, type: 3}
 --- !u!114 &191640461256446323 stripped
@@ -359,10 +343,6 @@ PrefabInstance:
     - target: {fileID: 1794907197344020905, guid: db76bbecdf651c442914c566b82374c9, type: 3}
       propertyPath: m_Name
       value: Particle System_points_blueTrails_short
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794907197344020905, guid: db76bbecdf651c442914c566b82374c9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1794907197344020906, guid: db76bbecdf651c442914c566b82374c9, type: 3}
       propertyPath: m_RootOrder
@@ -406,10 +386,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1794907197344020906, guid: db76bbecdf651c442914c566b82374c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794907197344020916, guid: db76bbecdf651c442914c566b82374c9, type: 3}
-      propertyPath: EmissionModule.enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -484,14 +460,6 @@ PrefabInstance:
     - target: {fileID: 2796542930076596363, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
       propertyPath: m_Name
       value: Particle System_points_blueTrails
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796542930076596363, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796542930076596374, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7b12e0fe4908494da0e13b474d96e35, type: 3}
@@ -639,14 +607,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System_snow
       objectReference: {fileID: 0}
-    - target: {fileID: 3282463559625747883, guid: 8920596d2372d9b47984ad9783ba9409, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3282463559625747886, guid: 8920596d2372d9b47984ad9783ba9409, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8920596d2372d9b47984ad9783ba9409, type: 3}
 --- !u!114 &191640460327453920 stripped
@@ -749,10 +709,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (3)_light_2
       objectReference: {fileID: 0}
-    - target: {fileID: 4660841195476861841, guid: 6bc60011c5c3f3f46862f7a5299a5cb3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4660841195476861846, guid: 6bc60011c5c3f3f46862f7a5299a5cb3, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -797,10 +753,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4660841195476861866, guid: 6bc60011c5c3f3f46862f7a5299a5cb3, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bc60011c5c3f3f46862f7a5299a5cb3, type: 3}
 --- !u!4 &191640459836634632 stripped
@@ -826,17 +778,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191640460248794672}
     m_Modifications:
-    - target: {fileID: 5086141961514294117, guid: 504cd028265eba34d8e3d87cb3c4d810, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5086141961514294136, guid: 504cd028265eba34d8e3d87cb3c4d810, type: 3}
       propertyPath: m_Name
       value: Particle System (3)_light_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5086141961514294136, guid: 504cd028265eba34d8e3d87cb3c4d810, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5086141961514294139, guid: 504cd028265eba34d8e3d87cb3c4d810, type: 3}
       propertyPath: m_RootOrder
@@ -907,17 +851,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191640460248794672}
     m_Modifications:
-    - target: {fileID: 5420802529997332915, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
-      propertyPath: _isActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5420802529997332924, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
       propertyPath: m_Name
       value: Particle System_Electric_blue
-      objectReference: {fileID: 0}
-    - target: {fileID: 5420802529997332924, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5420802529997332927, guid: b35b474f7bc98d54cbfad22fca984e53, type: 3}
       propertyPath: m_RootOrder
@@ -1032,17 +968,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5851591841506756362, guid: 933e221a421bd2a43b20bcbe2775332c, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5851591841506756375, guid: 933e221a421bd2a43b20bcbe2775332c, type: 3}
       propertyPath: m_Name
       value: Particle System_lsd_trails
-      objectReference: {fileID: 0}
-    - target: {fileID: 5851591841506756375, guid: 933e221a421bd2a43b20bcbe2775332c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 933e221a421bd2a43b20bcbe2775332c, type: 3}
@@ -1102,17 +1030,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2523651648797166467, guid: 368dd92508e49af458e4e54ccb5a6389, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2523651648797166469, guid: 368dd92508e49af458e4e54ccb5a6389, type: 3}
       propertyPath: m_Name
       value: Particle System_Bubbles
-      objectReference: {fileID: 0}
-    - target: {fileID: 2523651648797166469, guid: 368dd92508e49af458e4e54ccb5a6389, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 368dd92508e49af458e4e54ccb5a6389, type: 3}
@@ -1142,10 +1062,6 @@ PrefabInstance:
     - target: {fileID: 3657577636239238000, guid: e7bfc56bc2bf7a0409985ffe09a0c5b5, type: 3}
       propertyPath: m_Name
       value: Particle System_jon
-      objectReference: {fileID: 0}
-    - target: {fileID: 3657577636239238000, guid: e7bfc56bc2bf7a0409985ffe09a0c5b5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3657577636239238005, guid: e7bfc56bc2bf7a0409985ffe09a0c5b5, type: 3}
       propertyPath: m_RootOrder
@@ -1189,10 +1105,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3657577636239238005, guid: e7bfc56bc2bf7a0409985ffe09a0c5b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3657577636239238006, guid: e7bfc56bc2bf7a0409985ffe09a0c5b5, type: 3}
-      propertyPath: EmissionModule.enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1257,10 +1169,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System_sakura
       objectReference: {fileID: 0}
-    - target: {fileID: 7011865355584650831, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7014599834156350981, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1304,22 +1212,6 @@ PrefabInstance:
     - target: {fileID: 7014599834156350981, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
-      propertyPath: ShapeModule.m_Position.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172926123099078141, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aacd27458b45276498e9e2aa22e5bef4, type: 3}
@@ -1390,17 +1282,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7930661118140291054, guid: d8275ee46e423064e8a70f4316d18886, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7930661118140291059, guid: d8275ee46e423064e8a70f4316d18886, type: 3}
       propertyPath: m_Name
       value: Particle System_points_default
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930661118140291059, guid: d8275ee46e423064e8a70f4316d18886, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8275ee46e423064e8a70f4316d18886, type: 3}
@@ -1500,14 +1384,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191640460248794672}
     m_Modifications:
-    - target: {fileID: 5057366709937168498, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.a
-      value: 0.7254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 5057366709937168498, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key2.a
-      value: 0.67058825
-      objectReference: {fileID: 0}
     - target: {fileID: 6756616348297825180, guid: 4dcf35e0880a9ba448cd9e0319bea6e0, type: 3}
       propertyPath: m_Name
       value: Particle System_StarrySky
@@ -1581,17 +1457,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 191640460248794672}
     m_Modifications:
-    - target: {fileID: 9159968685720094690, guid: 2ebfe8523ce8d194bbb7824ac9585e73, type: 3}
-      propertyPath: EmissionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9159968685720094693, guid: 2ebfe8523ce8d194bbb7824ac9585e73, type: 3}
       propertyPath: m_Name
       value: Particle System (3)_light_0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9159968685720094693, guid: 2ebfe8523ce8d194bbb7824ac9585e73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9159968685720094694, guid: 2ebfe8523ce8d194bbb7824ac9585e73, type: 3}
       propertyPath: m_RootOrder
