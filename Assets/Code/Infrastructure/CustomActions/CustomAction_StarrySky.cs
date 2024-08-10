@@ -24,6 +24,11 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameStart()
         {
+            if (_timeObserver.IsNightTime())
+            {
+                TryStartAction();
+            }
+
             SubscribeToEvents(true);
         }
 

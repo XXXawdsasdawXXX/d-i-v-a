@@ -20,11 +20,12 @@ namespace Code.Infrastructure.CustomActions
         
         [Header("Grass Components")]
         private Grass _grass;
-        private ColorChecker _colorChecker;
+        private ColorChecker _grassColorChecker;
         
         [Header("Action Delay")]
         private TickCounter _tickCounter;
         private RangedInt _tickDelay;
+        private ColliderButton _grassButton;
 
         public override CustomCutsceneActionType GetActionType() => CustomCutsceneActionType.Grass;
 
@@ -34,7 +35,8 @@ namespace Code.Infrastructure.CustomActions
             _characterAnimator = _diva.FindCharacterComponent<CharacterAnimator>();
         
             _grass = Container.Instance.FindEntity<Grass>();
-            _colorChecker = _grass.FindCommonComponent<ColorChecker>();
+            _grassColorChecker = _grass.FindCommonComponent<ColorChecker>();
+            _grassButton = _grass.FindCommonComponent<ColliderButton>();
             
             _tickCounter = new TickCounter(isLoop: false);
             _tickDelay = Container.Instance.FindConfig<TimeConfig>().Delay.GrassGrow;
@@ -54,65 +56,66 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _characterAnimator.OnModeEntered += OnCharacterSwitchAnimationMode;
-                _tickCounter.WaitedEvent += OnTick;
-                _colorChecker.OnFoundedNewColor += OnFoundedNewColor;
+                _characterAnimator.OnModeEntered += OnCharacterSwitchAnimation;
+                _tickCounter.WaitedEvent += OnCooldownTick;
+                _grassColorChecker.OnFoundedNewColor += OnNewColorFounded;
+                _grassButton.OnPressedUp += OnGrassPressedUp;
             }
             else
             {
-                _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimationMode;
-                _tickCounter.WaitedEvent -= OnTick;
-                _colorChecker.OnFoundedNewColor -= OnFoundedNewColor;
+                _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimation;
+                _tickCounter.WaitedEvent -= OnCooldownTick;
+                _grassColorChecker.OnFoundedNewColor -= OnNewColorFounded;
             }
         }
 
-        private void OnCharacterSwitchAnimationMode(CharacterAnimationMode mode)
+        private void OnCharacterSwitchAnimation(CharacterAnimationMode mode)
         {
-            Debugging.Instance.Log($"Controller -> on swithc animation mode:  {mode} {_grass.IsActive}",
-                Debugging.Type.Grass);
-           
             if (mode == CharacterAnimationMode.Seat && _tickCounter.IsExpectedStart)
             {
-                Debugging.Instance.Log($"Controller -> on swithc animation mode: start wait", Debugging.Type.Grass);
-              
                 _tickCounter.StartWait(_tickDelay.GetRandomValue());
             }
             else if (_grass.IsActive)
             {
-                Debugging.Instance.Log($"Controller -> on swithc animation mode: start sie", Debugging.Type.Grass);
-               
                 Stop();
             }
         }
 
-        private void OnFoundedNewColor(Color obj)
+        private void OnCooldownTick()
         {
-             Stop();
+            Start();
         }
 
-        private void OnTick()
+        private void OnNewColorFounded(Color obj)
         {
-            if (_grass.IsActive)
-            {
-                return;
-            }
+            Stop();
+        }
 
-            Debugging.Instance.Log($"Controller -> OnWaitedTickCounter", Debugging.Type.Grass);
-            Start();
+        private void OnGrassPressedUp(Vector2 arg1, float arg2)
+        {
+            Stop();
         }
 
         private void Start()
         { 
+            if (_grass.IsActive)
+            {
+                return;
+            }
             _grass.transform.position = _diva.transform.position;
-            _colorChecker.RefreshLastColor();
-            _colorChecker.SetEnable(true);
+            _grassColorChecker.RefreshLastColor();
+            _grassColorChecker.SetEnable(true);
             _grass.Grow();
         }
 
         private void Stop()
         {
+            if (!_grass.IsActive)
+            {
+                return;
+            }
             _tickCounter.StopWait();
-            _colorChecker.SetEnable(false);
+            _grassColorChecker.SetEnable(false);
             _grass.Die();
         }
     }

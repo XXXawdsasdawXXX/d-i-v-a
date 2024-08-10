@@ -14,7 +14,6 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_StarryMouse : CustomAction,IGameInitListener ,IGameStartListener, IGameTickListener, IGameExitListener
     {
-        private  bool _isNotUsed;
         [Header("Character")] 
         private  ColliderButton _characterButton;
         private  CharacterAnimationAnalytic _characterAnimationAnalytic;
@@ -46,34 +45,28 @@ namespace Code.Infrastructure.CustomActions
                 _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
                 
                 SubscribeToEvents(true);
-                return;
+         
             }
-            
-            _isNotUsed = true;
         }
 
         public void GameStart()
         {
-            if(_isNotUsed)return;
             _particle.Off();
         }
 
         public void GameExit()
         {
-            if(_isNotUsed)return;
             SubscribeToEvents(false);
         }
 
         public void GameTick()
         {
-            if(_isNotUsed)return;
             var currentMousePosition = _positionService.GetMouseWorldPosition();
             _particle.transform.position = currentMousePosition;
         }
 
         protected  sealed override void TryStartAction()
         {
-            if(_isNotUsed)return;
             _isActive = true;
             _particle.transform.position = _positionService.GetMouseWorldPosition();
             _particle.On();
@@ -83,7 +76,6 @@ namespace Code.Infrastructure.CustomActions
 
         protected  override void StopAction()
         {
-            if(_isNotUsed)return;
             _isActive = false;
             _particle.Off();
             Debugging.Instance.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
@@ -96,7 +88,6 @@ namespace Code.Infrastructure.CustomActions
 
         private void SubscribeToEvents(bool flag)
         {
-            if(_isNotUsed)return;
             if (flag)
             {
                 _characterButton.OnPressedUp += OnPressedUp;
@@ -109,11 +100,9 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnPressedUp(Vector2 _, float pressDuration)
         {
-            if(_isNotUsed)return;
-            Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
+            Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}", 
                 Debugging.Type.CustomAction);
-            if (pressDuration < 0.1 &&
-                _characterAnimationAnalytic.GetAnimationMode() is not CharacterAnimationMode.Seat)
+            if (pressDuration < 0.1 && _characterAnimationAnalytic.GetAnimationMode() is  CharacterAnimationMode.Stand)
             {
                 if (_isActive)
                 {
