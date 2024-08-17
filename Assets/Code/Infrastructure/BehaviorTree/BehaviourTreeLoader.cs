@@ -11,7 +11,7 @@ namespace Code.Infrastructure.BehaviorTree
     {
         private readonly List<IProgressWriterNode> _progressWriterNodes = new();
         private readonly Data _data = new();
-        
+
         public void AddProgressWriter(IProgressWriterNode node)
         {
             if (!_progressWriterNodes.Contains(node))
@@ -32,6 +32,7 @@ namespace Code.Infrastructure.BehaviorTree
             {
                 progressWriterNode.UpdateData(_data);
             }
+
             playerProgress.Cooldowns.SleepRemainingTick = _data.SleepRemainingTick;
         }
 

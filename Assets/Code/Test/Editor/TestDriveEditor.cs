@@ -10,14 +10,14 @@ namespace Code.Test.Editor
         {
             DrawDefaultInspector();
             TestDrive testDrive = (TestDrive)target;
-            
+
             if (GUILayout.Button("Set time scale"))
             {
                 testDrive.SetTimeScale();
             }
         }
     }
-    
+
     [CustomEditor(typeof(LiveStateValidator))]
     public class LiveStateValidatorEditor : UnityEditor.Editor
     {
@@ -25,12 +25,12 @@ namespace Code.Test.Editor
         {
             DrawDefaultInspector();
             LiveStateValidator validator = (LiveStateValidator)target;
-            
+
             if (GUILayout.Button("Add value"))
             {
                 validator.ChangeState();
             }
-            
+
             if (GUILayout.Button("Debug lower key"))
             {
                 validator.DebugLowerState();

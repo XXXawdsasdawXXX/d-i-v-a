@@ -13,16 +13,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
     public class BehaviourNode_Seat : BaseNode_Root
     {
-        [Header("Character")]
-        private readonly CharacterAnimator _characterAnimator;
+        [Header("Character")] private readonly CharacterAnimator _characterAnimator;
         private readonly CollisionObserver _collisionObserver;
-        
-        [Header("Services")]
-        private readonly MicrophoneAnalyzer _microphoneAnalyzer;
+
+        [Header("Services")] private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         private readonly CharacterCondition _characterCondition;
-        
-        [Header("Sub nodes")] 
-        private readonly SubNode_ReactionToItems _node_ReactionToItem;
+
+        [Header("Sub nodes")] private readonly SubNode_ReactionToItems _node_ReactionToItem;
         private readonly SubNode_ReactionToVoice _node_ReactionToVoice;
 
         public BehaviourNode_Seat()
@@ -44,11 +41,11 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             if (IsCanRun())
             {
                 SubscribeToEvents(true);
-                
+
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Seat);
-                
+
                 RunNode(_node_ReactionToItem);
-                
+
                 Debugging.Instance.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
             }
             else
@@ -60,7 +57,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         protected override bool IsCanRun()
         {
-           return  _characterCondition.IsCanSeat();
+            return _characterCondition.IsCanSeat();
         }
 
 

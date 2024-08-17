@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Getters
 {
-    public class DisplayColorGetter : MonoBehaviour,IGetter
+    public class DisplayColorGetter : MonoBehaviour, IGetter
     {
         [SerializeField] private DisplayColor _displayColor;
-        
+
         private void OnEnable()
         {
             if (Extensions.IsMacOs())

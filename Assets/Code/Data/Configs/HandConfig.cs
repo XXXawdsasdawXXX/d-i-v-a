@@ -9,16 +9,16 @@ namespace Code.Data.Configs
     public class HandConfig : ScriptableObject
     {
         public Material LightMaterial;
-        public  Material DarkMaterial;
+        public Material DarkMaterial;
         [SerializeField] private InteractionsValueData[] _voidTime;
         [SerializeField] private InteractionsValueData[] _appleDropChance;
-        
+
 
         public int GetVoidTime(int dailyInteractionCount)
         {
             return FindIntInArray(_voidTime, dailyInteractionCount);
         }
-        
+
         public int GetAppleDropChance(int dailyInteractionCount)
         {
             return FindIntInArray(_appleDropChance, dailyInteractionCount);

@@ -36,7 +36,7 @@ namespace Code.Infrastructure.CustomActions
         {
             SubscribeToEvents(false);
         }
-        
+
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -51,12 +51,12 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        protected  override void TryStartAction()
+        protected override void TryStartAction()
         {
             _skyStarsParticle.On();
         }
 
-        protected  override void StopAction()
+        protected override void StopAction()
         {
             _skyStarsParticle.Off();
             EndCustomActionEvent?.Invoke(this);

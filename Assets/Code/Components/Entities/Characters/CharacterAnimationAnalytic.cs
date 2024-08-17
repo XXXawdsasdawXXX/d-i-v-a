@@ -15,10 +15,10 @@ namespace Code.Components.Entities.Characters
         public event Action<CharacterAnimationState> OnSwitchState;
         public event Action<CharacterAnimationState> OnStateExit;
 
-        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State 
-                                        is CharacterAnimationState.TransitionSeat
-                                        or CharacterAnimationState.TransitionSleep 
-                                        or CharacterAnimationState.TransitionStand;
+        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State
+            is CharacterAnimationState.TransitionSeat
+            or CharacterAnimationState.TransitionSleep
+            or CharacterAnimationState.TransitionStand;
 
         public void GameInit()
         {

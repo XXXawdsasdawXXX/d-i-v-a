@@ -16,7 +16,7 @@ namespace Code.Infrastructure.Services
         private bool _isActive;
 
         public bool IsExpectedStart { get; private set; } = true;
-        public event Action WaitedEvent;
+        public event Action OnWaitIsOver;
 
         #region Constructors
 
@@ -117,7 +117,7 @@ namespace Code.Infrastructure.Services
             _currentTickNumber++;
             if (_currentTickNumber >= _tickCount)
             {
-                WaitedEvent?.Invoke();
+                OnWaitIsOver?.Invoke();
                 StopWait();
             }
         }

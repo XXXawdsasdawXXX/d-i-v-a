@@ -5,28 +5,28 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IGameStartListener , IGameExitListener
+    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IGameStartListener, IGameExitListener
     {
-        [Header("Components")]
-        [SerializeField] private Rigidbody2D _rigidbody2D;
+        [Header("Components")] [SerializeField]
+        private Rigidbody2D _rigidbody2D;
+
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColorChecker _colorChecker;
 
-        [Header("Dynamic Data")]
-        [SerializeField] private bool _isEnable = true;
-        
+        [Header("Dynamic Data")] [SerializeField]
+        private bool _isEnable = true;
+
         public void GameStart()
         {
             SetEnable(_isEnable);
         }
-        
+
         public void GameExit()
         {
             SubscribeToEvents(false);
         }
 
         #region Events
-
 
         private void SubscribeToEvents(bool flag)
         {
@@ -44,13 +44,13 @@ namespace Code.Components.Common
 
         private void OnPressedUp(Vector2 arg1, float arg2)
         {
-            Debugging.Instance.Log(this,$"{gameObject.name} OnPressedUp", Debugging.Type.Window);
+            Debugging.Instance.Log(this, $"{gameObject.name} OnPressedUp", Debugging.Type.Window);
             _colorChecker.RefreshLastColor();
         }
 
         private void OnFoundedNewColor(Color obj)
         {
-            Debugging.Instance.Log(this,$"{gameObject.name} OnFoundedNewColor", Debugging.Type.Window);
+            Debugging.Instance.Log(this, $"{gameObject.name} OnFoundedNewColor", Debugging.Type.Window);
             switch (_rigidbody2D.bodyType)
             {
                 case RigidbodyType2D.Kinematic:
@@ -62,7 +62,7 @@ namespace Code.Components.Common
                     break;
             }
         }
-        
+
         #endregion
 
         #region Public Methods
@@ -71,15 +71,15 @@ namespace Code.Components.Common
         {
             _colorChecker.SetAdditionalOffset(offset);
         }
-        
+
         public void SetEnable(bool isEnable)
         {
-            Debugging.Instance.Log(this,$"{gameObject.name} SetEnable {isEnable}", Debugging.Type.Window);
+            Debugging.Instance.Log(this, $"{gameObject.name} SetEnable {isEnable}", Debugging.Type.Window);
             _isEnable = isEnable;
             _colorChecker.SetEnable(isEnable);
             SubscribeToEvents(isEnable);
         }
-        
+
         #endregion
     }
 }

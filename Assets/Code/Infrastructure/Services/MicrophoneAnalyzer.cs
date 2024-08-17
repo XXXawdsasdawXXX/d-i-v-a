@@ -10,14 +10,14 @@ using UnityEngine;
 namespace Code.Infrastructure.Services
 {
     //todo убрать monobehavior
-    public class MicrophoneAnalyzer : MonoBehaviour, IWindowsSpecific, IService, IGameInitListener, IGameTickListener, IGameExitListener
+    public class MicrophoneAnalyzer : MonoBehaviour, IWindowsSpecific, IService, IGameInitListener, IGameTickListener,
+        IGameExitListener
     {
         private const int SAMPLE_WINDOW = 128;
 
-        [Header("Stats")] 
-        [SerializeField] private string _device;
+        [Header("Stats")] [SerializeField] private string _device;
         [SerializeField] private float _micLoudness;
-        [SerializeField]  private float _micDecibels;
+        [SerializeField] private float _micDecibels;
 
         private MicrophoneAnalyzerData _analyzerData;
         private AudioClip _clipRecord;
@@ -28,20 +28,18 @@ namespace Code.Infrastructure.Services
         public event Action MaxDecibelRecordedEvent;
         public event Action MinDecibelRecordedEvent;
 
-   
+
         public void GameInit()
         {
-
             _analyzerData = Container.Instance.FindConfig<AudioConfig>().MicrophoneAnalyzerData;
 
             InitMic();
-            
+
             Debugging.Instance.Log($"MicrophoneAnalyzer: GameStart -> is init {_isInitialized}", Debugging.Type.Micro);
         }
 
         public void GameTick()
         {
-
             _micLoudness = MicrophoneLevelMax();
             _micDecibels = MicrophoneLevelMaxDecibels();
 
@@ -64,7 +62,8 @@ namespace Code.Infrastructure.Services
 
         private void InitMic()
         {
-            if (Microphone.devices == null || Microphone.devices.Length == 0 || string.IsNullOrEmpty(Microphone.devices[0]))
+            if (Microphone.devices == null || Microphone.devices.Length == 0 ||
+                string.IsNullOrEmpty(Microphone.devices[0]))
             {
                 Debug.LogError("Microphone is not available or not connected.");
                 return;
@@ -77,7 +76,7 @@ namespace Code.Infrastructure.Services
             {
                 return;
             }
-            
+
             _isInitialized = true;
         }
 

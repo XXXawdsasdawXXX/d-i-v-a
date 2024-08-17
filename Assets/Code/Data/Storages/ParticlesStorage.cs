@@ -17,7 +17,7 @@ namespace Code.Data.Storages
 
         private VFXConfig _vfxConfig;
         private AssetsFactory _factory;
-        
+
         public void GameInit()
         {
             _factory = Container.Instance.FindService<AssetsFactory>();
@@ -25,13 +25,14 @@ namespace Code.Data.Storages
 
         public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
-             particleSystem = _particles.Where(p => p.Type == particleType).ToArray();
-            
+            particleSystem = _particles.Where(p => p.Type == particleType).ToArray();
+
             if (particleSystem.Length == 0)
             {
                 particleSystem = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray();
                 _particles.AddRange(particleSystem);
             }
+
             return particleSystem != null && particleSystem.Length > 0;
         }
 
@@ -43,10 +44,11 @@ namespace Code.Data.Storages
             _particles = allParticles.ToList();
         }
 
-        public bool TryGetParticles(IEnumerable<ParticleType> particleTypes, out ParticleSystemFacade[] particlesSystems)
+        public bool TryGetParticles(IEnumerable<ParticleType> particleTypes,
+            out ParticleSystemFacade[] particlesSystems)
         {
             var list = new List<ParticleSystemFacade>();
-            foreach (var particleType in particleTypes) 
+            foreach (var particleType in particleTypes)
             {
                 if (TryGetParticle(particleType, out var typedParticles))
                 {

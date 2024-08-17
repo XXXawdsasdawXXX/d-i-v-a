@@ -45,7 +45,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
         #endregion
 
         #region Startup / Shutdown
-        
+
         public void GameInit()
         {
             SpectrumData = new float[SpectrumSize];

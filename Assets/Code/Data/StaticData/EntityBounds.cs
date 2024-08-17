@@ -9,5 +9,4 @@ namespace Code.Data.StaticData
         public Vector2 Size;
         public Vector2 Center;
     }
-    
 }

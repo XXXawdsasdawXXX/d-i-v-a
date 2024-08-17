@@ -1,52 +1,56 @@
-using Code.Components.Entities.Characters;
+﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
-    public sealed class BehaviourSelector_Character : BaseNode, IBehaviourCallback
+    public class BehaviourSelector_Hand : BaseNode, IBehaviourCallback
     {
         [Header("Services")]
         private readonly CharacterLiveStatesAnalytic _stateAnalytic;
-        
-        [Header("Values")]
+
+        [Header("Values")] 
         private readonly BaseNode[] _orderedNodes;
         private BaseNode _currentChild;
         private int _currentChildIndex;
 
-        public BehaviourSelector_Character()
+        public BehaviourSelector_Hand()
         {
-            _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
-            
+            _stateAnalytic = Container.Instance.FindEntity<DIVA>()
+                .FindCharacterComponent<CharacterLiveStatesAnalytic>();
+
             _orderedNodes = new BaseNode[]
             {
-                new BehaviourNode_Sleep(),
-                new BehaviourNode_Seat(),
-                new BehaviourNode_Stand(),
+                new BehaviourNode_WaitCharacterWakeUp(),
+                new BehaviourNode_ShowItem(),
+                //new BehaviourNode_ShowApple(),
+                new BehaviourNode_WaitTick(),
             };
-            
+
             SubscribeToEvents(true);
         }
 
-        ~BehaviourSelector_Character()
+        ~BehaviourSelector_Hand()
         {
             SubscribeToEvents(false);
         }
-        
+
+        #region Base methods
+
         protected override void Run()
         {
-            if (IsCanRun())
+            if (_orderedNodes == null || _orderedNodes.Length <= 0)
             {
-                _currentChildIndex = 0;
-                _currentChild = _orderedNodes[_currentChildIndex];
-                _currentChild.Run(callback: this);
+                Return(false);
                 return;
             }
-            
-            Return(false);
+
+            _currentChildIndex = 0;
+            _currentChild = _orderedNodes[_currentChildIndex];
+            _currentChild.Run(callback: this);
         }
 
         protected override bool IsCanRun()
@@ -82,6 +86,10 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             }
         }
 
+        #endregion
+
+        #region Break methods
+
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -96,9 +104,18 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         private void OnSwitchLowerLiveState(LiveStateKey key)
         {
-            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.BehaviorTree);
+            if (_currentChild is BehaviourNode_ShowApple)
+            {
+                Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя - !ОТКАЗАНО!",
+                    Debugging.Type.Hand);
+                return;
+            }
+
+            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.Hand);
             _currentChild?.Break();
             Run();
         }
+
+        #endregion
     }
 }

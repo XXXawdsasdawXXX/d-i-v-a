@@ -7,6 +7,6 @@ namespace Code.Data.StaticData
     [Serializable]
     public class DelayTickData
     {
-        [MinMaxRangeInt(1,100)]public RangedInt GrassGrow;
+        [MinMaxRangeInt(1, 100)] public RangedInt GrassGrow;
     }
 }

@@ -20,7 +20,7 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        
+
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
 
@@ -33,7 +33,7 @@ namespace Code.Infrastructure.DI
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
         private List<IGetter> _getters = new();
-        
+
         private void Awake()
         {
             if (Instance != null)
@@ -48,9 +48,9 @@ namespace Code.Infrastructure.DI
             InitList(ref _services);
             InitList(ref _storages);
             InitList(ref _customActions);
-            InitList(ref _entities); 
-            InitList(ref _items); 
-            InitList(ref _interactionObservers); 
+            InitList(ref _entities);
+            InitList(ref _items);
+            InitList(ref _interactionObservers);
             InitList(ref _mono);
             InitList(ref _getters);
         }
@@ -60,7 +60,8 @@ namespace Code.Infrastructure.DI
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
             var serviceTypes = types.Where(t =>
-                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && !typeof(MonoBehaviour).IsAssignableFrom(t));
+                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
+                !typeof(MonoBehaviour).IsAssignableFrom(t));
 
             foreach (var serviceType in serviceTypes)
             {
@@ -85,7 +86,7 @@ namespace Code.Infrastructure.DI
         {
             return _uniWindowController;
         }
-        
+
         public T FindConfig<T>() where T : ScriptableObject
         {
             foreach (var scriptableObject in _configs)
@@ -108,10 +109,11 @@ namespace Code.Infrastructure.DI
                     return findService;
                 }
             }
+
             return default;
         }
 
-        
+
         public T FindGetter<T>() where T : class
         {
             foreach (var getter in _getters)
@@ -121,10 +123,11 @@ namespace Code.Infrastructure.DI
                     return findGetter;
                 }
             }
+
             return default;
         }
-        
-        public T FindStorage<T>() where T : IStorage 
+
+        public T FindStorage<T>() where T : IStorage
         {
             foreach (var storage in _storages)
             {
@@ -150,7 +153,7 @@ namespace Code.Infrastructure.DI
 
             return default;
         }
-        
+
         public T FindItem<T>() where T : Item
         {
             foreach (var item in _items)
@@ -163,6 +166,7 @@ namespace Code.Infrastructure.DI
 
             return default;
         }
+
         public T FindInteractionObserver<T>() where T : InteractionObserver
         {
             foreach (var interactionObserver in _interactionObservers)

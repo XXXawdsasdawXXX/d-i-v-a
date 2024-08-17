@@ -14,30 +14,28 @@ namespace Code.Components.Items.Apples
 {
     public class Apple : Item, IGameInitListener
     {
-        [Header("Components")] 
-        [SerializeField] private AppleAnimator _appleAnimator;
+        [Header("Components")] [SerializeField]
+        private AppleAnimator _appleAnimator;
+
         [SerializeField] private PhysicsDragAndDrop _dragAndDrop;
         [SerializeField] private ColliderButton _colliderButton;
 
-        [Header("Services")] 
-        private CoroutineRunner _coroutineRunner;
+        [Header("Services")] private CoroutineRunner _coroutineRunner;
 
-        [Header("Static value")] 
-        private AppleConfig _appleConfig;
+        [Header("Static value")] private AppleConfig _appleConfig;
         private TickCounter _tickCounter;
 
-        [Header("Dynamic value")] 
-        private bool _isFall;
+        [Header("Dynamic value")] private bool _isFall;
         private int _currentStage;
         public bool IsActive { get; private set; }
-        
+
         public void GameInit()
         {
             _appleConfig = Container.Instance.FindConfig<AppleConfig>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter();
         }
-        
+
         public void Grow()
         {
             IsActive = true;
@@ -47,16 +45,16 @@ namespace Code.Components.Items.Apples
             _appleAnimator.PlayEnter();
             _appleAnimator.SetAppleStage(_currentStage);
 
-            _tickCounter.WaitedEvent += OnTickCounterWaited;
+            _tickCounter.OnWaitIsOver += OnTickCounterWaited;
             _tickCounter.StartWait(_appleConfig.OneStageLiveTimeTick.GetRandomValue());
             Debugging.Instance.Log($"[Grow]", Debugging.Type.Apple);
         }
 
-      
-        public override void ReadyForUse(Vector3 position)
+
+        public override void ReadyForUse(Vector3 anchorPosition)
         {
             Debugging.Instance.Log($"[Ready For Use] ожидание отпускания кнопки яблока", Debugging.Type.Apple);
-            _coroutineRunner.StartCoroutine(ReadyForUseRoutine(position));
+            _coroutineRunner.StartCoroutine(ReadyForUseRoutine(anchorPosition));
         }
 
         private IEnumerator ReadyForUseRoutine(Vector3 position)
@@ -66,7 +64,7 @@ namespace Code.Components.Items.Apples
             _dragAndDrop.Off();
             base.ReadyForUse(position);
         }
-        
+
         public override void Use(Action OnEnd = null)
         {
             StartCoroutine(PlayUse(OnEnd));
@@ -79,7 +77,7 @@ namespace Code.Components.Items.Apples
             _appleAnimator.PlayUse(onEnd: () =>
             {
                 Debugging.Instance.Log($"[Use] анимация закончена, начисляются значения", Debugging.Type.Apple);
-            
+
                 OnEnd?.Invoke();
                 UseEvent?.Invoke(this);
                 Reset();
@@ -88,15 +86,18 @@ namespace Code.Components.Items.Apples
 
         public LiveStatePercentageValue[] GetPercentageValues()
         {
-            return  _currentStage < _appleConfig.AppleValues.Length ? _appleConfig.AppleValues[_currentStage].Values : null;
+            return _currentStage < _appleConfig.AppleValues.Length
+                ? _appleConfig.AppleValues[_currentStage].Values
+                : null;
         }
-        
+
         public void Die()
         {
             if (!IsActive)
             {
                 return;
             }
+
             DieEvent?.Invoke();
             Debugging.Instance.Log($"[Die]", Debugging.Type.Apple);
             Reset();
@@ -107,17 +108,18 @@ namespace Code.Components.Items.Apples
             IsActive = false;
             _currentStage = 0;
             _tickCounter.StopWait();
-            _tickCounter.WaitedEvent -= OnTickCounterWaited;
+            _tickCounter.OnWaitIsOver -= OnTickCounterWaited;
             Debugging.Instance.Log($"[Reset]", Debugging.Type.Apple);
             base.Reset();
         }
 
         private void OnTickCounterWaited()
         {
-            if(_isUsing)
+            if (_isUsing)
             {
                 return;
             }
+
             _currentStage++;
             Debugging.Instance.Log($"[OnTickCounterWaited] current stage ++ = {_currentStage}", Debugging.Type.Apple);
             _appleAnimator.SetAppleStage(_currentStage);

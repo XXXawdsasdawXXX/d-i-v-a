@@ -8,7 +8,8 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character
 {
-    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameTickListener, IGameExitListener
+    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameTickListener,
+        IGameExitListener
     {
         [SerializeField] private bool _isRun;
 

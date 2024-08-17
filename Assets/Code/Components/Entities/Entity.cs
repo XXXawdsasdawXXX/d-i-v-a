@@ -6,6 +6,7 @@ namespace Code.Components.Entities
     public abstract class Entity : MonoBehaviour
     {
         [SerializeField] protected CommonComponent[] _commonComponents;
+
         public T FindCommonComponent<T>() where T : CommonComponent
         {
             foreach (var component in _commonComponents)

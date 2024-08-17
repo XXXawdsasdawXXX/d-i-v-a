@@ -9,17 +9,17 @@ using Code.Infrastructure.GameLoop;
 
 namespace Code.Infrastructure.Mediators
 {
-    public class LiveStateMediator: IMono, IGameInitListener, IGameStartListener,IGameExitListener
+    public class LiveStateMediator : IMono, IGameInitListener, IGameStartListener, IGameExitListener
     {
         private LiveStateStorage _liveStateStorage;
-        
+
         private CharacterItemsController _characterItemsController;
         private InteractionStorage _interactionStorage;
 
         public void GameInit()
         {
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-        
+
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             _characterItemsController = Container.Instance.FindEntity<DIVA>()
                 .FindCharacterComponent<CharacterItemsController>();
@@ -71,7 +71,7 @@ namespace Code.Infrastructure.Mediators
                         Value = -value
                     });
                     break;
-            }        
+            }
         }
 
         private void OnUseItem(LiveStatePercentageValue[] values)

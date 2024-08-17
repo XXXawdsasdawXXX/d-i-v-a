@@ -13,8 +13,8 @@ namespace Code.Infrastructure.Services
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
-        private LiveStateKey  _currentLowerLiveStateKey;
-        
+        private LiveStateKey _currentLowerLiveStateKey;
+
         public void GameInit()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
@@ -43,14 +43,18 @@ namespace Code.Infrastructure.Services
         {
             if (_storage.LiveStates == null)
             {
-                Debugging.Instance.ErrorLog($"[OnTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
+                Debugging.Instance.ErrorLog(
+                    $"[OnTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }
+
             foreach (var liveState in _storage.LiveStates)
             {
                 if (IsCanUpdateLiveState(liveState))
                 {
-                    Debugging.Instance.Log($"[OnTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}", Debugging.Type.LiveState);
+                    Debugging.Instance.Log(
+                        $"[OnTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}",
+                        Debugging.Type.LiveState);
                     liveState.Value.TimeUpdate();
                 }
             }
@@ -58,7 +62,8 @@ namespace Code.Infrastructure.Services
 
         private bool IsCantUpdateLiveState(KeyValuePair<LiveStateKey, CharacterLiveState> liveState)
         {
-            return (liveState.Key == LiveStateKey.Trust && !liveState.Value.IsHealing && !_storage.IsEmptyState(LiveStateKey.Hunger));
+            return (liveState.Key == LiveStateKey.Trust && !liveState.Value.IsHealing &&
+                    !_storage.IsEmptyState(LiveStateKey.Hunger));
         }
 
         private bool IsCanUpdateLiveState(KeyValuePair<LiveStateKey, CharacterLiveState> liveState)

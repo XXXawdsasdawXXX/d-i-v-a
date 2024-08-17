@@ -8,7 +8,6 @@ namespace Code.Components.Common.Editor
     {
         public override void OnInspectorGUI()
         {
-            
             DrawDefaultInspector();
             PositionInitializer positionInitializer = (PositionInitializer)target;
             if (GUILayout.Button("set position")) positionInitializer.SetDefaultPosition();

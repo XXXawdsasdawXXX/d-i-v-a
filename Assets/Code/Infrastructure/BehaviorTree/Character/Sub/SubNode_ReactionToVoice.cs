@@ -20,14 +20,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
         {
             Return(true);
         }
-        
+
         protected override void Run()
         {
             if (IsCanRun())
             {
                 Debugging.Instance.Log($"Саб нода реакция на звук: запуск", Debugging.Type.BehaviorTree);
                 _audioReaction.StartReaction();
-              
             }
             else
             {
@@ -40,7 +39,5 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
         {
             return _audioReaction.IsReady();
         }
-
-        
     }
 }

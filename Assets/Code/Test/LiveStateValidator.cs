@@ -18,10 +18,11 @@ namespace Code.Test
 
         public void GameInit()
         {
-            _stateAnalytic = Container.Instance.FindEntity<DIVA>().FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _stateAnalytic = Container.Instance.FindEntity<DIVA>()
+                .FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _stateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
-        
+
         public void ChangeState()
         {
             if (_stateStorage.TryGetLiveState(_editableKey, out var state))
@@ -32,7 +33,7 @@ namespace Code.Test
 
         public void DebugLowerState()
         {
-            Debugging.Instance.Log($"Lower key: {_stateAnalytic.CurrentLowerLiveStateKey}",Debugging.Type.LiveState);
+            Debugging.Instance.Log($"Lower key: {_stateAnalytic.CurrentLowerLiveStateKey}", Debugging.Type.LiveState);
         }
     }
 }

@@ -9,13 +9,12 @@ namespace Code.Components.Common
         [SerializeField] protected Material _material;
         [SerializeField] private StateType stateType;
         [SerializeField] private bool _isOn;
-        [Space] 
-        [SerializeField] private FloatValueType valueType;
+        [Space] [SerializeField] private FloatValueType valueType;
         [SerializeField] private float _newFloatValue = 3.14f; // Новое значение для угла в радианах
-        
+
         private Dictionary<StateType, bool> States;
         private Dictionary<FloatValueType, bool> Floats;
-        
+
         public enum StateType
         {
             SHINE_ON,
@@ -28,27 +27,31 @@ namespace Code.Components.Common
             OUTBASE_ON,
             GRADIENT_ON
         }
+
         public enum FloatValueType
         {
             _ShineRotate,
-            _ColorChangeTolerance,//Range(0, 1)) = 0.25 //123,
+            _ColorChangeTolerance, //Range(0, 1)) = 0.25 //123,
             _ColorChangeLuminosity,
-            _ColorChangeTolerance2,_TextureScrollXSpeed, _TextureScrollYSpeed
+            _ColorChangeTolerance2,
+            _TextureScrollXSpeed,
+            _TextureScrollYSpeed
         }
+
         public enum ColorValueType
         {
-            _ColorChangeTarget,// "Color to change" 
+            _ColorChangeTarget, // "Color to change" 
             _ColorChangeNewCol,
             _ColorChangeTarget2,
             _ColorChangeNewCol2,
         }
-        
+
         #region Base methods
 
         public bool GetStateValue(StateType stateType) => _material != null && _material.shader.isSupported &&
                                                           _material.IsKeywordEnabled(stateType.ToString());
-        
-        protected void SetFloatValue(FloatValueType floatValueType,float value)
+
+        protected void SetFloatValue(FloatValueType floatValueType, float value)
         {
             if (_material != null && _material.HasProperty(floatValueType.ToString()))
             {
@@ -64,14 +67,11 @@ namespace Code.Components.Common
         {
             if (_material != null && _material.shader.isSupported)
             {
-              
                 if (isActive && !_material.IsKeywordEnabled(stateType.ToString()))
                 {
-                    
                     _material.EnableKeyword(stateType.ToString());
-                    
                 }
-                else 
+                else
                 {
                     _material.DisableKeyword(stateType.ToString());
                 }
@@ -81,7 +81,6 @@ namespace Code.Components.Common
                 Debug.LogError("Материал не поддерживает директиву " + stateType);
             }
         }
-        
 
         #endregion
 
@@ -89,12 +88,12 @@ namespace Code.Components.Common
 
         public void Editor_RefreshState()
         {
-            SetState(stateType,_isOn);
+            SetState(stateType, _isOn);
         }
-        
+
         public void Editor_RefreshValue()
         {
-            SetFloatValue(valueType,_newFloatValue);
+            SetFloatValue(valueType, _newFloatValue);
         }
 
         #endregion
@@ -104,7 +103,7 @@ namespace Code.Components.Common
             foreach (var value in Enum.GetValues(typeof(StateType)))
             {
                 Console.WriteLine(value);
-                SetState((StateType)value,false);
+                SetState((StateType)value, false);
             }
         }
     }

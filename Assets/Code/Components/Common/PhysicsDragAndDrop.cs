@@ -6,6 +6,7 @@ namespace Code.Components.Common
     public class PhysicsDragAndDrop : ColliderDragAndDrop
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
+
         protected override void Init()
         {
             if (_isActive)
@@ -49,6 +50,7 @@ namespace Code.Components.Common
             {
                 return;
             }
+
             SetPhysicsActive(false);
             base.OnDown(obj);
         }
@@ -59,6 +61,7 @@ namespace Code.Components.Common
             {
                 return;
             }
+
             SetPhysicsActive(true);
             base.OnPressedUp(arg1, arg2);
         }
@@ -69,6 +72,7 @@ namespace Code.Components.Common
             {
                 return;
             }
+
             _rigidbody2D.bodyType = isActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
         }

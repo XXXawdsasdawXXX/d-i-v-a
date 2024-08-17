@@ -9,18 +9,16 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IGameInitListener,IGameExitListener
+    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IGameInitListener, IGameExitListener
     {
-        [Header("Observer components")] 
-        private ColliderButton _characterCollisionButton;
+        [Header("Observer components")] private ColliderButton _characterCollisionButton;
         private CharacterLiveStatesAnalytic _characterState;
 
-        [Header("Static data")] 
-        private InteractionStorage _interactionStorage;
+        [Header("Static data")] private InteractionStorage _interactionStorage;
 
         public InteractionObserver_ClickOnCharacter()
         {
-            Debugging.Instance.Log($"construct click series",Debugging.Type.Interaction);
+            Debugging.Instance.Log($"construct click series", Debugging.Type.Interaction);
         }
 
         public void GameInit()
@@ -29,12 +27,12 @@ namespace Code.Infrastructure.Services.Interactions
             var diva = Container.Instance.FindEntity<DIVA>();
             _characterCollisionButton = diva.FindCommonComponent<ColliderButton>();
             _characterState = diva.FindCharacterComponent<CharacterLiveStatesAnalytic>();
-          
+
             //Static data
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
 
             SubscribeToEvents(true);
-          
+
             Debugging.Instance.Log($"[ClickSeries] init", Debugging.Type.Interaction);
         }
 
@@ -60,7 +58,8 @@ namespace Code.Infrastructure.Services.Interactions
             Debugging.Instance.Log($"[ClickSeries] ???????????? {click}", Debugging.Type.Interaction);
             if (click == 1)
             {
-                Debugging.Instance.Log($"[ClickSeries] click good series to character {click}", Debugging.Type.Interaction);
+                Debugging.Instance.Log($"[ClickSeries] click good series to character {click}",
+                    Debugging.Type.Interaction);
                 _interactionStorage.Add(InteractionType.Good);
                 InvokeInteractionEvent();
             }
@@ -70,19 +69,22 @@ namespace Code.Infrastructure.Services.Interactions
                     lowerKey == LiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(InteractionType.Bad);
-                   Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}", Debugging.Type.Interaction);
+                    Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
+                        Debugging.Type.Interaction);
                 }
                 else
                 {
                     _interactionStorage.Add(InteractionType.Normal);
-                  Debugging.Instance.Log($"[ClickSeries] click series to character {click}", Debugging.Type.Interaction);
+                    Debugging.Instance.Log($"[ClickSeries] click series to character {click}",
+                        Debugging.Type.Interaction);
                 }
 
                 InvokeInteractionEvent();
             }
             else
             {
-                Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}", Debugging.Type.Interaction);
+                Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
+                    Debugging.Type.Interaction);
                 _interactionStorage.Add(InteractionType.Bad);
                 InvokeInteractionEvent();
             }

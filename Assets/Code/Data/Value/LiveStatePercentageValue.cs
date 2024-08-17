@@ -8,6 +8,6 @@ namespace Code.Data.Value
     public class LiveStatePercentageValue
     {
         public LiveStateKey Key;
-        [Range(-1,1)] public float Value;
+        [Range(-1, 1)] public float Value;
     }
 }

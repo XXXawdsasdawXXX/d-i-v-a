@@ -33,7 +33,7 @@ namespace Code.Components.Entities.Hands
             //_spriteRenderer.enabled = false;
             _handAnimator.SetTrigger(Exit);
             _endExitAnimationEvent = onEndExit;
-            Debugging.Instance.Log($"[animator] hide hand",Debugging.Type.Hand);
+            Debugging.Instance.Log($"[animator] hide hand", Debugging.Type.Hand);
         }
 
         #region Aimation events

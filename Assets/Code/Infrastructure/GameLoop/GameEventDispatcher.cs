@@ -9,11 +9,11 @@ using UnityEngine;
 
 namespace Code.Infrastructure.GameLoop
 {
-    public class GameEventDispatcher : MonoBehaviour
+    public class GameEventDispatcher : MonoBehaviour, IService
     {
         [SerializeField] private bool _isTestInit;
         private UniWindowController _controller;
-        
+
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
@@ -46,7 +46,7 @@ namespace Code.Infrastructure.GameLoop
                 Debugging.Instance.Log("Awake", Debugging.Type.GameState);
             }
         }
-        
+
         private void OnWindowControllerStateChanged(UniWindowController.WindowStateEventType type)
         {
             StartCoroutine(StartWithDelay());
@@ -56,7 +56,7 @@ namespace Code.Infrastructure.GameLoop
         {
             _controller.OnStateChanged -= OnWindowControllerStateChanged;
             yield return new WaitForSeconds(1);
-   
+
             NotifyGameStart();
             Debugging.Instance.Log("Start", Debugging.Type.GameState);
         }
@@ -78,8 +78,8 @@ namespace Code.Infrastructure.GameLoop
             if (Extensions.IsMacOs())
             {
                 gameListeners = gameListeners
-                    .Where(l => l is not IWindowsSpecific) 
-                    .ToList(); 
+                    .Where(l => l is not IWindowsSpecific)
+                    .ToList();
             }
 
             foreach (var listener in gameListeners)
@@ -95,6 +95,21 @@ namespace Code.Infrastructure.GameLoop
                 if (listener is IGameExitListener exitListener)
                     _exitListeners.Add(exitListener);
             }
+        }
+
+        public void InitializeRuntimeListener(IGameListeners listener)
+        {
+            if (listener is IGameInitListener initListener) initListener.GameInit();
+            if (listener is IGameLoadListener loadListener) loadListener.GameLoad();
+            if (listener is IGameStartListener startListener) startListener.GameStart();
+            if (listener is IGameTickListener tickListener) _tickListeners.Add(tickListener);
+            if (listener is IGameExitListener exitListener) _exitListeners.Add(exitListener);
+        }
+        
+        public void RemoveRuntimeListener(IGameListeners listener)
+        {
+            if (listener is IGameTickListener tickListener) _tickListeners.Remove(tickListener);
+            if (listener is IGameExitListener exitListener) _exitListeners.Remove(exitListener);
         }
         
         private void NotifyGameInit()

@@ -13,16 +13,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
     public class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
-        [Header("Character")] 
-        private readonly CharacterAnimator _characterAnimator;
+        [Header("Character")] private readonly CharacterAnimator _characterAnimator;
         private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Services")]
-        private readonly CharacterCondition _characterCondition;
+        [Header("Services")] private readonly CharacterCondition _characterCondition;
 
-        [Header("Node")] 
-        private readonly BaseNode_RandomSequence _node_randomSequence;
+        [Header("Node")] private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ReactionToItems _node_reactionToItem;
         private BaseNode _node_Current;
 
@@ -49,16 +46,18 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             if (IsCanRun())
             {
                 _characterAnimator.EnterToMode(CharacterAnimationMode.Stand);
-                
+
                 SubscribeToEvents(true);
-                
+
                 RunNode(_node_randomSequence);
-                
+
                 Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Instance.Log($"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytic.CurrentLowerLiveStateKey}", Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log(
+                    $"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytic.CurrentLowerLiveStateKey}",
+                    Debugging.Type.BehaviorTree);
                 Return(false);
             }
         }
@@ -70,13 +69,15 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log($"Нода стояния: колбэк. продолжение работы ноды = {_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None && success}", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log(
+                $"Нода стояния: колбэк. продолжение работы ноды = {_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None && success}",
+                Debugging.Type.BehaviorTree);
             if (_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None && success)
             {
                 RunNode(_node_randomSequence);
             }
         }
-        
+
         #region Events
 
         protected override void SubscribeToEvents(bool flag)
@@ -102,7 +103,5 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         }
 
         #endregion
-
-      
     }
 }

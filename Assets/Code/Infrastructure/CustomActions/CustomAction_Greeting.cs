@@ -13,17 +13,14 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Greeting : CustomAction, IProgressWriter,IGameInitListener, IGameExitListener, IToggle
+    public class CustomAction_Greeting : CustomAction, IProgressWriter, IGameInitListener, IGameExitListener, IToggle
     {
-        [Header("Services")]
-        private AudioEventsService _audioEventsService;
+        [Header("Services")] private AudioEventsService _audioEventsService;
         private TimeObserver _timeObserver;
-    
-        [Header("Character")]
-        private ColliderButton _colliderButton;
-   
-        [Header("Values")]
-        private bool _isAlreadySaidHi;
+
+        [Header("Character")] private ColliderButton _colliderButton;
+
+        [Header("Values")] private bool _isAlreadySaidHi;
         private bool _isFirstVisit;
 
         private bool _isActive;
@@ -45,17 +42,20 @@ namespace Code.Infrastructure.CustomActions
         public void LoadProgress(PlayerProgressData playerProgress)
         {
             _isAlreadySaidHi = playerProgress.CustomActions.IsAlreadySaidHi;
-            if(_isAlreadySaidHi && _isFirstVisit)
+            if (_isAlreadySaidHi && _isFirstVisit)
             {
                 _isAlreadySaidHi = false;
             }
-            Debugging.Instance.Log($"[Greeting][LoadProgress] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+
+            Debugging.Instance.Log($"[Greeting][LoadProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
+                Debugging.Type.CustomAction);
         }
 
         public void UpdateProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
-            Debugging.Instance.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+            Debugging.Instance.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
+                Debugging.Type.CustomAction);
         }
 
         public override CustomCutsceneActionType GetActionType()
@@ -64,6 +64,7 @@ namespace Code.Infrastructure.CustomActions
         }
 
         #region Events
+
         private void SubscribeToEvents(bool flag)
         {
             /*if(flag)
@@ -81,11 +82,12 @@ namespace Code.Infrastructure.CustomActions
         private void TrySayHi(Vector2 _)
         {
             Debugging.Instance.Log($"[Greeting][TrySayHi] Trying", Debugging.Type.CustomAction);
-            if(_isAlreadySaidHi || !_isActive)
+            if (_isAlreadySaidHi || !_isActive)
             {
                 Debugging.Instance.Log($"[Greeting][TrySayHi] is return", Debugging.Type.CustomAction);
                 return;
             }
+
             _isAlreadySaidHi = true;
             _audioEventsService.PlayAudio(AudioEventType.Hi);
             Debugging.Instance.Log($"[Greeting][TrySayHi] is say", Debugging.Type.CustomAction);
@@ -93,8 +95,10 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnInitTime(bool isFirstVisit)
         {
-            Debugging.Instance.Log($"[Greeting][OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}", Debugging.Type.CustomAction);
-            if(_isAlreadySaidHi && isFirstVisit)
+            Debugging.Instance.Log(
+                $"[Greeting][OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
+                Debugging.Type.CustomAction);
+            if (_isAlreadySaidHi && isFirstVisit)
             {
                 _isAlreadySaidHi = false;
             }
@@ -103,7 +107,7 @@ namespace Code.Infrastructure.CustomActions
         public void On(Action onTurnedOn = null)
         {
             Debugging.Instance.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
-            if(!_isActive)
+            if (!_isActive)
             {
                 _isActive = true;
                 SubscribeToEvents(true);
@@ -113,13 +117,12 @@ namespace Code.Infrastructure.CustomActions
         public void Off(Action onTurnedOff = null)
         {
             Debugging.Instance.Log($"[Greeting][Off] is can = {_isActive}", Debugging.Type.CustomAction);
-            if(_isActive)
+            if (_isActive)
             {
                 _isActive = false;
                 SubscribeToEvents(false);
             }
         }
-
 
         #endregion
     }

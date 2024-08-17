@@ -7,7 +7,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     public class CustomAction_Electricity : CustomAction_AudioParticle
     {
         private LoopbackAudioService _loopbackAudioService;
-        
+
         public override CustomCutsceneActionType GetActionType()
         {
             return CustomCutsceneActionType.Electricity;
@@ -17,7 +17,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             return new[] { ParticleType.Electricity };
         }
-        
+
         protected override void UpdateParticles()
         {
             if (_particlesSystems == null)

@@ -1,6 +1,6 @@
 ﻿namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public abstract class BaseNode_Root : BaseNode,IBehaviourCallback
+    public abstract class BaseNode_Root : BaseNode, IBehaviourCallback
     {
         private BaseNode _node_Current;
 
@@ -29,12 +29,10 @@
 
         protected virtual void SubscribeToEvents(bool flag)
         {
-            
         }
-        
+
         public virtual void InvokeCallback(BaseNode node, bool success)
         {
-            
         }
     }
 }

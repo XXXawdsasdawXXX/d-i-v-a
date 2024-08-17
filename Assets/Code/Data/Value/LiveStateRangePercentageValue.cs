@@ -8,6 +8,6 @@ namespace Code.Data.Value
     public class LiveStateRangePercentageValue
     {
         public LiveStateKey Key;
-        [MinMaxRangeFloat(-1,1)]public RangedFloat PercentageValue;
+        [MinMaxRangeFloat(-1, 1)] public RangedFloat PercentageValue;
     }
 }

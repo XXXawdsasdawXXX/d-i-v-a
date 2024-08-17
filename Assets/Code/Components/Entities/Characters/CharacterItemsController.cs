@@ -8,15 +8,14 @@ namespace Code.Components.Entities.Characters
 {
     public class CharacterItemsController : CharacterComponent
     {
-        [Header("Components")]
+        [Header("Components")] 
         [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private CharacterModeAdapter _modeAdapter;
         
-        
-        [Header("Dynamic data")]
+        [Header("Dynamic data")] 
         private Item _selectedItem;
-        
         public event Action<LiveStatePercentageValue[]> OnUseItem;
+        
 
         public void StartReactionToObject(Item item, Action OnEndReaction = null)
         {
@@ -32,9 +31,9 @@ namespace Code.Components.Entities.Characters
             {
                 return;
             }
-            
+
             apple.ReadyForUse(_modeAdapter.GetWorldEatPoint());
-      
+
             _characterAnimator.StartPlayEat(OnReadyEat: () =>
             {
                 apple.Use(OnEnd: () =>
@@ -44,7 +43,6 @@ namespace Code.Components.Entities.Characters
                     OnEndReaction?.Invoke();
                 });
             });
-         
         }
     }
 }

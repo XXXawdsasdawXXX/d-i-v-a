@@ -28,14 +28,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         private readonly TickCounter _tickCounter;
         private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         private readonly CharacterCondition _characterCondition;
-        
+
         [Header("Node")] 
         private readonly SubNode_ReactionToVoice _subNode_reactionToVoice;
-        
+
         [Header("Static values")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
-
 
 
         public BehaviourNode_Sleep()
@@ -85,7 +84,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 Return(false);
             }
         }
-        
+
         protected override bool IsCanRun()
         {
             return _characterCondition.IsCanSleep();
@@ -104,13 +103,14 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             {
                 WakeUp();
             }
+
             base.InvokeCallback(node, success);
         }
 
         #endregion
 
         #region Unique methods
-        
+
         private IEnumerator PlayExitAnimationRoutine()
         {
             _characterAnimator.EnterToMode(CharacterAnimationMode.None);
@@ -139,14 +139,15 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 {
                     _tickCounter.StartWait();
                     Return(true);
-                },delay);
+                }, delay);
             }
+
             SubscribeToEvents(false);
             Debugging.Instance.Log($"Нода сна: стоп сон", Debugging.Type.BehaviorTree);
         }
-        
+
         #endregion
-        
+
         #region Events
 
         private void SubscribeToEvents(bool flag)
@@ -155,7 +156,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             {
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += WakeUp;
-                _sleepState.ChangedEvent += OnChangedSleepStateValue; 
+                _sleepState.ChangedEvent += OnChangedSleepStateValue;
                 _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
             }
             else
@@ -163,14 +164,14 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= WakeUp;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
-               _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
+                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
             }
         }
 
-    
+
         private void OnMaxDecibelRecorder()
         {
-           RunNode(_subNode_reactionToVoice);
+            RunNode(_subNode_reactionToVoice);
         }
 
         private void OnClickSeries(int clickCount)
@@ -180,12 +181,12 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 WakeUp();
             }
         }
-        
+
         private void OnChangedSleepStateValue(float sleepValue)
         {
             if (_sleepState.GetPercent() > 0.9f)
             {
-                Debugging.Instance.Log($"Нода сна: сон на максимальном значение",Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log($"Нода сна: сон на максимальном значение", Debugging.Type.BehaviorTree);
                 StopSleep();
             }
         }
@@ -194,8 +195,6 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         #region Conditions
 
-
-
         #endregion
 
         #region Save
@@ -203,19 +202,18 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         public void UpdateData(BehaviourTreeLoader.Data data)
         {
             data.SleepRemainingTick = _tickCounter.GetRemainingTick();
-            Debugging.Instance.Log($"Нода сна: обновила дату на сохранение",Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода сна: обновила дату на сохранение", Debugging.Type.BehaviorTree);
         }
 
         public void LoadData(BehaviourTreeLoader.Data data)
         {
-            Debugging.Instance.Log($"Нода сна: загрузила тики {data.SleepRemainingTick}",Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода сна: загрузила тики {data.SleepRemainingTick}", Debugging.Type.BehaviorTree);
             if (data.SleepRemainingTick > 0)
             {
                 _tickCounter.StartWait(data.SleepRemainingTick);
             }
         }
-        
-        #endregion
 
+        #endregion
     }
 }

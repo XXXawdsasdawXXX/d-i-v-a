@@ -8,26 +8,25 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Hands
 {
-    public class HandMaterialController : MaterialController, IGameInitListener,IGameExitListener
+    public class HandMaterialController : MaterialController, IGameInitListener, IGameExitListener
     {
-        [Header("Components")] 
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [Header("Components")] [SerializeField]
+        private SpriteRenderer _spriteRenderer;
 
-        [Header("Static values")] 
-        private HandConfig _handConfig;
+        [Header("Static values")] private HandConfig _handConfig;
         private InteractionStorage _interactionStorage;
 
         public void GameInit()
         {
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            
-            SubscribeToEvents(true);    
+
+            SubscribeToEvents(true);
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);    
+            SubscribeToEvents(false);
         }
 
         private void SubscribeToEvents(bool flag)

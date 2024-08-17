@@ -16,8 +16,9 @@ namespace Code.Infrastructure.CustomActions
         {
             IsActive = false;
         }
+
         public abstract CustomCutsceneActionType GetActionType();
-        
+
         public Action<CustomAction> EndCustomActionEvent;
     }
 }

@@ -21,7 +21,7 @@ namespace Code.Test
         {
             EditCommands();
         }
-        
+
         private void EditCommands()
         {
             DebugLogConsole.AddCommand<int>("add.sleep", "", AddSleepValue);
@@ -61,7 +61,7 @@ namespace Code.Test
         }
 
         private void AddSleepValue(int obj)
-        {  
+        {
             _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
             {
                 Key = LiveStateKey.Sleep,

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
-    public class CoroutineRunner : MonoBehaviour, IService , IGameExitListener
+    public class CoroutineRunner : MonoBehaviour, IService, IGameExitListener
     {
         public Coroutine StartRoutine(IEnumerator coroutine)
         {
@@ -15,13 +15,14 @@ namespace Code.Infrastructure.Services
 
         public void StartActionWithDelay(Action action, float delay)
         {
-            StartCoroutine(StartActionWithDelayRoutine(action,delay));
+            StartCoroutine(StartActionWithDelayRoutine(action, delay));
         }
+
         public void StopRoutine(IEnumerator coroutine)
         {
             StopCoroutine(coroutine);
         }
-        
+
         public void StopRoutine(Coroutine coroutine)
         {
             if (coroutine != null)
@@ -29,7 +30,7 @@ namespace Code.Infrastructure.Services
                 StopCoroutine(coroutine);
             }
         }
-        
+
         public void GameExit()
         {
             StopAllCoroutines();
@@ -40,6 +41,5 @@ namespace Code.Infrastructure.Services
             yield return new WaitForSeconds(delay);
             action?.Invoke();
         }
-        
     }
 }

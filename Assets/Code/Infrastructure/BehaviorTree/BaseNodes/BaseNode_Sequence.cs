@@ -4,16 +4,16 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
     public sealed class BaseNode_Sequence : BaseNode, IBehaviourCallback
     {
-        private BaseNode[] _orderNodes;// порядок элементов имеет значение
+        private BaseNode[] _orderNodes; // порядок элементов имеет значение
 
         private BaseNode _currentChild;
         private int _currentNodeIndex;
-        
+
         public BaseNode_Sequence(BaseNode[] orderNodes)
         {
             _orderNodes = orderNodes;
         }
-        
+
         protected override void Run()
         {
             if (IsCanRun())
@@ -23,7 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 _currentChild.Run(callback: this);
                 return;
             }
-            
+
             Return(false);
         }
 
@@ -62,9 +62,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         protected override void OnReturn(bool success)
         {
-        //    Debug.Log($"NODE: {name} RETURN: {result}");
+            //    Debug.Log($"NODE: {name} RETURN: {result}");
         }
-
-
     }
 }

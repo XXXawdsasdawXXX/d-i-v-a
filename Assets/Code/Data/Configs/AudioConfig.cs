@@ -12,13 +12,13 @@ namespace Code.Data.Configs
         public MicrophoneAnalyzerData MicrophoneAnalyzerData;
         public AudioEvent[] AudioEvents;
 
-        public AudioEvent[] GetAudioEvents(AudioEventType  type)
+        public AudioEvent[] GetAudioEvents(AudioEventType type)
         {
             return AudioEvents.Where(a => a.Type == type).ToArray();
         }
 
         public AudioEvent GetRandomAudioEvent(AudioEventType type)
-        { 
+        {
             var array = GetAudioEvents(type);
             return array[Random.Range(0, array.Length)];
         }

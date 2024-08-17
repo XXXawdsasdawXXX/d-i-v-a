@@ -17,30 +17,26 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
     public class BehaviourNode_ShowApple : BaseNode
     {
-        [Header("D I V A")] 
-        private readonly CharacterAnimationAnalytic _animationAnalytic;
+        [Header("D I V A")] private readonly CharacterAnimationAnalytic _animationAnalytic;
 
-        [Header("Apple")] 
-        private readonly Apple _apple;
+        [Header("Apple")] private readonly Apple _apple;
         private readonly ColliderButton _appleButton;
         private readonly PhysicsDragAndDrop _applePhysicsDragAndDrop;
 
         [Header("Hand")] //☺
         private readonly HandMovement _handMovement;
+
         private readonly HandAnimator _handAnimator;
         private readonly ItemHolder _itemHolder;
 
-        [Header("Services")] 
-        private readonly TickCounter _tickCounter_cooldown;
+        [Header("Services")] private readonly TickCounter _tickCounter_cooldown;
         private readonly TickCounter _tickCounter_liveTime;
         private readonly CharacterCondition _characterCondition;
 
-        [Header("Static values")] 
-        private readonly HandConfig _handConfig;
+        [Header("Static values")] private readonly HandConfig _handConfig;
         private readonly InteractionStorage _interactionsStorage;
         private readonly WhiteBoard_Hand _whiteBoard;
         private readonly AppleConfig _appleConfig;
-        
 
 
         public BehaviourNode_ShowApple()
@@ -48,7 +44,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             //d i v a
             var diva = Container.Instance.FindEntity<DIVA>();
             _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
-            
+
             //enitities
             _apple = Container.Instance.FindItem<Apple>();
             _appleButton = _apple.FindCommonComponent<ColliderButton>();
@@ -58,7 +54,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
             _handMovement = hand.FindHandComponent<HandMovement>();
-            _itemHolder = hand.FindCommonComponent<ItemHolder>();
+            _itemHolder = hand.FindCommonComponent<ItemHolder>();//todo непотребство 
 
             //static data
             _handConfig = Container.Instance.FindConfig<HandConfig>();
@@ -94,9 +90,11 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                     return;
                 }
 
-                Debugging.Instance.Log($"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",Debugging.Type.Hand);
+                Debugging.Instance.Log(
+                    $"[showapple_run] не покажет яблоко {random} > {dropChance}. interaction count = {_interactionsStorage.GetSum()}",
+                    Debugging.Type.Hand);
             }
-            
+
             Return(false);
         }
 
@@ -131,7 +129,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             _whiteBoard.SetData(WhiteBoard_Hand.Type.IsShowApple, false);
 
             TryDropApple();
-            
+
             _handAnimator.PlayExitHand();
             _handMovement.Off();
 
@@ -146,20 +144,22 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         {
             int liveTimeTicks = _handConfig.GetLiveTimeTicks();
             _tickCounter_liveTime.StartWait(liveTimeTicks);
-            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать конца {liveTimeTicks} жизненных тиков", Debugging.Type.Hand);
+            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать конца {liveTimeTicks} жизненных тиков",
+                Debugging.Type.Hand);
         }
 
         private void StartWaitSpawnAppleCooldown()
         {
             var cooldownTicks = _appleConfig.SpawnCooldownTick.GetRandomValue();
             _tickCounter_cooldown.StartWait(cooldownTicks);
-            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать кулдаун {cooldownTicks} тиков", Debugging.Type.Hand);
+            Debugging.Instance.Log($"[showapple_StartWaitCooldown] стал ждать кулдаун {cooldownTicks} тиков",
+                Debugging.Type.Hand);
         }
 
         private void GrowApple()
         {
             Debugging.Instance.Log($"[showapple] вырастить яблоко", Debugging.Type.Hand);
-            _itemHolder.SetItem(_apple);
+            //_itemHolder.SetItem(_apple);
             _apple.Grow();
             _applePhysicsDragAndDrop.SetKinematicMode();
         }
@@ -173,7 +173,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             }
 
             Debugging.Instance.Log($"[showapple] получилось сбросить яблоко", Debugging.Type.Hand);
-            _itemHolder.SetItem(_apple);
+           // _itemHolder.SetItem(_apple);
             _itemHolder.DropItem();
             if (!_appleButton.IsPressed)
             {
@@ -226,16 +226,16 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         #endregion
 
         #region Global events
-        
+
         private void SubscribeToGlobalEvents(bool flag)
         {
             if (flag)
             {
-                _tickCounter_liveTime.WaitedEvent += TickCounter_liveTimeOnWaitedEvent;
+                _tickCounter_liveTime.OnWaitIsOver += TickCounter_liveTimeOnWaitedEvent;
             }
             else
             {
-                _tickCounter_liveTime.WaitedEvent -= TickCounter_liveTimeOnWaitedEvent;
+                _tickCounter_liveTime.OnWaitIsOver -= TickCounter_liveTimeOnWaitedEvent;
             }
         }
 
@@ -247,7 +247,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 HideHand();
             }
         }
-
 
         #endregion
     }

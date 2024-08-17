@@ -9,13 +9,15 @@ namespace Code.Utils
     {
         public static bool IsMacOs()
         {
-           return Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer;
+            return Application.platform is RuntimePlatform.OSXEditor or RuntimePlatform.OSXPlayer;
         }
-        public  static bool IsEqualDay(DateTime lastVisit, DateTime currenVisit)
+
+        public static bool IsEqualDay(DateTime lastVisit, DateTime currenVisit)
         {
-            return  lastVisit != DateTime.MinValue && currenVisit != DateTime.MinValue && lastVisit.Day == currenVisit.Day;
+            return lastVisit != DateTime.MinValue && currenVisit != DateTime.MinValue &&
+                   lastVisit.Day == currenVisit.Day;
         }
-        
+
         public static void ShuffleList<T>(List<T> list)
         {
             var n = list.Count;
@@ -25,7 +27,7 @@ namespace Code.Utils
                 (list[i], list[j]) = (list[j], list[i]);
             }
         }
-        
+
         public static void ShuffleArray<T>(T[] array)
         {
             int n = array.Length;
@@ -35,7 +37,8 @@ namespace Code.Utils
                 (array[i], array[j]) = (array[j], array[i]);
             }
         }
-        
+
+
         public static Vector3 AsVector3(this Vector2 vector)
         {
             return new Vector3(vector.x, vector.y, 0);
@@ -45,12 +48,12 @@ namespace Code.Utils
         {
             return new Vector2(vector.x, vector.y);
         }
-        
+
         public static bool Equal(this Color32 color1, Color32 color2)
         {
             return color1.r == color2.r && color1.g == color2.g && color1.b == color2.b && color1.a == color2.a;
         }
-        
+
         public static bool Equal(this Color32 color1, Color32 color2, byte sensitivity = 0)
         {
             byte rDiff = (byte)Mathf.Abs(color1.r - color2.r);

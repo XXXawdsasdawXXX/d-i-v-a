@@ -9,7 +9,7 @@ namespace Code.Test
     {
         [SerializeField] private Color32 _cameraColor;
         private Camera _camera;
-        
+
 #if UNITY_EDITOR
         public void Start()
         {
@@ -18,6 +18,7 @@ namespace Code.Test
             {
                 _camera = FindObjectOfType<Camera>();
             }
+
             _camera.backgroundColor = _cameraColor;
         }
 #endif

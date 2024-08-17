@@ -15,11 +15,10 @@ namespace Code.Data.Configs
         {
             return _allParticles.FirstOrDefault(p => p.Type == particleType);
         }
-        
+
         public IEnumerable<ParticleSystemFacade> GetParticles(ParticleType particleType)
         {
             return _allParticles.Where(p => p.Type == particleType);
         }
-        
     }
 }

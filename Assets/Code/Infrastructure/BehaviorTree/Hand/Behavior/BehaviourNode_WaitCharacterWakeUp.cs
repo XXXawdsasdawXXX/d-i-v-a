@@ -2,11 +2,10 @@
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
-using Code.Infrastructure.GameLoop;
 
 namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
-    public class BehaviourNode_WaitCharacterWakeUp: BaseNode
+    public class BehaviourNode_WaitCharacterWakeUp : BaseNode
     {
         private readonly CharacterAnimationAnalytic _animationAnalytic;
 
@@ -15,6 +14,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             var diva = Container.Instance.FindEntity<DIVA>();
             _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
         }
+
         protected override void Run()
         {
             if (IsCanRun())
@@ -22,6 +22,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 SubscribeToEvents(true);
                 return;
             }
+
             Return(false);
         }
 

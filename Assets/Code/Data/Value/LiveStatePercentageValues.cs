@@ -7,4 +7,4 @@ namespace Code.Data.Value
     {
         public LiveStatePercentageValue[] Values;
     }
-}   
+}

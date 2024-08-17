@@ -8,13 +8,12 @@ namespace Code.Data.StaticData
     [Serializable]
     public class DurationData
     {
-        [Header("Tick")]
-        [MinMaxRangeInt(1, 100)] public RangedInt LookToMouse;
-        [MinMaxRangeInt(1,100)] public RangedInt Stand;
+        [Header("Tick")] [MinMaxRangeInt(1, 100)]
+        public RangedInt LookToMouse;
+
+        [MinMaxRangeInt(1, 100)] public RangedInt Stand;
         public int StoppingTicksToMaximumSleepValues = 7;
-        
-        [Header("Seconds")]
-        public float StarryMouse = 1;
-        
+
+        [Header("Seconds")] public float StarryMouse = 1;
     }
 }

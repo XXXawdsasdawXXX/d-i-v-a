@@ -67,14 +67,16 @@ namespace Code.Utils
             }
         }
 
-        public void Log(object invoker,string message, Type type = Type.None)
+        public void Log(object invoker, string message, Type type = Type.None)
         {
             var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
             if (debugParam != null)
             {
                 if (debugParam.Active)
                 {
-                    ColorLog($"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
+                    ColorLog(
+                        $"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
+                        debugParam.Color);
                 }
             }
             else
@@ -82,6 +84,7 @@ namespace Code.Utils
                 ColorLog(message, Color.white);
             }
         }
+
         public void TestLog(string message)
         {
             ColorLog(message, Color.green);
@@ -91,18 +94,18 @@ namespace Code.Utils
         {
             ColorLog($"{obj.GetType()} {message}", Color.red);
         }
-        
+
         public void ErrorLog(string message)
         {
             ColorLog(message, Color.red);
         }
-        
+
         private void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
-        
-        private  string InsertSpaceBeforeUppercase(string input)
+
+        private string InsertSpaceBeforeUppercase(string input)
         {
             StringBuilder result = new StringBuilder();
 

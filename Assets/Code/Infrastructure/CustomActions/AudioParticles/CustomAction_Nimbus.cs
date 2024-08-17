@@ -21,14 +21,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         private InteractionStorage _interactionStorage;
 
         private CoroutineRunner _coroutineRunner;
-        
+
         private ParticleSystemFacade _currentNimbus;
 
         private Coroutine _activateCoroutine;
-        
-        private RangedFloat _speedRange = new() { MinValue = 3, MaxValue = 20};
+
+        private RangedFloat _speedRange = new() { MinValue = 3, MaxValue = 20 };
         private float _currentMoveSpeed;
-        
+
         protected override void Init()
         {
             _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
 
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            
+
             SubscribeToEvents(true);
             base.Init();
         }
@@ -61,7 +61,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         }
 
         #region Events
-        
+
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -85,6 +85,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                     particlesSystem.transform.position = GetParticlePosition();
                 }
             }
+
             TryStartAction();
         }
 
@@ -105,7 +106,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             }
 
             var particleType = GetParticleType();
-            
+
             if (_currentNimbus != null)
             {
                 if (_currentNimbus.Type == particleType)
@@ -127,22 +128,22 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         private ParticleType GetParticleType()
         {
-            return _interactionStorage.GetDominantInteractionType() == InteractionType.Good 
+            return _interactionStorage.GetDominantInteractionType() == InteractionType.Good
                 ? ParticleType.Nimbus_light
-                :ParticleType.Nimbus_dark;
+                : ParticleType.Nimbus_dark;
         }
 
         protected override void UpdateParticles()
         {
             MoveParticles();
-            
+
             if (!IsActive)
             {
                 return;
             }
-            
+
             if (_animationAnalytic.IsTransition)
-            { 
+            {
                 Stop();
             }
 
@@ -158,7 +159,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             {
                 return;
             }
-            
+
             foreach (var particle in _particlesSystems)
             {
                 var target = GetParticlePosition();
@@ -183,14 +184,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             yield return new WaitUntil(() => audioModule.IsSleep());
             Start(nimbus);
         }
-        
+
         private void Stop()
         {
             if (!IsActive)
             {
                 return;
             }
-            
+
             _currentNimbus?.Off();
             _currentNimbus = null;
             IsActive = false;
