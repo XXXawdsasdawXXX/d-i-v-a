@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2809351989058341482}
   - component: {fileID: 8654396086031654779}
   - component: {fileID: 4739288919188147392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: view
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,9 +134,8 @@ GameObject:
   - component: {fileID: 2039733739404028658}
   - component: {fileID: 370681062331079393}
   - component: {fileID: 4222184283791179808}
-  - component: {fileID: 5769052820766355771}
   - component: {fileID: 7008766307195884268}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +221,6 @@ MonoBehaviour:
   _itemAnimation: {fileID: 4739288919188147392}
   _dragAndDrop: {fileID: 370681062331079393}
   _colliderButton: {fileID: 4222184283791179808}
-  _anchorMover: {fileID: 5769052820766355771}
 --- !u!114 &370681062331079393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,18 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsPressed>k__BackingField: 0
---- !u!114 &5769052820766355771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5267172599333825764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2187ed7bb6443291e8a15392618b38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7008766307195884268
 MonoBehaviour:
   m_ObjectHideFlags: 0

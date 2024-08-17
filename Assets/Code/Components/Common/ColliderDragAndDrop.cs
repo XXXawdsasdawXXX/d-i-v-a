@@ -10,14 +10,16 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ColliderDragAndDrop : CommonComponent, IToggle,
-        IGameInitListener, IGameStartListener, IGameTickListener, IGameExitListener 
+    public class ColliderDragAndDrop : CommonComponent,
+        IGameInitListener, IGameStartListener, IGameTickListener,
+        IToggle
     {
         [Header("Params")] 
         [SerializeField] protected bool _isActive;
         [SerializeField] private Vector2 _offset;
         [SerializeField] protected ColliderButton _colliderButton;
         private Vector2 _boarder;
+        public bool IsActive => _isActive;
 
         [Header("Services")] 
         private PositionService _positionService;
@@ -25,7 +27,7 @@ namespace Code.Components.Common
 
         [Header("Dynamic values")] 
         private Coroutine _coroutine;
-        private bool _isDragging;
+        protected bool _isDragging;
         private Vector3 _target;
 
         public void GameInit()
@@ -50,11 +52,6 @@ namespace Code.Components.Common
             }
         }
 
-        public void GameExit()
-        {
-            
-        }
-        
         #region Unique methods
 
         public virtual void On(Action onTurnedOn = null)
@@ -100,12 +97,12 @@ namespace Code.Components.Common
         {
             if (flag)
             {
-                _colliderButton.DownEvent += OnDown;
+                _colliderButton.OnPressedDown += OnPressedDown;
                 _colliderButton.OnPressedUp += OnPressedUp;
             }
             else
             {
-                _colliderButton.DownEvent -= OnDown;
+                _colliderButton.OnPressedDown -= OnPressedDown;
                 _colliderButton.OnPressedUp -= OnPressedUp;
             }
         }
@@ -116,7 +113,7 @@ namespace Code.Components.Common
             OnUp();
         }
 
-        protected virtual void OnDown(Vector2 obj)
+        protected virtual void OnPressedDown(Vector2 obj)
         {
             Vector3 clickPosition = _positionService.GetMouseWorldPosition();
 

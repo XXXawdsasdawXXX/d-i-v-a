@@ -1,11 +1,4 @@
-using Code.Components.Common;
-using Code.Components.Entities.Characters;
 using Code.Components.Items;
-using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Character.Sub;
-using Code.Infrastructure.DI;
-using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
@@ -37,7 +30,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             if (obj.TryGetComponent(out Item item))
             {
                 Debugging.Instance.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-                _node_ReactionToItem.SetCurrentItem(item);
+               // _node_ReactionToItem.SetCurrentItem(item);
                 RunNode(_node_ReactionToItem);
             }
         }

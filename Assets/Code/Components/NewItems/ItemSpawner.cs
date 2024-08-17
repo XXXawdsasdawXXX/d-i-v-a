@@ -21,7 +21,7 @@ namespace Code.Components.NewItems
         public Item SpawnRandomItem(Transform anchor)
         {
            var item =  _monoPool.GetNext();
-           item.SetData(_itemDataService.GetRandomItemData(), anchor);
+           item.SetData(_itemDataService.GetRandomItemData());
            return item;
         }
     }

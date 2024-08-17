@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Components.Common;
 using Code.Components.Entities.Characters;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Hands
 {
-    public class HandMovement : HandComponent, 
+    public class MovementToMouse : CommonComponent, 
         IGameInitListener, IGameTickListener, 
         IToggle
     {

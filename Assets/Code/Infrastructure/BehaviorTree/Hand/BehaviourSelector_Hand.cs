@@ -26,7 +26,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             {
                 new BehaviourNode_WaitCharacterWakeUp(),
                 new BehaviourNode_ShowItem(),
-                //new BehaviourNode_ShowApple(),
                 new BehaviourNode_WaitTick(),
             };
 
@@ -104,13 +103,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 
         private void OnSwitchLowerLiveState(LiveStateKey key)
         {
-            if (_currentChild is BehaviourNode_ShowApple)
-            {
-                Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя - !ОТКАЗАНО!",
-                    Debugging.Type.Hand);
-                return;
-            }
-
             Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.Hand);
             _currentChild?.Break();
             Run();

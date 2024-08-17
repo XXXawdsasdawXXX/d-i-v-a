@@ -10,16 +10,19 @@ namespace Code.Components.Common
 {
     public class ColliderButton : CommonComponent, IGameInitListener, IGameTickListener
     {
-        [Header("Services")] private PositionService _positionService;
+        [Header("Services")]
+        private PositionService _positionService;
 
-        [Header("Static values")] private float _maxClickCooldown;
+        [Header("Static values")] 
+        private float _maxClickCooldown;
         [field: SerializeField] public bool IsPressed { get; private set; }
 
-        [Header("Dynamic values")] private float _pressedTime;
+        [Header("Dynamic values")] 
+        private float _pressedTime;
         private float _currentClickCooldown;
         private int _clickNumber;
 
-        public event Action<Vector2> DownEvent;
+        public event Action<Vector2> OnPressedDown;
         public event Action<Vector2, float> OnPressedUp;
         public event Action<int> SeriesOfClicksEvent;
 
@@ -55,7 +58,7 @@ namespace Code.Components.Common
             _clickNumber++;
             _currentClickCooldown = 0;
 
-            DownEvent?.Invoke(_positionService.GetMouseWorldPosition());
+            OnPressedDown?.Invoke(_positionService.GetMouseWorldPosition());
             SeriesOfClicksEvent?.Invoke(_clickNumber);
 
             Debugging.Instance.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);

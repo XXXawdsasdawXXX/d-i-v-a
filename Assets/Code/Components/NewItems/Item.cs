@@ -14,16 +14,16 @@ namespace Code.Components.NewItems
         [SerializeField] private ItemAnimation _itemAnimation;
         [SerializeField] private PhysicsDragAndDrop _dragAndDrop;
         [SerializeField] private ColliderButton _colliderButton;
-        [SerializeField] private AnchorMover _anchorMover;
         private  TickCounter _liveTime;
         
         public ItemData Data { get; private set; }
         public bool IsActive { get; private set; }
 
+        private bool _isDrop;
         public event Action OnPressed;
         public event Action OnUsed;
         public event Action OnDestroyed;
-        
+
 
         #region Pool methods
 
@@ -35,7 +35,10 @@ namespace Code.Components.NewItems
         public void Enable()
         {
             IsActive = true;
+            _dragAndDrop.Off();
+            
             SubscribeToEvents(true);
+            
             gameObject.SetActive(true);
             _itemAnimation.PlayEnter();
         }
@@ -47,34 +50,27 @@ namespace Code.Components.NewItems
             gameObject.SetActive(false);
         }
 
-
         #endregion
-        
-        public void SetData(ItemData data, Transform anchor = null)
+
+        public bool IsCanUse()
+        {
+            return IsActive && _dragAndDrop.IsActive;
+        }
+
+        public void SetData(ItemData data)
         {
             Debugging.Instance.Log($"{data.Type} {data.SpawnChance}", Debugging.Type.Items);
+            
             Data = data;
-            _anchorMover.SetAnchor(anchor);
-            _itemAnimation.SetController(Data.AnimatorController );
-
-            if (anchor == null)
-            {
-                _dragAndDrop.On();
-                _anchorMover.Off();   
-            }
-            else
-            {
-                _dragAndDrop.Off();
-                _anchorMover.On();
-            }
-
+            _itemAnimation.SetController(Data.AnimatorController);
+            
             var ticks = Data.LiveTimeTicks.GetRandomValue();
             if (ticks > 0)
             {
                 _liveTime.StartWait(ticks);
             }
         }
-   
+
         public void Destroy(Action onCompleted = null)
         {
             _itemAnimation.PlayDestroy(onPlayed: () =>
@@ -87,22 +83,27 @@ namespace Code.Components.NewItems
         public void Use(Action onCompleted = null)
         {
             _itemAnimation.PlayUse(onPlayed: onCompleted);
-            _anchorMover.Off();
+        }
+
+        public void Lock()
+        {
+            _dragAndDrop.Off();
+            _liveTime.StopWait();
         }
 
 
         #region Events
-        
+
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _colliderButton.OnPressedUp += OnPressedUp;
+                _colliderButton.OnPressedDown += OnPressedDown;
                 _liveTime.OnWaitIsOver += OnEndLiveTime;
             }
             else
             {
-                _colliderButton.OnPressedUp -= OnPressedUp;
+                _colliderButton.OnPressedDown -= OnPressedDown;
                 _liveTime.OnWaitIsOver -= OnEndLiveTime;
             }
         }
@@ -112,11 +113,10 @@ namespace Code.Components.NewItems
         /// </summary>
         /// <param name="_"></param>
         /// <param name="__"></param>
-        private void OnPressedUp(Vector2 _, float __)
+        private void OnPressedDown(Vector2 _)
         {
-            OnPressed?.Invoke();
             _dragAndDrop.On();
-            _anchorMover.Off();
+            OnPressed?.Invoke();
         }
 
         /// <summary>

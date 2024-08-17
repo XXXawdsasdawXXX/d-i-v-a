@@ -14,15 +14,16 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
 
-        private readonly HandMovement _handMovement;
-
-        [Header("Services")] private readonly InteractionStorage _interactionStorage;
+        [Header("Services")] 
+        private readonly InteractionStorage _interactionStorage;
         private readonly TickCounter _tickCounter;
 
-        [Header("Static values")] private readonly HandConfig _handConfig;
+        [Header("Static values")] 
+        private readonly HandConfig _handConfig;
         private readonly WhiteBoard_Hand _whiteBoard;
 
-        [Header("Dynamic values")] private float _cooldown;
+        [Header("Dynamic values")] 
+        private float _cooldown;
 
 
         public BehaviourNode_WaitTick()
@@ -30,7 +31,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             //hand
             var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
-            _handMovement = hand.FindHandComponent<HandMovement>();
 
             //services
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
@@ -48,7 +48,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             {
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
                 _handAnimator.PlayExitHand();
-                _handMovement.Off();
 
                 var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
                 _tickCounter.StartWait(cooldownTicks);

@@ -1,47 +1,69 @@
 ﻿using System;
+using System.Collections;
 using Code.Components.Items;
-using Code.Components.Items.Apples;
+using Code.Data.Enums;
 using Code.Data.Value;
+using Code.Infrastructure.DI;
+using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Components.Entities.Characters
 {
-    public class CharacterItemsController : CharacterComponent
+    public class CharacterItemsController : CharacterComponent,
+        IGameInitListener
     {
         [Header("Components")] 
-        [SerializeField] private CharacterAnimator _characterAnimator;
-        [SerializeField] private CharacterModeAdapter _modeAdapter;
+        private CharacterAnimationAnalytic _animationAnalytic;
+        private CharacterAnimator _characterAnimator;
+        private CharacterModeAdapter _modeAdapter;
         
         [Header("Dynamic data")] 
         private Item _selectedItem;
-        public event Action<LiveStatePercentageValue[]> OnUseItem;
-        
 
-        public void StartReactionToObject(Item item, Action OnEndReaction = null)
+        private Coroutine _coroutine;
+
+        public event Action<LiveStatePercentageValue[]> OnUseItem;
+
+        public void GameInit()
         {
-            if (item is Apple apple)
-            {
-                UseApple(apple, OnEndReaction);
-            }
+            var diva = Container.Instance.FindEntity<DIVA>();
+            _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
+            _modeAdapter = diva.FindCharacterComponent<CharacterModeAdapter>();
         }
 
-        private void UseApple(Apple apple, Action OnEndReaction = null)
+        public void StartReactionToObject(Code.Components.NewItems.Item item, Action OnEndReaction = null)
         {
-            if (!apple.IsActive)
+            _characterAnimator.StartPlayEat();
+
+            if (_coroutine != null)
             {
-                return;
+                StopCoroutine(_coroutine);
+            }
+            
+            _coroutine = StartCoroutine(Use(item, OnEndReaction));
+        }
+
+        private IEnumerator Use(NewItems.Item item, Action OnEndReaction = null)
+        {
+            item.Lock();
+            
+            var period = new WaitForEndOfFrame();
+            var handPosition = _modeAdapter.GetWorldEatPoint();
+
+            while (Vector3.Distance(item.transform.position, handPosition) > 0.05f)
+            {
+                item.transform.position =Vector3.Lerp(item.transform.position, handPosition, 3 * Time.deltaTime);   
+                yield return period;
             }
 
-            apple.ReadyForUse(_modeAdapter.GetWorldEatPoint());
-
-            _characterAnimator.StartPlayEat(OnReadyEat: () =>
+            yield return new WaitUntil(() => _animationAnalytic.CurrentState == CharacterAnimationState.Eat);
+            
+            item.Use(onCompleted: () =>
             {
-                apple.Use(OnEnd: () =>
-                {
-                    _characterAnimator.StopPlayEat();
-                    OnUseItem?.Invoke(apple.GetPercentageValues());
-                    OnEndReaction?.Invoke();
-                });
+                _characterAnimator.StopPlayEat();
+                OnUseItem?.Invoke(item.Data.BonusValues.Values);
+                OnEndReaction?.Invoke();
             });
         }
     }

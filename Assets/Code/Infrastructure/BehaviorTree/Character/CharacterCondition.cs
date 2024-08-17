@@ -14,14 +14,17 @@ namespace Code.Infrastructure.BehaviorTree.Character
 {
     public class CharacterCondition : IService, IGameInitListener
     {
-        [Header("D I V A")] private CharacterLiveStatesAnalytic _statesAnalytic;
+        [Header("D I V A")]
+        private CharacterLiveStatesAnalytic _statesAnalytic;
         private CharacterLiveState _sleepState;
         private CharacterAnimationAnalytic _animationAnalytic;
 
-        [Header("Services")] private TimeObserver _timeObserver;
+        [Header("Services")] 
+        private TimeObserver _timeObserver;
         private InteractionStorage _interactionStorage;
 
-        [Header("Static values")] private float _sleepHealValue;
+        [Header("Static values")] 
+        private float _sleepHealValue;
         private int _stoppingTicksToMaximumSleepValues;
         private LiveStateStorage _liveStateStorage;
 

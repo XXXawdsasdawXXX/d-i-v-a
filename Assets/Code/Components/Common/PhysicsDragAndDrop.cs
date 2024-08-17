@@ -26,12 +26,15 @@ namespace Code.Components.Common
         {
             SetPhysicsActive(true);
             base.On(onTurnedOn);
+            
+            _isDragging = _colliderButton.IsPressed;
         }
 
         public override void Off(Action onTurnedOff = null)
         {
             SetPhysicsActive(false);
             base.Off(onTurnedOff);
+            _isDragging = false;
         }
 
         public void SetKinematicMode()
@@ -44,7 +47,7 @@ namespace Code.Components.Common
             SetPhysicsActive(true);
         }
 
-        protected override void OnDown(Vector2 obj)
+        protected override void OnPressedDown(Vector2 obj)
         {
             if (!_isActive)
             {
@@ -52,7 +55,7 @@ namespace Code.Components.Common
             }
 
             SetPhysicsActive(false);
-            base.OnDown(obj);
+            base.OnPressedDown(obj);
         }
 
         protected override void OnPressedUp(Vector2 arg1, float arg2)

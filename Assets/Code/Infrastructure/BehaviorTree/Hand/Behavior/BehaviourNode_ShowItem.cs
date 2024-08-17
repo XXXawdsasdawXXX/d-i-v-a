@@ -17,7 +17,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         [Header("Hand")] 
         private readonly Components.Entities.Hands.Hand _hand;
         private readonly HandAnimator _handAnimation;
-        private readonly HandMovement _handMovement;
+        private readonly MovementToMouse _movementToMouse;
         private readonly ItemHolder _itemHolder;
 
         [Header("Item")] 
@@ -36,15 +36,11 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         public BehaviourNode_ShowItem()
         {
             _divaTransform = Container.Instance.FindEntity<DIVA>().transform;
-            
             _hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimation = _hand.FindHandComponent<HandAnimator>();
-            _handMovement = _hand.FindHandComponent<HandMovement>();
+            _movementToMouse = _hand.FindCommonComponent<MovementToMouse>();
             _itemHolder = _hand.FindCommonComponent<ItemHolder>();
-
-            
             _itemSpawner = Container.Instance.FindService<ItemSpawner>();
-
             _positionService = Container.Instance.FindService<PositionService>();
         }
 
@@ -57,7 +53,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 {
                     _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
                     _itemHolder.SetItem(_item);
-                    _handMovement.On();
+                    _movementToMouse.On();
                     SubscribeToEvents(true);
                 });
                 
@@ -72,7 +68,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         {
             SubscribeToEvents(false);
             
-            _handMovement.Off();
+            _movementToMouse.Off();
             _itemHolder.DropItem();
             _handAnimation.PlayExitHand(() =>
             {
