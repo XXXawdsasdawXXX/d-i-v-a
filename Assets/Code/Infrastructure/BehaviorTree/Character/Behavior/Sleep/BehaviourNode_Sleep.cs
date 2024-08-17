@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
-    public class BehaviourNode_Sleep : BaseNode_Root, IProgressWriterNode
+    public partial class BehaviourNode_Sleep : BaseNode_Root, IProgressWriterNode
     {
         [Header("Character")] 
         private readonly CharacterAnimator _characterAnimator;
@@ -101,7 +101,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         {
             if (node is SubNode_ReactionToVoice)
             {
-                WakeUp();
+                Rouse();
             }
 
             base.InvokeCallback(node, success);
@@ -119,7 +119,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }
 
-        private void WakeUp()
+        private void Rouse()
         {
             Debugging.Instance.Log($"Нода сна: разбудили", Debugging.Type.BehaviorTree);
             _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
@@ -147,56 +147,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         }
 
         #endregion
-
-        #region Events
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _characterButton.SeriesOfClicksEvent += OnClickSeries;
-                _timeObserver.StartDayEvent += WakeUp;
-                _sleepState.ChangedEvent += OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
-            }
-            else
-            {
-                _characterButton.SeriesOfClicksEvent -= OnClickSeries;
-                _timeObserver.StartDayEvent -= WakeUp;
-                _sleepState.ChangedEvent -= OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
-            }
-        }
-
-
-        private void OnMaxDecibelRecorder()
-        {
-            RunNode(_subNode_reactionToVoice);
-        }
-
-        private void OnClickSeries(int clickCount)
-        {
-            if (clickCount >= 5)
-            {
-                WakeUp();
-            }
-        }
-
-        private void OnChangedSleepStateValue(float sleepValue)
-        {
-            if (_sleepState.GetPercent() > 0.9f)
-            {
-                Debugging.Instance.Log($"Нода сна: сон на максимальном значение", Debugging.Type.BehaviorTree);
-                StopSleep();
-            }
-        }
-
-        #endregion
-
-        #region Conditions
-
-        #endregion
-
+        
         #region Save
 
         public void UpdateData(BehaviourTreeLoader.Data data)

@@ -11,15 +11,18 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
-    public class BehaviourNode_Seat : BaseNode_Root
+    public partial class BehaviourNode_Seat : BaseNode_Root
     {
-        [Header("Character")] private readonly CharacterAnimator _characterAnimator;
+        [Header("Character")] 
+        private readonly CharacterAnimator _characterAnimator;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Services")] private readonly MicrophoneAnalyzer _microphoneAnalyzer;
+        [Header("Services")] 
+        private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         private readonly CharacterCondition _characterCondition;
 
-        [Header("Sub nodes")] private readonly SubNode_ReactionToItems _node_ReactionToItem;
+        [Header("Sub nodes")] 
+        private readonly SubNode_ReactionToItems _node_ReactionToItem;
         private readonly SubNode_ReactionToVoice _node_ReactionToVoice;
 
         public BehaviourNode_Seat()
@@ -59,40 +62,5 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         {
             return _characterCondition.IsCanSeat();
         }
-
-
-        #region Events
-
-        protected override void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _collisionObserver.EnterEvent += StartReactionToObject;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
-            }
-            else
-            {
-                _collisionObserver.EnterEvent -= StartReactionToObject;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
-            }
-        }
-
-
-        private void OnMaxDecibelRecordedEvent()
-        {
-            RunNode(_node_ReactionToVoice);
-        }
-
-        private void StartReactionToObject(GameObject obj)
-        {
-            if (obj.TryGetComponent(out Item item))
-            {
-                Debugging.Instance.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-                _node_ReactionToItem.SetCurrentItem(item);
-                RunNode(_node_ReactionToItem);
-            }
-        }
-
-        #endregion
     }
 }

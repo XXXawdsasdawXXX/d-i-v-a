@@ -11,17 +11,21 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 {
-    public class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
+    public partial class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
-        [Header("Character")] private readonly CharacterAnimator _characterAnimator;
+        [Header("Character")] 
+        private readonly CharacterAnimator _characterAnimator;
         private readonly CharacterLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Services")] private readonly CharacterCondition _characterCondition;
+        [Header("Services")] 
+        private readonly CharacterCondition _characterCondition;
 
-        [Header("Node")] private readonly BaseNode_RandomSequence _node_randomSequence;
+        [Header("Sub Node")] 
+        private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ReactionToItems _node_reactionToItem;
-        private BaseNode _node_Current;
+        private BaseNode _currentSubNode;
+      
 
         public BehaviourNode_Stand()
         {
@@ -77,31 +81,6 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 RunNode(_node_randomSequence);
             }
         }
-
-        #region Events
-
-        protected override void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _collisionObserver.EnterEvent += StartReactionToObject;
-            }
-            else
-            {
-                _collisionObserver.EnterEvent -= StartReactionToObject;
-            }
-        }
-
-        private void StartReactionToObject(GameObject obj)
-        {
-            if (obj.TryGetComponent(out Item item))
-            {
-                Debugging.Instance.Log($"Нода стояния: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-                _node_reactionToItem.SetCurrentItem(item);
-                RunNode(_node_reactionToItem);
-            }
-        }
-
-        #endregion
+        
     }
 }
