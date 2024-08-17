@@ -1,6 +1,5 @@
 using Code.Components.Common;
 using Code.Components.Entities.Characters;
-using Code.Components.Items;
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.Character.Sub;

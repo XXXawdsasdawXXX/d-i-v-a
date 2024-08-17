@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Code.Components.Items;
 using Code.Data.Enums;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
@@ -17,12 +16,8 @@ namespace Code.Components.Entities.Characters
         private CharacterAnimator _characterAnimator;
         private CharacterModeAdapter _modeAdapter;
         
-        [Header("Dynamic data")] 
-        private Item _selectedItem;
-
         private Coroutine _coroutine;
-
-        public event Action<LiveStatePercentageValue[]> OnUseItem;
+        public event Action<LiveStatePercentageValue[]> OnItemUsed;
 
         public void GameInit()
         {
@@ -62,7 +57,7 @@ namespace Code.Components.Entities.Characters
             item.Use(onCompleted: () =>
             {
                 _characterAnimator.StopPlayEat();
-                OnUseItem?.Invoke(item.Data.BonusValues.Values);
+                OnItemUsed?.Invoke(item.Data.BonusValues.Values);
                 OnEndReaction?.Invoke();
             });
         }

@@ -43,7 +43,7 @@ namespace Code.Infrastructure.Services
         {
             if (_storage.LiveStates == null)
             {
-                Debugging.Instance.ErrorLog(
+                Debugging.ErrorLog(
                     $"[OnTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }

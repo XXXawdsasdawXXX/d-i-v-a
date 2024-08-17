@@ -1,4 +1,4 @@
-using Code.Components.Items;
+using Code.Components.NewItems;
 using Code.Utils;
 using UnityEngine;
 
@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         private void StartReactionToObject(GameObject obj)
         {
-            if (obj.TryGetComponent(out Item item))
+            if (obj.TryGetComponent(out Item item) && item.IsCanUse())
             {
                 Debugging.Instance.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
                // _node_ReactionToItem.SetCurrentItem(item);

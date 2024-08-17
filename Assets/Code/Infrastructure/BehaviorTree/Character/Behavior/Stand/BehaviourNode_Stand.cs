@@ -1,6 +1,5 @@
 ﻿using Code.Components.Common;
 using Code.Components.Entities.Characters;
-using Code.Components.Items;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
@@ -81,6 +80,5 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 RunNode(_node_randomSequence);
             }
         }
-        
     }
 }

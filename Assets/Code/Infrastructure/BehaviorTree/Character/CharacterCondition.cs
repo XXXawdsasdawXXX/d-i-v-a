@@ -50,7 +50,7 @@ namespace Code.Infrastructure.BehaviorTree.Character
             {
                 if (!_liveStateStorage.TryGetLiveState(LiveStateKey.Sleep, out _sleepState))
                 {
-                    Debugging.Instance.ErrorLog(this, "не нашел стейт сна");
+                    Debugging.ErrorLog(this, "не нашел стейт сна");
                 }
             };
         }

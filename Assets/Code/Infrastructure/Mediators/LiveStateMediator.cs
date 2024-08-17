@@ -39,12 +39,12 @@ namespace Code.Infrastructure.Mediators
         {
             if (flag)
             {
-                _characterItemsController.OnUseItem += OnUseItem;
+                _characterItemsController.OnItemUsed += OnItemUsed;
                 _interactionStorage.OnAdd += OnAddInteraction;
             }
             else
             {
-                _characterItemsController.OnUseItem -= OnUseItem;
+                _characterItemsController.OnItemUsed -= OnItemUsed;
                 _interactionStorage.OnAdd -= OnAddInteraction;
             }
         }
@@ -74,7 +74,7 @@ namespace Code.Infrastructure.Mediators
             }
         }
 
-        private void OnUseItem(LiveStatePercentageValue[] values)
+        private void OnItemUsed(LiveStatePercentageValue[] values)
         {
             _liveStateStorage.AddPercentageValues(values);
         }
