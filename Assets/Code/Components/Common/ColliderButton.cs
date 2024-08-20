@@ -12,20 +12,20 @@ namespace Code.Components.Common
     {
         [Header("Services")]
         private PositionService _positionService;
-        
-        [Header("Static values")]
+
+        [Header("Static values")] 
         private float _maxClickCooldown;
-        public bool IsPressed { get; private set; }
-        
-        [Header("Dynamic values")]
+        [field: SerializeField] public bool IsPressed { get; private set; }
+
+        [Header("Dynamic values")] 
         private float _pressedTime;
         private float _currentClickCooldown;
         private int _clickNumber;
 
-        public event Action<Vector2> DownEvent;
+        public event Action<Vector2> OnPressedDown;
         public event Action<Vector2, float> OnPressedUp;
         public event Action<int> SeriesOfClicksEvent;
-        
+
         public void GameInit()
         {
             _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;
@@ -57,10 +57,10 @@ namespace Code.Components.Common
             IsPressed = true;
             _clickNumber++;
             _currentClickCooldown = 0;
-            
-            DownEvent?.Invoke(_positionService.GetMouseWorldPosition());
+
+            OnPressedDown?.Invoke(_positionService.GetMouseWorldPosition());
             SeriesOfClicksEvent?.Invoke(_clickNumber);
-            
+
             Debugging.Instance.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);
         }
 

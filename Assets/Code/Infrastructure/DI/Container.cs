@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Code.Components;
 using Code.Components.Entities;
-using Code.Components.Items;
 using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
@@ -20,7 +18,7 @@ namespace Code.Infrastructure.DI
     public class Container : MonoBehaviour
     {
         public static Container Instance;
-        
+
         [SerializeField] private UniWindowController _uniWindowController;
         [SerializeField] private List<ScriptableObject> _configs;
 
@@ -29,11 +27,10 @@ namespace Code.Infrastructure.DI
         private List<IStorage> _storages = new();
         private List<CustomAction> _customActions = new();
         private List<Entity> _entities = new();
-        private List<Item> _items = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
         private List<IGetter> _getters = new();
-        
+
         private void Awake()
         {
             if (Instance != null)
@@ -48,9 +45,8 @@ namespace Code.Infrastructure.DI
             InitList(ref _services);
             InitList(ref _storages);
             InitList(ref _customActions);
-            InitList(ref _entities); 
-            InitList(ref _items); 
-            InitList(ref _interactionObservers); 
+            InitList(ref _entities);
+            InitList(ref _interactionObservers);
             InitList(ref _mono);
             InitList(ref _getters);
         }
@@ -60,7 +56,8 @@ namespace Code.Infrastructure.DI
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
             var serviceTypes = types.Where(t =>
-                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract && !typeof(MonoBehaviour).IsAssignableFrom(t));
+                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
+                !typeof(MonoBehaviour).IsAssignableFrom(t));
 
             foreach (var serviceType in serviceTypes)
             {
@@ -85,7 +82,7 @@ namespace Code.Infrastructure.DI
         {
             return _uniWindowController;
         }
-        
+
         public T FindConfig<T>() where T : ScriptableObject
         {
             foreach (var scriptableObject in _configs)
@@ -108,10 +105,11 @@ namespace Code.Infrastructure.DI
                     return findService;
                 }
             }
+
             return default;
         }
 
-        
+
         public T FindGetter<T>() where T : class
         {
             foreach (var getter in _getters)
@@ -121,10 +119,11 @@ namespace Code.Infrastructure.DI
                     return findGetter;
                 }
             }
+
             return default;
         }
-        
-        public T FindStorage<T>() where T : IStorage 
+
+        public T FindStorage<T>() where T : IStorage
         {
             foreach (var storage in _storages)
             {
@@ -151,18 +150,6 @@ namespace Code.Infrastructure.DI
             return default;
         }
         
-        public T FindItem<T>() where T : Item
-        {
-            foreach (var item in _items)
-            {
-                if (item is T findItem)
-                {
-                    return findItem;
-                }
-            }
-
-            return default;
-        }
         public T FindInteractionObserver<T>() where T : InteractionObserver
         {
             foreach (var interactionObserver in _interactionObservers)
@@ -193,7 +180,6 @@ namespace Code.Infrastructure.DI
             list.AddRange(_services.OfType<T>().ToList());
             list.AddRange(_storages.OfType<T>().ToList());
             list.AddRange(_entities.OfType<T>().ToList());
-            list.AddRange(_items.OfType<T>().ToList());
             list.AddRange(_customActions.OfType<T>().ToList());
             list.AddRange(_interactionObservers.OfType<T>().ToList());
             list.AddRange(_mono.OfType<T>().ToList());

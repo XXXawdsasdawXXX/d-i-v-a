@@ -9,13 +9,11 @@ namespace Code.Components.Entities.Characters
 {
     public class CharacterModeAdapter : CharacterComponent
     {
-        [Header("Component")]
-        [SerializeField] private BoxCollider2D _boxCollider2D;
+        [Header("Component")] [SerializeField] private BoxCollider2D _boxCollider2D;
         [SerializeField] private LandingOnWindows _landingOnWindows;
         [SerializeField] private CharacterAnimator _animationModeObserver;
-        [Header("Sizes")] 
-        [SerializeField] private ModeParam[] _sizeParams;
-   
+        [Header("Sizes")] [SerializeField] private ModeParam[] _sizeParams;
+
         private void OnEnable()
         {
             SubscribeToEvents(true);
@@ -86,7 +84,7 @@ namespace Code.Components.Entities.Characters
             }
         }
 
-        
+
         [Serializable]
         private class ModeParam
         {
@@ -97,5 +95,4 @@ namespace Code.Components.Entities.Characters
             public Vector2 LegPoint;
         }
     }
-    
 }

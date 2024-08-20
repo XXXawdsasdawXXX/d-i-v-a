@@ -9,7 +9,7 @@ namespace Code.Components.Entities.Characters
     {
         [SerializeField] private CharacterComponent[] _characterComponent;
         [SerializeField] private CharacterReaction[] _reactions;
-        
+
         public T FindCharacterComponent<T>() where T : CharacterComponent
         {
             foreach (var component in _characterComponent)
@@ -19,6 +19,7 @@ namespace Code.Components.Entities.Characters
                     return characterComponent;
                 }
             }
+
             return null;
         }
 
@@ -31,6 +32,7 @@ namespace Code.Components.Entities.Characters
                     return characterReaction;
                 }
             }
+
             return null;
         }
 
@@ -46,6 +48,7 @@ namespace Code.Components.Entities.Characters
                     characterComponents.Add(componentsInChild);
                 }
             }
+
             _characterComponent = characterComponents.ToArray();
 
             var commonComponents = GetComponents<CommonComponent>().ToList();
@@ -56,8 +59,9 @@ namespace Code.Components.Entities.Characters
                     commonComponents.Add(componentsInChild);
                 }
             }
+
             _commonComponents = commonComponents.ToArray();
-            
+
             var reactions = GetComponents<CharacterReaction>().ToList();
             foreach (var componentsInChild in GetComponentsInChildren<CharacterReaction>())
             {
@@ -66,8 +70,8 @@ namespace Code.Components.Entities.Characters
                     reactions.Add(componentsInChild);
                 }
             }
+
             _reactions = reactions.ToArray();
-            
         }
 
         #endregion

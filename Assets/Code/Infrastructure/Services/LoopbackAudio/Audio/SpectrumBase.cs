@@ -40,6 +40,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
                     throw new ArgumentOutOfRangeException("value",
                         "Value must not be less or equal the MinimumFrequency.");
                 }
+
                 _maximumFrequency = value;
                 UpdateFrequencyMapping();
 
@@ -109,13 +110,13 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
         [Browsable(false)]
         public FftSize FftSize
         {
-            get { return (FftSize) _fftSize; }
+            get { return (FftSize)_fftSize; }
             protected set
             {
-                if ((int) Math.Log((int) value, 2) % 1 != 0)
+                if ((int)Math.Log((int)value, 2) % 1 != 0)
                     throw new ArgumentOutOfRangeException("value");
 
-                _fftSize = (int) value;
+                _fftSize = (int)value;
                 _maxFftIndex = _fftSize / 2 - 1;
 
                 RaisePropertyChanged("FFTSize");
@@ -132,7 +133,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
             int actualResolution = SpectrumResolution;
 
             int indexCount = _maximumFrequencyIndex - _minimumFrequencyIndex;
-            double linearIndexBucketSize = Math.Round(indexCount / (double) actualResolution, 3);
+            double linearIndexBucketSize = Math.Round(indexCount / (double)actualResolution, 3);
 
             _spectrumIndexMax = _spectrumIndexMax.CheckBuffer(actualResolution, true);
             _spectrumLogScaleIndexMax = _spectrumLogScaleIndexMax.CheckBuffer(actualResolution, true);
@@ -141,10 +142,10 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
             for (int i = 1; i < actualResolution; i++)
             {
                 int logIndex =
-                    (int) ((maxLog - Math.Log((actualResolution + 1) - i, (actualResolution + 1))) * indexCount) +
+                    (int)((maxLog - Math.Log((actualResolution + 1) - i, (actualResolution + 1))) * indexCount) +
                     _minimumFrequencyIndex;
 
-                _spectrumIndexMax[i - 1] = _minimumFrequencyIndex + (int) (i * linearIndexBucketSize);
+                _spectrumIndexMax[i - 1] = _minimumFrequencyIndex + (int)(i * linearIndexBucketSize);
                 _spectrumLogScaleIndexMax[i - 1] = logIndex;
             }
 
@@ -198,7 +199,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
                     if (_useAverage && spectrumPointIndex > 0)
                         value = (lastValue + value) / 2.0;
 
-                    dataPoints.Add(new SpectrumPointData {SpectrumPointIndex = spectrumPointIndex, Value = value});
+                    dataPoints.Add(new SpectrumPointData { SpectrumPointIndex = spectrumPointIndex, Value = value });
 
                     lastValue = value;
                     value = 0.0;

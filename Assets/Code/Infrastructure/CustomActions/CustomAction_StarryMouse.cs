@@ -12,21 +12,18 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction,IGameInitListener ,IGameStartListener, IGameTickListener, IGameExitListener
+    public class CustomAction_StarryMouse : CustomAction, IGameInitListener, IGameStartListener, IGameTickListener,
+        IGameExitListener
     {
-        [Header("Character")] 
-        private  ColliderButton _characterButton;
-        private  CharacterAnimationAnalytic _characterAnimationAnalytic;
-        [Header("Services")] 
-        private  PositionService _positionService;
-        private  CoroutineRunner _coroutineRunner;
-        [Header("Statis values")] 
-        private  ParticleSystemFacade _particle;
+        [Header("Character")] private ColliderButton _characterButton;
+        private CharacterAnimationAnalytic _characterAnimationAnalytic;
+        [Header("Services")] private PositionService _positionService;
+        private CoroutineRunner _coroutineRunner;
+        [Header("Statis values")] private ParticleSystemFacade _particle;
         private float _duration;
-        [Header("Dinamic values")] 
-        private bool _isActive;
+        [Header("Dinamic values")] private bool _isActive;
         private Vector3 _lastPoint;
-        
+
 
         public void GameInit()
         {
@@ -43,9 +40,8 @@ namespace Code.Infrastructure.CustomActions
                 //services 
                 _positionService = Container.Instance.FindService<PositionService>();
                 _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-                
+
                 SubscribeToEvents(true);
-         
             }
         }
 
@@ -65,7 +61,7 @@ namespace Code.Infrastructure.CustomActions
             _particle.transform.position = currentMousePosition;
         }
 
-        protected  sealed override void TryStartAction()
+        protected sealed override void TryStartAction()
         {
             _isActive = true;
             _particle.transform.position = _positionService.GetMouseWorldPosition();
@@ -74,7 +70,7 @@ namespace Code.Infrastructure.CustomActions
             Debugging.Instance.Log($"[{GetActionType()}] [Start Action]", Debugging.Type.CustomAction);
         }
 
-        protected  override void StopAction()
+        protected override void StopAction()
         {
             _isActive = false;
             _particle.Off();
@@ -100,9 +96,9 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnPressedUp(Vector2 _, float pressDuration)
         {
-            Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}", 
+            Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
                 Debugging.Type.CustomAction);
-            if (pressDuration < 0.1 && _characterAnimationAnalytic.GetAnimationMode() is  CharacterAnimationMode.Stand)
+            if (pressDuration < 0.1 && _characterAnimationAnalytic.GetAnimationMode() is CharacterAnimationMode.Stand)
             {
                 if (_isActive)
                 {

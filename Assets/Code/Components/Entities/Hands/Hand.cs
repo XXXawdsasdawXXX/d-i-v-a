@@ -7,7 +7,7 @@ namespace Code.Components.Entities.Hands
     public class Hand : Entity
     {
         [SerializeField] private HandComponent[] _handComponents;
-        
+
         public T FindHandComponent<T>() where T : HandComponent
         {
             foreach (var component in _handComponents)
@@ -33,9 +33,10 @@ namespace Code.Components.Entities.Hands
                     handComponents.Add(componentsInChild);
                 }
             }
+
             _handComponents = handComponents.ToArray();
-            
-            
+
+
             var commonComponents = GetComponents<CommonComponent>().ToList();
             foreach (var componentsInChild in GetComponentsInChildren<CommonComponent>())
             {
@@ -44,6 +45,7 @@ namespace Code.Components.Entities.Hands
                     commonComponents.Add(componentsInChild);
                 }
             }
+
             _commonComponents = commonComponents.ToArray();
         }
 

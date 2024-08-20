@@ -2,10 +2,9 @@
 {
     public interface IGameListeners
     {
-        
     }
-    
-    internal interface IGameInitListener: IGameListeners
+
+    internal interface IGameInitListener : IGameListeners
     {
         void GameInit();
     }
@@ -14,7 +13,7 @@
     {
         void GameLoad();
     }
-    
+
     public interface IGameStartListener : IGameListeners
     {
         void GameStart();

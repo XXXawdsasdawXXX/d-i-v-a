@@ -11,14 +11,16 @@ namespace Code.Components.Entities.Characters
         [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
 
+        public CharacterAnimationMode CurrentMode { get; private set; }
+        public CharacterAnimationState CurrentState { get; private set; }
+        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State
+            is CharacterAnimationState.TransitionSeat
+            or CharacterAnimationState.TransitionSleep
+            or CharacterAnimationState.TransitionStand;
+        
         public event Action<CharacterAnimationMode> OnEnteredMode;
         public event Action<CharacterAnimationState> OnSwitchState;
         public event Action<CharacterAnimationState> OnStateExit;
-
-        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State 
-                                        is CharacterAnimationState.TransitionSeat
-                                        or CharacterAnimationState.TransitionSleep 
-                                        or CharacterAnimationState.TransitionStand;
 
         public void GameInit()
         {
@@ -56,13 +58,15 @@ namespace Code.Components.Entities.Characters
             }
         }
 
-        private void OnSwitchStateEvent(CharacterAnimationState obj)
+        private void OnSwitchStateEvent(CharacterAnimationState state)
         {
-            OnSwitchState?.Invoke(obj);
+            CurrentState = state;
+            OnSwitchState?.Invoke(state);
         }
 
         private void OnEnteredModeEvent(CharacterAnimationMode mode)
         {
+            CurrentMode = mode;
             OnEnteredMode?.Invoke(mode);
         }
     }

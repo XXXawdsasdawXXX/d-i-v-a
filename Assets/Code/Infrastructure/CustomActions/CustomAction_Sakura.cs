@@ -11,17 +11,18 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Sakura : CustomAction, IGameInitListener,IGameStartListener, IGameTickListener,IGameExitListener,IProgressWriter
+    public class CustomAction_Sakura : CustomAction, IGameInitListener, IGameStartListener, IGameTickListener,
+        IGameExitListener, IProgressWriter
     {
         private const float MAX_ACTIVE_MIN = 20;
         private const float NEEDED_ABSENCE_SEC = 60 * 60;
-        
+
         private Interaction_ReturnAfterAbsence _interaction_returnAfterAbsence;
         private TimeObserver _timeObserver;
 
         private bool _isReviewed;
         private float _currentActiveSec;
-        
+
         private ParticleSystemFacade[] _particleSystems;
 
         public void GameInit()
@@ -29,11 +30,12 @@ namespace Code.Infrastructure.CustomActions
             var particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
             if (particleStorage.TryGetParticle(ParticleType.Sakura, out _particleSystems))
             {
-                _interaction_returnAfterAbsence =Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
+                _interaction_returnAfterAbsence =
+                    Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
             }
         }
-        
+
         public void GameStart()
         {
             SubscribeToEvents(true);
@@ -63,6 +65,7 @@ namespace Code.Infrastructure.CustomActions
             {
                 particleSystem.On();
             }
+
             base.TryStartAction();
         }
 
@@ -72,6 +75,7 @@ namespace Code.Infrastructure.CustomActions
             {
                 particleSystem.Off();
             }
+
             base.StopAction();
         }
 
@@ -124,7 +128,5 @@ namespace Code.Infrastructure.CustomActions
                 _isReviewed = false;
             }
         }
-
-    
     }
 }

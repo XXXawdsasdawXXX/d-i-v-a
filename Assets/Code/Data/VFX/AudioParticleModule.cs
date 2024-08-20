@@ -11,7 +11,8 @@ using UnityEngine;
 
 namespace Code.Data.VFX
 {
-    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameTickListener, IGameStartListener
+    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameTickListener,
+        IGameStartListener
     {
         private enum LoopBackAudioParamType
         {
@@ -20,22 +21,19 @@ namespace Code.Data.VFX
             ScaledEnergy
         }
 
-        [Header("Base")] 
-        [SerializeField] private ParticleSystemFacade _particleSystem;
-        
-        [Space]
-        [SerializeField] private Data[] _effectsData;
-       
-        [Header("Optional")] 
-        [SerializeField] private GradientType _gradient;
-     
-        [Header("Services")] 
-        private LoopbackAudioService _loopbackAudioService;
+        [Header("Base")] [SerializeField] private ParticleSystemFacade _particleSystem;
 
-        [Header("Dynamic data")]
-        [SerializeField] private bool _isActive;
+        [Space] [SerializeField] private Data[] _effectsData;
+
+        [Header("Optional")] [SerializeField] private GradientType _gradient;
+
+        [Header("Services")] private LoopbackAudioService _loopbackAudioService;
+
+        [Header("Dynamic data")] [SerializeField]
+        private bool _isActive;
+
         [SerializeField] private float _disableSpeed = 1;
-       
+
         private float _enabledTime;
 
         [Serializable]
@@ -76,7 +74,8 @@ namespace Code.Data.VFX
                 var value = _particleSystem.GetValue(effect.ParticleParam);
                 if (value > effect.Range.MinValue)
                 {
-                    Debugging.Instance.Log($"{_particleSystem.Type} sleep -> {effect.ParticleParam}", Debugging.Type.VFX);
+                    Debugging.Instance.Log($"{_particleSystem.Type} sleep -> {effect.ParticleParam}",
+                        Debugging.Type.VFX);
                     return false;
                 }
             }
@@ -163,14 +162,13 @@ namespace Code.Data.VFX
                     _particleSystem.SetMainLifetime(effect.Range.MinValue);
                     break;
             }
-
         }
 
         private float GetValue(Data effect)
         {
             var currentValue = _particleSystem.GetValue(effect.ParticleParam);
             float targetValue;
-    
+
             switch (effect.AudioParam)
             {
                 case LoopBackAudioParamType.None:
@@ -184,17 +182,19 @@ namespace Code.Data.VFX
                     targetValue = _loopbackAudioService.PostScaledEnergy;
                     break;
             }
-    
+
             if (_isActive)
             {
-                targetValue = Mathf.Clamp(targetValue * effect.Multiplier, effect.Range.MinValue, effect.Range.MaxValue);
+                targetValue = Mathf.Clamp(targetValue * effect.Multiplier, effect.Range.MinValue,
+                    effect.Range.MaxValue);
                 targetValue = Mathf.MoveTowards(currentValue, targetValue, _enabledTime * Time.deltaTime);
             }
             else
             {
                 if (currentValue > effect.Range.MinValue)
                 {
-                    targetValue = Mathf.MoveTowards(currentValue, effect.Range.MinValue, _disableSpeed * Time.deltaTime);
+                    targetValue = Mathf.MoveTowards(currentValue, effect.Range.MinValue,
+                        _disableSpeed * Time.deltaTime);
                     return targetValue;
                 }
                 else
@@ -202,6 +202,7 @@ namespace Code.Data.VFX
                     targetValue = effect.Range.MinValue;
                 }
             }
+
             return targetValue;
         }
     }

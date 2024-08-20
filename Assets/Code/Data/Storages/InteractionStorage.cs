@@ -15,7 +15,7 @@ namespace Code.Data.Storages
         private Dictionary<InteractionType, int> _interactions;
         private InteractionType _currentDominationType;
         public event Action<InteractionType> OnSwitchDominationType;
-        public event Action<InteractionType, float> OnAdd;  
+        public event Action<InteractionType, float> OnAdd;
 
         public int GetSum()
         {
@@ -35,20 +35,20 @@ namespace Code.Data.Storages
             }
             else
             {
-                _interactions.Add(type,value);
+                _interactions.Add(type, value);
             }
-            
+
             OnAdd?.Invoke(type, value);
-            Debugging.Instance.Log($"[storage] add {type} {_interactions[type]}",Debugging.Type.Interaction);
+            Debugging.Instance.Log($"[storage] add {type} {_interactions[type]}", Debugging.Type.Interaction);
         }
-        
+
         public void LoadProgress(PlayerProgressData playerProgress)
         {
             _interactions = playerProgress.Interactions;
             _currentDominationType = GetDominantInteractionType();
             OnSwitchDominationType?.Invoke(_currentDominationType);
         }
-        
+
         public void UpdateProgress(PlayerProgressData playerProgress)
         {
             playerProgress.Interactions = _interactions;

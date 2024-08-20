@@ -10,7 +10,7 @@ namespace Code.Components.Common
         [SerializeField] private SpriteMask _spriteMask;
         [SerializeField] private float _frameDelay = 0.10f;
         [SerializeField] private Sprite[] _sprites;
-        
+
         private Coroutine _coroutine;
 
         private void OnDestroy()
@@ -25,7 +25,7 @@ namespace Code.Components.Common
         {
             _coroutine = StartCoroutine(ShowAnimation(OnShown));
         }
-        
+
         private IEnumerator ShowAnimation(Action OnShown = null)
         {
             _spriteMask.enabled = true;
@@ -35,6 +35,7 @@ namespace Code.Components.Common
                 _spriteMask.sprite = _sprites[i];
                 yield return period;
             }
+
             OnShown?.Invoke();
             yield return period;
             Off();
@@ -51,6 +52,7 @@ namespace Code.Components.Common
             {
                 StopCoroutine(_coroutine);
             }
+
             _spriteMask.enabled = false;
             _spriteMask.sprite = _sprites[0];
             onTurnedOff?.Invoke();

@@ -9,20 +9,21 @@ namespace Code.Data.Storages
         {
             None,
             IsHidden,
+
             //IsHoldingObject,
             IsShowApple
         }
 
         private readonly Dictionary<Type, object> _dataDictionary = new();
 
-        public bool TryGetData<T>(Type type, out T data) 
+        public bool TryGetData<T>(Type type, out T data)
         {
             if (_dataDictionary.TryGetValue(type, out var result) && result is T value)
             {
                 data = value;
                 return true;
             }
-            
+
             data = default;
             return false;
         }

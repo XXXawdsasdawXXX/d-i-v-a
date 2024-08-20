@@ -14,16 +14,13 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Grass : CustomAction, IGameInitListener, IGameStartListener, IGameExitListener
     {
-        [Header("DIVA")]
-        private DIVA _diva;
+        [Header("DIVA")] private DIVA _diva;
         private CharacterAnimator _characterAnimator;
-        
-        [Header("Grass Components")]
-        private Grass _grass;
+
+        [Header("Grass Components")] private Grass _grass;
         private ColorChecker _grassColorChecker;
-        
-        [Header("Action Delay")]
-        private TickCounter _tickCounter;
+
+        [Header("Action Delay")] private TickCounter _tickCounter;
         private RangedInt _tickDelay;
         private ColliderButton _grassButton;
 
@@ -33,23 +30,23 @@ namespace Code.Infrastructure.CustomActions
         {
             _diva = Container.Instance.FindEntity<DIVA>();
             _characterAnimator = _diva.FindCharacterComponent<CharacterAnimator>();
-        
+
             _grass = Container.Instance.FindEntity<Grass>();
             _grassColorChecker = _grass.FindCommonComponent<ColorChecker>();
             _grassButton = _grass.FindCommonComponent<ColliderButton>();
-            
+
             _tickCounter = new TickCounter(isLoop: false);
             _tickDelay = Container.Instance.FindConfig<TimeConfig>().Delay.GrassGrow;
         }
 
         public void GameStart()
         {
-             SubscribeToEvents(true);
+            SubscribeToEvents(true);
         }
 
         public void GameExit()
         {
-             SubscribeToEvents(false);
+            SubscribeToEvents(false);
         }
 
         private void SubscribeToEvents(bool flag)
@@ -57,14 +54,14 @@ namespace Code.Infrastructure.CustomActions
             if (flag)
             {
                 _characterAnimator.OnModeEntered += OnCharacterSwitchAnimation;
-                _tickCounter.WaitedEvent += OnCooldownTick;
+                _tickCounter.OnWaitIsOver += OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor += OnNewColorFounded;
                 _grassButton.OnPressedUp += OnGrassPressedUp;
             }
             else
             {
                 _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimation;
-                _tickCounter.WaitedEvent -= OnCooldownTick;
+                _tickCounter.OnWaitIsOver -= OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor -= OnNewColorFounded;
             }
         }
@@ -97,11 +94,12 @@ namespace Code.Infrastructure.CustomActions
         }
 
         private void Start()
-        { 
+        {
             if (_grass.IsActive)
             {
                 return;
             }
+
             _grass.transform.position = _diva.transform.position;
             _grassColorChecker.RefreshLastColor();
             _grassColorChecker.SetEnable(true);
@@ -114,6 +112,7 @@ namespace Code.Infrastructure.CustomActions
             {
                 return;
             }
+
             _tickCounter.StopWait();
             _grassColorChecker.SetEnable(false);
             _grass.Die();

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Hand
 {
-    public class BehaviourRunner_Hand: MonoBehaviour, IService, IGameInitListener, IGameTickListener,
+    public class BehaviourRunner_Hand : MonoBehaviour, IService, IGameInitListener, IGameTickListener,
         IGameExitListener
     {
         [SerializeField] private bool _isRun;
@@ -38,7 +38,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
                 _rootNode.Run(null);
             }
         }
-        
+
         public void GameExit()
         {
             SubscribeToEvents(false);
@@ -58,12 +58,11 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         private void TimeObserverOnInitTimeEvent(bool obj)
         {
-            _coroutineRunner.StartActionWithDelay(() => 
+            _coroutineRunner.StartActionWithDelay(() =>
             {
                 _rootNode = new BehaviourSelector_Hand();
                 IsInitBehaviorTree = true;
-            },_runDelaySeconds);
+            }, _runDelaySeconds);
         }
-
     }
 }

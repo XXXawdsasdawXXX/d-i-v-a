@@ -11,21 +11,19 @@ namespace Code.Data.VFX
     {
         [field: SerializeField] public ParticleType Type { get; private set; }
         [SerializeField] private ParticleSystem _particleSystem;
-        
-        [Header("Optional modules")] 
-        [SerializeField] protected AudioParticleModule _audio;
 
-        [Header("Modules")] 
-        protected  ParticleSystem.EmissionModule _emission;
-        protected  ParticleSystem.MainModule _main;
-        protected  ParticleSystem.TrailModule _trails;
-        protected  ParticleSystem.NoiseModule _noise;
-        protected  ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
-        protected  ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
+        [Header("Optional modules")] [SerializeField]
+        protected AudioParticleModule _audio;
 
-        [Header("Services")] 
-        protected  GradientsStorage _gradientsStorage;
-        
+        [Header("Modules")] protected ParticleSystem.EmissionModule _emission;
+        protected ParticleSystem.MainModule _main;
+        protected ParticleSystem.TrailModule _trails;
+        protected ParticleSystem.NoiseModule _noise;
+        protected ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
+        protected ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
+
+        [Header("Services")] protected GradientsStorage _gradientsStorage;
+
         protected readonly FacadeSettings _defaultSettings = new();
 
         [Serializable]
@@ -46,7 +44,7 @@ namespace Code.Data.VFX
 
             _defaultSettings.TrailLiveTime = _trails.lifetimeMultiplier;
             _defaultSettings.LiveTime = _main.startLifetimeMultiplier;
-            
+
             _gradientsStorage = Container.Instance.FindStorage<GradientsStorage>();
         }
 
@@ -58,24 +56,24 @@ namespace Code.Data.VFX
             }
 
             _audio?.On();
-            
+
             _trails.lifetimeMultiplier = _defaultSettings.TrailLiveTime;
             _main.startLifetimeMultiplier = _defaultSettings.LiveTime;
-            
+
             _emission.enabled = true;
         }
 
-        public virtual  void Off()
+        public virtual void Off()
         {
             _audio?.Off();
-            
+
             _trails.lifetimeMultiplier = 0;
-            _main.startLifetimeMultiplier =0;
-            
+            _main.startLifetimeMultiplier = 0;
+
             _emission.enabled = false;
         }
 
-        
+
         public void SetTrailWidthOverTrail(float value)
         {
             _trails.widthOverTrailMultiplier = value;

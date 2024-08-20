@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.Components.Entities.Characters.Editor
 {
     [CustomEditor(typeof(DIVA))]
-    public class CharacterEditor: UnityEditor.Editor
+    public class CharacterEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {

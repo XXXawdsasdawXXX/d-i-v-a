@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _commonComponents:
+  - {fileID: 8130108482925967798}
   - {fileID: 8130108482925967793}
   - {fileID: 8130108482925967790}
   _handComponents:
-  - {fileID: 8130108482925967798}
   - {fileID: 1100587841849840646}
 --- !u!114 &8130108482925967798
 MonoBehaviour:
@@ -67,7 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _stopDistance: 1
+  _stopMouseDistance: 1
+  _stopDivaDistance: 2
 --- !u!114 &8130108482925967793
 MonoBehaviour:
   m_ObjectHideFlags: 0

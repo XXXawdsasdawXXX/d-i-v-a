@@ -9,7 +9,8 @@ using Code.Utils;
 
 namespace Code.Components.Entities.Characters
 {
-    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener, IGameExitListener
+    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener,
+        IGameExitListener
     {
         private TimeObserver _timeObserver;
         private LiveStateStorage _storage;
@@ -21,7 +22,7 @@ namespace Code.Components.Entities.Characters
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
-            
+
             SubscribeToEvents(true);
         }
 
@@ -53,7 +54,8 @@ namespace Code.Components.Entities.Characters
             var keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
             if (!keyValuePairs.Any())
             {
-                Debugging.Instance.Log($"[CheckLowerState] return when try check lower state", Debugging.Type.LiveState);
+                Debugging.Instance.Log($"[CheckLowerState] return when try check lower state",
+                    Debugging.Type.LiveState);
                 return;
             }
 
@@ -70,7 +72,8 @@ namespace Code.Components.Entities.Characters
 
             if (resultState != CurrentLowerLiveStateKey)
             {
-                Debugging.Instance.Log($"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}", Debugging.Type.LiveState);
+                Debugging.Instance.Log($"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
+                    Debugging.Type.LiveState);
                 CurrentLowerLiveStateKey = resultState;
                 SwitchLowerStateKeyEvent?.Invoke(CurrentLowerLiveStateKey);
             }
@@ -92,12 +95,14 @@ namespace Code.Components.Entities.Characters
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out var characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
-                Debugging.Instance.Log($"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}", Debugging.Type.LiveState);
+                Debugging.Instance.Log($"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
+                    Debugging.Type.LiveState);
                 return true;
             }
 
             statePercent = 1;
-            Debugging.Instance.Log($"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}", Debugging.Type.LiveState);
+            Debugging.Instance.Log($"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
+                Debugging.Type.LiveState);
             return false;
         }
     }

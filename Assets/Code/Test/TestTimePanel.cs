@@ -21,7 +21,7 @@ namespace Code.Test
         private void Update()
         {
             var time = _timer.GetTimeState();
-            var text = $"{Math.Round(time.Key)}/{Math.Round(time.Value)}={Math.Round(time.Key/time.Value,1)}";
+            var text = $"{Math.Round(time.Key)}/{Math.Round(time.Value)}={Math.Round(time.Key / time.Value, 1)}";
             _paramText.text = text;
         }
     }

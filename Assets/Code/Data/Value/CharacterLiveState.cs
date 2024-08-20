@@ -11,7 +11,7 @@ namespace Code.Data.Value
         public float Max { get; }
         public float Current { get; private set; }
         public bool IsHealing { get; private set; }
-        public float GetPercent() => Max == 0 ? 0 :Current / Max;
+        public float GetPercent() => Max == 0 ? 0 : Current / Max;
 
         public event Action<float> ChangedEvent;
 
@@ -21,11 +21,11 @@ namespace Code.Data.Value
             Current = current;
             Max = max;
             IsHealing = isHealing;
-          
+
             _decreasingValue = decreasingValue;
             _healValue = healValue;
         }
-        
+
         public void TimeUpdate()
         {
             if (IsHealing)
@@ -45,10 +45,11 @@ namespace Code.Data.Value
             {
                 Current = Max;
             }
-            else if(Current < 0)
+            else if (Current < 0)
             {
                 Current = 0;
             }
+
             ChangedEvent?.Invoke(Current);
         }
 
@@ -59,6 +60,7 @@ namespace Code.Data.Value
             {
                 Current = 0;
             }
+
             ChangedEvent?.Invoke(Current);
         }
 

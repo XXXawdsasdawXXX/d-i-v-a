@@ -6,6 +6,7 @@ namespace Code.Components.Common
     public class PhysicsDragAndDrop : ColliderDragAndDrop
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
+
         protected override void Init()
         {
             if (_isActive)
@@ -25,12 +26,15 @@ namespace Code.Components.Common
         {
             SetPhysicsActive(true);
             base.On(onTurnedOn);
+            
+            _isDragging = _colliderButton.IsPressed;
         }
 
         public override void Off(Action onTurnedOff = null)
         {
             SetPhysicsActive(false);
             base.Off(onTurnedOff);
+            _isDragging = false;
         }
 
         public void SetKinematicMode()
@@ -43,14 +47,15 @@ namespace Code.Components.Common
             SetPhysicsActive(true);
         }
 
-        protected override void OnDown(Vector2 obj)
+        protected override void OnPressedDown(Vector2 obj)
         {
             if (!_isActive)
             {
                 return;
             }
+
             SetPhysicsActive(false);
-            base.OnDown(obj);
+            base.OnPressedDown(obj);
         }
 
         protected override void OnPressedUp(Vector2 arg1, float arg2)
@@ -59,6 +64,7 @@ namespace Code.Components.Common
             {
                 return;
             }
+
             SetPhysicsActive(true);
             base.OnPressedUp(arg1, arg2);
         }
@@ -69,6 +75,7 @@ namespace Code.Components.Common
             {
                 return;
             }
+
             _rigidbody2D.bodyType = isActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
             _rigidbody2D.velocity = Vector2.zero;
         }

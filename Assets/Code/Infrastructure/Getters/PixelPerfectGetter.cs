@@ -5,9 +5,10 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Getters
 {
-    public class PixelPerfectGetter: MonoBehaviour, IGetter, IGameInitListener
+    public class PixelPerfectGetter : MonoBehaviour, IGetter, IGameInitListener
     {
         [SerializeField] private PixelPerfectCamera _pixelPerfect;
+
         public void GameInit()
         {
             var display = Screen.mainWindowDisplayInfo;

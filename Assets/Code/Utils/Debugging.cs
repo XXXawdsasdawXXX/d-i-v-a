@@ -23,7 +23,6 @@ namespace Code.Utils
             LiveState,
             SaveLoad,
             ButtonSprite,
-            Apple,
             Position,
             GameState,
             Grass,
@@ -67,14 +66,16 @@ namespace Code.Utils
             }
         }
 
-        public void Log(object invoker,string message, Type type = Type.None)
+        public void Log(object invoker, string message, Type type = Type.None)
         {
             var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
             if (debugParam != null)
             {
                 if (debugParam.Active)
                 {
-                    ColorLog($"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
+                    ColorLog(
+                        $"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
+                        debugParam.Color);
                 }
             }
             else
@@ -82,27 +83,24 @@ namespace Code.Utils
                 ColorLog(message, Color.white);
             }
         }
-        public void TestLog(string message)
-        {
-            ColorLog(message, Color.green);
-        }
 
-        public void ErrorLog(Object obj, string message)
+
+        public static void ErrorLog(object obj, string message)
         {
             ColorLog($"{obj.GetType()} {message}", Color.red);
         }
-        
-        public void ErrorLog(string message)
+
+        public static void ErrorLog(string message)
         {
             ColorLog(message, Color.red);
         }
-        
-        private void ColorLog(string message, Color color)
+
+        private static void ColorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
-        
-        private  string InsertSpaceBeforeUppercase(string input)
+
+        private static string InsertSpaceBeforeUppercase(string input)
         {
             StringBuilder result = new StringBuilder();
 
@@ -110,15 +108,13 @@ namespace Code.Utils
             {
                 if (char.IsUpper(character))
                 {
-                    // Вставляем пробел перед заглавной буквой
                     result.Append(' ');
                 }
 
-                // Добавляем текущий символ в результат
                 result.Append(character);
             }
 
-            return result.ToString().Trim(); // Удаляем возможный пробел в начале строки
+            return result.ToString().Trim();
         }
 
         public void DisableAll()

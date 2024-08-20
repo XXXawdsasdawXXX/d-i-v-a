@@ -1,5 +1,5 @@
 ﻿using Code.Components.Entities.Characters;
-using Code.Components.Items;
+using Code.Components.NewItems;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
@@ -7,21 +7,21 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character.Sub
 {
-    public class SubNode_ReactionToItems: BaseNode
+    public class SubNode_ReactionToItems : BaseNode
     {
-        [Header("Character")]
+        [Header("Character")] 
         private readonly CharacterItemsController _itemsController;
 
         [Header("Values")] 
         private Item _item;
-        
+
         public SubNode_ReactionToItems()
         {
             //character-------------------------------------------------------------------------------------------------
             _itemsController = Container.Instance.FindEntity<DIVA>()
                 .FindCharacterComponent<CharacterItemsController>();
         }
-        
+
         protected override void Run()
         {
             if (IsCanRun())
@@ -35,7 +35,8 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
             }
             else
             {
-                Debugging.Instance.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана", Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана",
+                    Debugging.Type.BehaviorTree);
                 Return(false);
             }
         }

@@ -7,10 +7,10 @@ namespace Code.Test
     public class TestDrive : MonoBehaviour, IGameStartListener
     {
         [SerializeField] private float _timeScale;
-        
+
         public void GameStart()
         {
-            SetTimeScale();    
+            SetTimeScale();
         }
 
         public void SetTimeScale()
@@ -18,5 +18,4 @@ namespace Code.Test
             Time.timeScale = _timeScale;
         }
     }
-
 }

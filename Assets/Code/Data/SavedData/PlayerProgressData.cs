@@ -13,7 +13,7 @@ namespace Code.Data.SavedData
         public Dictionary<InteractionType, int> Interactions;
         public DateTime GameExitTime;
         public DateTime GameEnterTime;
-        
+
         public PlayerProgressData()
         {
             CustomActions = new CustomActionsSavedData();

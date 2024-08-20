@@ -42,7 +42,10 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         #region Public Properties
 
-        public BasicSpectrumProvider BasicSpectrumProvider { get { return _basicSpectrumProvider; } }
+        public BasicSpectrumProvider BasicSpectrumProvider
+        {
+            get { return _basicSpectrumProvider; }
+        }
 
         #endregion
 
@@ -55,7 +58,8 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
             _soundInSource = new SoundInSource(_loopbackCapture);
 
-            _basicSpectrumProvider = new BasicSpectrumProvider(_soundInSource.WaveFormat.Channels, _soundInSource.WaveFormat.SampleRate, CFftSize);
+            _basicSpectrumProvider = new BasicSpectrumProvider(_soundInSource.WaveFormat.Channels,
+                _soundInSource.WaveFormat.SampleRate, CFftSize);
 
             _lineSpectrum = new LineSpectrum(CFftSize)
             {
@@ -79,7 +83,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
                 {
                     float[] spectrumData = _lineSpectrum.GetSpectrumData(MaxAudioValue);
 
-                    if (spectrumData != null &&  _receiveAudio != null)
+                    if (spectrumData != null && _receiveAudio != null)
                     {
                         _receiveAudio(spectrumData);
                     }

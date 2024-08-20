@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace Code.Infrastructure.Services.Interactions
 {
@@ -12,6 +11,4 @@ namespace Code.Infrastructure.Services.Interactions
             InteractionEvent?.Invoke();
         }
     }
-    
-    
 }

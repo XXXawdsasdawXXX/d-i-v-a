@@ -13,7 +13,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
     {
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
-        private readonly HandMovement _handMovement;
 
         [Header("Services")] 
         private readonly InteractionStorage _interactionStorage;
@@ -22,7 +21,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         [Header("Static values")] 
         private readonly HandConfig _handConfig;
         private readonly WhiteBoard_Hand _whiteBoard;
-        
+
         [Header("Dynamic values")] 
         private float _cooldown;
 
@@ -32,17 +31,16 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             //hand
             var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
-            _handMovement = hand.FindHandComponent<HandMovement>();
 
             //services
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             _tickCounter = new TickCounter(isLoop: false);
-            
+
             //static value
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _whiteBoard = Container.Instance.FindStorage<WhiteBoard_Hand>();
         }
-        
+
 
         protected override void Run()
         {
@@ -50,13 +48,12 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             {
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
                 _handAnimator.PlayExitHand();
-                _handMovement.Off();
-                
+
                 var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
                 _tickCounter.StartWait(cooldownTicks);
-            
-                _tickCounter.WaitedEvent += OnWaitedTicksEvent;
-                
+
+                _tickCounter.OnWaitIsOver += OnWaitedTicksEvent;
+
                 Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
             }
         }
@@ -68,7 +65,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 
         private void OnWaitedTicksEvent()
         {
-            _tickCounter.WaitedEvent -= OnWaitedTicksEvent;
+            _tickCounter.OnWaitIsOver -= OnWaitedTicksEvent;
             Debugging.Instance.Log($"[enter the void!] дождался тиков, return(тру)", Debugging.Type.Hand);
             Return(true);
         }

@@ -9,8 +9,8 @@ namespace Code.Data.StaticData
         public InteractionType СlassificationType;
         public int MaxPerDay;
     }
-    
-    
+
+
     [Serializable]
     public class InteractionDynamicData
     {

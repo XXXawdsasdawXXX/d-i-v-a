@@ -11,7 +11,8 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IGameTickListener, IGameStartListener,
+    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IGameTickListener,
+        IGameStartListener,
         IGameInitListener
     {
         protected ParticleSystemFacade[] _particlesSystems;
@@ -20,7 +21,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         private readonly List<AudioParticleModule> _audioParticles = new();
         private ParticlesStorage _particleStorage;
-        
+
         public void GameInit()
         {
             _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
@@ -39,6 +40,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                         _audioParticles.Add(module);
                     }
                 }
+
                 Init();
             }
         }
@@ -49,7 +51,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             UpdateParticles();
         }
-        
+
         protected virtual void Init()
         {
         }

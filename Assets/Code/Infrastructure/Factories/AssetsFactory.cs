@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Factories
 {
-    public class AssetsFactory : IService,IGameInitListener
+    public class AssetsFactory : IService, IGameInitListener
     {
         private VFXConfig _vfxConfig;
 
@@ -21,8 +21,9 @@ namespace Code.Infrastructure.Factories
 
         public IEnumerable<ParticleSystemFacade> CreateParticles(ParticleType type, Transform root, Vector3 position)
         {
-             var particles = _vfxConfig.GetParticles(type).Select(particleSystem => CreateParticle(particleSystem, root, position)).ToArray();
-             return particles;
+            var particles = _vfxConfig.GetParticles(type)
+                .Select(particleSystem => CreateParticle(particleSystem, root, position)).ToArray();
+            return particles;
         }
 
         public ParticleSystemFacade CreateParticle(ParticleType type, Transform root, Vector3 position)
@@ -39,6 +40,7 @@ namespace Code.Infrastructure.Factories
             {
                 particle.gameObject.SetActive(true);
             }
+
             return particle;
         }
     }

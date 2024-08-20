@@ -12,8 +12,9 @@ namespace Code.Components.Entities.Characters.Reactions
 {
     public class CharacterAudioReaction : CharacterReaction, IGameExitListener
     {
-        [Header("Components")] 
-        [SerializeField] private CharacterAnimator _characterAnimator;
+        [Header("Components")] [SerializeField]
+        private CharacterAnimator _characterAnimator;
+
         [SerializeField] private CharacterAnimationStateObserver _stateReader;
         protected override int _cooldownTickCount { get; set; }
 

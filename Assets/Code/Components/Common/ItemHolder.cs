@@ -1,4 +1,4 @@
-﻿using Code.Components.Items;
+﻿using Code.Components.NewItems;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
@@ -9,6 +9,7 @@ namespace Code.Components.Common
     {
         [Header("Static value")] 
         [SerializeField] private Vector2 _offset;
+
         [field: SerializeField] public Item SelectedItem { get; private set; }
 
         public void GameTick()

@@ -8,13 +8,13 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
 
         private BaseNode _currentChild;
         private int _currentNodeIndex;
-        
+
         public BaseNode_RandomSequence(BaseNode[] orderNodes)
         {
             _orderNodes = orderNodes;
             Extensions.ShuffleArray(_orderNodes);
         }
-        
+
         protected override void Run()
         {
             if (IsCanRun())
@@ -66,10 +66,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             else
             {
                 Debugging.Instance.Log($"Рандомная сиквенция: брейк -> нет дочерней ноды", Debugging.Type.BehaviorTree);
-                
             }
         }
-
-
     }
 }

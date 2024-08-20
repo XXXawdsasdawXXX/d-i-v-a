@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Characters.Reactions
 {
-    public class CharacterMouseReaction : CharacterReaction ,IGameTickListener
+    public class CharacterMouseReaction : CharacterReaction, IGameTickListener
     {
         [SerializeField] private CharacterAnimator _characterAnimator;
         [SerializeField] private float _centralNormalValue = 0.3f;
@@ -53,7 +53,8 @@ namespace Code.Components.Entities.Characters.Reactions
 
         private void SetAnimationMousePosition()
         {
-            var normal = (_positionService.GetMouseWorldPosition() - (transform.position + _offset.AsVector3())).normalized;
+            var normal = (_positionService.GetMouseWorldPosition() - (transform.position + _offset.AsVector3()))
+                .normalized;
             var roundedX = Mathf.Abs(normal.x) < _centralNormalValue ? 0 : (normal.x < 0 ? -1 : 1);
             var roundedY = Mathf.Abs(normal.y) < _centralNormalValue ? 0 : (normal.y < 0 ? -1 : 1);
             _characterAnimator.SetMouseNormal(roundedX, roundedY);

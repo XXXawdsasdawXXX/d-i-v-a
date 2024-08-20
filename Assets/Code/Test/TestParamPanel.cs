@@ -12,10 +12,10 @@ namespace Code.Test
         [SerializeField] private GameObject _console;
 
         private LiveStateStorage _storage;
-        
+
         private void Start()
         {
-            _storage = Container.Instance.FindStorage<LiveStateStorage>();  
+            _storage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
         private void Update()
@@ -28,16 +28,17 @@ namespace Code.Test
 
             if (!_body.activeSelf)
             {
-             return;   
+                return;
             }
+
             string text = null;
             foreach (var state in _storage.LiveStates)
             {
-                text += $"<color=#86FFBB>{state.Key}</color>: {state.Value.Current,11}/{state.Value.Max}\t{state.Value.GetPercent(),15}%\n"; 
+                text +=
+                    $"<color=#86FFBB>{state.Key}</color>: {state.Value.Current,11}/{state.Value.Max}\t{state.Value.GetPercent(),15}%\n";
             }
 
             _paramText.text = text;
         }
-
     }
 }

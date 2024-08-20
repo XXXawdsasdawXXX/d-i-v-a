@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Characters.Reactions
 {
-    public abstract class CharacterReaction : MonoBehaviour,  IGameInitListener
+    public abstract class CharacterReaction : MonoBehaviour, IGameInitListener
     {
         protected abstract int _cooldownTickCount { get; set; }
 
@@ -16,10 +16,12 @@ namespace Code.Components.Entities.Characters.Reactions
             Init();
             SetCooldownMinutes();
             _tickCounter = new TickCounter(_cooldownTickCount);
-            _tickCounter.WaitedEvent += () => _isReady = true;
+            _tickCounter.OnWaitIsOver += () => _isReady = true;
         }
 
-        protected virtual void InitReaction() { }
+        protected virtual void InitReaction()
+        {
+        }
 
         protected abstract void SetCooldownMinutes();
 
@@ -28,7 +30,7 @@ namespace Code.Components.Entities.Characters.Reactions
             return _tickCounter.IsExpectedStart && _isReady;
         }
 
-       public virtual void StartReaction()
+        public virtual void StartReaction()
         {
             _isReady = false;
         }
@@ -38,6 +40,8 @@ namespace Code.Components.Entities.Characters.Reactions
             _tickCounter.StartWait();
         }
 
-        protected virtual void Init(){}
+        protected virtual void Init()
+        {
+        }
     }
 }

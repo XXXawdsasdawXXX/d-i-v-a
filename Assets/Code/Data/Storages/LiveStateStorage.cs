@@ -17,13 +17,13 @@ namespace Code.Data.Storages
     {
         private LiveStateConfig _liveStateConfig;
         public Dictionary<LiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
-        public event Action OnInit; 
-        
+        public event Action OnInit;
+
         public void GameInit()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
         }
-        
+
         public bool IsEmptyState(LiveStateKey key)
         {
             if (TryGetLiveState(key, out var state))
@@ -33,7 +33,7 @@ namespace Code.Data.Storages
 
             return false;
         }
-        
+
         public bool TryGetLiveState(LiveStateKey key, out CharacterLiveState liveState)
         {
             if (LiveStates.ContainsKey(key))
@@ -55,14 +55,18 @@ namespace Code.Data.Storages
         {
             if (values == null)
             {
-                Debugging.Instance.Log(this,$"[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
+                Debugging.Instance.Log(this, $"[AddPercentageValues] can not add null values",
+                    Debugging.Type.LiveState);
                 return;
             }
+
             foreach (var liveStateValue in values)
             {
                 if (TryGetLiveState(liveStateValue.Key, out var state))
                 {
-                    Debugging.Instance.Log(this,$"[AddPercentageValues] add {liveStateValue.Key} { liveStateValue.Value}", Debugging.Type.LiveState);
+                    Debugging.Instance.Log(this,
+                        $"[AddPercentageValues] add {liveStateValue.Key} {liveStateValue.Value}",
+                        Debugging.Type.LiveState);
                     Add(state, liveStateValue.Value);
                 }
             }
@@ -97,7 +101,7 @@ namespace Code.Data.Storages
         {
             var max = state.Max;
             var result = max / 100 * GetCorrectValue(randomValue);
-            Debugging.Instance.Log(this,$"[Add] {max} / 100 * `{randomValue}` = {result}", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this, $"[Add] {max} / 100 * `{randomValue}` = {result}", Debugging.Type.LiveState);
             state.Add(result);
         }
 
@@ -120,8 +124,8 @@ namespace Code.Data.Storages
                 : LoadSavedStates(playerProgress.LiveStatesData);
 
             OnInit?.Invoke();
-            
-            Debugging.Instance.Log(this,$"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
+
+            Debugging.Instance.Log(this, $"load init count {LiveStates.Count} {playerProgress.LiveStatesData.Count}",
                 Debugging.Type.LiveState);
         }
 
@@ -130,7 +134,7 @@ namespace Code.Data.Storages
             foreach (var liveState in LiveStates)
             {
                 var savedState = playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
-                
+
                 if (savedState != null)
                 {
                     savedState.CurrentValue = liveState.Value.Current;
@@ -162,7 +166,7 @@ namespace Code.Data.Storages
                 characterLiveStates.Add((LiveStateKey)i, state);
             }
 
-            Debugging.Instance.Log(this,$"init new", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this, $"init new", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
@@ -181,11 +185,12 @@ namespace Code.Data.Storages
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 
-            Debugging.Instance.Log(this,$"load states", Debugging.Type.LiveState);
+            Debugging.Instance.Log(this, $"load states", Debugging.Type.LiveState);
             return characterLiveStates;
         }
 
-        private CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0, bool isHealing = false)
+        private CharacterLiveState CreateNewState(LiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0,
+            bool isHealing = false)
         {
             var staticParam = _liveStateConfig.GetStaticParam(stateKey);
             var characterLiveState = new CharacterLiveState(
@@ -193,7 +198,7 @@ namespace Code.Data.Storages
                 max: staticParam.MaxValue,
                 decreasingValue: staticParam.DecreasingValue,
                 healValue: staticParam.HealValue,
-                isHealing : isHealing);
+                isHealing: isHealing);
 
             return characterLiveState;
         }
@@ -206,7 +211,7 @@ namespace Code.Data.Storages
         {
             foreach (var liveState in LiveStates)
             {
-                Debugging.Instance.Log(this,$"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
+                Debugging.Instance.Log(this, $"{liveState.Key} = {liveState.Value.Current}", Debugging.Type.LiveState);
             }
         }
 

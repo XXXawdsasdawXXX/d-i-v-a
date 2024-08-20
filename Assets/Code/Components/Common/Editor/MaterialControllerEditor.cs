@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Code.Components.Common.Editor
 {
-    [CustomEditor(typeof(MaterialController)),CanEditMultipleObjects]
-    public class MaterialControllerEditor: UnityEditor.Editor
+    [CustomEditor(typeof(MaterialController)), CanEditMultipleObjects]
+    public class MaterialControllerEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -16,11 +16,6 @@ namespace Code.Components.Common.Editor
                 materialController.Editor_RefreshState();
                 materialController.Editor_RefreshValue();
             }
-
-
         }
     }
-    
-    
-   
 }

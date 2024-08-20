@@ -10,7 +10,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
     public class SubNode_LookToMouse : BaseNode, IBehaviourCallback
     {
         private readonly SubNode_WaitForTicks _waitFor;
-        
+
         private readonly CharacterMouseReaction _mouseReaction;
 
         public SubNode_LookToMouse()
@@ -28,7 +28,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
                 _waitFor.Run(this);
                 return;
             }
-            
+
             Return(false);
         }
 
@@ -51,10 +51,10 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
             base.OnReturn(success);
         }
         
-
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log($"Нода смотреть за курсором: ожидание закончилось колбэк", Debugging.Type.BehaviorTree);
+            Debugging.Instance.Log($"Нода смотреть за курсором: ожидание закончилось колбэк",
+                Debugging.Type.BehaviorTree);
             _mouseReaction.StopReaction();
             Return(true);
         }

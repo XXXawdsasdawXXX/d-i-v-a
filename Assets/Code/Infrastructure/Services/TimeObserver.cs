@@ -16,8 +16,7 @@ namespace Code.Infrastructure.Services
 {
     public class TimeObserver : IService, IGameInitListener, IGameTickListener, IProgressWriter
     {
-        [Header("Static value")]
-        private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
+        [Header("Static value")] private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
         private RangedFloat _tickRangedTime;
         private float _tickTime;
@@ -104,12 +103,12 @@ namespace Code.Infrastructure.Services
         public bool IsNightTime()
         {
             TimeSpan timeOfDay = _currentTime.TimeOfDay;
-    
+
             if (NightStart < NightEnd)
             {
                 return timeOfDay >= NightStart && timeOfDay < NightEnd;
             }
-            
+
             return timeOfDay >= NightStart || timeOfDay < NightEnd;
         }
 
@@ -130,14 +129,14 @@ namespace Code.Infrastructure.Services
                 _currentTime = DateTime.UtcNow;
                 Debugging.Instance.Log($"init standalone time", Debugging.Type.Time);
             }
-            
-            var lastVisit = playerProgressData.GameEnterTime; 
+
+            var lastVisit = playerProgressData.GameEnterTime;
             playerProgressData.GameEnterTime = _currentTime;
 
             CheckTimeOfDay();
-            
+
             _isInit = true;
-            
+
             Debugging.Instance.Log($"End init: is first visit {!Extensions.IsEqualDay(lastVisit, _currentTime)}" +
                                    $"\ncurrent {_currentTime} saving {lastVisit}", Debugging.Type.Time);
 
@@ -146,9 +145,9 @@ namespace Code.Infrastructure.Services
             {
                 playerProgressData.CustomActions = new CustomActionsSavedData();
             }
+
             InitTimeEvent?.Invoke(isFirstVisit);
         }
-
 
 
         #region Editor

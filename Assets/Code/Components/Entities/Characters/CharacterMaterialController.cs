@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Characters
 {
-    public class CharacterMaterialController : MaterialController, IWindowsSpecific,IGameInitListener ,IGameTickListener
+    public class CharacterMaterialController : MaterialController, IWindowsSpecific, IGameInitListener,
+        IGameTickListener
     {
         private LoopbackAudioService _loopbackAudioService;
 
@@ -36,23 +37,23 @@ namespace Code.Components.Entities.Characters
         [ContextMenu("SetDynamicMagicMaterial")]
         public void SetDynamicMagicMaterial()
         {
-           Clear();
-           SetState(StateType.FADE_ON,true);
-           SetState(StateType.SHINE_ON,true);
+            Clear();
+            SetState(StateType.FADE_ON, true);
+            SetState(StateType.SHINE_ON, true);
         }
 
         [ContextMenu("SetStaticLightMaterial")]
         public void SetStaticLightMaterial()
         {
             Clear();
-            SetState(StateType.FADE_ON,true);
-            SetState(StateType.OUTBASE_ON,true);
+            SetState(StateType.FADE_ON, true);
+            SetState(StateType.OUTBASE_ON, true);
         }
 
         [ContextMenu("Reset")]
         public void Reset()
         {
-           Clear();
+            Clear();
         }
     }
 }

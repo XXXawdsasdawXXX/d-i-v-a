@@ -1,6 +1,6 @@
 namespace Code.Infrastructure.BehaviorTree.BaseNodes
 {
-    public abstract class BaseNode 
+    public abstract class BaseNode
     {
         //Базовый нод
         public bool IsRunning
@@ -39,6 +39,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         protected abstract void Run();
 
         protected abstract bool IsCanRun();
+
         protected void Return(bool success)
         {
             if (!_isRunning)
@@ -59,7 +60,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         {
         }
 
-  
+
         private void InvokeCallback(bool success)
         {
             if (_callback == null)

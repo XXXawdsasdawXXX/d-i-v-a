@@ -20,7 +20,7 @@ namespace Code.Infrastructure.Services
         public void PlayAudio(AudioEventType type)
         {
             var audio = _config.GetRandomAudioEvent(type);
-            if(audio != null)
+            if (audio != null)
             {
                 audio.Play(_audioSource);
             }
