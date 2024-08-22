@@ -71,7 +71,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         {
             var random = Random.Range(0, 101);
             Debugging.Instance.Log(this,$"random = {random}", Debugging.Type.Hand);
-            return random > _handConfig.ChanceOfAppearance && _tickCounter.IsExpectedStart;
+            return random >= 100 - _handConfig.ChanceOfAppearance && _tickCounter.IsExpectedStart;
         }
 
         protected override void OnBreak()
