@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TickRangedTime:
     MinValue: 5
-    MaxValue: 10.93561
+    MaxValue: 5
   ClickSeries: 0.75
   Cooldown:
     Sleep: 5

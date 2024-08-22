@@ -21,14 +21,6 @@ MonoBehaviour:
       MaxValue: 0
     BonusValues:
       Values: []
-  - Type: 2
-    SpawnChance: 0
-    AnimatorController: {fileID: 0}
-    LiveTimeTicks:
-      MinValue: 0
-      MaxValue: 0
-    BonusValues:
-      Values: []
   - Type: 3
     SpawnChance: 100
     AnimatorController: {fileID: 22100000, guid: e5ea50e5d116ff743a393aa526fac2f0, type: 2}
@@ -39,3 +31,13 @@ MonoBehaviour:
       Values:
       - Key: 2
         Value: 0.5
+      - Key: 3
+        Value: 0.1
+  - Type: 2
+    SpawnChance: 0
+    AnimatorController: {fileID: 0}
+    LiveTimeTicks:
+      MinValue: 0
+      MaxValue: 0
+    BonusValues:
+      Values: []

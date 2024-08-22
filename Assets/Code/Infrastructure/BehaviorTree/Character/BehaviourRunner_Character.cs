@@ -47,15 +47,15 @@ namespace Code.Infrastructure.BehaviorTree.Character
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += TimeObserverOnInitTimeEvent;
+                _timeObserver.OnInitTime += OnInitTime;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= TimeObserverOnInitTimeEvent;
+                _timeObserver.OnInitTime -= OnInitTime;
             }
         }
 
-        private void TimeObserverOnInitTimeEvent(bool obj)
+        private void OnInitTime(bool obj)
         {
             _rootNode = new BehaviourSelector_Character();
             IsInitBehaviorTree = true;

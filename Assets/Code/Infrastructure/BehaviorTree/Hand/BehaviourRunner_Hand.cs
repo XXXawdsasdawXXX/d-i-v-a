@@ -48,15 +48,15 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += TimeObserverOnInitTimeEvent;
+                _timeObserver.OnInitTime += OnInitTime;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= TimeObserverOnInitTimeEvent;
+                _timeObserver.OnInitTime -= OnInitTime;
             }
         }
 
-        private void TimeObserverOnInitTimeEvent(bool obj)
+        private void OnInitTime(bool obj)
         {
             _coroutineRunner.StartActionWithDelay(() =>
             {

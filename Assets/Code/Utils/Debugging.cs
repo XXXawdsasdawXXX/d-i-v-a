@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Code.Utils
 {
@@ -74,7 +73,7 @@ namespace Code.Utils
                 if (debugParam.Active)
                 {
                     ColorLog(
-                        $"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
+                        $"{invoker.GetType().Name} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
                         debugParam.Color);
                 }
             }

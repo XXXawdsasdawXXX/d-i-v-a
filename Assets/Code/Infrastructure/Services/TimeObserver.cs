@@ -28,7 +28,7 @@ namespace Code.Infrastructure.Services
         private CoroutineRunner _coroutineRunner;
 
         public event Action TickEvent;
-        public event Action<bool> InitTimeEvent;
+        public event Action<bool> OnInitTime;
         public event Action StartDayEvent;
         public event Action StartNightEvent;
 
@@ -146,7 +146,7 @@ namespace Code.Infrastructure.Services
                 playerProgressData.CustomActions = new CustomActionsSavedData();
             }
 
-            InitTimeEvent?.Invoke(isFirstVisit);
+            OnInitTime?.Invoke(isFirstVisit);
         }
 
 

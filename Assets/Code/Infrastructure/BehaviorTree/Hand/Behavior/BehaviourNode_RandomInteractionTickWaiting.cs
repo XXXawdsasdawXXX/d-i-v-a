@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
-    public class BehaviourNode_WaitTick : BaseNode
+    public class BehaviourNode_RandomInteractionTickWaiting : BaseNode
     {
         [Header("Hand")] //☺
         private readonly HandAnimator _handAnimator;
@@ -26,17 +26,17 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         private float _cooldown;
 
 
-        public BehaviourNode_WaitTick()
+        public BehaviourNode_RandomInteractionTickWaiting()
         {
-            //hand
+            //hand------------------------------------------------------------------------------------------------------
             var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
 
-            //services
+            //services--------------------------------------------------------------------------------------------------
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             _tickCounter = new TickCounter(isLoop: false);
 
-            //static value
+            //static value----------------------------------------------------------------------------------------------
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _whiteBoard = Container.Instance.FindStorage<WhiteBoard_Hand>();
         }
@@ -50,23 +50,40 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 _handAnimator.PlayExitHand();
 
                 var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
-                _tickCounter.StartWait(cooldownTicks);
+                Debugging.Instance.Log(this,$"run await {cooldownTicks} ticks", Debugging.Type.Hand);
+                
+                if (cooldownTicks == 0)
+                {
+                    Return(true);
+                    return;
+                }
 
+                _tickCounter.StartWait(cooldownTicks);
                 _tickCounter.OnWaitIsOver += OnWaitedTicksEvent;
 
-                Debugging.Instance.Log($"[enter the void!] run await {cooldownTicks} ticks", Debugging.Type.Hand);
+                return;
             }
+            
+            Return(false);
         }
 
         protected override bool IsCanRun()
         {
-            return _tickCounter.IsExpectedStart;
+            var random = Random.Range(0, 101);
+            Debugging.Instance.Log(this,$"random = {random}", Debugging.Type.Hand);
+            return random > _handConfig.ChanceOfAppearance && _tickCounter.IsExpectedStart;
+        }
+
+        protected override void OnBreak()
+        {
+            _tickCounter.StopWait();
+            base.OnBreak();
         }
 
         private void OnWaitedTicksEvent()
         {
             _tickCounter.OnWaitIsOver -= OnWaitedTicksEvent;
-            Debugging.Instance.Log($"[enter the void!] дождался тиков, return(тру)", Debugging.Type.Hand);
+            Debugging.Instance.Log(this,$"дождался тиков, return(тру)", Debugging.Type.Hand);
             Return(true);
         }
     }

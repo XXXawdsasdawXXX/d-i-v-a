@@ -98,12 +98,12 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += OnInitTimeEvent;
+                _timeObserver.OnInitTime += OnInitTime;
                 _interaction_returnAfterAbsence.UserReturnEvent += TryStartAction;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= OnInitTimeEvent;
+                _timeObserver.OnInitTime -= OnInitTime;
                 _interaction_returnAfterAbsence.UserReturnEvent -= TryStartAction;
             }
         }
@@ -121,7 +121,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        private void OnInitTimeEvent(bool isFirstVisit)
+        private void OnInitTime(bool isFirstVisit)
         {
             if (_isReviewed && isFirstVisit)
             {

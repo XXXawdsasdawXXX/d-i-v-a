@@ -8,6 +8,7 @@ namespace Code.Data.Configs
     [CreateAssetMenu(fileName = "HandConfig", menuName = "Configs/Hand Config")]
     public class HandConfig : ScriptableObject
     {
+        public int ChanceOfAppearance = 15;
         public Material LightMaterial;
         public Material DarkMaterial;
         [SerializeField] private InteractionsValueData[] _voidTime;

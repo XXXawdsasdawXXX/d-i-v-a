@@ -18,7 +18,7 @@ namespace Code.Components.NewItems
             _itemDataService = Container.Instance.FindService<ItemDataService>();
         }
         
-        public Item SpawnRandomItem(Transform anchor)
+        public Item SpawnRandomItem()
         {
            var item =  _monoPool.GetNext();
            item.SetData(_itemDataService.GetRandomItemData());

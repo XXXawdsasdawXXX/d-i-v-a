@@ -14,7 +14,7 @@ namespace Code.Components.NewItems.Editor
 
             if (GUILayout.Button("Spawn Random Item"))
             {
-                spawner.SpawnRandomItem(null);
+                spawner.SpawnRandomItem();
             }
         }
     }
