@@ -22,10 +22,10 @@ namespace Code.Components.Common
             base.Init();
         }
 
-        public override void On(Action onTurnedOn = null)
+        public override void On(Action OnTurnedOn = null)
         {
             SetPhysicsActive(true);
-            base.On(onTurnedOn);
+            base.On(OnTurnedOn);
             
             _isDragging = _colliderButton.IsPressed;
         }

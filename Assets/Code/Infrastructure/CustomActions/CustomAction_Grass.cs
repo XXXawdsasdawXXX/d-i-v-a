@@ -1,4 +1,5 @@
-﻿using Code.Components.Common;
+﻿using System.Collections;
+using Code.Components.Common;
 using Code.Components.Entities.Characters;
 using Code.Components.Entities.Grass;
 using Code.Data.Configs;
@@ -7,16 +8,19 @@ using Code.Data.Value.RangeInt;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
-using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Grass : CustomAction, IGameInitListener, IGameStartListener, IGameExitListener
+    public class CustomAction_Grass : CustomAction, 
+        IGameInitListener, 
+        IGameStartListener, 
+        IGameExitListener
     {
-        [Header("DIVA")] 
-        private DIVA _diva;
+        [Header("d i v a")] 
+        private Transform _divaTransform;
         private CharacterAnimator _characterAnimator;
+        private PhysicsDragAndDrop _divaDragAndDrop;
 
         [Header("Grass Components")] 
         private Grass _grass;
@@ -24,15 +28,22 @@ namespace Code.Infrastructure.CustomActions
 
         [Header("Action Delay")] 
         private TickCounter _tickCounter;
-        private RangedInt _tickDelay;
         private ColliderButton _grassButton;
         
+        [Header("Static value")] 
+        private RangedInt _tickDelay;
+
+        [Header("Dynamic value")] 
+        private Coroutine _coroutine;
+
         public override CustomCutsceneActionType GetActionType() => CustomCutsceneActionType.Grass;
 
         public void GameInit()
         {
-            _diva = Container.Instance.FindEntity<DIVA>();
-            _characterAnimator = _diva.FindCharacterComponent<CharacterAnimator>();
+            var diva = Container.Instance.FindEntity<DIVA>();
+            _divaTransform = diva.transform;
+            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
+            _divaDragAndDrop = diva.FindCommonComponent<PhysicsDragAndDrop>();
 
             _grass = Container.Instance.FindEntity<Grass>();
             _grassColorChecker = _grass.FindCommonComponent<ColorChecker>();
@@ -46,11 +57,39 @@ namespace Code.Infrastructure.CustomActions
         {
             SubscribeToEvents(true);
         }
-
+        
         public void GameExit()
         {
             SubscribeToEvents(false);
         }
+
+        private void Start()
+        {
+            if (_grass.IsActive)
+            {
+                return;
+            }
+
+            _grass.transform.position = _divaTransform.position;
+            _grassColorChecker.RefreshLastColor();
+            _grassColorChecker.SetEnable(true);
+            _tickCounter.StopWait();
+            _grass.Grow();
+        }
+
+        private void Stop()
+        {
+            if (!_grass.IsActive)
+            {
+                return;
+            }
+
+            _grassColorChecker.SetEnable(false);
+            _grass.Die();
+            _tickCounter.StartWait();
+        }
+
+        #region Events
 
         private void SubscribeToEvents(bool flag)
         {
@@ -60,12 +99,15 @@ namespace Code.Infrastructure.CustomActions
                 _tickCounter.OnWaitIsOver += OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor += OnNewColorFounded;
                 _grassButton.OnPressedUp += OnGrassPressedUp;
+                _divaDragAndDrop.OnEndedDrag += OnDivaEndedDrag;
             }
             else
             {
                 _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimation;
                 _tickCounter.OnWaitIsOver -= OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor -= OnNewColorFounded;
+                _grassButton.OnPressedUp -= OnGrassPressedUp;
+                _divaDragAndDrop.OnEndedDrag -= OnDivaEndedDrag;
             }
         }
 
@@ -86,6 +128,16 @@ namespace Code.Infrastructure.CustomActions
             Start();
         }
 
+        private void OnDivaEndedDrag(float distance)
+        {
+            distance = Vector3.Distance(_grass.transform.position, _divaTransform.position); 
+            Debug.Log(distance);
+            if (distance > 0.6f)
+            {
+               Stop();   
+            }
+        }
+
         private void OnNewColorFounded(Color obj)
         {
             Stop();
@@ -95,30 +147,7 @@ namespace Code.Infrastructure.CustomActions
         {
             Stop();
         }
-
-        private void Start()
-        {
-            if (_grass.IsActive)
-            {
-                return;
-            }
-
-            _grass.transform.position = _diva.transform.position;
-            _grassColorChecker.RefreshLastColor();
-            _grassColorChecker.SetEnable(true);
-            _grass.Grow();
-        }
-
-        private void Stop()
-        {
-            if (!_grass.IsActive)
-            {
-                return;
-            }
-
-            _tickCounter.StopWait();
-            _grassColorChecker.SetEnable(false);
-            _grass.Die();
-        }
+        
+        #endregion
     }
 }

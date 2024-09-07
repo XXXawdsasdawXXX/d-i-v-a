@@ -82,7 +82,7 @@ namespace Code.Infrastructure.Services
             }
         }
 
-        public void On(Action onTurnedOn = null)
+        public void On(Action OnTurnedOn = null)
         {
             _isActive = true;
         }

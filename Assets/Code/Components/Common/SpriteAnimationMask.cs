@@ -41,9 +41,9 @@ namespace Code.Components.Common
             Off();
         }
 
-        public void On(Action onTurnedOn = null)
+        public void On(Action OnTurnedOn = null)
         {
-            _coroutine = StartCoroutine(ShowAnimation(onTurnedOn));
+            _coroutine = StartCoroutine(ShowAnimation(OnTurnedOn));
         }
 
         public void Off(Action onTurnedOff = null)

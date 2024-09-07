@@ -49,7 +49,7 @@ namespace Code.Components.Entities.Hands
             }
         }
 
-        public void On(Action onTurnedOn = null)
+        public void On(Action OnTurnedOn = null)
         {
             _isMove = true;
         }

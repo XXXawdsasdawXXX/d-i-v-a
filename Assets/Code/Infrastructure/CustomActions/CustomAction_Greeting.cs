@@ -107,7 +107,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public void On(Action onTurnedOn = null)
+        public void On(Action OnTurnedOn = null)
         {
             Debugging.Instance.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
             if (!_isActive)

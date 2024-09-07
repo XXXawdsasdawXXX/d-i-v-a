@@ -10,9 +10,10 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ColliderDragAndDrop : CommonComponent,
-        IGameInitListener, IGameStartListener, IGameTickListener,
-        IToggle
+    public class ColliderDragAndDrop : CommonComponent, IToggle,
+        IGameInitListener, 
+        IGameStartListener,
+        IGameTickListener
     {
         [Header("Params")] 
         [SerializeField] protected bool _isActive;
@@ -29,7 +30,9 @@ namespace Code.Components.Common
         private Coroutine _coroutine;
         protected bool _isDragging;
         private Vector3 _target;
+        private Vector2 _startDragPosition;
 
+        public event Action<float> OnEndedDrag;
         public void GameInit()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -54,10 +57,10 @@ namespace Code.Components.Common
 
         #region Unique methods
 
-        public virtual void On(Action onTurnedOn = null)
+        public virtual void On(Action OnTurnedOn = null)
         {
             _isActive = true;
-            onTurnedOn?.Invoke();
+            OnTurnedOn?.Invoke();
             SubscribeToEvents(true);
         }
 
@@ -73,7 +76,7 @@ namespace Code.Components.Common
         {
         }
 
-        protected virtual void SetTarget()
+        private void SetTarget()
         {
             Vector3 pos = _positionService.GetMouseWorldPosition();
             var targetPosition = pos + _offset.AsVector3();
@@ -92,7 +95,7 @@ namespace Code.Components.Common
 
         #region Events
 
-        public void SubscribeToEvents(bool flag)
+        private void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
@@ -115,7 +118,7 @@ namespace Code.Components.Common
         protected virtual void OnPressedDown(Vector2 obj)
         {
             Vector3 clickPosition = _positionService.GetMouseWorldPosition();
-
+            _startDragPosition = transform.position;
             _offset = transform.position - clickPosition;
 
             if (_coroutine != null)
@@ -129,15 +132,17 @@ namespace Code.Components.Common
         private void OnUp()
         {
             _coroutine = _coroutineRunner.StartRoutine(MoveUpRoutine());
+            OnEndedDrag?.Invoke(Vector3.Distance(_startDragPosition, transform.position));
         }
 
         private IEnumerator MoveUpRoutine()
         {
             var period = new WaitForEndOfFrame();
-
+            var forward = new Vector3(0, 0.1f, 0);
+            
             while (transform.position.y < _boarder.y)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
+                transform.position += forward;
                 yield return period;
             }
         }
