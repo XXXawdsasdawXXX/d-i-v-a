@@ -14,16 +14,19 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Grass : CustomAction, IGameInitListener, IGameStartListener, IGameExitListener
     {
-        [Header("DIVA")] private DIVA _diva;
+        [Header("DIVA")] 
+        private DIVA _diva;
         private CharacterAnimator _characterAnimator;
 
-        [Header("Grass Components")] private Grass _grass;
+        [Header("Grass Components")] 
+        private Grass _grass;
         private ColorChecker _grassColorChecker;
 
-        [Header("Action Delay")] private TickCounter _tickCounter;
+        [Header("Action Delay")] 
+        private TickCounter _tickCounter;
         private RangedInt _tickDelay;
         private ColliderButton _grassButton;
-
+        
         public override CustomCutsceneActionType GetActionType() => CustomCutsceneActionType.Grass;
 
         public void GameInit()

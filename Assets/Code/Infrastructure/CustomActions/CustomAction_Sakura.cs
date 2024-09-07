@@ -11,8 +11,10 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_Sakura : CustomAction, IGameInitListener, IGameStartListener, IGameTickListener,
-        IGameExitListener, IProgressWriter
+    public class CustomAction_Sakura : CustomAction, IProgressWriter, 
+        IGameInitListener,  
+        IGameTickListener, 
+        IGameExitListener
     {
         private const float MAX_ACTIVE_MIN = 20;
         private const float NEEDED_ABSENCE_SEC = 60 * 60;
@@ -33,12 +35,8 @@ namespace Code.Infrastructure.CustomActions
                 _interaction_returnAfterAbsence =
                     Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
+                SubscribeToEvents(true);
             }
-        }
-
-        public void GameStart()
-        {
-            SubscribeToEvents(true);
         }
 
         public void GameTick()
@@ -65,7 +63,6 @@ namespace Code.Infrastructure.CustomActions
             {
                 particleSystem.On();
             }
-
             base.TryStartAction();
         }
 
@@ -82,16 +79,6 @@ namespace Code.Infrastructure.CustomActions
         public override CustomCutsceneActionType GetActionType()
         {
             return CustomCutsceneActionType.Sakura;
-        }
-
-        public void LoadProgress(PlayerProgressData playerProgress)
-        {
-            _isReviewed = playerProgress.CustomActions.IsReviewedSakura;
-        }
-
-        public void UpdateProgress(PlayerProgressData playerProgress)
-        {
-            playerProgress.CustomActions.IsReviewedSakura = _isReviewed;
         }
 
         private void SubscribeToEvents(bool flag)
@@ -127,6 +114,16 @@ namespace Code.Infrastructure.CustomActions
             {
                 _isReviewed = false;
             }
+        }
+        
+        public void LoadProgress(PlayerProgressData playerProgress)
+        {
+            _isReviewed = playerProgress.CustomActions.IsReviewedSakura;
+        }
+
+        public void UpdateProgress(PlayerProgressData playerProgress)
+        {
+            playerProgress.CustomActions.IsReviewedSakura = _isReviewed;
         }
     }
 }

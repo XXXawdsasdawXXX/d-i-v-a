@@ -26,8 +26,6 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
                 _node_reactionToItem.SetCurrentItem(item);
                 RunNode(_node_reactionToItem);
             }
-            
         }
-
     }
 }

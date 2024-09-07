@@ -40,6 +40,11 @@ namespace Code.Infrastructure.Services.Interactions
         
         private void CheckInput()
         {
+            if (string.IsNullOrEmpty(_currentInput))
+            {
+                return;
+            }
+            
             foreach (InputWord word in System.Enum.GetValues(typeof(InputWord)))
             {
                 if (_currentInput.Equals(word.ToString()))

@@ -66,10 +66,10 @@ namespace Code.Components.Entities.Characters
 
         public void StartPlayReactionMouse()
         {
-            /*_characterAnimator.SetBool(_reactionMouseHash_b, true);
+            _characterAnimator.SetBool(_reactionMouseHash_b, true);
             _frontHairAnimator.SetBool(_reactionMouseHash_b, true);
             _backHairAnimator.SetBool(_reactionMouseHash_b, true);
-            Debugging.Instance.Log($"Start play reaction mouse", Debugging.Type.AnimationState);*/
+            Debugging.Instance.Log($"Start play reaction mouse", Debugging.Type.AnimationState);
             Debugging.Instance?.Log(this, $"StartPlayReactionMouse", Debugging.Type.AnimationState);
         }
 

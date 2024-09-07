@@ -4,7 +4,6 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Interactions;
-using UnityEngine;
 
 namespace Code.Components.Entities.Characters.Reactions
 {
@@ -57,6 +56,7 @@ namespace Code.Components.Entities.Characters.Reactions
             {
                 return;
             }
+            
             _lastWord = word;
             StartReaction();
         }

@@ -13,12 +13,15 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
+    //todo сейчас не активна, возможно стоит вырезать
     public class CustomAction_Greeting : CustomAction, IProgressWriter, IGameInitListener, IGameExitListener, IToggle
     {
-        [Header("Services")] private AudioEventsService _audioEventsService;
+        [Header("Services")] 
+        private AudioEventsService _audioEventsService;
         private TimeObserver _timeObserver;
 
-        [Header("Character")] private ColliderButton _colliderButton;
+        [Header("Character")] 
+        private ColliderButton _colliderButton;
 
         [Header("Values")] private bool _isAlreadySaidHi;
         private bool _isFirstVisit;
