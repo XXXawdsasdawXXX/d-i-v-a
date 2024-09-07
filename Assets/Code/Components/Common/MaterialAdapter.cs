@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class MaterialController : CommonComponent
+    public class MaterialAdapter : CommonComponent
     {
         [SerializeField] protected Material _material;
         [SerializeField] private StateType stateType;
@@ -25,7 +25,8 @@ namespace Code.Components.Common
             ONLYOUTLINE_ON,
             FADE_ON,
             OUTBASE_ON,
-            GRADIENT_ON
+            GRADIENT_ON,
+            DOODLE_ON
         }
 
         public enum FloatValueType

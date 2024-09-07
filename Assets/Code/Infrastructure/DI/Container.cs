@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components.Entities;
+using Code.Components.Entities.Characters.Reactions;
 using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
@@ -30,6 +32,7 @@ namespace Code.Infrastructure.DI
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
         private List<IGetter> _getters = new();
+        private List<Reaction> _reactions = new();
 
         private void Awake()
         {
@@ -49,6 +52,7 @@ namespace Code.Infrastructure.DI
             InitList(ref _interactionObservers);
             InitList(ref _mono);
             InitList(ref _getters);
+            InitList(ref _reactions);
         }
 
         private void InitList<T>(ref List<T> list)
@@ -162,6 +166,19 @@ namespace Code.Infrastructure.DI
 
             return default;
         }
+        
+        public T FindReaction<T>() where T : Reaction
+        {
+            foreach (var reaction in _reactions)
+            {
+                if (reaction is T characterReaction)
+                {
+                    return characterReaction;
+                }
+            }
+
+            return null;
+        }
 
         public List<IGameListeners> GetGameListeners()
         {
@@ -182,6 +199,7 @@ namespace Code.Infrastructure.DI
             list.AddRange(_entities.OfType<T>().ToList());
             list.AddRange(_customActions.OfType<T>().ToList());
             list.AddRange(_interactionObservers.OfType<T>().ToList());
+            list.AddRange(_reactions.OfType<T>().ToList());
             list.AddRange(_mono.OfType<T>().ToList());
 
             var mbListeners = _allObjects.OfType<T>();

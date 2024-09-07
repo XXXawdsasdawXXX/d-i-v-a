@@ -102,7 +102,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
                 }
 
                 PostScaledMax = postScaledMax;
-
+                
                 // Calculate "energy" using the post scale average
                 postScaleAverage = totalPostScaledValue / SpectrumSize;
                 _postScaleAverages.Add(postScaleAverage);

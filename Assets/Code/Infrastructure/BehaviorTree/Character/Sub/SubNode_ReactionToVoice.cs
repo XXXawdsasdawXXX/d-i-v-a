@@ -8,11 +8,11 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
 {
     public class SubNode_ReactionToVoice : BaseNode
     {
-        private readonly CharacterAudioReaction _audioReaction;
+        private readonly AudioReaction _audioReaction;
 
         public SubNode_ReactionToVoice()
         {
-            _audioReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterAudioReaction>();
+            _audioReaction = Container.Instance.FindReaction<AudioReaction>();
             _audioReaction.EndReactionEvent += AudioReactionOnEndReactionEvent;
         }
 

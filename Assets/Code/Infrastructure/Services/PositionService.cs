@@ -16,7 +16,7 @@ namespace Code.Infrastructure.Services
     {
         [SerializeField] private RectTransform _canvas;
 
-        private readonly Vector2 _offset = new(75, 75);
+        private readonly Vector2 _offset = new(75,  75);
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 

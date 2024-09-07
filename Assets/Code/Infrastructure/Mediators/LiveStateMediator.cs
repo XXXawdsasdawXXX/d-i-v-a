@@ -49,7 +49,7 @@ namespace Code.Infrastructure.Mediators
             }
         }
 
-        private void OnAddInteraction(InteractionType interactionType, float value)
+        private void OnAddInteraction(InteractionType interactionType, int value)
         {
             switch (interactionType)
             {

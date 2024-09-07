@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Characters.AnimationReader.State
 {
-    public class CharacterAnimationStateObserver : MonoBehaviour, IAnimationStateReader
+    public class CharacterAnimationStateObserver : CharacterComponent, IAnimationStateReader
     {
         [field: SerializeField] public CharacterAnimationState State { get; private set; }
 

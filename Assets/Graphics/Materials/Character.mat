@@ -112,8 +112,8 @@ Material:
         m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 806e236bc12668e4da974bb8f536d28f, type: 3}
+        m_Scale: {x: 7.53, y: 5}
         m_Offset: {x: 0, y: 0}
     - _ShineMask:
         m_Texture: {fileID: 0}
@@ -154,7 +154,7 @@ Material:
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
-    - _EditorDrawers: 2
+    - _EditorDrawers: 6
     - _FadeAmount: 0.743
     - _FadeBurnGlow: 1
     - _FadeBurnTransition: 0.221
@@ -232,8 +232,8 @@ Material:
     - _OutlineTexXSpeed: 0.9
     - _OutlineTexYSpeed: 19.4
     - _OutlineWidth: 0.004
-    - _OverlayBlend: 0.493
-    - _OverlayGlow: 1.2
+    - _OverlayBlend: 1
+    - _OverlayGlow: 25
     - _PinchUvAmount: 0.35
     - _PixelateSize: 4
     - _PosterizeGamma: 0.75
@@ -252,10 +252,10 @@ Material:
     - _ShakeUvY: 1
     - _ShineGlow: 1
     - _ShineLocation: 0.5
-    - _ShineRotate: 1.249102
+    - _ShineRotate: 1.0919431
     - _ShineWidth: 0.208
-    - _TextureScrollXSpeed: 0.49920323
-    - _TextureScrollYSpeed: 0.49920323
+    - _TextureScrollXSpeed: 0.5199666
+    - _TextureScrollYSpeed: 0.5199666
     - _TwistUvAmount: 1
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
@@ -291,7 +291,7 @@ Material:
     - _HologramStripeColor: {r: 0, g: 1, b: 1, a: 1}
     - _InnerOutlineColor: {r: 0.53306335, g: 0.62038857, b: 0.9339623, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OverlayColor: {r: 0.75, g: 0.8588867, b: 1, a: 1}
+    - _OverlayColor: {r: 0.11000357, g: 0.16093361, b: 0.2264151, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShineColor: {r: 0.45834818, g: 0.5240081, b: 0.9433962, a: 1}
   m_BuildTextureStacks: []

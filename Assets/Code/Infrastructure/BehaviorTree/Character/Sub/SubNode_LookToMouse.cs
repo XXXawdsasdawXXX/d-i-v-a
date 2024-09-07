@@ -11,12 +11,12 @@ namespace Code.Infrastructure.BehaviorTree.Character.Sub
     {
         private readonly SubNode_WaitForTicks _waitFor;
 
-        private readonly CharacterMouseReaction _mouseReaction;
+        private readonly MouseReaction _mouseReaction;
 
         public SubNode_LookToMouse()
         {
             _waitFor = new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.LookToMouse);
-            _mouseReaction = Container.Instance.FindEntity<DIVA>().FindReaction<CharacterMouseReaction>();
+            _mouseReaction = Container.Instance.FindReaction<MouseReaction>();
         }
 
         protected override void Run()

@@ -4,11 +4,11 @@ namespace Code.Infrastructure.Services.Interactions
 {
     public abstract class InteractionObserver
     {
-        public event Action InteractionEvent;
+        public event Action OnAddedInteraction;
 
         protected void InvokeInteractionEvent()
         {
-            InteractionEvent?.Invoke();
+            OnAddedInteraction?.Invoke();
         }
     }
 }

@@ -14,8 +14,9 @@ namespace Code.Data.Storages
     {
         private Dictionary<InteractionType, int> _interactions;
         private InteractionType _currentDominationType;
+        
         public event Action<InteractionType> OnSwitchDominationType;
-        public event Action<InteractionType, float> OnAdd;
+        public event Action<InteractionType, int> OnAdd;
 
         public int GetSum()
         {

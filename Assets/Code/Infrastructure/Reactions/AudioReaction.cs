@@ -10,35 +10,41 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Characters.Reactions
 {
-    public class CharacterAudioReaction : CharacterReaction, IGameExitListener
+    public class AudioReaction : Reaction, IGameExitListener
     {
-        [Header("Components")] [SerializeField]
+        [Header("Components")]
         private CharacterAnimator _characterAnimator;
-
-        [SerializeField] private CharacterAnimationStateObserver _stateReader;
-        protected override int _cooldownTickCount { get; set; }
-
-        private LiveStateRangePercentageValue _effectAwakeningValue;
+        private CharacterAnimationStateObserver _stateReader;
+        
+        [Header("Services")]
         private LiveStateStorage _liveStateStorage;
-
+        
+        [Header("Values")]
+        private LiveStateRangePercentageValue _effectAwakeningValue;
+        
         public event Action EndReactionEvent;
 
-        protected override void InitReaction()
+        protected override void Init()
         {
+            var diva = Container.Instance.FindEntity<DIVA>();
+            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
+            _stateReader = diva.FindCharacterComponent<CharacterAnimationStateObserver>();
+            
+            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
+            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
+           
             SubscribeToEvents(true);
-            base.InitReaction();
+            base.Init();
+        }
+
+        protected override int GetCooldownMinutes()
+        {
+            return Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
         }
 
         public void GameExit()
         {
             SubscribeToEvents(false);
-        }
-
-        protected override void SetCooldownMinutes()
-        {
-            _cooldownTickCount = Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
-            _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
-            _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }
 
         public override void StartReaction()

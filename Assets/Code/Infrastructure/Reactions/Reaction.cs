@@ -1,12 +1,12 @@
-﻿using Code.Infrastructure.GameLoop;
+﻿using Code.Data.Interfaces;
+using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
-using UnityEngine;
 
 namespace Code.Components.Entities.Characters.Reactions
 {
-    public abstract class CharacterReaction : MonoBehaviour, IGameInitListener
+    public abstract class Reaction :  IGameInitListener
     {
-        protected abstract int _cooldownTickCount { get; set; }
+        private int _cooldownTickCount;
 
         private TickCounter _tickCounter;
         private bool _isReady = true;
@@ -14,16 +14,12 @@ namespace Code.Components.Entities.Characters.Reactions
         public void GameInit()
         {
             Init();
-            SetCooldownMinutes();
+            GetCooldownMinutes();
             _tickCounter = new TickCounter(_cooldownTickCount);
             _tickCounter.OnWaitIsOver += () => _isReady = true;
         }
-
-        protected virtual void InitReaction()
-        {
-        }
-
-        protected abstract void SetCooldownMinutes();
+        
+        protected abstract int GetCooldownMinutes();
 
         public bool IsReady()
         {

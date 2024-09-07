@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742243356498071232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15499973, z: 0}
+  m_LocalPosition: {x: 0, y: -0.155, z: 0}
   m_LocalScale: {x: 0.03, y: 0.03, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -391,12 +391,10 @@ GameObject:
   - component: {fileID: 7024979021285652678}
   - component: {fileID: 9192999848414458996}
   - component: {fileID: 1878030412303906761}
-  - component: {fileID: 2577921256776046382}
   - component: {fileID: 7024979021285652677}
   - component: {fileID: 7024979021285652682}
   - component: {fileID: 1878030412303906766}
   - component: {fileID: 1878030412303906771}
-  - component: {fileID: 7024979021285652676}
   - component: {fileID: 830841768457662419}
   - component: {fileID: 5448540924946041647}
   - component: {fileID: 1878030412303906765}
@@ -459,9 +457,7 @@ MonoBehaviour:
   - {fileID: 7024979021285652682}
   - {fileID: 830841768457662419}
   - {fileID: 5448540924946041647}
-  _reactions:
-  - {fileID: 2577921256776046382}
-  - {fileID: 7024979021285652676}
+  - {fileID: 7024979022035233821}
 --- !u!114 &1878030412303906761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,21 +472,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterAnimator: {fileID: 7024979021285652677}
   _animationStateObserver: {fileID: 7024979022035233821}
---- !u!114 &2577921256776046382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024979021285652672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be83ef2fe2949ab9f4c09e7e9754b3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterAnimator: {fileID: 7024979021285652677}
-  _centralNormalValue: 0.3
-  _offset: {x: 0, y: 1}
 --- !u!114 &7024979021285652677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,20 +551,6 @@ MonoBehaviour:
   _offset: {x: 0, y: -0.4}
   _colliderButton: {fileID: 1878030412303906765}
   _rigidbody2D: {fileID: 1878030412303906770}
---- !u!114 &7024979021285652676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024979021285652672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4761270d086047448e6d8afe54f70000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterAnimator: {fileID: 7024979021285652677}
-  _stateReader: {fileID: 7024979022035233821}
 --- !u!114 &830841768457662419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,8 +563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94101d7230dc40d5b08f8112344a9e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterAnimator: {fileID: 7024979021285652677}
-  _modeAdapter: {fileID: 7024979021285652682}
 --- !u!114 &5448540924946041647
 MonoBehaviour:
   m_ObjectHideFlags: 0

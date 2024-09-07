@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Hands
 {
-    public class HandMaterialController : MaterialController, IGameInitListener, IGameExitListener
+    public class HandMaterialAdapter : MaterialAdapter, IGameInitListener, IGameExitListener
     {
         [Header("Components")] [SerializeField]
         private SpriteRenderer _spriteRenderer;
