@@ -11,7 +11,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 {
     public class BehaviourNode_ShowItem : BaseNode
     {
-        [Header("DIVA")] 
+        [Header("d i v a")] 
         private readonly Transform _divaTransform;
 
         [Header("Hand")] 
@@ -21,26 +21,32 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         private readonly ItemHolder _itemHolder;
 
         [Header("Item")] 
-        private  Item _item;
+        private readonly ItemSpawner _itemSpawner;
+        private Item _item;
 
         [Header("Services")] 
         private readonly PositionService _positionService;
-        private readonly ItemSpawner _itemSpawner;
 
         [Header("Dynamic data")] 
         private ItemData _currentItemData;
-
         private Vector3 _spawnPosition;
 
 
         public BehaviourNode_ShowItem()
         {
+            //d i v a
             _divaTransform = Container.Instance.FindEntity<DIVA>().transform;
+            
+            //hand
             _hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimation = _hand.FindHandComponent<HandAnimator>();
             _movementToMouse = _hand.FindCommonComponent<MovementToMouse>();
             _itemHolder = _hand.FindCommonComponent<ItemHolder>();
+            
+            //item
             _itemSpawner = Container.Instance.FindService<ItemSpawner>();
+            
+            //services
             _positionService = Container.Instance.FindService<PositionService>();
         }
 
@@ -75,8 +81,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 Return(true);
             });
         }
-
-
+        
         private void SubscribeToEvents(bool flag)
         {
             if (flag)
@@ -91,7 +96,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 _item.OnPressed -= HideHand;
             }
         }
-        
         
         protected override bool IsCanRun()
         {

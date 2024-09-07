@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Code.Utils
 {
@@ -74,7 +74,7 @@ namespace Code.Utils
                 if (debugParam.Active)
                 {
                     ColorLog(
-                        $"{invoker.GetType().FullName} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
+                        $"{invoker.GetType().Name} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
                         debugParam.Color);
                 }
             }
@@ -83,8 +83,7 @@ namespace Code.Utils
                 ColorLog(message, Color.white);
             }
         }
-
-
+        
         public static void ErrorLog(object obj, string message)
         {
             ColorLog($"{obj.GetType()} {message}", Color.red);
@@ -117,12 +116,16 @@ namespace Code.Utils
             return result.ToString().Trim();
         }
 
+#if UNITY_EDITOR
         public void DisableAll()
         {
             foreach (var debugParam in _debugParams)
             {
                 debugParam.Active = false;
             }
+            
+            EditorUtility.SetDirty(this);
         }
+#endif
     }
 }

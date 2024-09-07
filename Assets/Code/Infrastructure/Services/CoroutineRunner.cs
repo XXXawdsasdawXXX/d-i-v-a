@@ -8,6 +8,11 @@ namespace Code.Infrastructure.Services
 {
     public class CoroutineRunner : MonoBehaviour, IService, IGameExitListener
     {
+        public void GameExit()
+        {
+            StopAllCoroutines();
+        }
+
         public Coroutine StartRoutine(IEnumerator coroutine)
         {
             return coroutine == null ? null : StartCoroutine(coroutine);
@@ -18,22 +23,12 @@ namespace Code.Infrastructure.Services
             StartCoroutine(StartActionWithDelayRoutine(action, delay));
         }
 
-        public void StopRoutine(IEnumerator coroutine)
-        {
-            StopCoroutine(coroutine);
-        }
-
         public void StopRoutine(Coroutine coroutine)
         {
             if (coroutine != null)
             {
                 StopCoroutine(coroutine);
             }
-        }
-
-        public void GameExit()
-        {
-            StopAllCoroutines();
         }
 
         private IEnumerator StartActionWithDelayRoutine(Action action, float delay)

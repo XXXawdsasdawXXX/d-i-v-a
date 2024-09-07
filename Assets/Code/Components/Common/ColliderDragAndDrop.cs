@@ -81,7 +81,6 @@ namespace Code.Components.Common
             bool isCorrectPosition = targetPosition.y > _boarder.y
                                      && targetPosition.x < _boarder.x
                                      && targetPosition.x > -_boarder.x;
-            Debug.Log($"{gameObject.name} {isCorrectPosition} {targetPosition} -> {_target}");
 
             if (isCorrectPosition)
             {

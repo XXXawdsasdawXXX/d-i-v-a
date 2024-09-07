@@ -1,24 +1,34 @@
 using System;
+using Code.Data.Configs;
+using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_ReturnAfterAbsence : InteractionObserver, IGameTickListener
+    public class Interaction_ReturnAfterAbsence : InteractionObserver, 
+        IGameInitListener,
+        IGameTickListener
     {
-        private const float NEEDED_MIN = 10;
+        private float _userStandStillSecond;
         private float _absenceSecond;
-        private bool _isAbsence;
+
+        public bool IsAbsence { get; private set; }
 
         public event Action<float> UserReturnEvent;
+
+        public void GameInit()
+        {
+            _userStandStillSecond = Container.Instance.FindConfig<TimeConfig>().Duration.UserStandStillSecond;
+        }
 
         public void GameTick()
         {
             if (Input.anyKeyDown)
             {
-                if (_isAbsence)
+                if (IsAbsence)
                 {
-                    _isAbsence = false;
+                    IsAbsence = false;
                     UserReturnEvent?.Invoke(_absenceSecond);
                 }
 
@@ -26,9 +36,9 @@ namespace Code.Infrastructure.Services.Interactions
             }
 
             _absenceSecond += Time.deltaTime;
-            if (_absenceSecond >= NEEDED_MIN * 60 && !_isAbsence)
+            if (_absenceSecond >= _userStandStillSecond * 60 && !IsAbsence)
             {
-                _isAbsence = true;
+                IsAbsence = true;
                 InvokeInteractionEvent();
             }
         }

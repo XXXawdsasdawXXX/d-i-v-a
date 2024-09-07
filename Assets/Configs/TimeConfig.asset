@@ -29,6 +29,7 @@ MonoBehaviour:
       MaxValue: 6
     StoppingTicksToMaximumSleepValues: 7
     StarryMouse: 30
+    UserStandStillSecond: 30
   Delay:
     GrassGrow:
       MinValue: 1
