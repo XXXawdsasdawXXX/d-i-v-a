@@ -1,31 +1,53 @@
+using System;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IGameInitListener, IGameTickListener
+    public class Interaction_KeyDown : InteractionObserver, IGameTickListener
     {
-        public enum InputWorlds
-        {
-            None,
-            Hello,
-            Hi,
-            Привет,
-            Yo,
-            Love,
-        }
+        private string _currentInput;
 
-        public void GameInit()
-        {
-        }
+        public event Action<InputWord> OnWordEntered;
 
+        
         public void GameTick()
         {
             foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
             {
                 if (Input.GetKeyDown(kcode))
                 {
-                    Debug.Log("Клавиша нажата: " + kcode);
+                    // Проверка на символы алфавита и цифры
+                    if (kcode >= KeyCode.A && kcode <= KeyCode.Z )
+                    {
+                        _currentInput += kcode.ToString().ToLower(); // Добавляем символ к строке
+                    }
+                    else if (kcode == KeyCode.Backspace && _currentInput.Length > 0)
+                    {
+                        _currentInput = _currentInput.Remove(_currentInput.Length - 1); // Удаление последнего символа
+                    }
+                    else if( kcode == KeyCode.Space)
+                    {
+                        _currentInput = "";
+                    }
+
+                    // Проверяем строку с перечислением
+                    CheckInput();
+                }
+            }
+        }
+        
+        
+        private void CheckInput()
+        {
+            foreach (InputWord word in System.Enum.GetValues(typeof(InputWord)))
+            {
+                if (_currentInput.Equals(word.ToString()))
+                {
+                    Debug.Log($"Input matches: {word}");
+                    _currentInput = ""; // Сбрасываем строку после успешного совпадения
+                    OnWordEntered?.Invoke(word);
+                    break;
                 }
             }
         }

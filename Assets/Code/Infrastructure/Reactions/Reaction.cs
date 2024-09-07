@@ -15,7 +15,7 @@ namespace Code.Components.Entities.Characters.Reactions
         {
             Init();
             GetCooldownMinutes();
-            _tickCounter = new TickCounter(_cooldownTickCount);
+            _tickCounter = new TickCounter(_cooldownTickCount, isLoop: false);
             _tickCounter.OnWaitIsOver += () => _isReady = true;
         }
         

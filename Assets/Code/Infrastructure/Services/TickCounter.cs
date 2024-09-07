@@ -16,6 +16,7 @@ namespace Code.Infrastructure.Services
         private bool _isActive;
 
         public bool IsExpectedStart { get; private set; } = true;
+        
         public event Action OnWaitIsOver;
 
         #region Constructors

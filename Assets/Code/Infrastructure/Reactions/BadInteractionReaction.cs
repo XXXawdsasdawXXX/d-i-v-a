@@ -23,7 +23,7 @@ namespace Code.Components.Entities.Characters.Reactions
 
         protected override int GetCooldownMinutes()
         {
-            return Container.Instance.FindConfig<TimeConfig>().Cooldown.BadInteractionReaction;
+            return Container.Instance.FindConfig<TimeConfig>().Cooldown.BadInteractionReactionMin;
         }
         
         public void GameStart()

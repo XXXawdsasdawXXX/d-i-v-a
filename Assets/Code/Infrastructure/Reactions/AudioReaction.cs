@@ -39,7 +39,7 @@ namespace Code.Components.Entities.Characters.Reactions
 
         protected override int GetCooldownMinutes()
         {
-            return Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMaxAudioClip;
+            return Container.Instance.FindConfig<TimeConfig>().Cooldown.MaxAudioClipReactionMin;
         }
 
         public void GameExit()

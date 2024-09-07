@@ -33,7 +33,7 @@ namespace Code.Components.Entities.Characters.Reactions
 
         protected override int GetCooldownMinutes()
         {
-            return Container.Instance.FindConfig<TimeConfig>().Cooldown.ReactionMouse;
+            return Container.Instance.FindConfig<TimeConfig>().Cooldown.MouseReactionMin;
         }
 
         public void GameTick()

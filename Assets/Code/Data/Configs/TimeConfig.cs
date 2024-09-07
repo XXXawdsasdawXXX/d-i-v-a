@@ -12,7 +12,7 @@ namespace Code.Data.Configs
         [Space]
         public float ClickSeries = 0.75f;
         [Space]
-        public CooldownTickData Cooldown;
+        public CooldownData Cooldown;
         [Space]
         public DurationData Duration;
         [Space]
