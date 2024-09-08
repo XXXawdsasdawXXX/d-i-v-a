@@ -18,8 +18,10 @@ MonoBehaviour:
   ClickSeries: 0.75
   Cooldown:
     Sleep: 5
-    ReactionMaxAudioClip: 2
-    ReactionMouse: 2
+    MaxAudioClipReactionMin: 5
+    MouseReactionMin: 5
+    BadInteractionReactionMin: 1
+    InputWordsReactionMin: 10
   Duration:
     LookToMouse:
       MinValue: 1

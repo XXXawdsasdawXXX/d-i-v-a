@@ -19,20 +19,20 @@ MonoBehaviour:
       MinValue: 0
       MaxValue: 20
     Value:
-      MinValue: 65
-      MaxValue: 100
+      MinValue: 13
+      MaxValue: 18
   - InteractionsCount:
       MinValue: 21
       MaxValue: 45
     Value:
-      MinValue: 40
-      MaxValue: 75
+      MinValue: 6
+      MaxValue: 6
   - InteractionsCount:
       MinValue: 51
       MaxValue: 200
     Value:
-      MinValue: 15
-      MaxValue: 41
+      MinValue: 0
+      MaxValue: 1
   _appleDropChance:
   - InteractionsCount:
       MinValue: 0

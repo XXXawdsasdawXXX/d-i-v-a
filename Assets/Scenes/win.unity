@@ -249,11 +249,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[5].Active
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[6].Active
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: _debugParams.Array.data[9].Active
@@ -496,6 +496,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 29883446357404821, guid: 0cdede8171b8b20448c6a14369bccc06, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
     - target: {fileID: 191640460248794672, guid: 0cdede8171b8b20448c6a14369bccc06, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -609,6 +613,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6294422773613694918, guid: a2744401bf832e54081f231d4449a92d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2744401bf832e54081f231d4449a92d, type: 3}
 --- !u!1001 &1330282921

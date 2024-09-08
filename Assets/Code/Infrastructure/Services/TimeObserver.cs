@@ -116,11 +116,15 @@ namespace Code.Infrastructure.Services
         [Obsolete("Obsolete")]
         private IEnumerator InitCurrentTime(PlayerProgressData playerProgressData)
         {
+    
             UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("http://www.google.com");
             if (myHttpWebRequest != null)
             {
+                Debugging.Instance.Log($"1", Debugging.Type.Time);
                 yield return myHttpWebRequest.Send();
+                Debugging.Instance.Log($"2", Debugging.Type.Time);
                 string netTime = myHttpWebRequest.GetResponseHeader("date");
+                Debugging.Instance.Log($"3", Debugging.Type.Time);
                 DateTime.TryParse(netTime, out _currentTime);
                 Debugging.Instance.Log($"init google time", Debugging.Type.Time);
             }
@@ -148,8 +152,7 @@ namespace Code.Infrastructure.Services
 
             InitTimeEvent?.Invoke(isFirstVisit);
         }
-
-
+        
         #region Editor
 
         public KeyValuePair<float, float> GetTimeState()

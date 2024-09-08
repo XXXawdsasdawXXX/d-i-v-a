@@ -59,11 +59,13 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
+            /*
             if (success)
             {
                 Return(true);
                 return;
             }
+            */
 
             if (_currentChildIndex + 1 >= _orderedNodes.Length)
             {

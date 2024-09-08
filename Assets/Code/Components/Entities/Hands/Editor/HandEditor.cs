@@ -17,4 +17,23 @@ namespace Code.Components.Entities.Hands.Editor
             }
         }
     }
+    
+    [CustomEditor(typeof(HandAnimator))]
+    public class HandAnimatorEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+            HandAnimator hand = (HandAnimator)target;
+
+            if (GUILayout.Button("Enter"))
+            {
+                hand.PlayEnterHand();
+            }
+            if (GUILayout.Button("Exit"))
+            {
+                hand.PlayExitHand();
+            }
+        }
+    }
 }
