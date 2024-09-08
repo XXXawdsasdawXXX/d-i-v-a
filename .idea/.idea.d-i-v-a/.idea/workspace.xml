@@ -13,6 +13,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/4d/385e6247/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da87c2565b1d49249c12d4e941cfd109fe00/38/b587587f/Microphone.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Code/Components/Items/Item.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent"><![CDATA[{
@@ -25,6 +26,14 @@
       <option name="EXE_PATH" value="$PROJECT_DIR$/../../d i v a\d i v a.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\user\Documents\d i v a" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.21f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\user\Documents\GitHub\d-i-v-a -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\user\Documents\GitHub\d-i-v-a" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />

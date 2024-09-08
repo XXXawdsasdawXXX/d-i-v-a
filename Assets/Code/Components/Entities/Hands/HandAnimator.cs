@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Components.Entities.Hands
 {
-    public class HandAnimator : HandComponent, IGameInitListener
+    public class HandAnimator : HandComponent
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Animator _handAnimator;
@@ -15,11 +15,6 @@ namespace Code.Components.Entities.Hands
 
         private Action _endExitAnimationEvent;
         private Action _endEnterAnimationEvent;
-        
-        public void GameInit()
-        {
-            //PlayExitHand();
-        }
 
         [ContextMenu("Enter")]
         public void PlayEnterHand(Action onEndEnter = null)

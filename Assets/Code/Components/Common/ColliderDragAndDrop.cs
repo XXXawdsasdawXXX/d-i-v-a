@@ -33,6 +33,8 @@ namespace Code.Components.Common
         private Vector2 _startDragPosition;
 
         public event Action<float> OnEndedDrag;
+        
+        
         public void GameInit()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -70,7 +72,6 @@ namespace Code.Components.Common
             onTurnedOff?.Invoke();
             SubscribeToEvents(false);
         }
-
 
         protected virtual void Init()
         {
