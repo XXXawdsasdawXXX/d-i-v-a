@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.NewItems.Editor
+namespace Code.Components.Items.Editor
 {
     [CustomEditor(typeof(ItemSpawner))]
     public class ItemSpawnerEditor : UnityEditor.Editor

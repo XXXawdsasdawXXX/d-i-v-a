@@ -8,7 +8,7 @@ using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Stand
 {
     public partial class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
@@ -29,7 +29,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         public BehaviourNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
-            var character = Container.Instance.FindEntity<DIVA>();
+            DIVA character = Container.Instance.FindEntity<DIVA>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();

@@ -11,7 +11,7 @@ namespace Code.Infrastructure.Getters
 
         public void GameInit()
         {
-            var display = Screen.mainWindowDisplayInfo;
+            DisplayInfo display = Screen.mainWindowDisplayInfo;
             if (display.height > _pixelPerfect.refResolutionY || display.width > _pixelPerfect.refResolutionX)
             {
                 _pixelPerfect.enabled = false;

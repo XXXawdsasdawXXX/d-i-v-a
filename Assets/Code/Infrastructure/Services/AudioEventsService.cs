@@ -1,4 +1,5 @@
 using Code.Data.Configs;
+using Code.Data.Configs.Audio;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
@@ -19,7 +20,7 @@ namespace Code.Infrastructure.Services
 
         public void PlayAudio(AudioEventType type)
         {
-            var audio = _config.GetRandomAudioEvent(type);
+            AudioEvent audio = _config.GetRandomAudioEvent(type);
             if (audio != null)
             {
                 audio.Play(_audioSource);

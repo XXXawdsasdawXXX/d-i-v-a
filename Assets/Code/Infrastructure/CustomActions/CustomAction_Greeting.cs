@@ -32,7 +32,7 @@ namespace Code.Infrastructure.CustomActions
         {
             _audioEventsService = Container.Instance.FindService<AudioEventsService>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _colliderButton = diva.FindCommonComponent<ColliderButton>();
             On();
         }

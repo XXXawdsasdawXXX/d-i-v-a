@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
-using Code.Data;
+using Code.Data.Configs;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Code.Components.NewItems
+namespace Code.Components.Items
 {
     public class ItemDataService: IService, IGameInitListener
     {
@@ -27,12 +26,12 @@ namespace Code.Components.NewItems
             }
             
             //var items = _itemsData.Where(i => i.Type == itemType).ToArray();
-            var items = _itemsData;//todo восстановить, когда будет больше итемов
+            ItemData[] items = _itemsData;//todo восстановить, когда будет больше итемов
             Extensions.ShuffleArray(items);
             
-            foreach (var itemData in items)
+            foreach (ItemData itemData in items)
             {
-                var randomChance = Random.Range(0, 100);
+                int randomChance = Random.Range(0, 100);
                 if (itemData.SpawnChance > randomChance)
                 {
                     Debugging.Instance.Log(this,$"(chance {itemData.SpawnChance} >= {randomChance})" +
@@ -53,8 +52,8 @@ namespace Code.Components.NewItems
 
         private  ItemType GetRandomType()
         {
-            var types = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().ToArray();
-            var randomType = types[Random.Range(1, types.Length - 1)];
+            ItemType[] types = Enum.GetValues(typeof(ItemType)).Cast<ItemType>().ToArray();
+            ItemType randomType = types[Random.Range(1, types.Length - 1)];
             return randomType;
         }
     }

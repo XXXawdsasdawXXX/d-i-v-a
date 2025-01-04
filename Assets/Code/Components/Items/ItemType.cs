@@ -1,4 +1,4 @@
-﻿namespace Code.Components.NewItems
+﻿namespace Code.Components.Items
 {
     public enum ItemType
     {

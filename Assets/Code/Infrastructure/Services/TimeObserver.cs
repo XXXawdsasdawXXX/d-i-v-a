@@ -85,7 +85,7 @@ namespace Code.Infrastructure.Services
 
         private void CheckTimeOfDay()
         {
-            var isNightTime = IsNightTime();
+            bool isNightTime = IsNightTime();
             if (isNightTime && !_isNight)
             {
                 Debugging.Instance.Log($"Начало ночи", Debugging.Type.Time);
@@ -135,7 +135,7 @@ namespace Code.Infrastructure.Services
                 Debugging.Instance.Log($"init standalone time", Debugging.Type.Time);
             }
 
-            var lastVisit = playerProgressData.GameEnterTime;
+            DateTime lastVisit = playerProgressData.GameEnterTime;
             playerProgressData.GameEnterTime = _currentTime;
 
             CheckTimeOfDay();
@@ -145,7 +145,7 @@ namespace Code.Infrastructure.Services
             Debugging.Instance.Log($"End init: is first visit {!Extensions.IsEqualDay(lastVisit, _currentTime)}" +
                                    $"\ncurrent {_currentTime} saving {lastVisit}", Debugging.Type.Time);
 
-            var isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
+            bool isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
             if (isFirstVisit)
             {
                 playerProgressData.CustomActions = new CustomActionsSavedData();

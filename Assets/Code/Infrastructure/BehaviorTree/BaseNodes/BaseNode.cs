@@ -68,7 +68,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
                 return;
             }
 
-            var callback = _callback;
+            IBehaviourCallback callback = _callback;
             _callback = null;
             callback.InvokeCallback(this, success);
         }

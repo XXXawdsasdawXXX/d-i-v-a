@@ -1,4 +1,5 @@
 ﻿using Code.Data.Enums;
+using Code.Data.VFX;
 using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
 
@@ -25,7 +26,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            foreach (var particle in _particlesSystems)
+            foreach (ParticleSystemFacade particle in _particlesSystems)
             {
                 particle.transform.position = _diva.transform.position;
             }

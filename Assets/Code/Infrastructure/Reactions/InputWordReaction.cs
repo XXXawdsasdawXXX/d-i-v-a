@@ -1,3 +1,4 @@
+using Code.Components.Entities.Characters;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
@@ -5,7 +6,7 @@ using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Interactions;
 
-namespace Code.Components.Entities.Characters.Reactions
+namespace Code.Infrastructure.Reactions
 {
     public class InputWordReaction : Reaction, IGameStartListener, IGameExitListener
     {

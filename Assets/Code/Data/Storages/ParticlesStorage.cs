@@ -39,7 +39,7 @@ namespace Code.Data.Storages
         [ContextMenu("Init")]
         public void InitSceneParticles()
         {
-            var allParticles = GetComponentsInChildren<ParticleSystemFacade>();
+            ParticleSystemFacade[] allParticles = GetComponentsInChildren<ParticleSystemFacade>();
             _particles.Clear();
             _particles = allParticles.ToList();
         }
@@ -47,10 +47,10 @@ namespace Code.Data.Storages
         public bool TryGetParticles(IEnumerable<ParticleType> particleTypes,
             out ParticleSystemFacade[] particlesSystems)
         {
-            var list = new List<ParticleSystemFacade>();
-            foreach (var particleType in particleTypes)
+            List<ParticleSystemFacade> list = new List<ParticleSystemFacade>();
+            foreach (ParticleType particleType in particleTypes)
             {
-                if (TryGetParticle(particleType, out var typedParticles))
+                if (TryGetParticle(particleType, out ParticleSystemFacade[] typedParticles))
                 {
                     list.AddRange(typedParticles);
                 }

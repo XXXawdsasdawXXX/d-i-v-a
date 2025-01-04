@@ -1,8 +1,8 @@
-using Code.Components.NewItems;
+using Code.Components.Items;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Seat
 {
     public partial class BehaviourNode_Seat 
     {
@@ -11,20 +11,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             if (flag)
             {
                 _collisionObserver.EnterEvent += StartReactionToObject;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecordedEvent;
             }
             else
             {
                 _collisionObserver.EnterEvent -= StartReactionToObject;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecordedEvent;
             }
         }
-
-        private void OnMaxDecibelRecordedEvent()
-        {
-            RunNode(_node_ReactionToVoice);
-        }
-
+        
         private void StartReactionToObject(GameObject obj)
         {
             if (obj.TryGetComponent(out Item item) && item.IsCanUse())

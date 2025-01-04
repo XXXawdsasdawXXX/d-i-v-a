@@ -1,8 +1,8 @@
-﻿using Code.Components.NewItems;
+﻿using Code.Components.Items;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Stand
 {
     public partial class BehaviourNode_Stand 
     {

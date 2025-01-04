@@ -33,7 +33,7 @@ namespace Code.Components.Entities.Characters.AnimationReader.State
 
         public void ExitedState(int stateHash)
         {
-            var state = StateFor(stateHash);
+            CharacterAnimationState state = StateFor(stateHash);
             OnStateExited?.Invoke(StateFor(stateHash));
             Debugging.Instance?.Log($"Animation exited state: {State}", Debugging.Type.AnimationState);
         }

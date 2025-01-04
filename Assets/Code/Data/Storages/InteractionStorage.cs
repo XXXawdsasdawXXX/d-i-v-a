@@ -62,7 +62,7 @@ namespace Code.Data.Storages
                 return InteractionType.None;
             }
 
-            var maxPair = _interactions.OrderByDescending(pair => pair.Value).FirstOrDefault();
+            KeyValuePair<InteractionType, int> maxPair = _interactions.OrderByDescending(pair => pair.Value).FirstOrDefault();
             return maxPair.Key;
         }
     }

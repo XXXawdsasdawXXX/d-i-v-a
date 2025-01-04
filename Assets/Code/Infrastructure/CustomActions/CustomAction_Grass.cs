@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Code.Components.Common;
+﻿using Code.Components.Common;
 using Code.Components.Entities.Characters;
 using Code.Components.Entities.Grass;
 using Code.Data.Configs;
@@ -40,7 +39,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameInit()
         {
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _divaTransform = diva.transform;
             _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
             _divaDragAndDrop = diva.FindCommonComponent<PhysicsDragAndDrop>();
@@ -130,8 +129,9 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnDivaEndedDrag(float distance)
         {
-            distance = Vector3.Distance(_grass.transform.position, _divaTransform.position); 
-            Debug.Log(distance);
+            //todo переименовать поле
+            distance = Vector3.Distance(_grass.transform.position, _divaTransform.position);
+           
             if (distance > 0.6f)
             {
                Stop();   

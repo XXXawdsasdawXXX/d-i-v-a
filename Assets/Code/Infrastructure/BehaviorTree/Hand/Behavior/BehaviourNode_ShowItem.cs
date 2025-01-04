@@ -1,7 +1,7 @@
 ﻿using Code.Components.Common;
 using Code.Components.Entities.Characters;
-using Code.Components.NewItems;
 using Code.Components.Entities.Hands;
+using Code.Components.Items;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;

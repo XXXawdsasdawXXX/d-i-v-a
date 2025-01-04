@@ -52,7 +52,7 @@ namespace Code.Utils
 
         public void Log(string message, Type type = Type.None)
         {
-            var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            DebugParam debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
             if (debugParam != null)
             {
                 if (debugParam.Active)
@@ -68,7 +68,7 @@ namespace Code.Utils
 
         public void Log(object invoker, string message, Type type = Type.None)
         {
-            var debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            DebugParam debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
             if (debugParam != null)
             {
                 if (debugParam.Active)
@@ -84,12 +84,12 @@ namespace Code.Utils
             }
         }
         
-        public static void ErrorLog(object obj, string message)
+        public static void LogError(object obj, string message)
         {
             ColorLog($"{obj.GetType()} {message}", Color.red);
         }
 
-        public static void ErrorLog(string message)
+        public static void LogError(string message)
         {
             ColorLog(message, Color.red);
         }
@@ -98,7 +98,7 @@ namespace Code.Utils
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
-
+        
         private static string InsertSpaceBeforeUppercase(string input)
         {
             StringBuilder result = new StringBuilder();
@@ -117,9 +117,10 @@ namespace Code.Utils
         }
 
 #if UNITY_EDITOR
+
         public void DisableAll()
         {
-            foreach (var debugParam in _debugParams)
+            foreach (DebugParam debugParam in _debugParams)
             {
                 debugParam.Active = false;
             }

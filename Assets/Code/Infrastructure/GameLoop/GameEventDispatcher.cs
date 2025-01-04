@@ -74,7 +74,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void InitializeListeners()
         {
-            var gameListeners = Container.Instance.GetGameListeners();
+            List<IGameListeners> gameListeners = Container.Instance.GetGameListeners();
             if (Extensions.IsMacOs())
             {
                 gameListeners = gameListeners
@@ -82,7 +82,7 @@ namespace Code.Infrastructure.GameLoop
                     .ToList();
             }
 
-            foreach (var listener in gameListeners)
+            foreach (IGameListeners listener in gameListeners)
             {
                 if (listener is IGameInitListener initListener)
                     _initListeners.Add(initListener);
@@ -114,7 +114,7 @@ namespace Code.Infrastructure.GameLoop
         
         private void NotifyGameInit()
         {
-            foreach (var listener in _initListeners)
+            foreach (IGameInitListener listener in _initListeners)
             {
                 listener.GameInit();
             }
@@ -122,7 +122,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void NotifyGameLoad()
         {
-            foreach (var listener in _loadListeners)
+            foreach (IGameLoadListener listener in _loadListeners)
             {
                 listener.GameLoad();
             }
@@ -130,7 +130,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void NotifyGameStart()
         {
-            foreach (var listener in _startListeners)
+            foreach (IGameStartListener listener in _startListeners)
             {
                 listener.GameStart();
             }
@@ -138,7 +138,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void NotifyGameTick()
         {
-            foreach (var listener in _tickListeners)
+            foreach (IGameTickListener listener in _tickListeners)
             {
                 listener.GameTick();
             }
@@ -146,7 +146,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void NotifyGameExit()
         {
-            foreach (var listener in _exitListeners)
+            foreach (IGameExitListener listener in _exitListeners)
             {
                 listener.GameExit();
             }

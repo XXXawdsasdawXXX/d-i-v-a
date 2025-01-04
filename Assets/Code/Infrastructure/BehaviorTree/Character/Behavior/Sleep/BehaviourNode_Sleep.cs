@@ -12,7 +12,7 @@ using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
 {
     public partial class BehaviourNode_Sleep : BaseNode_Root, IProgressWriterNode
     {
@@ -26,7 +26,6 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
-        private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         private readonly CharacterCondition _characterCondition;
 
         [Header("Node")] 
@@ -40,7 +39,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         public BehaviourNode_Sleep()
         {
             Container.Instance.FindService<BehaviourTreeLoader>().AddProgressWriter(this);
-            var character = Container.Instance.FindEntity<DIVA>();
+            DIVA character = Container.Instance.FindEntity<DIVA>();
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
@@ -50,12 +49,11 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
-            _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
             //node------------------------------------------------------------------------------------------------------
             _subNode_reactionToVoice = new SubNode_ReactionToVoice();
             //static values---------------------------------------------------------------------------------------------
-            var liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
+            LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
             _effectAwakeningValue = liveStateConfig.Awakening;
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
         }

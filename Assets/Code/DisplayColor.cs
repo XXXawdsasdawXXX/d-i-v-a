@@ -28,7 +28,7 @@ namespace Code
         {
             if (!_texture || _texture.width != _w || _texture.height != _h)
             {
-                var colors = new Color32[_w * _h];
+                Color32[] colors = new Color32[_w * _h];
                 _texture = new Texture2D(_w, _h, TextureFormat.RGBA32, false);
                 GetComponent<Renderer>().material.mainTexture = _texture;
             }
@@ -39,7 +39,7 @@ namespace Code
         {
             CreateTextureIfNeeded();
 
-            var window = _uwcTexture.window;
+            UwcWindow window = _uwcTexture.window;
             if (window == null || window.width == 0) return new Color32(255, 255, 255, 255);
 
             Vector2 screenPosition = _positionService.WorldToScreen(worldPosition);
@@ -53,8 +53,8 @@ namespace Code
             float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
             displayY = screenHeight - displayY; // Переворачиваем ось Y
 
-            var x = Mathf.RoundToInt(displayX);
-            var y = Mathf.RoundToInt(displayY);
+            int x = Mathf.RoundToInt(displayX);
+            int y = Mathf.RoundToInt(displayY);
 
             _material.color = window.GetPixel(x, y);
             return _material.color;

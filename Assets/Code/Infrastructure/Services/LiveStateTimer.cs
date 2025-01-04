@@ -43,12 +43,12 @@ namespace Code.Infrastructure.Services
         {
             if (_storage.LiveStates == null)
             {
-                Debugging.ErrorLog(
+                Debugging.LogError(
                     $"[OnTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }
 
-            foreach (var liveState in _storage.LiveStates)
+            foreach (KeyValuePair<LiveStateKey, CharacterLiveState> liveState in _storage.LiveStates)
             {
                 if (IsCanUpdateLiveState(liveState))
                 {

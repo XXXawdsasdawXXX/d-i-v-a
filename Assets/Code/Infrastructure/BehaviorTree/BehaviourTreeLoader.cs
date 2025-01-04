@@ -28,7 +28,7 @@ namespace Code.Infrastructure.BehaviorTree
 
         public void UpdateProgress(PlayerProgressData playerProgress)
         {
-            foreach (var progressWriterNode in _progressWriterNodes)
+            foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
             {
                 progressWriterNode.UpdateData(_data);
             }
@@ -39,7 +39,7 @@ namespace Code.Infrastructure.BehaviorTree
         private IEnumerator LoadBehaviorTree()
         {
             yield return new WaitUntil(IsInitBehaviorProgressWriter);
-            foreach (var progressWriterNode in _progressWriterNodes)
+            foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
             {
                 progressWriterNode.LoadData(_data);
             }

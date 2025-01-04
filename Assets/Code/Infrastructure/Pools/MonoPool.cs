@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Code.Services.Pools
+namespace Code.Infrastructure.Pools
 {
     public interface  IPoolEntity
     {
@@ -38,7 +38,7 @@ namespace Code.Services.Pools
 
         private T AddNewEntity(params object[] initParams)
         {
-            var entity = GameObject.Instantiate(_prefab, _root);
+            T entity = GameObject.Instantiate(_prefab, _root);
             entity.Init(initParams);
             _all.Add(entity);
             return entity;
@@ -63,7 +63,7 @@ namespace Code.Services.Pools
 
         public void DisableAll()
         {
-            foreach (var entity in _all)
+            foreach (T entity in _all)
             {
                 entity.Disable();
             }

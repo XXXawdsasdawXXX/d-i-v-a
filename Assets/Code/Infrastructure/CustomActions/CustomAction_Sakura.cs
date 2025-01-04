@@ -29,7 +29,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameInit()
         {
-            var particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
+            ParticlesStorage particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
             if (particleStorage.TryGetParticle(ParticleType.Sakura, out _particleSystems))
             {
                 _interaction_returnAfterAbsence =
@@ -59,7 +59,7 @@ namespace Code.Infrastructure.CustomActions
         protected override void TryStartAction()
         {
             _isReviewed = true;
-            foreach (var particleSystem in _particleSystems)
+            foreach (ParticleSystemFacade particleSystem in _particleSystems)
             {
                 particleSystem.On();
             }
@@ -68,7 +68,7 @@ namespace Code.Infrastructure.CustomActions
 
         protected override void StopAction()
         {
-            foreach (var particleSystem in _particleSystems)
+            foreach (ParticleSystemFacade particleSystem in _particleSystems)
             {
                 particleSystem.Off();
             }

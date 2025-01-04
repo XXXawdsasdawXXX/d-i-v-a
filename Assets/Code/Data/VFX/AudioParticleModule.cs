@@ -52,7 +52,7 @@ namespace Code.Data.VFX
 
         public void GameStart()
         {
-            foreach (var effect in _effectsData)
+            foreach (Data effect in _effectsData)
             {
                 SetMinValues(effect);
             }
@@ -61,7 +61,7 @@ namespace Code.Data.VFX
         public void GameTick()
         {
             _enabledTime += Time.deltaTime;
-            foreach (var effect in _effectsData)
+            foreach (Data effect in _effectsData)
             {
                 Refresh(effect);
             }
@@ -69,9 +69,9 @@ namespace Code.Data.VFX
 
         public bool IsSleep()
         {
-            foreach (var effect in _effectsData)
+            foreach (Data effect in _effectsData)
             {
-                var value = _particleSystem.GetValue(effect.ParticleParam);
+                float value = _particleSystem.GetValue(effect.ParticleParam);
                 if (value > effect.Range.MinValue)
                 {
                     Debugging.Instance.Log($"{_particleSystem.Type} sleep -> {effect.ParticleParam}",
@@ -166,7 +166,7 @@ namespace Code.Data.VFX
 
         private float GetValue(Data effect)
         {
-            var currentValue = _particleSystem.GetValue(effect.ParticleParam);
+            float currentValue = _particleSystem.GetValue(effect.ParticleParam);
             float targetValue;
 
             switch (effect.AudioParam)

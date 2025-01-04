@@ -20,7 +20,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         {
             if (IsCanRun())
             {
-                var tickCount = _cooldownRangedTick.GetRandomValue();
+                int tickCount = _cooldownRangedTick.GetRandomValue();
                 _tickCounter.StartWait(tickCount);
                 Debugging.Instance.Log($"Caб нода ожидания: запуск. количество тиков {tickCount}",
                     Debugging.Type.BehaviorTree);

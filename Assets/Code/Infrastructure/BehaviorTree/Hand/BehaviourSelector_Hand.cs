@@ -1,11 +1,12 @@
 ﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
+using Code.Infrastructure.BehaviorTree.Hand.Behavior;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourSelector_Hand : BaseNode, IBehaviourCallback
     {

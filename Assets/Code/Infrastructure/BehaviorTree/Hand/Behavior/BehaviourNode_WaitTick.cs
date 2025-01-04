@@ -33,7 +33,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         public BehaviourNode_WaitTick()
         {
             //hand
-            var hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
+            Components.Entities.Hands.Hand hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
 
             //services
@@ -54,7 +54,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
                 _handAnimator.PlayExitHand();
 
-                var cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
+                int cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
                 _tickCounter.StartWait(cooldownTicks);
 
                 _tickCounter.OnWaitIsOver += OnWaitedTicksEvent;

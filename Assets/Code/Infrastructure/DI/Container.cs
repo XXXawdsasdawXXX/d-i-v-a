@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Code.Components.Entities;
-using Code.Components.Entities.Characters.Reactions;
 using Code.Data.Interfaces;
 using Code.Infrastructure.CustomActions;
 using Code.Infrastructure.GameLoop;
+using Code.Infrastructure.Reactions;
 using Code.Infrastructure.Save;
 using Code.Infrastructure.Services.Interactions;
 using Code.Utils;
@@ -57,13 +57,13 @@ namespace Code.Infrastructure.DI
 
         private void InitList<T>(ref List<T> list)
         {
-            var types = Assembly.GetExecutingAssembly().GetTypes();
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
 
-            var serviceTypes = types.Where(t =>
+            IEnumerable<Type> serviceTypes = types.Where(t =>
                 typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
                 !typeof(MonoBehaviour).IsAssignableFrom(t));
 
-            foreach (var serviceType in serviceTypes)
+            foreach (Type serviceType in serviceTypes)
             {
                 if (Activator.CreateInstance(serviceType) is T service)
                 {
@@ -71,7 +71,7 @@ namespace Code.Infrastructure.DI
                 }
             }
 
-            var mbServices = _allObjects.OfType<T>();
+            IEnumerable<T> mbServices = _allObjects.OfType<T>();
             if (mbServices.Any())
             {
                 list.AddRange(mbServices);
@@ -89,7 +89,7 @@ namespace Code.Infrastructure.DI
 
         public T FindConfig<T>() where T : ScriptableObject
         {
-            foreach (var scriptableObject in _configs)
+            foreach (ScriptableObject scriptableObject in _configs)
             {
                 if (scriptableObject is T findConfig)
                 {
@@ -102,7 +102,7 @@ namespace Code.Infrastructure.DI
 
         public T FindService<T>() where T : IService
         {
-            foreach (var service in _services)
+            foreach (IService service in _services)
             {
                 if (service is T findService)
                 {
@@ -116,7 +116,7 @@ namespace Code.Infrastructure.DI
 
         public T FindGetter<T>() where T : class
         {
-            foreach (var getter in _getters)
+            foreach (IGetter getter in _getters)
             {
                 if (getter is T findGetter)
                 {
@@ -129,7 +129,7 @@ namespace Code.Infrastructure.DI
 
         public T FindStorage<T>() where T : IStorage
         {
-            foreach (var storage in _storages)
+            foreach (IStorage storage in _storages)
             {
                 if (storage is T typedStorage)
                 {
@@ -143,7 +143,7 @@ namespace Code.Infrastructure.DI
 
         public T FindEntity<T>() where T : Entity
         {
-            foreach (var entity in _entities)
+            foreach (Entity entity in _entities)
             {
                 if (entity is T findEntity)
                 {
@@ -156,7 +156,7 @@ namespace Code.Infrastructure.DI
         
         public T FindInteractionObserver<T>() where T : InteractionObserver
         {
-            foreach (var interactionObserver in _interactionObservers)
+            foreach (InteractionObserver interactionObserver in _interactionObservers)
             {
                 if (interactionObserver is T findInteractionObserver)
                 {
@@ -169,7 +169,7 @@ namespace Code.Infrastructure.DI
         
         public T FindReaction<T>() where T : Reaction
         {
-            foreach (var reaction in _reactions)
+            foreach (Reaction reaction in _reactions)
             {
                 if (reaction is T characterReaction)
                 {
@@ -192,7 +192,7 @@ namespace Code.Infrastructure.DI
 
         private List<T> GetContainerComponents<T>()
         {
-            var list = new List<T>();
+            List<T> list = new List<T>();
 
             list.AddRange(_services.OfType<T>().ToList());
             list.AddRange(_storages.OfType<T>().ToList());
@@ -202,8 +202,8 @@ namespace Code.Infrastructure.DI
             list.AddRange(_reactions.OfType<T>().ToList());
             list.AddRange(_mono.OfType<T>().ToList());
 
-            var mbListeners = _allObjects.OfType<T>();
-            foreach (var mbListener in mbListeners)
+            IEnumerable<T> mbListeners = _allObjects.OfType<T>();
+            foreach (T mbListener in mbListeners)
             {
                 if (!list.Contains(mbListener))
                 {

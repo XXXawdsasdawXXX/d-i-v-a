@@ -11,7 +11,7 @@ namespace Code.Data.Storages
 
         public bool TryGetGradient(GradientType gradientType, out Gradient gradient)
         {
-            var data = _gradients.FirstOrDefault(g => g.Type == gradientType);
+            GradientData data = _gradients.FirstOrDefault(g => g.Type == gradientType);
             gradient = data?.Gradient;
             return data != null;
         }
@@ -19,8 +19,8 @@ namespace Code.Data.Storages
         [ContextMenu("Test")]
         public void Test()
         {
-            var colors = _gradients[0].Gradient.colorKeys;
-            foreach (var colorKey in colors)
+            GradientColorKey[] colors = _gradients[0].Gradient.colorKeys;
+            foreach (GradientColorKey colorKey in colors)
             {
                 Debug.Log(colorKey.color.ToString());
             }

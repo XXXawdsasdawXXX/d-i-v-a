@@ -106,24 +106,24 @@ namespace Code.Data.VFX
 
         public void SetTrailsGradientValue(float getValue, GradientType gradientType)
         {
-            if (_gradientsStorage.TryGetGradient(gradientType, out var gradientData))
+            if (_gradientsStorage.TryGetGradient(gradientType, out Gradient gradientData))
             {
-                var colors = new GradientColorKey[gradientData.colorKeys.Length];
+                GradientColorKey[] colors = new GradientColorKey[gradientData.colorKeys.Length];
                 for (int i = 0; i < colors.Length; i++)
                 {
                     colors[i] = new GradientColorKey(gradientData.colorKeys[i].color,
                         gradientData.colorKeys[i].time * Mathf.Clamp(getValue, 0, 1));
                 }
 
-                var alphas = new GradientAlphaKey[gradientData.alphaKeys.Length];
+                GradientAlphaKey[] alphas = new GradientAlphaKey[gradientData.alphaKeys.Length];
                 for (int i = 0; i < alphas.Length; i++)
                 {
                     alphas[i] = new GradientAlphaKey(gradientData.alphaKeys[i].alpha, i / alphas.Length);
                 }
 
-                var newGradient = new Gradient();
+                Gradient newGradient = new Gradient();
                 newGradient.SetKeys(colors, alphas);
-                var gradient = new ParticleSystem.MinMaxGradient()
+                ParticleSystem.MinMaxGradient gradient = new ParticleSystem.MinMaxGradient()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient
@@ -134,19 +134,19 @@ namespace Code.Data.VFX
 
         public void SetLifetimeColor(float getValue, GradientType gradientType)
         {
-            if (_gradientsStorage.TryGetGradient(gradientType, out var gradientData))
+            if (_gradientsStorage.TryGetGradient(gradientType, out Gradient gradientData))
             {
-                var colors = new GradientColorKey[gradientData.colorKeys.Length];
+                GradientColorKey[] colors = new GradientColorKey[gradientData.colorKeys.Length];
                 for (int i = 0; i < colors.Length; i++)
                 {
                     colors[i] = new GradientColorKey(gradientData.colorKeys[i].color,
                         gradientData.colorKeys[i].time * Mathf.Clamp(getValue, 0, 1));
                 }
 
-                var alphas = gradientData.alphaKeys;
-                var newGradient = new Gradient();
+                GradientAlphaKey[] alphas = gradientData.alphaKeys;
+                Gradient newGradient = new Gradient();
                 newGradient.SetKeys(colors, alphas);
-                var minMaxGradient = new ParticleSystem.MinMaxGradient()
+                ParticleSystem.MinMaxGradient minMaxGradient = new ParticleSystem.MinMaxGradient()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient

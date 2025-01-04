@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
@@ -20,8 +21,8 @@ namespace Code.Test
 
         private void Update()
         {
-            var time = _timer.GetTimeState();
-            var text = $"{Math.Round(time.Key)}/{Math.Round(time.Value)}={Math.Round(time.Key / time.Value, 1)}";
+            KeyValuePair<float, float> time = _timer.GetTimeState();
+            string text = $"{Math.Round(time.Key)}/{Math.Round(time.Value)}={Math.Round(time.Key / time.Value, 1)}";
             _paramText.text = text;
         }
     }

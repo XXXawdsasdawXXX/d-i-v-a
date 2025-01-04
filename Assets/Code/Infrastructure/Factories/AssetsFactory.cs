@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Factories
 
         public IEnumerable<ParticleSystemFacade> CreateParticles(ParticleType type, Transform root, Vector3 position)
         {
-            var particles = _vfxConfig.GetParticles(type)
+            ParticleSystemFacade[] particles = _vfxConfig.GetParticles(type)
                 .Select(particleSystem => CreateParticle(particleSystem, root, position)).ToArray();
             return particles;
         }
@@ -33,7 +33,7 @@ namespace Code.Infrastructure.Factories
 
         private ParticleSystemFacade CreateParticle(ParticleSystemFacade prefab, Transform root, Vector3 position)
         {
-            var particle = Object.Instantiate(prefab, position, prefab.transform.rotation);
+            ParticleSystemFacade particle = Object.Instantiate(prefab, position, prefab.transform.rotation);
             particle.transform.SetParent(root);
             particle.GameInit();
             if (!particle.gameObject.activeSelf)

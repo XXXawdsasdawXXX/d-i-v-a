@@ -29,7 +29,7 @@ namespace Code.Components.Common
         private IEnumerator ShowAnimation(Action OnShown = null)
         {
             _spriteMask.enabled = true;
-            var period = new WaitForSeconds(_frameDelay);
+            WaitForSeconds period = new WaitForSeconds(_frameDelay);
             for (int i = 0; i < _sprites.Length - 1; i++)
             {
                 _spriteMask.sprite = _sprites[i];

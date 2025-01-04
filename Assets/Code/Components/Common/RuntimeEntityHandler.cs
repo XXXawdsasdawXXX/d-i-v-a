@@ -15,7 +15,7 @@ namespace Code.Components.Common
             _listeners ??= GetComponentsInChildren<IGameListeners>(true);
             _gameEventDispatcher ??= Container.Instance.FindService<GameEventDispatcher>();
 
-            foreach (var listener in _listeners)
+            foreach (IGameListeners listener in _listeners)
             {
                 _gameEventDispatcher.InitializeRuntimeListener(listener);
             }
@@ -23,7 +23,7 @@ namespace Code.Components.Common
 
         private void OnDisable()
         {
-            foreach (var listener in _listeners)
+            foreach (IGameListeners listener in _listeners)
             {
                 _gameEventDispatcher.RemoveRuntimeListener(listener);
             }

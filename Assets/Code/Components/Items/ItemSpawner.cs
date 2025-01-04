@@ -1,10 +1,10 @@
 ﻿using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Services.Pools;
+using Code.Infrastructure.Pools;
 using UnityEngine;
 
-namespace Code.Components.NewItems
+namespace Code.Components.Items
 {
     public class ItemSpawner: MonoBehaviour, IService, IGameInitListener
     {
@@ -20,7 +20,7 @@ namespace Code.Components.NewItems
         
         public Item SpawnRandomItem(Transform anchor)
         {
-           var item =  _monoPool.GetNext();
+           Item item =  _monoPool.GetNext();
            item.SetData(_itemDataService.GetRandomItemData());
            return item;
         }

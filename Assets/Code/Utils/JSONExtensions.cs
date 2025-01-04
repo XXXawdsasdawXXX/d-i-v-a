@@ -10,7 +10,7 @@ namespace Code.Utils
     {
         public static string ToJson(this object obj)
         {
-            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            string json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
@@ -38,7 +38,7 @@ namespace Code.Utils
             string deviceId = SystemInfo.deviceUniqueIdentifier;
             byte[] deviceIdBytes = Encoding.UTF8.GetBytes(deviceId);
             using SHA256 sha256 = SHA256.Create();
-            var hashBytes = sha256.ComputeHash(deviceIdBytes);
+            byte[] hashBytes = sha256.ComputeHash(deviceIdBytes);
             return Convert.ToBase64String(hashBytes);
         }
 

@@ -1,6 +1,7 @@
 ﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
 using Code.Data.Storages;
+using Code.Data.Value;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
@@ -25,7 +26,7 @@ namespace Code.Test
 
         public void ChangeState()
         {
-            if (_stateStorage.TryGetLiveState(_editableKey, out var state))
+            if (_stateStorage.TryGetLiveState(_editableKey, out CharacterLiveState state))
             {
                 state.Add(_editableValue);
             }

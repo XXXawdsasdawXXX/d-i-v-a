@@ -33,7 +33,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             {
                 _diva = Container.Instance.FindEntity<DIVA>();
                 _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
-                foreach (var particleSystem in _particlesSystems)
+                foreach (ParticleSystemFacade particleSystem in _particlesSystems)
                 {
                     if (particleSystem.TryGetAudioModule(out AudioParticleModule module))
                     {
@@ -61,8 +61,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
 
-            foreach (var particle in _particlesSystems) particle.On();
-            foreach (var particleModule in _audioParticles) particleModule.On();
+            foreach (ParticleSystemFacade particle in _particlesSystems) particle.On();
+            foreach (AudioParticleModule particleModule in _audioParticles) particleModule.On();
 
             base.TryStartAction();
         }
@@ -72,8 +72,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
 
-            foreach (var particle in _particlesSystems) particle.Off();
-            foreach (var particleModule in _audioParticles) particleModule.Off();
+            foreach (ParticleSystemFacade particle in _particlesSystems) particle.Off();
+            foreach (AudioParticleModule particleModule in _audioParticles) particleModule.Off();
 
             base.StopAction();
         }

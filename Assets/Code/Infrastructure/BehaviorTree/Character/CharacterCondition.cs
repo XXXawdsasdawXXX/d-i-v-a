@@ -31,7 +31,7 @@ namespace Code.Infrastructure.BehaviorTree.Character
         public void GameInit()
         {
             //d i v a---------------------------------------------------------------------------------------------------
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _statesAnalytic = diva.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
 
@@ -41,16 +41,16 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
             //static values---------------------------------------------------------------------------------------------
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-            var liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
+            LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
             _sleepHealValue = liveStateConfig.GetStaticParam(LiveStateKey.Sleep).HealValue;
-            var timeConfig = Container.Instance.FindConfig<TimeConfig>();
+            TimeConfig timeConfig = Container.Instance.FindConfig<TimeConfig>();
             _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
 
             _liveStateStorage.OnInit += () =>
             {
                 if (!_liveStateStorage.TryGetLiveState(LiveStateKey.Sleep, out _sleepState))
                 {
-                    Debugging.ErrorLog(this, "не нашел стейт сна");
+                    Debugging.LogError(this, "не нашел стейт сна");
                 }
             };
         }
@@ -59,14 +59,14 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
         public bool IsCanSeat()
         {
-            return _statesAnalytic.TryGetLowerSate(out var key, out var statePercent)
+            return _statesAnalytic.TryGetLowerSate(out LiveStateKey key, out float statePercent)
                    && key is LiveStateKey.Trust or LiveStateKey.Hunger
                    && statePercent < 0.4f;
         }
 
         public bool IsCanSleep(float bonusMinPercent = 0)
         {
-            var minPercent = 0.3f + bonusMinPercent;
+            float minPercent = 0.3f + bonusMinPercent;
             Debugging.Instance.Log($"Проверка на сон:" +
                                    $" {_sleepState != null}" +
                                    $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
@@ -80,9 +80,9 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
         public bool IsCanExitWhenSleep()
         {
-            _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out var lowerStatePercent);
+            _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out float lowerStatePercent);
 
-            var randomResult = Random.Range(0, 100) >= 50;
+            bool randomResult = Random.Range(0, 100) >= 50;
 
             Debugging.Instance.Log($"Проверка на выход во сне:" +
                                    $" {lowerKey is LiveStateKey.Trust}" +
@@ -104,17 +104,17 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
         public bool CanShowNimbus()
         {
-            var isCorrectState = _animationAnalytic.GetAnimationState()
+            bool isCorrectState = _animationAnalytic.GetAnimationState()
                 is not CharacterAnimationState.Enter
                 or CharacterAnimationState.Exit
                 or CharacterAnimationState.TransitionSeat
                 or CharacterAnimationState.TransitionSleep
                 or CharacterAnimationState.TransitionStand;
 
-            var isCorrectMode = _animationAnalytic.GetAnimationMode()
+            bool isCorrectMode = _animationAnalytic.GetAnimationMode()
                 is not CharacterAnimationMode.Sleep;
 
-            var isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
+            bool isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
                 is not InteractionType.Normal;
 
             Debugging.Instance.Log($"Проверка на нимбус:" +

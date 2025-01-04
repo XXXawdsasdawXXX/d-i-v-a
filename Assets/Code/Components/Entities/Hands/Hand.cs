@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Code.Components.Common;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Code.Components.Entities.Hands
 
         public T FindHandComponent<T>() where T : HandComponent
         {
-            foreach (var component in _handComponents)
+            foreach (HandComponent component in _handComponents)
             {
                 if (component is T handComponent)
                 {
@@ -25,8 +26,8 @@ namespace Code.Components.Entities.Hands
 
         public void FindAllComponents()
         {
-            var handComponents = GetComponents<HandComponent>().ToList();
-            foreach (var componentsInChild in GetComponentsInChildren<HandComponent>())
+            List<HandComponent> handComponents = GetComponents<HandComponent>().ToList();
+            foreach (HandComponent componentsInChild in GetComponentsInChildren<HandComponent>())
             {
                 if (!handComponents.Contains(componentsInChild))
                 {
@@ -37,8 +38,8 @@ namespace Code.Components.Entities.Hands
             _handComponents = handComponents.ToArray();
 
 
-            var commonComponents = GetComponents<CommonComponent>().ToList();
-            foreach (var componentsInChild in GetComponentsInChildren<CommonComponent>())
+            List<CommonComponent> commonComponents = GetComponents<CommonComponent>().ToList();
+            foreach (CommonComponent componentsInChild in GetComponentsInChildren<CommonComponent>())
             {
                 if (!commonComponents.Contains(componentsInChild))
                 {

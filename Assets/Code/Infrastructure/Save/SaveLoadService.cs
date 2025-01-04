@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Save
         public void GameLoad()
         {
             _progressReader = Container.Instance.GetProgressReaders();
-            foreach (var progressReader in _progressReader)
+            foreach (IProgressReader progressReader in _progressReader)
             {
                 if (progressReader is IProgressWriter writer)
                 {
@@ -42,14 +42,14 @@ namespace Code.Infrastructure.Save
 
         private void SaveProgress()
         {
-            foreach (var progressWriter in _progressWriters)
+            foreach (IProgressWriter progressWriter in _progressWriters)
             {
                 progressWriter.UpdateProgress(_playerProgress);
             }
 
             PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
 
-            var data = PlayerPrefs.GetString(PROGRESS_KEY);
+            string data = PlayerPrefs.GetString(PROGRESS_KEY);
             Debugging.Instance.Log($"Save progress -> " +
                                    $"{_playerProgress != null} " +
                                    $"{_playerProgress?.LiveStatesData != null}" +
@@ -59,7 +59,7 @@ namespace Code.Infrastructure.Save
 
         private void LoadProgress()
         {
-            var data = PlayerPrefs.GetString(PROGRESS_KEY);
+            string data = PlayerPrefs.GetString(PROGRESS_KEY);
             _playerProgress = PlayerPrefs.GetString(PROGRESS_KEY)?.ToDeserialized<PlayerProgressData>();
 
             Debugging.Instance.Log($"Load progress -> " +
@@ -69,7 +69,7 @@ namespace Code.Infrastructure.Save
                                    $"{data} ", Debugging.Type.SaveLoad);
 
             _playerProgress ??= new PlayerProgressData();
-            foreach (var progressReader in _progressReader)
+            foreach (IProgressReader progressReader in _progressReader)
             {
                 progressReader.LoadProgress(_playerProgress);
             }

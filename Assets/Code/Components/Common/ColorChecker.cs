@@ -46,10 +46,10 @@ namespace Code.Components.Common
 
             if (IsDifferentColorDetected())
             {
-                var newColor = _colorAnalyzer.GetColor(GetCheckPosition());
+                Color32 newColor = _colorAnalyzer.GetColor(GetCheckPosition());
 
-                var newColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(newColor)}>other</color>";
-                var lastColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>other</color>";
+                string newColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(newColor)}>other</color>";
+                string lastColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>other</color>";
                 Debugging.Instance.Log(this, $"Find other color {lastColorHtml} vs {newColorHtml}",
                     Debugging.Type.Window);
 

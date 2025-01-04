@@ -28,13 +28,13 @@ namespace Code.Infrastructure.CustomActions
         public void GameInit()
         {
             //static values
-            var particles = Container.Instance.FindStorage<ParticlesStorage>();
-            if (particles.TryGetParticle(ParticleType.StarryMouse, out var particlesFacades))
+            ParticlesStorage particles = Container.Instance.FindStorage<ParticlesStorage>();
+            if (particles.TryGetParticle(ParticleType.StarryMouse, out ParticleSystemFacade[] particlesFacades))
             {
                 _particle = particlesFacades[0];
                 _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
                 //character
-                var diva = Container.Instance.FindEntity<DIVA>();
+                DIVA diva = Container.Instance.FindEntity<DIVA>();
                 _characterButton = diva.FindCommonComponent<ColliderButton>();
                 _characterAnimationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
                 //services 
@@ -57,7 +57,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameTick()
         {
-            var currentMousePosition = _positionService.GetMouseWorldPosition();
+            Vector3 currentMousePosition = _positionService.GetMouseWorldPosition();
             _particle.transform.position = currentMousePosition;
         }
 

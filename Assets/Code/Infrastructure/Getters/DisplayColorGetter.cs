@@ -12,8 +12,8 @@ namespace Code.Infrastructure.Getters
         {
             if (Extensions.IsMacOs())
             {
-                var components = GetComponentsInChildren<MonoBehaviour>();
-                foreach (var behaviour in components)
+                MonoBehaviour[] components = GetComponentsInChildren<MonoBehaviour>();
+                foreach (MonoBehaviour behaviour in components)
                 {
                     behaviour.enabled = false;
                 }

@@ -1,8 +1,7 @@
-﻿using Code.Data.Interfaces;
-using Code.Infrastructure.GameLoop;
+﻿using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 
-namespace Code.Components.Entities.Characters.Reactions
+namespace Code.Infrastructure.Reactions
 {
     public abstract class Reaction :  IGameInitListener
     {

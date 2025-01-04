@@ -27,7 +27,7 @@ namespace Code.Infrastructure.Services.Interactions
         public void GameInit()
         {
             //Observer components
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _characterCollisionButton = diva.FindCommonComponent<ColliderButton>();
             _characterState = diva.FindCharacterComponent<CharacterLiveStatesAnalytic>();
 
@@ -68,7 +68,7 @@ namespace Code.Infrastructure.Services.Interactions
             }
             else if (click < 3)
             {
-                if (_characterState.TryGetLowerSate(out var lowerKey, out var percent) &&
+                if (_characterState.TryGetLowerSate(out LiveStateKey lowerKey, out float percent) &&
                     lowerKey == LiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(InteractionType.Bad);

@@ -54,13 +54,13 @@ namespace Code.Infrastructure.Services
 
         public Vector3 GetMouseWorldPosition()
         {
-            var position = ScreenToWorld(Input.mousePosition);
+            Vector3 position = ScreenToWorld(Input.mousePosition);
             return position;
         }
 
         private Vector3 ScreenToWorld(Vector2 screenPoint)
         {
-            var worldPoint = _perfectCamera != null && _perfectCamera.enabled
+            Vector3 worldPoint = _perfectCamera != null && _perfectCamera.enabled
                 ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint))
                 : _camera.ScreenToWorldPoint(screenPoint);
             return new Vector3(worldPoint.x, worldPoint.y, 0);
@@ -113,10 +113,10 @@ namespace Code.Infrastructure.Services
         {
             resultPosition = Vector3.zero;
             
-            var posTypes = Enum.GetValues(typeof(PointAnchor)).Cast<PointAnchor>().ToArray();
+            PointAnchor[] posTypes = Enum.GetValues(typeof(PointAnchor)).Cast<PointAnchor>().ToArray();
             Extensions.ShuffleArray(posTypes);
             
-            foreach (var pointAnchor in posTypes)
+            foreach (PointAnchor pointAnchor in posTypes)
             {
                 resultPosition = GetPosition(pointAnchor);
                 if (Vector3.Distance(targetPosition, resultPosition) >= minDistance)

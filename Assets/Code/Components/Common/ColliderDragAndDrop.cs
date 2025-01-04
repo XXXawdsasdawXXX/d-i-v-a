@@ -80,7 +80,7 @@ namespace Code.Components.Common
         private void SetTarget()
         {
             Vector3 pos = _positionService.GetMouseWorldPosition();
-            var targetPosition = pos + _offset.AsVector3();
+            Vector3 targetPosition = pos + _offset.AsVector3();
 
             bool isCorrectPosition = targetPosition.y > _boarder.y
                                      && targetPosition.x < _boarder.x
@@ -138,8 +138,8 @@ namespace Code.Components.Common
 
         private IEnumerator MoveUpRoutine()
         {
-            var period = new WaitForEndOfFrame();
-            var forward = new Vector3(0, 0.1f, 0);
+            WaitForEndOfFrame period = new WaitForEndOfFrame();
+            Vector3 forward = new Vector3(0, 0.1f, 0);
             
             while (transform.position.y < _boarder.y)
             {

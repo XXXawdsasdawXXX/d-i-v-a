@@ -18,7 +18,7 @@ namespace Code.Data.Storages
 
         public bool TryGetData<T>(Type type, out T data)
         {
-            if (_dataDictionary.TryGetValue(type, out var result) && result is T value)
+            if (_dataDictionary.TryGetValue(type, out object result) && result is T value)
             {
                 data = value;
                 return true;

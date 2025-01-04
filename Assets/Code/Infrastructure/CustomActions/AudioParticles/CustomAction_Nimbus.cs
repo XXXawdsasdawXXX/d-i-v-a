@@ -80,7 +80,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             if (characterAnimationState == CharacterAnimationState.Enter)
             {
-                foreach (var particlesSystem in _particlesSystems)
+                foreach (ParticleSystemFacade particlesSystem in _particlesSystems)
                 {
                     particlesSystem.transform.position = GetParticlePosition();
                 }
@@ -105,7 +105,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            var particleType = GetParticleType();
+            ParticleType particleType = GetParticleType();
 
             if (_currentNimbus != null)
             {
@@ -117,7 +117,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 Stop();
             }
 
-            var particle = _particlesSystems.FirstOrDefault(p => p.Type == particleType);
+            ParticleSystemFacade particle = _particlesSystems.FirstOrDefault(p => p.Type == particleType);
 
             if (particle != null)
             {
@@ -160,11 +160,11 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            foreach (var particle in _particlesSystems)
+            foreach (ParticleSystemFacade particle in _particlesSystems)
             {
-                var target = GetParticlePosition();
-                var currentPos = particle.transform.position;
-                var distance = Vector3.Distance(currentPos, target);
+                Vector3 target = GetParticlePosition();
+                Vector3 currentPos = particle.transform.position;
+                float distance = Vector3.Distance(currentPos, target);
                 particle.transform.position =
                     Vector3.MoveTowards(currentPos, target, _currentMoveSpeed * distance * Time.deltaTime);
             }
@@ -180,7 +180,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         private IEnumerator StartRoutine(ParticleSystemFacade nimbus)
         {
-            nimbus.TryGetAudioModule(out var audioModule);
+            nimbus.TryGetAudioModule(out AudioParticleModule audioModule);
             yield return new WaitUntil(() => audioModule.IsSleep());
             Start(nimbus);
         }

@@ -3,7 +3,7 @@ using Code.Data.Value;
 using Code.Data.Value.RangeInt;
 using UnityEngine;
 
-namespace Code.Components.NewItems
+namespace Code.Components.Items
 {
     [Serializable]
     public class ItemData

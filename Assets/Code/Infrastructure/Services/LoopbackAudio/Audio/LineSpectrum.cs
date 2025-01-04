@@ -20,7 +20,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
         public float[] GetSpectrumData(double maxValue)
         {
             // Get spectrum data internal
-            var fftBuffer = new float[(int)FftSize];
+            float[] fftBuffer = new float[(int)FftSize];
 
             UpdateFrequencyMapping();
 

@@ -4,11 +4,10 @@ using Code.Data.Enums;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.BehaviorTree.Character.Sub;
 using Code.Infrastructure.DI;
-using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Seat
 {
     public partial class BehaviourNode_Seat : BaseNode_Root
     {
@@ -17,7 +16,6 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
         private readonly CollisionObserver _collisionObserver;
 
         [Header("Services")] 
-        private readonly MicrophoneAnalyzer _microphoneAnalyzer;
         private readonly CharacterCondition _characterCondition;
 
         [Header("Sub nodes")] 
@@ -26,13 +24,15 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior
 
         public BehaviourNode_Seat()
         {
-            var character = Container.Instance.FindEntity<DIVA>();
+            DIVA character = Container.Instance.FindEntity<DIVA>();
+          
             //character-------------------------------------------------------------------------------------------------
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
+            
             //services--------------------------------------------------------------------------------------------------
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
-            _microphoneAnalyzer = Container.Instance.FindService<MicrophoneAnalyzer>();
+            
             //nodes-----------------------------------------------------------------------------------------------------
             _node_ReactionToItem = new SubNode_ReactionToItems();
             _node_ReactionToVoice = new SubNode_ReactionToVoice();

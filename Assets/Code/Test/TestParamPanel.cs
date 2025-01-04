@@ -1,4 +1,7 @@
-﻿using Code.Data.Storages;
+﻿using System.Collections.Generic;
+using Code.Data.Enums;
+using Code.Data.Storages;
+using Code.Data.Value;
 using Code.Infrastructure.DI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +35,7 @@ namespace Code.Test
             }
 
             string text = null;
-            foreach (var state in _storage.LiveStates)
+            foreach (KeyValuePair<LiveStateKey, CharacterLiveState> state in _storage.LiveStates)
             {
                 text +=
                     $"<color=#86FFBB>{state.Key}</color>: {state.Value.Current,11}/{state.Value.Max}\t{state.Value.GetPercent(),15}%\n";

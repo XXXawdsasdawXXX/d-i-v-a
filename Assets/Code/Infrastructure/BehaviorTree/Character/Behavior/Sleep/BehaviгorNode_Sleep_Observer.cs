@@ -1,25 +1,22 @@
-﻿using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Utils;
+﻿using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior
+namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
 {
     public partial class BehaviourNode_Sleep 
     {
-        private void SubscribeToEvents(bool flag)
+        protected override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += Rouse;
                 _sleepState.ChangedEvent += OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent += OnMaxDecibelRecorder;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= Rouse;
                 _sleepState.ChangedEvent -= OnChangedSleepStateValue;
-                _microphoneAnalyzer.MaxDecibelRecordedEvent -= OnMaxDecibelRecorder;
             }
         }
 

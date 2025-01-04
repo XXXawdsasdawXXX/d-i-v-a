@@ -1,4 +1,4 @@
-namespace Code.Infrastructure.Services.Interactions
+namespace Code.Data.Enums
 {
     public enum InputWord
     {

@@ -1,7 +1,7 @@
 ﻿using Code.Components.Entities.Characters;
-using Code.Components.Entities.Characters.Reactions;
 using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
+using Code.Infrastructure.Reactions;
 using Code.Utils;
 
 namespace Code.Infrastructure.BehaviorTree.Character.Sub

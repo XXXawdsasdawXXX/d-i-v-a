@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Components.Entities.Characters;
 using Code.Components.Entities.Characters.AnimationReader.State;
 using Code.Data.Configs;
 using Code.Data.Enums;
@@ -8,7 +9,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters.Reactions
+namespace Code.Infrastructure.Reactions
 {
     public class AudioReaction : Reaction, IGameExitListener
     {
@@ -26,7 +27,7 @@ namespace Code.Components.Entities.Characters.Reactions
 
         protected override void Init()
         {
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
             _stateReader = diva.FindCharacterComponent<CharacterAnimationStateObserver>();
             

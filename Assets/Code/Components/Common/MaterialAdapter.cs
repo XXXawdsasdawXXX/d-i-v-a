@@ -101,7 +101,7 @@ namespace Code.Components.Common
 
         protected void Clear()
         {
-            foreach (var value in Enum.GetValues(typeof(StateType)))
+            foreach (object value in Enum.GetValues(typeof(StateType)))
             {
                 Console.WriteLine(value);
                 SetState((StateType)value, false);

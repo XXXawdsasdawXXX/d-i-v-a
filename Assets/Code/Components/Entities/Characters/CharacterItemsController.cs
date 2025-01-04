@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Code.Components.Items;
 using Code.Data.Enums;
 using Code.Data.Value;
 using Code.Infrastructure.DI;
@@ -21,13 +22,13 @@ namespace Code.Components.Entities.Characters
 
         public void GameInit()
         {
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
             _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
             _modeAdapter = diva.FindCharacterComponent<CharacterModeAdapter>();
         }
 
-        public void StartReactionToObject(Code.Components.NewItems.Item item, Action OnEndReaction = null)
+        public void StartReactionToObject(Item item, Action OnEndReaction = null)
         {
             _characterAnimator.StartPlayEat();
 
@@ -39,12 +40,12 @@ namespace Code.Components.Entities.Characters
             _coroutine = StartCoroutine(Use(item, OnEndReaction));
         }
 
-        private IEnumerator Use(NewItems.Item item, Action OnEndReaction = null)
+        private IEnumerator Use(Item item, Action OnEndReaction = null)
         {
             item.Lock();
             
-            var period = new WaitForEndOfFrame();
-            var handPosition = _modeAdapter.GetWorldEatPoint();
+            WaitForEndOfFrame period = new WaitForEndOfFrame();
+            Vector3 handPosition = _modeAdapter.GetWorldEatPoint();
 
             while (Vector3.Distance(item.transform.position, handPosition) > 0.05f)
             {

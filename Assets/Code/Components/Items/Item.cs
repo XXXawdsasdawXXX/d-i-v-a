@@ -1,12 +1,12 @@
 ﻿using System;
 using Code.Components.Common;
 using Code.Components.Entities;
+using Code.Infrastructure.Pools;
 using Code.Infrastructure.Services;
-using Code.Services.Pools;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.NewItems
+namespace Code.Components.Items
 {
     [RequireComponent(typeof(RuntimeEntityHandler))]
     public class Item: Entity,IPoolEntity
@@ -64,7 +64,7 @@ namespace Code.Components.NewItems
             Data = data;
             _itemAnimation.SetController(Data.AnimatorController);
             
-            var ticks = Data.LiveTimeTicks.GetRandomValue();
+            int ticks = Data.LiveTimeTicks.GetRandomValue();
             if (ticks > 0)
             {
                 _liveTime.StartWait(ticks);

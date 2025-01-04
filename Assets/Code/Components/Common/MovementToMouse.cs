@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.Components.Common;
 using Code.Components.Entities.Characters;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
@@ -7,7 +6,7 @@ using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace Code.Components.Entities.Hands
+namespace Code.Components.Common
 {
     public class MovementToMouse : CommonComponent, 
         IGameInitListener, IGameTickListener, 
@@ -37,7 +36,7 @@ namespace Code.Components.Entities.Hands
         {
             if (_isMove)
             {
-                var mouse = _positionService.GetMouseWorldPosition();
+                Vector3 mouse = _positionService.GetMouseWorldPosition();
 
                 if (Vector3.Distance(transform.position, mouse) > _stopMouseDistance &&
                     Vector3.Distance(_divaTransform.position, mouse) > _stopDivaDistance)

@@ -1,4 +1,4 @@
-﻿using Code.Components.NewItems;
+﻿using Code.Components.Items;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace Code.Components.Common
 
         public Item DropItem()
         {
-            var item = SelectedItem;
+            Item item = SelectedItem;
             SelectedItem = null;
             return item;
         }

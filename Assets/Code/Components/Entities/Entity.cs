@@ -9,7 +9,7 @@ namespace Code.Components.Entities
 
         public T FindCommonComponent<T>() where T : CommonComponent
         {
-            foreach (var component in _commonComponents)
+            foreach (CommonComponent component in _commonComponents)
             {
                 if (component is T commonComponent)
                 {

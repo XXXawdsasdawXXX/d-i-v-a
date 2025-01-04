@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Code.Components.Common;
-using Code.Components.Entities.Characters.Reactions;
+using Code.Infrastructure.Reactions;
 using UnityEngine;
 
 namespace Code.Components.Entities.Characters
@@ -11,7 +12,7 @@ namespace Code.Components.Entities.Characters
 
         public T FindCharacterComponent<T>() where T : CharacterComponent
         {
-            foreach (var component in _characterComponent)
+            foreach (CharacterComponent component in _characterComponent)
             {
                 if (component is T characterComponent)
                 {
@@ -26,8 +27,8 @@ namespace Code.Components.Entities.Characters
 
         public void FindAllComponents()
         {
-            var characterComponents = GetComponents<CharacterComponent>().ToList();
-            foreach (var componentsInChild in GetComponentsInChildren<CharacterComponent>())
+            List<CharacterComponent> characterComponents = GetComponents<CharacterComponent>().ToList();
+            foreach (CharacterComponent componentsInChild in GetComponentsInChildren<CharacterComponent>())
             {
                 if (!characterComponents.Contains(componentsInChild))
                 {
@@ -37,8 +38,8 @@ namespace Code.Components.Entities.Characters
 
             _characterComponent = characterComponents.ToArray();
 
-            var commonComponents = GetComponents<CommonComponent>().ToList();
-            foreach (var componentsInChild in GetComponentsInChildren<CommonComponent>())
+            List<CommonComponent> commonComponents = GetComponents<CommonComponent>().ToList();
+            foreach (CommonComponent componentsInChild in GetComponentsInChildren<CommonComponent>())
             {
                 if (!commonComponents.Contains(componentsInChild))
                 {
@@ -48,8 +49,8 @@ namespace Code.Components.Entities.Characters
 
             _commonComponents = commonComponents.ToArray();
 
-            var reactions = GetComponents<Reaction>().ToList();
-            foreach (var componentsInChild in GetComponentsInChildren<Reaction>())
+            List<Reaction> reactions = GetComponents<Reaction>().ToList();
+            foreach (Reaction componentsInChild in GetComponentsInChildren<Reaction>())
             {
                 if (!reactions.Contains(componentsInChild))
                 {

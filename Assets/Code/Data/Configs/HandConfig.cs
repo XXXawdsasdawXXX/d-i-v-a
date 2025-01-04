@@ -26,7 +26,7 @@ namespace Code.Data.Configs
 
         private int FindIntInArray(InteractionsValueData[] array, int dailyInteractionCount)
         {
-            var closestData = array.FirstOrDefault(t =>
+            InteractionsValueData closestData = array.FirstOrDefault(t =>
                 t.InteractionsCount.MinValue <= dailyInteractionCount &&
                 t.InteractionsCount.MaxValue >= dailyInteractionCount);
 
@@ -39,7 +39,7 @@ namespace Code.Data.Configs
                         : y);
             }
 
-            var value = closestData.Value.GetRandomValue();
+            int value = closestData.Value.GetRandomValue();
 
             return value;
         }

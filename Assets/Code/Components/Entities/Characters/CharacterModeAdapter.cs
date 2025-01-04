@@ -38,10 +38,10 @@ namespace Code.Components.Entities.Characters
 
         public Vector3 GetWorldEatPoint()
         {
-            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
+            ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
             if (modeParam != null)
             {
-                var localPosition = modeParam.EatPoint;
+                Vector2 localPosition = modeParam.EatPoint;
                 return transform.TransformPoint(localPosition);
             }
 
@@ -50,10 +50,10 @@ namespace Code.Components.Entities.Characters
 
         public Vector3 GetWorldHeatPoint()
         {
-            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
+            ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
             if (modeParam != null)
             {
-                var localPosition = modeParam.HeadPoint;
+                Vector2 localPosition = modeParam.HeadPoint;
                 return transform.TransformPoint(localPosition);
             }
 
@@ -62,10 +62,10 @@ namespace Code.Components.Entities.Characters
 
         public Vector3 GetLegPoint()
         {
-            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
+            ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == _animationModeObserver.Mode);
             if (modeParam != null)
             {
-                var localPosition = modeParam.LegPoint;
+                Vector2 localPosition = modeParam.LegPoint;
                 return transform.TransformPoint(localPosition);
             }
 
@@ -74,7 +74,7 @@ namespace Code.Components.Entities.Characters
 
         private void OnModeEnteredEvent(CharacterAnimationMode mode)
         {
-            var modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
+            ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
             Debugging.Instance.Log($"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
             if (modeParam != null)
             {

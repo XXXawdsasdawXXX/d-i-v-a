@@ -1,4 +1,5 @@
 using System;
+using Code.Data.Enums;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 

@@ -11,7 +11,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
 
         public BehaviourNode_WaitCharacterWakeUp()
         {
-            var diva = Container.Instance.FindEntity<DIVA>();
+            DIVA diva = Container.Instance.FindEntity<DIVA>();
             _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
         }
 

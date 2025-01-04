@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.Components.NewItems
+namespace Code.Components.Items
 {
     public class ItemAnimation: MonoBehaviour
     {
