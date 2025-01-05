@@ -2,7 +2,7 @@ using Code.Components.Items;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Seat
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Seat 
     {

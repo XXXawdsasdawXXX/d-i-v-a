@@ -1,11 +1,9 @@
-﻿using Code.Components.Entities.Characters;
-using Code.Data.Configs;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
+﻿using Code.Data.Configs;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Reactions;
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Sub
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public class SubNode_LookToMouse : BaseNode, IBehaviourCallback
     {

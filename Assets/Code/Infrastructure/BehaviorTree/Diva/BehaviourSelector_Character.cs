@@ -1,14 +1,10 @@
 using Code.Components.Entities.Characters;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Character.Behavior.Seat;
-using Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep;
-using Code.Infrastructure.BehaviorTree.Character.Behavior.Stand;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public sealed class BehaviourSelector_Character : BaseNode, IBehaviourCallback
     {

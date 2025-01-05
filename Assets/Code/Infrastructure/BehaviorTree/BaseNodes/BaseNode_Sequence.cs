@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree
 {
     public sealed class BaseNode_Sequence : BaseNode, IBehaviourCallback
     {

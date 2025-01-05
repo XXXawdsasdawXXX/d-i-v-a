@@ -1,6 +1,6 @@
 ﻿using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Sleep 
     {

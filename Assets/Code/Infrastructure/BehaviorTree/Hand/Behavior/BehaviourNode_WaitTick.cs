@@ -2,14 +2,13 @@
 using Code.Components.Entities.Hands;
 using Code.Data.Configs;
 using Code.Data.Storages;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Interactions;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourNode_WaitTick : BaseNode
     {
@@ -52,14 +51,16 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             if (IsCanRun())
             {
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
+                
                 _handAnimator.PlayExitHand();
 
                 int cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
+                
                 _tickCounter.StartWait(cooldownTicks);
 
-                _tickCounter.OnWaitIsOver += OnWaitedTicksEvent;
+                _tickCounter.OnWaitIsOver += _onWaitedTicksEvent;
 
-                Debugging.Instance.Log(this,$"run await {cooldownTicks} ticks", Debugging.Type.Hand);
+                Debugging.Instance.Log(this, $"run await {cooldownTicks} ticks", Debugging.Type.Hand);
             }
         }
 
@@ -68,19 +69,25 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             return _tickCounter.IsExpectedStart;
         }
 
-        private void OnWaitedTicksEvent()
+        private void _onWaitedTicksEvent()
         {
-            _tickCounter.OnWaitIsOver -= OnWaitedTicksEvent;
-            Debugging.Instance.Log(this,$"дождался тиков", Debugging.Type.Hand);
+            _tickCounter.OnWaitIsOver -= _onWaitedTicksEvent;
+       
+            Debugging.Instance.Log(this, $"waited ticks", Debugging.Type.Hand);
+           
             _coroutineRunner.StopRoutine(_waitingCoroutine);
-            _waitingCoroutine = _coroutineRunner.StartRoutine(WaitReturnAfterAbsence());
+         
+            _waitingCoroutine = _coroutineRunner.StartRoutine(_waitReturnAfterAbsence());
         }
 
-        private IEnumerator WaitReturnAfterAbsence()
+        private IEnumerator _waitReturnAfterAbsence()
         {
             yield return new WaitUntil(() => !_returnAfterAbsence.IsAbsence);
+            
             yield return new WaitForSeconds(30);
-            Debugging.Instance.Log(this,$" дождался пользователя, return(тру)", Debugging.Type.Hand);
+        
+            Debugging.Instance.Log(this, $"waited user", Debugging.Type.Hand);
+         
             Return(true);
         }
     }

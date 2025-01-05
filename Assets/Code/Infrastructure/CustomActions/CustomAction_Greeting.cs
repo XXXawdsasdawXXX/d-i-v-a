@@ -34,12 +34,12 @@ namespace Code.Infrastructure.CustomActions
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             DIVA diva = Container.Instance.FindEntity<DIVA>();
             _colliderButton = diva.FindCommonComponent<ColliderButton>();
-            On();
+            Active();
         }
 
         public void GameExit()
         {
-            Off();
+            Disable();
         }
 
         public void LoadProgress(PlayerProgressData playerProgress)
@@ -107,7 +107,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public void On(Action OnTurnedOn = null)
+        public void Active(Action OnTurnedOn = null)
         {
             Debugging.Instance.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
             if (!_isActive)
@@ -117,7 +117,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public void Off(Action onTurnedOff = null)
+        public void Disable(Action onTurnedOff = null)
         {
             Debugging.Instance.Log($"[Greeting][Off] is can = {_isActive}", Debugging.Type.CustomAction);
             if (_isActive)

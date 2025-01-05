@@ -5,14 +5,12 @@ using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Sleep : BaseNode_Root, IProgressWriterNode
     {

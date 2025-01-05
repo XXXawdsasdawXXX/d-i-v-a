@@ -35,7 +35,7 @@ namespace Code.Components.Items
         public void Enable()
         {
             IsActive = true;
-            _dragAndDrop.Off();
+            _dragAndDrop.Disable();
             
             SubscribeToEvents(true);
             
@@ -87,7 +87,7 @@ namespace Code.Components.Items
 
         public void Lock()
         {
-            _dragAndDrop.Off();
+            _dragAndDrop.Disable();
             _liveTime.StopWait();
         }
 
@@ -115,7 +115,7 @@ namespace Code.Components.Items
         /// <param name="__"></param>
         private void OnPressedDown(Vector2 _)
         {
-            _dragAndDrop.On();
+            _dragAndDrop.Active();
             OnPressed?.Invoke();
         }
 

@@ -1,7 +1,5 @@
 ﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Hand.Behavior;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -30,12 +28,12 @@ namespace Code.Infrastructure.BehaviorTree.Hand
                 new BehaviourNode_ShowItem(),
             };
 
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         ~BehaviourSelector_Hand()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
         #region Base methods
@@ -92,22 +90,24 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         #region Break methods
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _stateAnalytic.SwitchLowerStateKeyEvent += OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent += _onSwitchLowerLiveState;
             }
             else
             {
-                _stateAnalytic.SwitchLowerStateKeyEvent -= OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent -= _onSwitchLowerLiveState;
             }
         }
 
-        private void OnSwitchLowerLiveState(ELiveStateKey key)
+        private void _onSwitchLowerLiveState(ELiveStateKey key)
         {
-            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.Hand);
+            Debugging.Instance.Log(this, $"_onSwitchLowerLiveState {key}", Debugging.Type.Hand);
+            
             _currentChild?.Break();
+            
             Run();
         }
 

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Code.Data.StaticData;
 using Code.Data.Value;
 using UnityEngine;
 
@@ -10,21 +9,26 @@ namespace Code.Data.Configs
     {
         public Material LightMaterial;
         public Material DarkMaterial;
+   
         [SerializeField] private InteractionsValueData[] _voidTime;
         [SerializeField] private InteractionsValueData[] _appleDropChance;
-
-
+        
         public int GetVoidTime(int dailyInteractionCount)
         {
-            return FindIntInArray(_voidTime, dailyInteractionCount);
+            return _findByInteractionCount(_voidTime, dailyInteractionCount);
         }
 
         public int GetAppleDropChance(int dailyInteractionCount)
         {
-            return FindIntInArray(_appleDropChance, dailyInteractionCount);
+            return _findByInteractionCount(_appleDropChance, dailyInteractionCount);
         }
 
-        private int FindIntInArray(InteractionsValueData[] array, int dailyInteractionCount)
+        public int GetLiveTimeTicks()
+        {
+            return Random.Range(3, 8);
+        }
+
+        private int _findByInteractionCount(InteractionsValueData[] array, int dailyInteractionCount)
         {
             InteractionsValueData closestData = array.FirstOrDefault(t =>
                 t.InteractionsCount.MinValue <= dailyInteractionCount &&
@@ -42,11 +46,6 @@ namespace Code.Data.Configs
             int value = closestData.Value.GetRandomValue();
 
             return value;
-        }
-
-        public int GetLiveTimeTicks()
-        {
-            return Random.Range(3, 8);
         }
     }
 }

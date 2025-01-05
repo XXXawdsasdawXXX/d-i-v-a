@@ -1,6 +1,6 @@
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree
 {
     public class BaseNode_RandomSequence : BaseNode, IBehaviourCallback
     {

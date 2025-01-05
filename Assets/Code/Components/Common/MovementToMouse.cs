@@ -48,12 +48,12 @@ namespace Code.Components.Common
             }
         }
 
-        public void On(Action OnTurnedOn = null)
+        public void Active(Action OnTurnedOn = null)
         {
             _isMove = true;
         }
 
-        public void Off(Action onTurnedOff = null)
+        public void Disable(Action onTurnedOff = null)
         {
             _isMove = false;
         }

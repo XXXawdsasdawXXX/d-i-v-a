@@ -11,29 +11,29 @@ namespace Code.Components.Common
         {
             if (_isActive)
             {
-                On();
+                Active();
             }
             else
             {
-                Off();
+                Disable();
             }
 
             SetPhysicsActive(false);
             base.Init();
         }
 
-        public override void On(Action OnTurnedOn = null)
+        public override void Active(Action OnTurnedOn = null)
         {
             SetPhysicsActive(true);
-            base.On(OnTurnedOn);
+            base.Active(OnTurnedOn);
             
             _isDragging = _colliderButton.IsPressed;
         }
 
-        public override void Off(Action onTurnedOff = null)
+        public override void Disable(Action onTurnedOff = null)
         {
             SetPhysicsActive(false);
-            base.Off(onTurnedOff);
+            base.Disable(onTurnedOff);
             _isDragging = false;
         }
 

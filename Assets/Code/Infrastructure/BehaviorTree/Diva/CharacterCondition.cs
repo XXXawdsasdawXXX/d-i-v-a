@@ -10,7 +10,7 @@ using Code.Infrastructure.Services;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public class CharacterCondition : IService, IGameInitListener
     {

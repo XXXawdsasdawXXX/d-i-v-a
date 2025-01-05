@@ -1,9 +1,8 @@
 ﻿using Code.Components.Entities.Characters;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 
-namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourNode_WaitCharacterWakeUp : BaseNode
     {
@@ -19,7 +18,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         {
             if (IsCanRun())
             {
-                SubscribeToEvents(true);
+                _subscribeToEvents(true);
                 return;
             }
 
@@ -31,23 +30,24 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             return _animationAnalytic.GetAnimationMode() is CharacterAnimationMode.Sleep;
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _animationAnalytic.OnEnteredMode += OnEnteredMode;
+                _animationAnalytic.OnEnteredMode += _onEnteredMode;
             }
             else
             {
-                _animationAnalytic.OnEnteredMode -= OnEnteredMode;
+                _animationAnalytic.OnEnteredMode -= _onEnteredMode;
             }
         }
 
-        private void OnEnteredMode(CharacterAnimationMode currentMode)
+        private void _onEnteredMode(CharacterAnimationMode currentMode)
         {
             if (currentMode is not CharacterAnimationMode.Sleep)
             {
-                SubscribeToEvents(false);
+                _subscribeToEvents(false);
+              
                 Return(true);
             }
         }

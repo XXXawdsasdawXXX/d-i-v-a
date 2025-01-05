@@ -2,13 +2,11 @@
 using Code.Components.Entities.Characters;
 using Code.Data.Configs;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Stand
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {

@@ -54,16 +54,17 @@ namespace Code.Components.Entities.Characters
         private void CheckLowerState()
         {
             IOrderedEnumerable<KeyValuePair<ELiveStateKey, CharacterLiveState>> keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
+         
             if (!keyValuePairs.Any())
             {
-                Debugging.Instance.Log($"[CheckLowerState] return when try check lower state",
+                Debugging.Instance.Log(this, $"[CheckLowerState] return when try check lower state",
                     Debugging.Type.LiveState);
                 return;
             }
 
             ELiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
 
-            Debugging.Instance.Log(
+            Debugging.Instance.Log(this, 
                 $"[CheckLowerState] try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
                 Debugging.Type.LiveState);
@@ -74,7 +75,7 @@ namespace Code.Components.Entities.Characters
 
             if (resultState != CurrentLowerLiveStateKey)
             {
-                Debugging.Instance.Log($"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
+                Debugging.Instance.Log(this, $"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
                     Debugging.Type.LiveState);
                 CurrentLowerLiveStateKey = resultState;
                 SwitchLowerStateKeyEvent?.Invoke(CurrentLowerLiveStateKey);
@@ -97,13 +98,13 @@ namespace Code.Components.Entities.Characters
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
-                Debugging.Instance.Log($"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
+                Debugging.Instance.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
                     Debugging.Type.LiveState);
                 return true;
             }
 
             statePercent = 1;
-            Debugging.Instance.Log($"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
+            Debugging.Instance.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
                 Debugging.Type.LiveState);
             return false;
         }

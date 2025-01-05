@@ -1,11 +1,10 @@
 ﻿using Code.Components.Entities.Characters;
 using Code.Components.Items;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Sub
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public class SubNode_ReactionToItems : BaseNode
     {

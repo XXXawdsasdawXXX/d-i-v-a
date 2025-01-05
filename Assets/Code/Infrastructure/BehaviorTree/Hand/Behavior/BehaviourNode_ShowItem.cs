@@ -2,12 +2,11 @@
 using Code.Components.Entities.Characters;
 using Code.Components.Entities.Hands;
 using Code.Components.Items;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
+namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourNode_ShowItem : BaseNode
     {
@@ -30,8 +29,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
         [Header("Dynamic data")] 
         private ItemData _currentItemData;
         private Vector3 _spawnPosition;
-
-
+        
         public BehaviourNode_ShowItem()
         {
             //d i v a
@@ -59,8 +57,8 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
                 {
                     _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
                     _itemHolder.SetItem(_item);
-                    _movementToMouse.On();
-                    SubscribeToEvents(true);
+                    _movementToMouse.Active();
+                    _subscribeToEvents(true);
                 });
                 
                 return;
@@ -70,38 +68,39 @@ namespace Code.Infrastructure.BehaviorTree.Hand.Behavior
             Return(false);
         }
 
-        private void HideHand()
-        {
-            SubscribeToEvents(false);
-            
-            _movementToMouse.Off();
-            _itemHolder.DropItem();
-            _handAnimation.PlayExitHand(() =>
-            {
-                Return(true);
-            });
-        }
-        
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _item.OnDestroyed += HideHand;
-                _item.OnPressed += HideHand;
-                
-            }
-            else
-            {
-                _item.OnDestroyed -= HideHand;
-                _item.OnPressed -= HideHand;
-            }
-        }
-        
         protected override bool IsCanRun()
         {
             return _positionService
                 .TryGetRandomDistantPosition(targetPosition: _divaTransform.position, minDistance: 3, 
                     out _spawnPosition);
+        }
+
+        private void _subscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _item.OnDestroyed += _hideHand;
+                _item.OnPressed += _hideHand;
+            }
+            else
+            {
+                _item.OnDestroyed -= _hideHand;
+                _item.OnPressed -= _hideHand;
+            }
+        }
+
+        private void _hideHand()
+        {
+            _subscribeToEvents(false);
+            
+            _movementToMouse.Disable();
+            
+            _itemHolder.DropItem();
+            
+            _handAnimation.PlayExitHand(() =>
+            {
+                Return(true);
+            });
         }
     }
 }

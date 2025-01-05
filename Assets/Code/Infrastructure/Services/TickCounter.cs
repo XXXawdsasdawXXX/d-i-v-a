@@ -51,7 +51,7 @@ namespace Code.Infrastructure.Services
             if (IsExpectedStart && _tickCount > 0)
             {
                 IsExpectedStart = false;
-                On();
+                Active();
             }
         }
 
@@ -67,7 +67,7 @@ namespace Code.Infrastructure.Services
                 IsExpectedStart = false;
                 _tickCount = count;
                 onStartWait?.Invoke();
-                On();
+                Active();
             }
         }
 
@@ -78,16 +78,16 @@ namespace Code.Infrastructure.Services
 
             if (!_isLoop || (_isLoop && isStopLoop))
             {
-                Off();
+                Disable();
             }
         }
 
-        public void On(Action OnTurnedOn = null)
+        public void Active(Action OnTurnedOn = null)
         {
             _isActive = true;
         }
 
-        public void Off(Action onTurnedOff = null)
+        public void Disable(Action onTurnedOff = null)
         {
             _isActive = false;
         }

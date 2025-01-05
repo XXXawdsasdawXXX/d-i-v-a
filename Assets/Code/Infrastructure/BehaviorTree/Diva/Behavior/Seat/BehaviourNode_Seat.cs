@@ -1,13 +1,11 @@
 using Code.Components.Common;
 using Code.Components.Entities.Characters;
 using Code.Data.Enums;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.BehaviorTree.Character.Sub;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Seat
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Seat : BaseNode_Root
     {

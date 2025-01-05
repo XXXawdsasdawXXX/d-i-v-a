@@ -59,14 +59,14 @@ namespace Code.Components.Common
 
         #region Unique methods
 
-        public virtual void On(Action OnTurnedOn = null)
+        public virtual void Active(Action OnTurnedOn = null)
         {
             _isActive = true;
             OnTurnedOn?.Invoke();
             SubscribeToEvents(true);
         }
 
-        public virtual void Off(Action onTurnedOff = null)
+        public virtual void Disable(Action onTurnedOff = null)
         {
             _isActive = false;
             onTurnedOff?.Invoke();

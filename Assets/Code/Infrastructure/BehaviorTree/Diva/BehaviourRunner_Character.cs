@@ -1,11 +1,10 @@
 using Code.Data.Interfaces;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using UnityEngine;
 
-namespace Code.Infrastructure.BehaviorTree.Character
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameUpdateListener,
         IGameExitListener

@@ -9,6 +9,11 @@ namespace Code.Infrastructure.BehaviorTree
 {
     public class BehaviourTreeLoader : MonoBehaviour, IService, IProgressWriter
     {
+        public class Data
+        {
+            public int SleepRemainingTick;
+        }
+
         private readonly List<IProgressWriterNode> _progressWriterNodes = new();
         private readonly Data _data = new();
 
@@ -23,7 +28,8 @@ namespace Code.Infrastructure.BehaviorTree
         public void LoadProgress(PlayerProgressData playerProgress)
         {
             _data.SleepRemainingTick = playerProgress.Cooldowns.SleepRemainingTick;
-            StartCoroutine(LoadBehaviorTree());
+         
+            StartCoroutine(_loadBehaviorTreeRoutine());
         }
 
         public void UpdateProgress(PlayerProgressData playerProgress)
@@ -36,23 +42,19 @@ namespace Code.Infrastructure.BehaviorTree
             playerProgress.Cooldowns.SleepRemainingTick = _data.SleepRemainingTick;
         }
 
-        private IEnumerator LoadBehaviorTree()
+        private IEnumerator _loadBehaviorTreeRoutine()
         {
-            yield return new WaitUntil(IsInitBehaviorProgressWriter);
+            yield return new WaitUntil(_isInitBehaviorProgressWriter);
+         
             foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
             {
                 progressWriterNode.LoadData(_data);
             }
         }
 
-        private bool IsInitBehaviorProgressWriter()
+        private bool _isInitBehaviorProgressWriter()
         {
             return _progressWriterNodes.Count > 0;
-        }
-
-        public class Data
-        {
-            public int SleepRemainingTick;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Code.Data.Interfaces
 {
     public interface IToggle
     {
-        void On(Action OnTurnedOn = null);
-        void Off(Action onTurnedOff = null);
+        void Active(Action OnTurnedOn = null);
+        void Disable(Action onTurnedOff = null);
     }
 }

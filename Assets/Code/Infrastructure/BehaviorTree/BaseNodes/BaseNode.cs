@@ -1,16 +1,12 @@
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree
 {
     public abstract class BaseNode
     {
-        //Базовый нод
-        public bool IsRunning
-        {
-            get { return _isRunning; }
-        }
+        public bool IsRunning => _isRunning;
 
         private bool _isRunning;
 
-        private IBehaviourCallback _callback; // через это нод говорит родительскому узлу, что он успешен или не успешен
+        private IBehaviourCallback _callback;
 
         public void Run(IBehaviourCallback callback)
         {
@@ -20,7 +16,9 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
 
             _callback = callback;
+           
             _isRunning = true;
+            
             Run();
         }
 
@@ -32,7 +30,9 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
 
             OnBreak();
+           
             _isRunning = false;
+            
             _callback = null;
         }
 
@@ -48,8 +48,10 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
 
             _isRunning = false;
+         
             OnReturn(success);
-            InvokeCallback(success);
+            
+            _invokeCallback(success);
         }
 
         protected virtual void OnReturn(bool success)
@@ -61,7 +63,7 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
         }
 
 
-        private void InvokeCallback(bool success)
+        private void _invokeCallback(bool success)
         {
             if (_callback == null)
             {
@@ -69,7 +71,9 @@ namespace Code.Infrastructure.BehaviorTree.BaseNodes
             }
 
             IBehaviourCallback callback = _callback;
+            
             _callback = null;
+            
             callback.InvokeCallback(this, success);
         }
     }

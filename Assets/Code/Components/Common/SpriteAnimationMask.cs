@@ -38,15 +38,15 @@ namespace Code.Components.Common
 
             OnShown?.Invoke();
             yield return period;
-            Off();
+            Disable();
         }
 
-        public void On(Action OnTurnedOn = null)
+        public void Active(Action OnTurnedOn = null)
         {
             _coroutine = StartCoroutine(ShowAnimation(OnTurnedOn));
         }
 
-        public void Off(Action onTurnedOff = null)
+        public void Disable(Action onTurnedOff = null)
         {
             if (_coroutine != null)
             {

@@ -1,10 +1,8 @@
-﻿using Code.Components.Entities.Characters;
-using Code.Infrastructure.BehaviorTree.BaseNodes;
-using Code.Infrastructure.DI;
+﻿using Code.Infrastructure.DI;
 using Code.Infrastructure.Reactions;
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.Character.Sub
+namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public class SubNode_ReactionToVoice : BaseNode
     {

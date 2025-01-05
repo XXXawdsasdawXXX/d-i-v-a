@@ -2,7 +2,7 @@ using Code.Data.Value.RangeInt;
 using Code.Infrastructure.Services;
 using Code.Utils;
 
-namespace Code.Infrastructure.BehaviorTree.BaseNodes
+namespace Code.Infrastructure.BehaviorTree
 {
     public sealed class SubNode_WaitForTicks : BaseNode
     {
