@@ -1,5 +1,4 @@
 using System;
-using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Pools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +39,8 @@ namespace Code.Test
         {
             _buttonIncrease.onClick.RemoveAllListeners();
             _buttonDecrease.onClick.RemoveAllListeners();
+            OnPressedDecrease = null;
+            OnPressedIncrease = null;
         }
     }
 }

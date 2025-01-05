@@ -66,6 +66,13 @@ namespace Code.Test
                 _paramTabs[key].SetValue(state.Current.ToString());
             }
         }
-        
+
+        public void Dispose()
+        {
+            foreach ((ELiveStateKey _, DW_ParamTab tab) in _paramTabs)
+            {
+                tab.Disable();
+            }
+        }
     }
 }

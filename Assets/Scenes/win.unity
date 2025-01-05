@@ -235,6 +235,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ---TEMP---
       objectReference: {fileID: 0}
+    - target: {fileID: 5454628791284336647, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
+      propertyPath: _debugParams.Array.data[7].Active
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7846418551664279883, guid: 2688eef38acba814daf7aa39d737402a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
