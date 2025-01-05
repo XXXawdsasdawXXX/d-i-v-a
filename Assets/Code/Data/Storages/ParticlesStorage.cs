@@ -23,7 +23,7 @@ namespace Code.Data.Storages
             _factory = Container.Instance.FindService<AssetsFactory>();
         }
 
-        public bool TryGetParticle(ParticleType particleType, out ParticleSystemFacade[] particleSystem)
+        public bool TryGetParticle(EParticleType particleType, out ParticleSystemFacade[] particleSystem)
         {
             particleSystem = _particles.Where(p => p.Type == particleType).ToArray();
 
@@ -44,11 +44,11 @@ namespace Code.Data.Storages
             _particles = allParticles.ToList();
         }
 
-        public bool TryGetParticles(IEnumerable<ParticleType> particleTypes,
+        public bool TryGetParticles(IEnumerable<EParticleType> particleTypes,
             out ParticleSystemFacade[] particlesSystems)
         {
             List<ParticleSystemFacade> list = new List<ParticleSystemFacade>();
-            foreach (ParticleType particleType in particleTypes)
+            foreach (EParticleType particleType in particleTypes)
             {
                 if (TryGetParticle(particleType, out ParticleSystemFacade[] typedParticles))
                 {

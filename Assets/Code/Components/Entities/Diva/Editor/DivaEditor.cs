@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Code.Components.Entities.Editor
 {
     [CustomEditor(typeof(Diva))]
-    public class CharacterEditor : UnityEditor.Editor
+    public class DivaEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -14,6 +14,7 @@ namespace Code.Components.Entities.Editor
             if (GUILayout.Button("Find all components"))
             {
                 diva.FindAllComponents();
+            
                 EditorUtility.SetDirty(diva);
             }
         }

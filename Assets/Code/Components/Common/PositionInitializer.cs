@@ -10,7 +10,7 @@ namespace Code.Components.Common
 {
     public class PositionInitializer : CommonComponent, IGameInitListener, IGameStartListener
     {
-        [SerializeField] private PointAnchor _pointAnchor;
+        [SerializeField] private EPointAnchor _pointAnchor;
         [SerializeField] private Vector2 _offset;
         [SerializeField] private EntityBounds _entityBounds;
 

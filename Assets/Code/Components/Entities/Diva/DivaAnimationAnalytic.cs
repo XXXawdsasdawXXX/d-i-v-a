@@ -1,5 +1,4 @@
 ﻿using System;
-using Code.Components.Entities.AnimationReader.State;
 using Code.Data.Enums;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
@@ -8,63 +7,63 @@ namespace Code.Components.Entities
 {
     public class DivaAnimationAnalytic : DivaComponent, IGameInitListener, IGameExitListener
     {
-        [SerializeField] private DivaAnimator _divaAnimator;
-        [SerializeField] private DivaAnimationStateObserver _animationStateObserver;
-
-        public CharacterAnimationMode CurrentMode { get; private set; }
-        public CharacterAnimationState CurrentState { get; private set; }
-        public bool IsTransition => _animationStateObserver != null && _animationStateObserver.State
-            is CharacterAnimationState.TransitionSeat
-            or CharacterAnimationState.TransitionSleep
-            or CharacterAnimationState.TransitionStand;
+        public event Action<EDivaAnimationMode> OnEnteredMode;
+        public event Action<EDivaAnimationState> OnSwitchState;
+        public event Action<EDivaAnimationState> OnStateExit;
         
-        public event Action<CharacterAnimationMode> OnEnteredMode;
-        public event Action<CharacterAnimationState> OnSwitchState;
-        public event Action<CharacterAnimationState> OnStateExit;
-
+        public EDivaAnimationMode CurrentMode { get; private set; }
+        public EDivaAnimationState CurrentState { get; private set; }
+        public bool IsTransition => _divaAnimationStateObserver != null && _divaAnimationStateObserver.State
+            is EDivaAnimationState.TransitionSeat
+            or EDivaAnimationState.TransitionSleep
+            or EDivaAnimationState.TransitionStand;
+        
+        [SerializeField] private DivaAnimator _divaAnimator;
+        [SerializeField] private DivaAnimationStateObserver _divaAnimationStateObserver;
+        
         public void GameInit()
         {
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
-        public CharacterAnimationMode GetAnimationMode()
+        public EDivaAnimationMode GetAnimationMode()
         {
             return _divaAnimator.Mode;
         }
 
-        public CharacterAnimationState GetAnimationState()
+        public EDivaAnimationState GetAnimationState()
         {
-            return _animationStateObserver.State;
+            return _divaAnimationStateObserver.State;
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _divaAnimator.OnModeEntered += OnEnteredModeEvent;
-                _animationStateObserver.OnStateEntered += OnSwitchStateEvent;
-                _animationStateObserver.OnStateExited += OnSwitchStateEvent;
+                _divaAnimator.OnModeEntered += _onEnteredModeEvent;
+                _divaAnimationStateObserver.OnStateEntered += _onSwitchStateEvent;
+                _divaAnimationStateObserver.OnStateExited += _onSwitchStateEvent;
             }
             else
             {
-                _divaAnimator.OnModeEntered -= OnEnteredModeEvent;
-                _animationStateObserver.OnStateEntered -= OnSwitchStateEvent;
-                _animationStateObserver.OnStateExited -= OnSwitchStateEvent;
+                _divaAnimator.OnModeEntered -= _onEnteredModeEvent;
+                _divaAnimationStateObserver.OnStateEntered -= _onSwitchStateEvent;
+                _divaAnimationStateObserver.OnStateExited -= _onSwitchStateEvent;
             }
         }
 
-        private void OnSwitchStateEvent(CharacterAnimationState state)
+        private void _onSwitchStateEvent(EDivaAnimationState state)
         {
             CurrentState = state;
             OnSwitchState?.Invoke(state);
         }
 
-        private void OnEnteredModeEvent(CharacterAnimationMode mode)
+        private void _onEnteredModeEvent(EDivaAnimationMode mode)
         {
             CurrentMode = mode;
             OnEnteredMode?.Invoke(mode);

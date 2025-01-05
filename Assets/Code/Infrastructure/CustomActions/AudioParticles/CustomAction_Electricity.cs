@@ -9,14 +9,14 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     {
         private LoopbackAudioService _loopbackAudioService;
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.Electricity;
+            return ECustomCutsceneActionType.Electricity;
         }
 
-        protected override ParticleType[] GetParticleTypes()
+        protected override EParticleType[] GetParticleTypes()
         {
-            return new[] { ParticleType.Electricity };
+            return new[] { EParticleType.Electricity };
         }
 
         protected override void UpdateParticles()

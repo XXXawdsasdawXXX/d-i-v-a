@@ -1,6 +1,6 @@
 namespace Code.Data.Enums
 {
-    public enum CustomCutsceneActionType
+    public enum ECustomCutsceneActionType
     {
         None,
         StarrySky,

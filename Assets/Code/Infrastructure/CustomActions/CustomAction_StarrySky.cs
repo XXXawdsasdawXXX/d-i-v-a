@@ -15,7 +15,7 @@ namespace Code.Infrastructure.CustomActions
         public CustomAction_StarrySky()
         {
             ParticlesStorage particleDictionary = Container.Instance.FindStorage<ParticlesStorage>();
-            if (particleDictionary.TryGetParticle(ParticleType.StarrySky, out ParticleSystemFacade[] skyStarsParticle))
+            if (particleDictionary.TryGetParticle(EParticleType.StarrySky, out ParticleSystemFacade[] skyStarsParticle))
             {
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
                 _skyStarsParticle = skyStarsParticle[0];
@@ -62,9 +62,9 @@ namespace Code.Infrastructure.CustomActions
             EndCustomActionEvent?.Invoke(this);
         }
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.StarrySky;
+            return ECustomCutsceneActionType.StarrySky;
         }
     }
 }

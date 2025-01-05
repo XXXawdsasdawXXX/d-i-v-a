@@ -105,17 +105,17 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public bool CanShowNimbus()
         {
             bool isCorrectState = _animationAnalytic.GetAnimationState()
-                is not CharacterAnimationState.Enter
-                or CharacterAnimationState.Exit
-                or CharacterAnimationState.TransitionSeat
-                or CharacterAnimationState.TransitionSleep
-                or CharacterAnimationState.TransitionStand;
+                is not EDivaAnimationState.Enter
+                or EDivaAnimationState.Exit
+                or EDivaAnimationState.TransitionSeat
+                or EDivaAnimationState.TransitionSleep
+                or EDivaAnimationState.TransitionStand;
 
             bool isCorrectMode = _animationAnalytic.GetAnimationMode()
-                is not CharacterAnimationMode.Sleep;
+                is not EDivaAnimationMode.Sleep;
 
             bool isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
-                is not InteractionType.Normal;
+                is not EInteractionType.Normal;
 
             Debugging.Instance.Log($"Проверка на нимбус:" +
                                    $" {!_animationAnalytic.IsTransition}" +

@@ -53,17 +53,17 @@ namespace Code.Components.Entities
             _spriteRenderer.material = _material;
         }
 
-        private void InteractionStorageOnSwitchDominationTypeEvent(InteractionType interactionType)
+        private void InteractionStorageOnSwitchDominationTypeEvent(EInteractionType interactionType)
         {
             switch (interactionType)
             {
                 default:
-                case InteractionType.None:
-                case InteractionType.Good:
-                case InteractionType.Normal:
+                case EInteractionType.None:
+                case EInteractionType.Good:
+                case EInteractionType.Normal:
                     SetLightMaterial();
                     break;
-                case InteractionType.Bad:
+                case EInteractionType.Bad:
                     SetDarkMaterial();
                     break;
             }

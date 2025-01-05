@@ -42,7 +42,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             {
                 SubscribeToEvents(true);
 
-                _divaAnimator.EnterToMode(CharacterAnimationMode.Seat);
+                _divaAnimator.EnterToMode(EDivaAnimationMode.Seat);
 
                 RunNode(_node_ReactionToItem);
 

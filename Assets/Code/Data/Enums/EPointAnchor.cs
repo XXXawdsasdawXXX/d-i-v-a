@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum PointAnchor
+    public enum EPointAnchor
     {
         UpperLeft,
         UpperCenter,

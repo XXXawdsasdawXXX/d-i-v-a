@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum InteractionType
+    public enum EInteractionType
     {
         None,
         Good,

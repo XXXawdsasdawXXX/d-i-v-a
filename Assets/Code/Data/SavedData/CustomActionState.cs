@@ -7,7 +7,7 @@ namespace Code.Data.SavedData
     [Serializable]
     public class CustomActionState
     {
-        public CustomCutsceneActionType Type;
+        public ECustomCutsceneActionType Type;
         public bool isActive;
     }
 }

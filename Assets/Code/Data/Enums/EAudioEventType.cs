@@ -1,6 +1,6 @@
 namespace Code.Data.Enums
 {
-    public enum AudioEventType
+    public enum EAudioEventType
     {
         None,
         Voice,

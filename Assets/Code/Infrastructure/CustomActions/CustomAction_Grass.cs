@@ -34,7 +34,7 @@ namespace Code.Infrastructure.CustomActions
         [Header("Dynamic value")] 
         private Coroutine _coroutine;
 
-        public override CustomCutsceneActionType GetActionType() => CustomCutsceneActionType.Grass;
+        public override ECustomCutsceneActionType GetActionType() => ECustomCutsceneActionType.Grass;
 
         public void GameInit()
         {
@@ -109,9 +109,9 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        private void OnDivaSwitchAnimation(CharacterAnimationMode mode)
+        private void OnDivaSwitchAnimation(EDivaAnimationMode mode)
         {
-            if (mode == CharacterAnimationMode.Seat && _tickCounter.IsExpectedStart)
+            if (mode == EDivaAnimationMode.Seat && _tickCounter.IsExpectedStart)
             {
                 _tickCounter.StartWait(_tickDelay.GetRandomValue());
             }

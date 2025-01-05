@@ -29,7 +29,7 @@ namespace Code.Infrastructure.CustomActions
         {
             //static values
             ParticlesStorage particles = Container.Instance.FindStorage<ParticlesStorage>();
-            if (particles.TryGetParticle(ParticleType.StarryMouse, out ParticleSystemFacade[] particlesFacades))
+            if (particles.TryGetParticle(EParticleType.StarryMouse, out ParticleSystemFacade[] particlesFacades))
             {
                 _particle = particlesFacades[0];
                 _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
@@ -77,9 +77,9 @@ namespace Code.Infrastructure.CustomActions
             Debugging.Instance.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
         }
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.StarryMouse;
+            return ECustomCutsceneActionType.StarryMouse;
         }
 
         private void SubscribeToEvents(bool flag)
@@ -98,7 +98,7 @@ namespace Code.Infrastructure.CustomActions
         {
             Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
                 Debugging.Type.CustomAction);
-            if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is CharacterAnimationMode.Stand)
+            if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {
                 if (_isActive)
                 {

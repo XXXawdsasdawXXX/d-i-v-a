@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         protected override bool IsCanRun()
         {
-            return _animationAnalytic.GetAnimationMode() is CharacterAnimationMode.Sleep;
+            return _animationAnalytic.GetAnimationMode() is EDivaAnimationMode.Sleep;
         }
 
         private void _subscribeToEvents(bool flag)
@@ -42,9 +42,9 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             }
         }
 
-        private void _onEnteredMode(CharacterAnimationMode currentMode)
+        private void _onEnteredMode(EDivaAnimationMode currentMode)
         {
-            if (currentMode is not CharacterAnimationMode.Sleep)
+            if (currentMode is not EDivaAnimationMode.Sleep)
             {
                 _subscribeToEvents(false);
               

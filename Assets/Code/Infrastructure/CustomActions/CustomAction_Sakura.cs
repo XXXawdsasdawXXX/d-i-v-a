@@ -30,7 +30,7 @@ namespace Code.Infrastructure.CustomActions
         public void GameInit()
         {
             ParticlesStorage particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
-            if (particleStorage.TryGetParticle(ParticleType.Sakura, out _particleSystems))
+            if (particleStorage.TryGetParticle(EParticleType.Sakura, out _particleSystems))
             {
                 _interaction_returnAfterAbsence =
                     Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
@@ -76,9 +76,9 @@ namespace Code.Infrastructure.CustomActions
             base.StopAction();
         }
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.Sakura;
+            return ECustomCutsceneActionType.Sakura;
         }
 
         private void SubscribeToEvents(bool flag)

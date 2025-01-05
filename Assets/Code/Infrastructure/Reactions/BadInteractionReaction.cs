@@ -49,9 +49,9 @@ namespace Code.Infrastructure.Reactions
             }
         }
 
-        private void OnAddedInteraction(InteractionType type, int arg2)
+        private void OnAddedInteraction(EInteractionType type, int arg2)
         {
-            if(type == InteractionType.Bad)
+            if(type == EInteractionType.Bad)
             {
                 _characterMaterialAdapter.PlayDoodle();
             }

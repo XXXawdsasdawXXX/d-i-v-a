@@ -53,7 +53,7 @@ namespace Code.Components.Entities
                 yield return period;
             }
 
-            yield return new WaitUntil(() => _animationAnalytic.CurrentState == CharacterAnimationState.Eat);
+            yield return new WaitUntil(() => _animationAnalytic.CurrentState == EDivaAnimationState.Eat);
             
             item.Use(onCompleted: () =>
             {

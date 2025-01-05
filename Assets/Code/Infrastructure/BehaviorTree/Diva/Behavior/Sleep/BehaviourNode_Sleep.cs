@@ -72,7 +72,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
                 
                 _sleepState?.SetHealUpdate();
                 
-                _divaAnimator.EnterToMode(CharacterAnimationMode.Sleep);
+                _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
 
                 if (_characterCondition.IsCanExitWhenSleep())
                 {
@@ -117,13 +117,13 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         private IEnumerator _playExitAnimationRoutine()
         {
-            _divaAnimator.EnterToMode(CharacterAnimationMode.None);
+            _divaAnimator.EnterToMode(EDivaAnimationMode.None);
             
             yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(ELiveStateKey.Sleep) >= 0.7f);
             
             Debugging.Instance.Log(this, $"[run] end exit anim routine", Debugging.Type.BehaviorTree);
             
-            _divaAnimator.EnterToMode(CharacterAnimationMode.Sleep);
+            _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
         }
 
         private void _rouse()

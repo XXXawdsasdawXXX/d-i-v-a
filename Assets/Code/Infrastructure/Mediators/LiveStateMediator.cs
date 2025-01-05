@@ -49,22 +49,22 @@ namespace Code.Infrastructure.Mediators
             }
         }
 
-        private void OnAddInteraction(InteractionType interactionType, int value)
+        private void OnAddInteraction(EInteractionType interactionType, int value)
         {
             switch (interactionType)
             {
-                case InteractionType.None:
+                case EInteractionType.None:
                 default:
                     break;
-                case InteractionType.Good:
-                case InteractionType.Normal:
+                case EInteractionType.Good:
+                case EInteractionType.Normal:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
                     {
                         Key = ELiveStateKey.Trust,
                         Value = value
                     });
                     break;
-                case InteractionType.Bad:
+                case EInteractionType.Bad:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
                     {
                         Key = ELiveStateKey.Trust,

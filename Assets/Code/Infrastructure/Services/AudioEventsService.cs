@@ -18,7 +18,7 @@ namespace Code.Infrastructure.Services
             _config = Container.Instance.FindConfig<AudioConfig>();
         }
 
-        public void PlayAudio(AudioEventType type)
+        public void PlayAudio(EAudioEventType type)
         {
             AudioEvent audio = _config.GetRandomAudioEvent(type);
             if (audio != null)

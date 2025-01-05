@@ -1,6 +1,6 @@
 namespace Code.Data.Enums
 {
-    public enum InputWord
+    public enum EInputWord
     {
         hello,
         hi,

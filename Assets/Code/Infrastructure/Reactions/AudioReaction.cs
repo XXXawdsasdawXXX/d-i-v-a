@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Components.Entities;
-using Code.Components.Entities.AnimationReader.State;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
@@ -75,9 +74,9 @@ namespace Code.Infrastructure.Reactions
             }
         }
 
-        private void OnAnimationOnStateExited(CharacterAnimationState obj)
+        private void OnAnimationOnStateExited(EDivaAnimationState obj)
         {
-            if (obj == CharacterAnimationState.ReactionVoice)
+            if (obj == EDivaAnimationState.ReactionVoice)
             {
                 EndReactionEvent?.Invoke();
             }

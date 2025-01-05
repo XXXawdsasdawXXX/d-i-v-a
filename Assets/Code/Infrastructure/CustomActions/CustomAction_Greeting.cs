@@ -61,9 +61,9 @@ namespace Code.Infrastructure.CustomActions
                 Debugging.Type.CustomAction);
         }
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.Greeting;
+            return ECustomCutsceneActionType.Greeting;
         }
 
         #region Events
@@ -92,7 +92,7 @@ namespace Code.Infrastructure.CustomActions
             }
 
             _isAlreadySaidHi = true;
-            _audioEventsService.PlayAudio(AudioEventType.Hi);
+            _audioEventsService.PlayAudio(EAudioEventType.Hi);
             Debugging.Instance.Log($"[Greeting][TrySayHi] is say", Debugging.Type.CustomAction);
         }
 

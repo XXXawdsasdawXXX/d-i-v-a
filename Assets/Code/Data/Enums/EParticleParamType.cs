@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum ParticleParamType
+    public enum EParticleParamType
     {
         None,
         SizeMultiplier,

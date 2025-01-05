@@ -4,83 +4,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="">
+    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="scene references">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/AnimationReader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationAnalytic.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationAnalytic.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateReader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateReader.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj.DotSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Common/MovementToMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Common/MovementToMouse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/CharacterAnimationStateObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/DivaAnimationStateObserver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/CharacterAnimationStateObserver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/DivaAnimationStateObserver.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/CharacterAnimationStateReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/CharacterAnimationStateReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/CharacterAnimationStateReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/CharacterAnimationStateReader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/IAnimationStateReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/IAnimationStateReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/AnimationReader/State/IAnimationStateReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/IAnimationStateReader.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterAnimationAnalytic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationAnalytic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterAnimationAnalytic.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationAnalytic.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterAnimator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaComponent.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterItemsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaItemsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterItemsController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaItemsController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterLiveStatesAnalytic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaLiveStatesAnalytic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterLiveStatesAnalytic.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaLiveStatesAnalytic.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterMaterialAdapter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaMaterialAdapter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterMaterialAdapter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaMaterialAdapter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterModeAdapter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaModeAdapter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/CharacterModeAdapter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaModeAdapter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/DIVA.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Diva.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/DIVA.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/Editor.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/Editor/CharacterAnimatorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterAnimatorEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/Editor/CharacterAnimatorEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterAnimatorEditor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/Editor/CharacterEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Characters/Editor/CharacterEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterEditor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/Editor/GrassEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/Editor/GrassEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/CharacterAnimationStateReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Common/AnimationStateReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/CharacterAnimationStateReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Common/AnimationStateReader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/DivaAnimationStateObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/DivaAnimationStateObserver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/IAnimationStateReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Common/IAnimationStateReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/AnimationReader/State/IAnimationStateReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Common/IAnimationStateReader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationAnalytic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationAnalytic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaItemsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaItemsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaModeAdapter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaModeAdapter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterAnimatorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaAnimatorEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterAnimatorEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaAnimatorEditor.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/CharacterEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaEditor.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/Grass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/Grass.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/GrassAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Grass/GrassAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/Editor.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/Editor.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/Editor/HandEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/Editor/HandEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/Editor/HandEditor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/Editor/HandEditor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/Hand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/Hand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/Hand.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandAnimator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandComponent.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandMaterialAdapter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandMaterialAdapter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hands/HandMaterialAdapter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandMaterialAdapter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Configs/Audio/AudioEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Configs/Audio/AudioEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Configs/AudioConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Configs/AudioConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/AudioEventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EAudioEventType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/AudioEventType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EAudioEventType.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/BlackboardKey.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/BlackboardKey.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CharacterAnimationMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CharacterAnimationMode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationMode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CharacterAnimationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CharacterAnimationState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CustomCutsceneActionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/ECustomCutsceneActionType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/CustomCutsceneActionType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/ECustomCutsceneActionType.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/SavedData/CustomActionState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/SavedData/CustomActionState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourSelector_Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourSelector_Character.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/CharacterCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/CharacterCondition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourSelector_Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourSelector_Hand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_AudioParticle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_AudioParticle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Electricity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Electricity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Grass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Grass.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Sakura.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Sakura.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Mediators/LiveStateMediator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Mediators/LiveStateMediator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarrySky.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarrySky.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/AudioReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/AudioReaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/BadInteractionReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/BadInteractionReaction.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/InputWordReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/InputWordReaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/MouseReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/MouseReaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/InteractionObserver_ClickOnCharacter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/InteractionObserver_ClickOnCharacter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/DebugWindow/DebugWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/DebugWindow/DebugWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Objects/d i v a.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Objects/d i v a.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SceneComponents/---TEMP---.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SceneComponents/---TEMP---.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/AudioEventsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/AudioEventsService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +69,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da87c2565b1d49249c12d4e941cfd109fe00/38/b587587f/Microphone.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Diva.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Components/Items/Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Prefabs/SceneComponents/---TEMP---.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Scenes/win.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/FilePanel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/UniWinCore.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/UniWindowController.cs" root0="SKIP_HIGHLIGHTING" />
@@ -175,7 +154,7 @@
       <workItem from="1736023704033" duration="2193000" />
       <workItem from="1736027454358" duration="2245000" />
       <workItem from="1736104619865" duration="12418000" />
-      <workItem from="1736118436928" duration="513000" />
+      <workItem from="1736118436928" duration="1404000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring">
       <created>1736025986199</created>
@@ -205,7 +184,21 @@
       <option name="project" value="LOCAL" />
       <updated>1736117355504</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactoring">
+      <created>1736119020998</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736119020998</updated>
+    </task>
+    <task id="LOCAL-00006" summary="scene references">
+      <created>1736119041641</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736119041641</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +223,7 @@
     <MESSAGE value="#28 debug params" />
     <MESSAGE value="#28 debug profiler" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="scene references" />
+    <option name="LAST_COMMIT_MESSAGE" value="scene references" />
   </component>
 </project>

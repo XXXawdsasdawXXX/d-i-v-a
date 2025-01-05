@@ -1,7 +1,8 @@
 namespace Code.Data.Enums
 {
-    public enum BlackboardKey
+    public enum EHandAnimationMode
     {
         None,
+        Idle,
     }
 }

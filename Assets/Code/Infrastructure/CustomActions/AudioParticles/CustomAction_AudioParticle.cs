@@ -45,7 +45,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             }
         }
 
-        protected abstract ParticleType[] GetParticleTypes();
+        protected abstract EParticleType[] GetParticleTypes();
 
         public void GameUpdate()
         {

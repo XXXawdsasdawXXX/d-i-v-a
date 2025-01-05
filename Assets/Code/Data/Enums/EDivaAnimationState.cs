@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum CharacterAnimationState
+    public enum EDivaAnimationState
     {
         None,
         Enter,

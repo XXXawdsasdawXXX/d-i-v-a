@@ -47,17 +47,17 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             SubscribeToEvents(false);
         }
 
-        public override CustomCutsceneActionType GetActionType()
+        public override ECustomCutsceneActionType GetActionType()
         {
-            return CustomCutsceneActionType.Nimbus;
+            return ECustomCutsceneActionType.Nimbus;
         }
 
-        protected override ParticleType[] GetParticleTypes()
+        protected override EParticleType[] GetParticleTypes()
         {
             return new[]
             {
-                ParticleType.Nimbus_light,
-                ParticleType.Nimbus_dark,
+                EParticleType.Nimbus_light,
+                EParticleType.Nimbus_dark,
             };
         }
 
@@ -77,9 +77,9 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             }
         }
 
-        private void OnSwitchAnimationState(CharacterAnimationState characterAnimationState)
+        private void OnSwitchAnimationState(EDivaAnimationState divaAnimationState)
         {
-            if (characterAnimationState == CharacterAnimationState.Enter)
+            if (divaAnimationState == EDivaAnimationState.Enter)
             {
                 foreach (ParticleSystemFacade particlesSystem in _particlesSystems)
                 {
@@ -91,7 +91,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         }
 
 
-        private void OnSwitchInteractionType(InteractionType currentType)
+        private void OnSwitchInteractionType(EInteractionType currentType)
         {
             TryStartAction();
         }
@@ -106,7 +106,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                 return;
             }
 
-            ParticleType particleType = GetParticleType();
+            EParticleType particleType = GetParticleType();
 
             if (_currentNimbus != null)
             {
@@ -127,11 +127,11 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             }
         }
 
-        private ParticleType GetParticleType()
+        private EParticleType GetParticleType()
         {
-            return _interactionStorage.GetDominantInteractionType() == InteractionType.Good
-                ? ParticleType.Nimbus_light
-                : ParticleType.Nimbus_dark;
+            return _interactionStorage.GetDominantInteractionType() == EInteractionType.Good
+                ? EParticleType.Nimbus_light
+                : EParticleType.Nimbus_dark;
         }
 
         protected override void UpdateParticles()

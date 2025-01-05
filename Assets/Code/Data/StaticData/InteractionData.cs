@@ -6,7 +6,7 @@ namespace Code.Data.StaticData
     [Serializable]
     public class InteractionData
     {
-        public InteractionType СlassificationType;
+        public EInteractionType СlassificationType;
         public int MaxPerDay;
     }
 
@@ -14,7 +14,7 @@ namespace Code.Data.StaticData
     [Serializable]
     public class InteractionDynamicData
     {
-        public InteractionType СlassificationType;
+        public EInteractionType СlassificationType;
         public int Value;
     }
 }

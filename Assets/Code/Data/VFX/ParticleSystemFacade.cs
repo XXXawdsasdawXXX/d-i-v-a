@@ -9,7 +9,7 @@ namespace Code.Data.VFX
 {
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {
-        [field: SerializeField] public ParticleType Type { get; private set; }
+        [field: SerializeField] public EParticleType Type { get; private set; }
         [SerializeField] private ParticleSystem _particleSystem;
 
         [Header("Optional modules")] [SerializeField]
@@ -155,26 +155,26 @@ namespace Code.Data.VFX
             }
         }
 
-        public float GetValue(ParticleParamType paramType)
+        public float GetValue(EParticleParamType paramType)
         {
             switch (paramType)
             {
-                case ParticleParamType.None:
-                case ParticleParamType.TrailGradient:
-                case ParticleParamType.ColorLiveTime:
+                case EParticleParamType.None:
+                case EParticleParamType.TrailGradient:
+                case EParticleParamType.ColorLiveTime:
                 default:
                     return 0;
-                case ParticleParamType.SizeMultiplier:
+                case EParticleParamType.SizeMultiplier:
                     return _main.startSizeMultiplier;
-                case ParticleParamType.TrailWidthOverTrail:
+                case EParticleParamType.TrailWidthOverTrail:
                     return _trails.widthOverTrailMultiplier;
-                case ParticleParamType.VelocitySpeed:
+                case EParticleParamType.VelocitySpeed:
                     return _velocityOverLifetime.speedModifierMultiplier;
-                case ParticleParamType.NoiseSize:
+                case EParticleParamType.NoiseSize:
                     return _noise.sizeAmount.constant;
-                case ParticleParamType.TrailLiveTime:
+                case EParticleParamType.TrailLiveTime:
                     return _trails.lifetimeMultiplier;
-                case ParticleParamType.LiveTime:
+                case EParticleParamType.LiveTime:
                     return _main.startLifetimeMultiplier;
             }
         }

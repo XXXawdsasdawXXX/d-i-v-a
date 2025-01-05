@@ -10,12 +10,12 @@ namespace Code.Data.Configs
     {
         public AudioEvent[] AudioEvents;
 
-        public AudioEvent[] GetAudioEvents(AudioEventType type)
+        public AudioEvent[] GetAudioEvents(EAudioEventType type)
         {
             return AudioEvents.Where(a => a.Type == type).ToArray();
         }
 
-        public AudioEvent GetRandomAudioEvent(AudioEventType type)
+        public AudioEvent GetRandomAudioEvent(EAudioEventType type)
         {
             AudioEvent[] array = GetAudioEvents(type);
             return array[Random.Range(0, array.Length)];

@@ -13,13 +13,13 @@ namespace Code.Components.Entities
         {
             IsActive = true;
             _grassAnimator.PlayGrow();
-            Debugging.Instance.Log($"Grow", Debugging.Type.Grass);
+            Debugging.Instance.Log(this, $"Grow", Debugging.Type.Grass);
         }
 
         public void Die()
         {
             IsActive = false;
-            Debugging.Instance.Log($"Die", Debugging.Type.Grass);
+            Debugging.Instance.Log(this, $"Die", Debugging.Type.Grass);
             _grassAnimator.PlayDie();
         }
 

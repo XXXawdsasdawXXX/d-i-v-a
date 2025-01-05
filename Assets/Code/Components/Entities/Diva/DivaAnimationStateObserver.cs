@@ -3,11 +3,11 @@ using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Entities.AnimationReader.State
+namespace Code.Components.Entities
 {
     public class DivaAnimationStateObserver : DivaComponent, IAnimationStateReader
     {
-        [field: SerializeField] public CharacterAnimationState State { get; private set; }
+        [field: SerializeField] public EDivaAnimationState State { get; private set; }
 
         private readonly int _transition_Seat_Hash = Animator.StringToHash("TransitionSeat");
         private readonly int _transition_Stand_Hash = Animator.StringToHash("TransitionStand");
@@ -20,54 +20,57 @@ namespace Code.Components.Entities.AnimationReader.State
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         private readonly int _reaction_Mouse_Hash = Animator.StringToHash("ReactionMouse");
 
-        public event Action<CharacterAnimationState> OnStateEntered;
-        public event Action<CharacterAnimationState> OnStateExited;
+        public event Action<EDivaAnimationState> OnStateEntered;
+        public event Action<EDivaAnimationState> OnStateExited;
 
 
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
+            
             OnStateEntered?.Invoke(State);
-            Debugging.Instance?.Log($"Animation entered state: {State}", Debugging.Type.AnimationState);
+            
+            Debugging.Instance?.Log(this, $"Animation entered state: {State}", Debugging.Type.AnimationState);
         }
 
         public void ExitedState(int stateHash)
         {
-            CharacterAnimationState state = StateFor(stateHash);
+            EDivaAnimationState state = StateFor(stateHash);
+            
             OnStateExited?.Invoke(StateFor(stateHash));
-            Debugging.Instance?.Log($"Animation exited state: {State}", Debugging.Type.AnimationState);
+            
+            Debugging.Instance?.Log(this, $"Animation exited state: {State}", Debugging.Type.AnimationState);
         }
 
-        private CharacterAnimationState StateFor(int stateHash)
+        private EDivaAnimationState StateFor(int stateHash)
         {
-            CharacterAnimationState state;
-
-
+            EDivaAnimationState state;
+            
             //Mode
             if (stateHash == _idle_Hash)
-                state = CharacterAnimationState.Idle;
+                state = EDivaAnimationState.Idle;
             else if (stateHash == _eat_Hash)
-                state = CharacterAnimationState.Eat;
+                state = EDivaAnimationState.Eat;
             else if (stateHash == _enter_Hash)
-                state = CharacterAnimationState.Enter;
+                state = EDivaAnimationState.Enter;
             else if (stateHash == _exit_Hash)
-                state = CharacterAnimationState.Exit;
+                state = EDivaAnimationState.Exit;
 
             //Reactions
             else if (stateHash == _reaction_Voice_Hash)
-                state = CharacterAnimationState.ReactionVoice;
+                state = EDivaAnimationState.ReactionVoice;
             else if (stateHash == _reaction_Mouse_Hash)
-                state = CharacterAnimationState.ReactionMouse;
+                state = EDivaAnimationState.ReactionMouse;
 
             //Transitions
             else if (stateHash == _transition_Seat_Hash)
-                state = CharacterAnimationState.TransitionSeat;
+                state = EDivaAnimationState.TransitionSeat;
             else if (stateHash == _transition_Stand_Hash)
-                state = CharacterAnimationState.TransitionStand;
+                state = EDivaAnimationState.TransitionStand;
             else if (stateHash == _transition_Sleep_Hash)
-                state = CharacterAnimationState.TransitionSleep;
+                state = EDivaAnimationState.TransitionSleep;
             else
-                state = CharacterAnimationState.None;
+                state = EDivaAnimationState.None;
 
             return state;
         }

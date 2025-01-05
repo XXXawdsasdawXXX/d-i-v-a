@@ -19,14 +19,14 @@ namespace Code.Infrastructure.Factories
             _vfxConfig = Container.Instance.FindConfig<VFXConfig>();
         }
 
-        public IEnumerable<ParticleSystemFacade> CreateParticles(ParticleType type, Transform root, Vector3 position)
+        public IEnumerable<ParticleSystemFacade> CreateParticles(EParticleType type, Transform root, Vector3 position)
         {
             ParticleSystemFacade[] particles = _vfxConfig.GetParticles(type)
                 .Select(particleSystem => CreateParticle(particleSystem, root, position)).ToArray();
             return particles;
         }
 
-        public ParticleSystemFacade CreateParticle(ParticleType type, Transform root, Vector3 position)
+        public ParticleSystemFacade CreateParticle(EParticleType type, Transform root, Vector3 position)
         {
             return CreateParticle(_vfxConfig.GetParticle(type), root, position);
         }

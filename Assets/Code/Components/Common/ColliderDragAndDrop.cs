@@ -45,7 +45,7 @@ namespace Code.Components.Common
 
         public void GameStart()
         {
-            _boarder = (Vector2)_positionService.GetPosition(PointAnchor.LowerRight);
+            _boarder = (Vector2)_positionService.GetPosition(EPointAnchor.LowerRight);
         }
 
         public void GameUpdate()

@@ -39,7 +39,7 @@ namespace Code.Data.VFX
         [Serializable]
         private class Data
         {
-            public ParticleParamType ParticleParam;
+            public EParticleParamType ParticleParam;
             public LoopBackAudioParamType AudioParam;
             public float Multiplier = 1;
             [MinMaxRangeFloat(0, 50)] public RangedFloat Range;
@@ -100,31 +100,31 @@ namespace Code.Data.VFX
         {
             switch (effect.ParticleParam)
             {
-                case ParticleParamType.None:
+                case EParticleParamType.None:
                 default:
                     break;
-                case ParticleParamType.SizeMultiplier:
+                case EParticleParamType.SizeMultiplier:
                     _particleSystem.SetMainStartSizeMultiplier(GetValue(effect));
                     break;
-                case ParticleParamType.TrailWidthOverTrail:
+                case EParticleParamType.TrailWidthOverTrail:
                     _particleSystem.SetTrailWidthOverTrail(GetValue(effect));
                     break;
-                case ParticleParamType.VelocitySpeed:
+                case EParticleParamType.VelocitySpeed:
                     _particleSystem.SetVelocitySpeed(GetValue(effect));
                     break;
-                case ParticleParamType.NoiseSize:
+                case EParticleParamType.NoiseSize:
                     _particleSystem.SetNoiseSize(GetValue(effect));
                     break;
-                case ParticleParamType.TrailLiveTime:
+                case EParticleParamType.TrailLiveTime:
                     _particleSystem.SetTrailsLifetimeMultiplier(GetValue(effect));
                     break;
-                case ParticleParamType.TrailGradient:
+                case EParticleParamType.TrailGradient:
                     _particleSystem.SetTrailsGradientValue(GetValue(effect), _gradient);
                     break;
-                case ParticleParamType.ColorLiveTime:
+                case EParticleParamType.ColorLiveTime:
                     _particleSystem.SetLifetimeColor(GetValue(effect), _gradient);
                     break;
-                case ParticleParamType.LiveTime:
+                case EParticleParamType.LiveTime:
                     _particleSystem.SetMainLifetime(GetValue(effect));
                     break;
             }
@@ -134,31 +134,31 @@ namespace Code.Data.VFX
         {
             switch (effect.ParticleParam)
             {
-                case ParticleParamType.None:
+                case EParticleParamType.None:
                 default:
                     break;
-                case ParticleParamType.SizeMultiplier:
+                case EParticleParamType.SizeMultiplier:
                     _particleSystem.SetMainStartSizeMultiplier(effect.Range.MinValue);
                     break;
-                case ParticleParamType.TrailWidthOverTrail:
+                case EParticleParamType.TrailWidthOverTrail:
                     _particleSystem.SetTrailWidthOverTrail(effect.Range.MinValue);
                     break;
-                case ParticleParamType.VelocitySpeed:
+                case EParticleParamType.VelocitySpeed:
                     _particleSystem.SetVelocitySpeed(effect.Range.MinValue);
                     break;
-                case ParticleParamType.NoiseSize:
+                case EParticleParamType.NoiseSize:
                     _particleSystem.SetNoiseSize(effect.Range.MinValue);
                     break;
-                case ParticleParamType.TrailLiveTime:
+                case EParticleParamType.TrailLiveTime:
                     _particleSystem.SetTrailsLifetimeMultiplier(effect.Range.MinValue);
                     break;
-                case ParticleParamType.TrailGradient:
+                case EParticleParamType.TrailGradient:
                     _particleSystem.SetTrailsGradientValue(effect.Range.MinValue, _gradient);
                     break;
-                case ParticleParamType.ColorLiveTime:
+                case EParticleParamType.ColorLiveTime:
                     _particleSystem.SetLifetimeColor(effect.Range.MinValue, _gradient);
                     break;
-                case ParticleParamType.LiveTime:
+                case EParticleParamType.LiveTime:
                     _particleSystem.SetMainLifetime(effect.Range.MinValue);
                     break;
             }

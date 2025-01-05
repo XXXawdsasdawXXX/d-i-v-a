@@ -45,7 +45,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                _divaAnimator.EnterToMode(CharacterAnimationMode.Stand);
+                _divaAnimator.EnterToMode(EDivaAnimationMode.Stand);
 
                 SubscribeToEvents(true);
 

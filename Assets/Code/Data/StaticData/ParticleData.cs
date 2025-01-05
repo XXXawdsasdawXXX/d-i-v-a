@@ -7,7 +7,7 @@ namespace Code.Data.StaticData
     [Serializable]
     public class ParticleData
     {
-        public ParticleType Type;
+        public EParticleType Type;
         public ParticleSystemFacade[] Objects;
     }
 }

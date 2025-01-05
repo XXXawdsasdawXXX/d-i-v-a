@@ -12,7 +12,7 @@ namespace Code.Components.Entities
         [Serializable]
         private class ModeParam
         {
-            public CharacterAnimationMode AnimationMode;
+            public EDivaAnimationMode AnimationMode;
             public Vector2 ColliderSize;
             public Vector2 EatPoint;
             public Vector2 HeadPoint;
@@ -85,7 +85,7 @@ namespace Code.Components.Entities
             }
         }
 
-        private void _onModeEnteredEvent(CharacterAnimationMode mode)
+        private void _onModeEnteredEvent(EDivaAnimationMode mode)
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
          

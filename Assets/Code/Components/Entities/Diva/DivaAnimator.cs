@@ -26,10 +26,10 @@ namespace Code.Components.Entities
         private readonly int _mouseXHash_f = Animator.StringToHash("MouseX");
         private readonly int _mouseYHash_f = Animator.StringToHash("MouseY");
 
-        public CharacterAnimationMode Mode { get; private set; }
+        public EDivaAnimationMode Mode { get; private set; }
 
         private CoroutineRunner _coroutineRunner;
-        public event Action<CharacterAnimationMode> OnModeEntered;
+        public event Action<EDivaAnimationMode> OnModeEntered;
 
         public void GameInit()
         {
@@ -100,7 +100,7 @@ namespace Code.Components.Entities
 
         public void SetEmptyMode()
         {
-            if (Mode == CharacterAnimationMode.None)
+            if (Mode == EDivaAnimationMode.None)
             {
                 Debugging.Instance?.Log(this, $"Ready SetEmptyMode", Debugging.Type.AnimationMode);
                 return;
@@ -110,14 +110,14 @@ namespace Code.Components.Entities
             _frontHairAnimator.SetBool(_empty_b, true);
             _backHairAnimator.SetBool(_empty_b, true);
 
-            Mode = CharacterAnimationMode.None;
+            Mode = EDivaAnimationMode.None;
             OnModeEntered?.Invoke(Mode);
             Debugging.Instance?.Log(this, $"SetEmptyMode", Debugging.Type.AnimationMode);
         }
 
         public void SetSleepMode()
         {
-            if (Mode == CharacterAnimationMode.Sleep)
+            if (Mode == EDivaAnimationMode.Sleep)
             {
                 Debugging.Instance?.Log(this, $"Ready SetSleepMode", Debugging.Type.AnimationMode);
                 return;
@@ -129,14 +129,14 @@ namespace Code.Components.Entities
             _frontHairAnimator.SetTrigger(_sleepHash_t);
             _backHairAnimator.SetTrigger(_sleepHash_t);
 
-            Mode = CharacterAnimationMode.Sleep;
+            Mode = EDivaAnimationMode.Sleep;
             OnModeEntered?.Invoke(Mode);
             Debugging.Instance?.Log(this, $"SetSleepMode", Debugging.Type.AnimationMode);
         }
 
         public void SetStandMode()
         {
-            if (Mode == CharacterAnimationMode.Stand)
+            if (Mode == EDivaAnimationMode.Stand)
             {
                 Debugging.Instance?.Log(this, $"Ready SetStandMode", Debugging.Type.AnimationMode);
                 return;
@@ -148,14 +148,14 @@ namespace Code.Components.Entities
             _frontHairAnimator.SetTrigger(_standHash_t);
             _backHairAnimator.SetTrigger(_standHash_t);
 
-            Mode = CharacterAnimationMode.Stand;
+            Mode = EDivaAnimationMode.Stand;
             OnModeEntered?.Invoke(Mode);
             Debugging.Instance?.Log(this, $"SetStandMode", Debugging.Type.AnimationMode);
         }
 
         public void SetSeatMode()
         {
-            if (Mode == CharacterAnimationMode.Seat)
+            if (Mode == EDivaAnimationMode.Seat)
             {
                 Debugging.Instance?.Log(this, $"Ready SetSeatMode", Debugging.Type.AnimationMode);
                 return;
@@ -167,27 +167,27 @@ namespace Code.Components.Entities
             _frontHairAnimator.SetTrigger(_seatHash_t);
             _backHairAnimator.SetTrigger(_seatHash_t);
 
-            Mode = CharacterAnimationMode.Seat;
+            Mode = EDivaAnimationMode.Seat;
             OnModeEntered?.Invoke(Mode);
             Debugging.Instance?.Log(this, $"SetSeatMode", Debugging.Type.AnimationMode);
         }
 
 
-        public void EnterToMode(CharacterAnimationMode state)
+        public void EnterToMode(EDivaAnimationMode state)
         {
             switch (state)
             {
                 default:
-                case CharacterAnimationMode.None:
+                case EDivaAnimationMode.None:
                     SetEmptyMode();
                     break;
-                case CharacterAnimationMode.Stand:
+                case EDivaAnimationMode.Stand:
                     SetStandMode();
                     break;
-                case CharacterAnimationMode.Seat:
+                case EDivaAnimationMode.Seat:
                     SetSeatMode();
                     break;
-                case CharacterAnimationMode.Sleep:
+                case EDivaAnimationMode.Sleep:
                     SetSleepMode();
                     break;
             }
@@ -204,7 +204,7 @@ namespace Code.Components.Entities
 
         private void ResetBoolStates()
         {
-            if (Mode == CharacterAnimationMode.None)
+            if (Mode == EDivaAnimationMode.None)
             {
                 _characterAnimator.SetBool(_empty_b, false);
                 _frontHairAnimator.SetBool(_empty_b, false);

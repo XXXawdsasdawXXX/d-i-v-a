@@ -9,7 +9,7 @@ namespace Code.Infrastructure.Services.Interactions
     {
         private string _currentInput;
 
-        public event Action<InputWord> OnWordEntered;
+        public event Action<EInputWord> OnWordEntered;
 
         
         public void GameUpdate()
@@ -46,7 +46,7 @@ namespace Code.Infrastructure.Services.Interactions
                 return;
             }
             
-            foreach (InputWord word in System.Enum.GetValues(typeof(InputWord)))
+            foreach (EInputWord word in System.Enum.GetValues(typeof(EInputWord)))
             {
                 if (_currentInput.Equals(word.ToString()))
                 {

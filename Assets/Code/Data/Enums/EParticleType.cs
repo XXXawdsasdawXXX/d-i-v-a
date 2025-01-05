@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum ParticleType
+    public enum EParticleType
     {
         None,
         StarrySky,

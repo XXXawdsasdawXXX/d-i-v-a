@@ -63,7 +63,7 @@ namespace Code.Infrastructure.Services.Interactions
             {
                 Debugging.Instance.Log($"[ClickSeries] click good series to character {click}",
                     Debugging.Type.Interaction);
-                _interactionStorage.Add(InteractionType.Good);
+                _interactionStorage.Add(EInteractionType.Good);
                 InvokeInteractionEvent();
             }
             else if (click < 3)
@@ -71,13 +71,13 @@ namespace Code.Infrastructure.Services.Interactions
                 if (_divaState.TryGetLowerSate(out ELiveStateKey lowerKey, out float percent) &&
                     lowerKey == ELiveStateKey.Sleep)
                 {
-                    _interactionStorage.Add(InteractionType.Bad);
+                    _interactionStorage.Add(EInteractionType.Bad);
                     Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
                         Debugging.Type.Interaction);
                 }
                 else
                 {
-                    _interactionStorage.Add(InteractionType.Normal);
+                    _interactionStorage.Add(EInteractionType.Normal);
                     Debugging.Instance.Log($"[ClickSeries] click series to character {click}",
                         Debugging.Type.Interaction);
                 }
@@ -88,7 +88,7 @@ namespace Code.Infrastructure.Services.Interactions
             {
                 Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
                     Debugging.Type.Interaction);
-                _interactionStorage.Add(InteractionType.Bad);
+                _interactionStorage.Add(EInteractionType.Bad);
                 InvokeInteractionEvent();
             }
         }

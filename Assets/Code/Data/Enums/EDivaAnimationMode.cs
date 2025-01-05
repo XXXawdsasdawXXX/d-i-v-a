@@ -1,6 +1,6 @@
 ﻿namespace Code.Data.Enums
 {
-    public enum CharacterAnimationMode
+    public enum EDivaAnimationMode
     {
         None,
         Stand,

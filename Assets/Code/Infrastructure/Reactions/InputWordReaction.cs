@@ -14,7 +14,7 @@ namespace Code.Infrastructure.Reactions
         private AudioEventsService _audioEventServices;
         private DivaAnimationAnalytic _animationAnalytic;
 
-        private InputWord _lastWord;
+        private EInputWord _lastWord;
 
         protected override void Init()
         {
@@ -51,9 +51,9 @@ namespace Code.Infrastructure.Reactions
             }
         }
 
-        private void InteractionKeyDownOnOnWordEntered(InputWord word)
+        private void InteractionKeyDownOnOnWordEntered(EInputWord word)
         {
-            if (!IsReady() || _animationAnalytic.CurrentMode is CharacterAnimationMode.Sleep)
+            if (!IsReady() || _animationAnalytic.CurrentMode is EDivaAnimationMode.Sleep)
             {
                 return;
             }
@@ -66,14 +66,14 @@ namespace Code.Infrastructure.Reactions
         {
             switch (_lastWord)
             {
-                case InputWord.hello:
-                case InputWord.hi:
-                case InputWord.ghbdtn:
-                case InputWord.yo:
-                    _audioEventServices.PlayAudio(AudioEventType.Hi);
+                case EInputWord.hello:
+                case EInputWord.hi:
+                case EInputWord.ghbdtn:
+                case EInputWord.yo:
+                    _audioEventServices.PlayAudio(EAudioEventType.Hi);
                     break;
-                case InputWord.love:
-                    _audioEventServices.PlayAudio(AudioEventType.Song);
+                case EInputWord.love:
+                    _audioEventServices.PlayAudio(EAudioEventType.Song);
                     break;
                 default:
                     break;

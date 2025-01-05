@@ -26,21 +26,21 @@ namespace Code.Infrastructure.Services
             _perfectCamera = Container.Instance.FindGetter<PixelPerfectGetter>().Get() as PixelPerfectCamera;
         }
 
-        public Vector3 GetPosition(PointAnchor pointAnchor, EntityBounds entityBounds = null)
+        public Vector3 GetPosition(EPointAnchor pointAnchor, EntityBounds entityBounds = null)
         {
             entityBounds ??= new EntityBounds();
 
             return pointAnchor switch
             {
-                PointAnchor.UpperLeft => _getUpperLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.UpperCenter => _getUpperCenterPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.UpperRight => _getUpperRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.MiddleLeft => _getMiddleLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.MiddleRight => _getMiddleRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerLeft => _getLowerLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerCenter => _getLowerCenterPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerRight => _getLowerRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.Center => _getCenterPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.UpperLeft => _getUpperLeftPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.UpperCenter => _getUpperCenterPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.UpperRight => _getUpperRightPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.MiddleLeft => _getMiddleLeftPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.MiddleRight => _getMiddleRightPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.LowerLeft => _getLowerLeftPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.LowerCenter => _getLowerCenterPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.LowerRight => _getLowerRightPosition(entityBounds.Size, entityBounds.Center),
+                EPointAnchor.Center => _getCenterPosition(entityBounds.Size, entityBounds.Center),
                 _ => Vector3.zero
             };
         }
@@ -52,10 +52,10 @@ namespace Code.Infrastructure.Services
         {
             resultPosition = Vector3.zero;
             
-            PointAnchor[] posTypes = Enum.GetValues(typeof(PointAnchor)).Cast<PointAnchor>().ToArray();
+            EPointAnchor[] posTypes = Enum.GetValues(typeof(EPointAnchor)).Cast<EPointAnchor>().ToArray();
             Extensions.ShuffleArray(posTypes);
             
-            foreach (PointAnchor pointAnchor in posTypes)
+            foreach (EPointAnchor pointAnchor in posTypes)
             {
                 resultPosition = GetPosition(pointAnchor);
                 if (Vector3.Distance(targetPosition, resultPosition) >= minDistance)
