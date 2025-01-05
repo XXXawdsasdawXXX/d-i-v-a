@@ -13,7 +13,7 @@ namespace Code.Data.Configs
 
         [SerializeField] private LiveStateStaticParam[] _liveStateStaticParams;
 
-        public LiveStateStaticParam GetStaticParam(LiveStateKey key)
+        public LiveStateStaticParam GetStaticParam(ELiveStateKey key)
         {
             return _liveStateStaticParams.FirstOrDefault(d => d.Key == key);
         }

@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ItemHolder : CommonComponent, IGameTickListener
+    public class ItemHolder : CommonComponent, IGameUpdateListener
     {
         [Header("Static value")] 
         [SerializeField] private Vector2 _offset;
 
         [field: SerializeField] public Item SelectedItem { get; private set; }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (SelectedItem != null)
             {

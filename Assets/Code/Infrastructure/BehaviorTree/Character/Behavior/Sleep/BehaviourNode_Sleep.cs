@@ -44,7 +44,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
             _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
             _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
             _characterButton = character.FindCommonComponent<ColliderButton>();
-            Container.Instance.FindStorage<LiveStateStorage>().TryGetLiveState(LiveStateKey.Sleep, out _sleepState);
+            Container.Instance.FindStorage<LiveStateStorage>().TryGetLiveState(ELiveStateKey.Sleep, out _sleepState);
             //services--------------------------------------------------------------------------------------------------
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -112,7 +112,7 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
         private IEnumerator PlayExitAnimationRoutine()
         {
             _characterAnimator.EnterToMode(CharacterAnimationMode.None);
-            yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(LiveStateKey.Sleep) >= 0.7f);
+            yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(ELiveStateKey.Sleep) >= 0.7f);
             Debugging.Instance.Log($"Нода сна: выбрано -> прячется СТОП", Debugging.Type.BehaviorTree);
             _characterAnimator.EnterToMode(CharacterAnimationMode.Sleep);
         }

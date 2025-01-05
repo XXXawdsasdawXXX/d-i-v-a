@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ColorChecker : CommonComponent, IWindowsSpecific, IGameInitListener, IGameTickListener
+    public class ColorChecker : CommonComponent, IWindowsSpecific, IGameInitListener, IGameUpdateListener
     {
         [Header("Static values")] [SerializeField]
         private Vector3 _offset;
@@ -37,7 +37,7 @@ namespace Code.Components.Common
             TrySetDebugPointPosition();
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (!_enable)
             {

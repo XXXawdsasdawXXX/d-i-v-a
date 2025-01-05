@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Reactions
 {
-    public class MouseReaction : Reaction, IGameTickListener
+    public class MouseReaction : Reaction, IGameUpdateListener
     {
         private PositionService _positionService;
          
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.Reactions
             return Container.Instance.FindConfig<TimeConfig>().Cooldown.MouseReactionMin;
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (_isActive)
             {

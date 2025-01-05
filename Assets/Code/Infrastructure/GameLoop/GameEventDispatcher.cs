@@ -12,13 +12,16 @@ namespace Code.Infrastructure.GameLoop
     public class GameEventDispatcher : MonoBehaviour, IService
     {
         [SerializeField] private bool _isTestInit;
+      
         private UniWindowController _controller;
 
         private readonly List<IGameInitListener> _initListeners = new();
         private readonly List<IGameLoadListener> _loadListeners = new();
         private readonly List<IGameStartListener> _startListeners = new();
-        private readonly List<IGameTickListener> _tickListeners = new();
+        private readonly List<IGameUpdateListener> _tickListeners = new();
         private readonly List<IGameExitListener> _exitListeners = new();
+
+        #region runtime
 
         public void Awake()
         {
@@ -29,50 +32,69 @@ namespace Code.Infrastructure.GameLoop
             if (_isTestInit)
             {
                 _controller.gameObject.SetActive(false);
-                InitializeListeners();
-                NotifyGameInit();
-                NotifyGameLoad();
-                Debugging.Instance.Log("Awake", Debugging.Type.GameState);
-                StartCoroutine(StartWithDelay());
+                _initializeListeners();
+                _notifyGameInit();
+                _notifyGameLoad();
+                Debugging.Instance.Log(this, "Awake", Debugging.Type.GameState);
+                StartCoroutine(_startWithDelay());
                 Debugging.Instance.Log("Start", Debugging.Type.GameState);
             }
             else
             {
-                _controller.OnStateChanged += OnWindowControllerStateChanged;
-                Debugging.Instance.Log("Subscribe", Debugging.Type.GameState);
-                InitializeListeners();
-                NotifyGameInit();
-                NotifyGameLoad();
-                Debugging.Instance.Log("Awake", Debugging.Type.GameState);
+                _controller.OnStateChanged += _onWindowControllerStateChanged;
+                Debugging.Instance.Log(this, "Subscribe", Debugging.Type.GameState);
+                _initializeListeners();
+                _notifyGameInit();
+                _notifyGameLoad();
+                Debugging.Instance.Log(this, "Awake", Debugging.Type.GameState);
             }
-        }
-
-        private void OnWindowControllerStateChanged(UniWindowController.WindowStateEventType type)
-        {
-            StartCoroutine(StartWithDelay());
-        }
-
-        private IEnumerator StartWithDelay()
-        {
-            _controller.OnStateChanged -= OnWindowControllerStateChanged;
-            yield return new WaitForSeconds(1);
-
-            NotifyGameStart();
-            Debugging.Instance.Log("Start", Debugging.Type.GameState);
         }
 
         private void Update()
         {
-            NotifyGameTick();
+            _notifyGameUpdate();
         }
 
         private void OnApplicationQuit()
         {
-            NotifyGameExit();
-            Debugging.Instance.Log("Exit", Debugging.Type.GameState);
+            _notifyGameExit();
+            Debugging.Instance.Log(this, "Exit", Debugging.Type.GameState);
         }
 
-        private void InitializeListeners()
+        #endregion
+
+        public void InitializeRuntimeListener(IGameListeners listener)
+        {
+            if (listener is IGameInitListener initListener) initListener.GameInit();
+            if (listener is IGameLoadListener loadListener) loadListener.GameLoad();
+            if (listener is IGameStartListener startListener) startListener.GameStart();
+            if (listener is IGameUpdateListener tickListener) _tickListeners.Add(tickListener);
+            if (listener is IGameExitListener exitListener) _exitListeners.Add(exitListener);
+        }
+
+        public void RemoveRuntimeListener(IGameListeners listener)
+        {
+            if (listener is IGameUpdateListener tickListener) _tickListeners.Remove(tickListener);
+            if (listener is IGameExitListener exitListener) _exitListeners.Remove(exitListener);
+        }
+
+        private void _onWindowControllerStateChanged(UniWindowController.WindowStateEventType type)
+        {
+            StartCoroutine(_startWithDelay());
+        }
+
+        private IEnumerator _startWithDelay()
+        {
+            _controller.OnStateChanged -= _onWindowControllerStateChanged;
+
+            yield return new WaitForSeconds(1);
+
+            _notifyGameStart();
+
+            Debugging.Instance.Log(this, "Start", Debugging.Type.GameState);
+        }
+
+        private void _initializeListeners()
         {
             List<IGameListeners> gameListeners = Container.Instance.GetGameListeners();
             if (Extensions.IsMacOs())
@@ -90,29 +112,14 @@ namespace Code.Infrastructure.GameLoop
                     _loadListeners.Add(loadListener);
                 if (listener is IGameStartListener startListener)
                     _startListeners.Add(startListener);
-                if (listener is IGameTickListener tickListener)
+                if (listener is IGameUpdateListener tickListener)
                     _tickListeners.Add(tickListener);
                 if (listener is IGameExitListener exitListener)
                     _exitListeners.Add(exitListener);
             }
         }
-
-        public void InitializeRuntimeListener(IGameListeners listener)
-        {
-            if (listener is IGameInitListener initListener) initListener.GameInit();
-            if (listener is IGameLoadListener loadListener) loadListener.GameLoad();
-            if (listener is IGameStartListener startListener) startListener.GameStart();
-            if (listener is IGameTickListener tickListener) _tickListeners.Add(tickListener);
-            if (listener is IGameExitListener exitListener) _exitListeners.Add(exitListener);
-        }
         
-        public void RemoveRuntimeListener(IGameListeners listener)
-        {
-            if (listener is IGameTickListener tickListener) _tickListeners.Remove(tickListener);
-            if (listener is IGameExitListener exitListener) _exitListeners.Remove(exitListener);
-        }
-        
-        private void NotifyGameInit()
+        private void _notifyGameInit()
         {
             foreach (IGameInitListener listener in _initListeners)
             {
@@ -120,7 +127,7 @@ namespace Code.Infrastructure.GameLoop
             }
         }
 
-        private void NotifyGameLoad()
+        private void _notifyGameLoad()
         {
             foreach (IGameLoadListener listener in _loadListeners)
             {
@@ -128,7 +135,7 @@ namespace Code.Infrastructure.GameLoop
             }
         }
 
-        private void NotifyGameStart()
+        private void _notifyGameStart()
         {
             foreach (IGameStartListener listener in _startListeners)
             {
@@ -136,15 +143,15 @@ namespace Code.Infrastructure.GameLoop
             }
         }
 
-        private void NotifyGameTick()
+        private void _notifyGameUpdate()
         {
-            foreach (IGameTickListener listener in _tickListeners)
+            foreach (IGameUpdateListener listener in _tickListeners)
             {
-                listener.GameTick();
+                listener.GameUpdate();
             }
         }
 
-        private void NotifyGameExit()
+        private void _notifyGameExit()
         {
             foreach (IGameExitListener listener in _exitListeners)
             {

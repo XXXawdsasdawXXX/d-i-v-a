@@ -14,7 +14,7 @@ using UnityEngine.Networking;
 
 namespace Code.Infrastructure.Services
 {
-    public class TimeObserver : IService, IGameInitListener, IGameTickListener, IProgressWriter
+    public class TimeObserver : IService, IGameInitListener, IGameUpdateListener, IProgressWriter
     {
         [Header("Static value")] private static readonly TimeSpan NightStart = new(22, 0, 0); // Начало ночи (20:00)
         private static readonly TimeSpan NightEnd = new(6, 0, 0); // Конец ночи (06:00)
@@ -54,7 +54,7 @@ namespace Code.Infrastructure.Services
             Debugging.Instance.Log($"Update progress", Debugging.Type.Time);
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (!_isInit)
             {

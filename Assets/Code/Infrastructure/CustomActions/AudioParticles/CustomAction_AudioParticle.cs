@@ -11,7 +11,7 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IGameTickListener,
+    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IGameUpdateListener,
         IGameStartListener,
         IGameInitListener
     {
@@ -47,7 +47,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected abstract ParticleType[] GetParticleTypes();
 
-        public void GameTick()
+        public void GameUpdate()
         {
             UpdateParticles();
         }

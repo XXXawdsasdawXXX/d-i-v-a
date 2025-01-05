@@ -8,7 +8,7 @@ namespace Code.Infrastructure.Services.Interactions
 {
     public class Interaction_ReturnAfterAbsence : InteractionObserver, 
         IGameInitListener,
-        IGameTickListener
+        IGameUpdateListener
     {
         private float _userStandStillSecond;
         private float _absenceSecond;
@@ -22,7 +22,7 @@ namespace Code.Infrastructure.Services.Interactions
             _userStandStillSecond = Container.Instance.FindConfig<TimeConfig>().Duration.UserStandStillSecond;
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (Input.anyKeyDown)
             {

@@ -104,7 +104,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             }
         }
 
-        private void OnSwitchLowerLiveState(LiveStateKey key)
+        private void OnSwitchLowerLiveState(ELiveStateKey key)
         {
             Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя", Debugging.Type.Hand);
             _currentChild?.Break();

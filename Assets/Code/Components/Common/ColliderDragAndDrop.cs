@@ -13,7 +13,7 @@ namespace Code.Components.Common
     public class ColliderDragAndDrop : CommonComponent, IToggle,
         IGameInitListener, 
         IGameStartListener,
-        IGameTickListener
+        IGameUpdateListener
     {
         [Header("Params")] 
         [SerializeField] protected bool _isActive;
@@ -48,7 +48,7 @@ namespace Code.Components.Common
             _boarder = (Vector2)_positionService.GetPosition(PointAnchor.LowerRight);
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (_isActive && _isDragging && _colliderButton.IsPressed)
             {

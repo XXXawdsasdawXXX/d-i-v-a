@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Data.VFX
 {
-    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameTickListener,
+    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameUpdateListener,
         IGameStartListener
     {
         private enum LoopBackAudioParamType
@@ -58,7 +58,7 @@ namespace Code.Data.VFX
             }
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             _enabledTime += Time.deltaTime;
             foreach (Data effect in _effectsData)

@@ -5,9 +5,9 @@ using Code.Data.Value.RangeFloat;
 namespace Code.Data.Value
 {
     [Serializable]
-    public class LiveStateRangePercentageValue
+    public struct LiveStateRangePercentageValue
     {
-        public LiveStateKey Key;
+        public ELiveStateKey Key;
         [MinMaxRangeFloat(-1, 1)] public RangedFloat PercentageValue;
     }
 }

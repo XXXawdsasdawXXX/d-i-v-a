@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Code.Components.Common
 {
     public class MovementToMouse : CommonComponent, 
-        IGameInitListener, IGameTickListener, 
+        IGameInitListener, IGameUpdateListener, 
         IToggle
     {
         [Header("Static value")] 
@@ -32,7 +32,7 @@ namespace Code.Components.Common
             _divaTransform = Container.Instance.FindEntity<DIVA>().transform;
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (_isMove)
             {

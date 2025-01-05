@@ -13,7 +13,7 @@ namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Sakura : CustomAction, IProgressWriter, 
         IGameInitListener,  
-        IGameTickListener, 
+        IGameUpdateListener, 
         IGameExitListener
     {
         private const float MAX_ACTIVE_MIN = 20;
@@ -39,7 +39,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (IsActive)
             {

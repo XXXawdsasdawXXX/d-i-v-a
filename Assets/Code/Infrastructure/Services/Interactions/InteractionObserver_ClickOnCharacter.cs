@@ -68,8 +68,8 @@ namespace Code.Infrastructure.Services.Interactions
             }
             else if (click < 3)
             {
-                if (_characterState.TryGetLowerSate(out LiveStateKey lowerKey, out float percent) &&
-                    lowerKey == LiveStateKey.Sleep)
+                if (_characterState.TryGetLowerSate(out ELiveStateKey lowerKey, out float percent) &&
+                    lowerKey == ELiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(InteractionType.Bad);
                     Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",

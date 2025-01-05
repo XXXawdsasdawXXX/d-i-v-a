@@ -6,15 +6,16 @@ namespace Code.Data.Value
     [Serializable]
     public class CharacterLiveState
     {
-        private float _decreasingValue;
-        private readonly float _healValue;
+        public event Action<float> OnChanged;
+        
         public float Max { get; }
         public float Current { get; private set; }
         public bool IsHealing { get; private set; }
         public float GetPercent() => Max == 0 ? 0 : Current / Max;
 
-        public event Action<float> ChangedEvent;
-
+        private readonly float _healValue;
+        
+        private float _decreasingValue;
 
         public CharacterLiveState(float current, float max, float decreasingValue, float healValue, bool isHealing)
         {
@@ -41,6 +42,7 @@ namespace Code.Data.Value
         public void Add(float value)
         {
             Current += value;
+         
             if (Current > Max)
             {
                 Current = Max;
@@ -50,7 +52,7 @@ namespace Code.Data.Value
                 Current = 0;
             }
 
-            ChangedEvent?.Invoke(Current);
+            OnChanged?.Invoke(Current);
         }
 
         public void Remove(float value)
@@ -61,7 +63,7 @@ namespace Code.Data.Value
                 Current = 0;
             }
 
-            ChangedEvent?.Invoke(Current);
+            OnChanged?.Invoke(Current);
         }
 
         public void SetHealUpdate()

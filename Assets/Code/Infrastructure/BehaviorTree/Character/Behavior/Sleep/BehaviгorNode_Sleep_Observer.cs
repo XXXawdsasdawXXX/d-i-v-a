@@ -10,13 +10,13 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Sleep
             {
                 _characterButton.SeriesOfClicksEvent += OnClickSeries;
                 _timeObserver.StartDayEvent += Rouse;
-                _sleepState.ChangedEvent += OnChangedSleepStateValue;
+                _sleepState.OnChanged += OnChangedSleepStateValue;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= OnClickSeries;
                 _timeObserver.StartDayEvent -= Rouse;
-                _sleepState.ChangedEvent -= OnChangedSleepStateValue;
+                _sleepState.OnChanged -= OnChangedSleepStateValue;
             }
         }
 

@@ -19,9 +19,9 @@
         void GameStart();
     }
 
-    public interface IGameTickListener : IGameListeners
+    public interface IGameUpdateListener : IGameListeners
     {
-        void GameTick();
+        void GameUpdate();
     }
 
 

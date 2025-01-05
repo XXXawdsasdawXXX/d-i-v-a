@@ -16,9 +16,9 @@ namespace Code.Components.Entities.Characters
     {
         private TimeObserver _timeObserver;
         private LiveStateStorage _storage;
-        public LiveStateKey CurrentLowerLiveStateKey { get; private set; }
+        public ELiveStateKey CurrentLowerLiveStateKey { get; private set; }
 
-        public event Action<LiveStateKey> SwitchLowerStateKeyEvent;
+        public event Action<ELiveStateKey> SwitchLowerStateKeyEvent;
 
         public void GameInit()
         {
@@ -53,7 +53,7 @@ namespace Code.Components.Entities.Characters
 
         private void CheckLowerState()
         {
-            IOrderedEnumerable<KeyValuePair<LiveStateKey, CharacterLiveState>> keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
+            IOrderedEnumerable<KeyValuePair<ELiveStateKey, CharacterLiveState>> keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
             if (!keyValuePairs.Any())
             {
                 Debugging.Instance.Log($"[CheckLowerState] return when try check lower state",
@@ -61,15 +61,15 @@ namespace Code.Components.Entities.Characters
                 return;
             }
 
-            LiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
+            ELiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
 
             Debugging.Instance.Log(
                 $"[CheckLowerState] try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
                 Debugging.Type.LiveState);
 
-            LiveStateKey resultState = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
-                ? LiveStateKey.None
+            ELiveStateKey resultState = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
+                ? ELiveStateKey.None
                 : lowerCharacterLiveState;
 
             if (resultState != CurrentLowerLiveStateKey)
@@ -81,7 +81,7 @@ namespace Code.Components.Entities.Characters
             }
         }
 
-        public float GetStatePercent(LiveStateKey liveStateKey)
+        public float GetStatePercent(ELiveStateKey liveStateKey)
         {
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
             {
@@ -91,7 +91,7 @@ namespace Code.Components.Entities.Characters
             return 0;
         }
 
-        public bool TryGetLowerSate(out LiveStateKey liveStateKey, out float statePercent)
+        public bool TryGetLowerSate(out ELiveStateKey liveStateKey, out float statePercent)
         {
             liveStateKey = CurrentLowerLiveStateKey;
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))

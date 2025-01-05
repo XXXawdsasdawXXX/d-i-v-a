@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction, IGameInitListener, IGameStartListener, IGameTickListener,
+    public class CustomAction_StarryMouse : CustomAction, IGameInitListener, IGameStartListener, IGameUpdateListener,
         IGameExitListener
     {
         [Header("Character")] private ColliderButton _characterButton;
@@ -55,7 +55,7 @@ namespace Code.Infrastructure.CustomActions
             SubscribeToEvents(false);
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             Vector3 currentMousePosition = _positionService.GetMouseWorldPosition();
             _particle.transform.position = currentMousePosition;

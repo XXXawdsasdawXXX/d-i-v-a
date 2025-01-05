@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Character
 {
-    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameTickListener,
+    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameUpdateListener,
         IGameExitListener
     {
         [SerializeField] private bool _isRun;
@@ -23,7 +23,7 @@ namespace Code.Infrastructure.BehaviorTree.Character
             SubscribeToEvents(true);
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (!_isRun)
             {

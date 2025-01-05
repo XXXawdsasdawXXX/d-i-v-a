@@ -1,6 +1,6 @@
 namespace Code.Data.Enums
 {
-    public enum LiveStateKey
+    public enum ELiveStateKey
     {
         None,
         Sleep,

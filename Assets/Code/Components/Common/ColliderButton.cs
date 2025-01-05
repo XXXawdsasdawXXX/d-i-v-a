@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Components.Common
 {
-    public class ColliderButton : CommonComponent, IGameInitListener, IGameTickListener
+    public class ColliderButton : CommonComponent, IGameInitListener, IGameUpdateListener
     {
         [Header("Services")]
         private PositionService _positionService;
@@ -32,7 +32,7 @@ namespace Code.Components.Common
             _positionService = Container.Instance.FindService<PositionService>();
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (IsPressed)
             {

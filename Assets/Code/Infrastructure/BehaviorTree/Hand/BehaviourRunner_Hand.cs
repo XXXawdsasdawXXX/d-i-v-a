@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Hand
 {
-    public class BehaviourRunner_Hand : MonoBehaviour, IService, IGameInitListener, IGameTickListener,
+    public class BehaviourRunner_Hand : MonoBehaviour, IService, IGameInitListener, IGameUpdateListener,
         IGameExitListener
     {
         [SerializeField] private bool _isRun;
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             SubscribeToEvents(true);
         }
 
-        public void GameTick()
+        public void GameUpdate()
         {
             if (!_isRun)
             {

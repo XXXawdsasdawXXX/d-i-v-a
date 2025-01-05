@@ -42,13 +42,13 @@ namespace Code.Infrastructure.BehaviorTree.Character
             //static values---------------------------------------------------------------------------------------------
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
-            _sleepHealValue = liveStateConfig.GetStaticParam(LiveStateKey.Sleep).HealValue;
+            _sleepHealValue = liveStateConfig.GetStaticParam(ELiveStateKey.Sleep).HealValue;
             TimeConfig timeConfig = Container.Instance.FindConfig<TimeConfig>();
             _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
 
             _liveStateStorage.OnInit += () =>
             {
-                if (!_liveStateStorage.TryGetLiveState(LiveStateKey.Sleep, out _sleepState))
+                if (!_liveStateStorage.TryGetLiveState(ELiveStateKey.Sleep, out _sleepState))
                 {
                     Debugging.LogError(this, "не нашел стейт сна");
                 }
@@ -59,8 +59,8 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
         public bool IsCanSeat()
         {
-            return _statesAnalytic.TryGetLowerSate(out LiveStateKey key, out float statePercent)
-                   && key is LiveStateKey.Trust or LiveStateKey.Hunger
+            return _statesAnalytic.TryGetLowerSate(out ELiveStateKey key, out float statePercent)
+                   && key is ELiveStateKey.Trust or ELiveStateKey.Hunger
                    && statePercent < 0.4f;
         }
 
@@ -80,17 +80,17 @@ namespace Code.Infrastructure.BehaviorTree.Character
 
         public bool IsCanExitWhenSleep()
         {
-            _statesAnalytic.TryGetLowerSate(out LiveStateKey lowerKey, out float lowerStatePercent);
+            _statesAnalytic.TryGetLowerSate(out ELiveStateKey lowerKey, out float lowerStatePercent);
 
             bool randomResult = Random.Range(0, 100) >= 50;
 
             Debugging.Instance.Log($"Проверка на выход во сне:" +
-                                   $" {lowerKey is LiveStateKey.Trust}" +
+                                   $" {lowerKey is ELiveStateKey.Trust}" +
                                    $" && ({lowerStatePercent <= 0.4f})" +
                                    $" && {randomResult}",
                 Debugging.Type.CharacterCondition);
 
-            return lowerKey is LiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
+            return lowerKey is ELiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
         }
 
         public bool IsCanStand()

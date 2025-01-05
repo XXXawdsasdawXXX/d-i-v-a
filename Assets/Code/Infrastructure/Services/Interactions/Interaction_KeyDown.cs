@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IGameTickListener
+    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener
     {
         private string _currentInput;
 
         public event Action<InputWord> OnWordEntered;
 
         
-        public void GameTick()
+        public void GameUpdate()
         {
             foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
             {

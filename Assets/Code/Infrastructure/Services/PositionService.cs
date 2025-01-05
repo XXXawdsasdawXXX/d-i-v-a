@@ -16,7 +16,7 @@ namespace Code.Infrastructure.Services
     {
         [SerializeField] private RectTransform _canvas;
 
-        private readonly Vector2 _offset = new(75,  75);
+        private readonly Vector2 _offset = new(75, 95);
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 
@@ -32,83 +32,22 @@ namespace Code.Infrastructure.Services
 
             return pointAnchor switch
             {
-                PointAnchor.UpperLeft => GetUpperLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.UpperCenter => GetUpperCenterPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.UpperRight => GetUpperRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.MiddleLeft => GetMiddleLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.MiddleRight => GetMiddleRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerLeft => GetLowerLeftPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerCenter => GetLowerCenterPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.LowerRight => GetLowerRightPosition(entityBounds.Size, entityBounds.Center),
-                PointAnchor.Center => GetCenterPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.UpperLeft => _getUpperLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.UpperCenter => _getUpperCenterPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.UpperRight => _getUpperRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.MiddleLeft => _getMiddleLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.MiddleRight => _getMiddleRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerLeft => _getLowerLeftPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerCenter => _getLowerCenterPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.LowerRight => _getLowerRightPosition(entityBounds.Size, entityBounds.Center),
+                PointAnchor.Center => _getCenterPosition(entityBounds.Size, entityBounds.Center),
                 _ => Vector3.zero
             };
         }
-
-        #region Base methods
-
-        private Vector2 GetScreenSize()
-        {
-            return _canvas.sizeDelta - _offset;
-        }
-
-        public Vector3 GetMouseWorldPosition()
-        {
-            Vector3 position = ScreenToWorld(Input.mousePosition);
-            return position;
-        }
-
-        private Vector3 ScreenToWorld(Vector2 screenPoint)
-        {
-            Vector3 worldPoint = _perfectCamera != null && _perfectCamera.enabled
-                ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint))
-                : _camera.ScreenToWorldPoint(screenPoint);
-            return new Vector3(worldPoint.x, worldPoint.y, 0);
-        }
-
-        #endregion
-
-        //upper
-
-
-        private Vector3 GetUpperLeftPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(size.x, GetScreenSize().y - size.y)) + center.AsVector3();
-
-        private Vector3 GetUpperCenterPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x / 2, GetScreenSize().y - size.y)) + center.AsVector3();
-
-        private Vector3 GetUpperRightPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x - size.x, GetScreenSize().y - size.y)) + center.AsVector3();
-
-        //middle
-
-        private Vector3 GetCenterPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x / 2, GetScreenSize().y / 2)) + center.AsVector3();
-
-        private Vector3 GetMiddleRightPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x - size.x, GetScreenSize().y / 2)) + center.AsVector3();
-
-        private Vector3 GetMiddleLeftPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(size.x, GetScreenSize().y / 2)) + center.AsVector3();
-
-        //lower
-
-
-        private Vector3 GetLowerCenterPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x / 2, 0)) + center.AsVector3();
-
-        private Vector3 GetLowerLeftPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(size.x, 0)) + center.AsVector3();
-
-        private Vector3 GetLowerRightPosition(Vector2 size, Vector2 center) =>
-            ScreenToWorld(new Vector2(GetScreenSize().x - size.x, 0)) + center.AsVector3();
-
-
-        public Vector2 WorldToScreen(Vector3 transformPosition)
-        {
-            return _camera.WorldToScreenPoint(transformPosition);
-        }
         
+        public Vector2 WorldToScreen(Vector3 transformPosition) =>
+            _camera.WorldToScreenPoint(transformPosition);
+
         public bool TryGetRandomDistantPosition(Vector3 targetPosition, float minDistance, out Vector3 resultPosition)
         {
             resultPosition = Vector3.zero;
@@ -127,5 +66,58 @@ namespace Code.Infrastructure.Services
             
             return false;
         }
+
+        public Vector3 GetMouseWorldPosition()
+        {
+            Vector3 position = _screenToWorld(Input.mousePosition);
+            return position;
+        }
+        
+        private Vector2 _getScreenSize()
+        {
+            return _canvas.sizeDelta - _offset;
+        }
+        
+        private Vector3 _screenToWorld(Vector2 screenPoint)
+        {
+            Vector3 worldPoint = _perfectCamera != null && _perfectCamera.enabled
+                ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint))
+                : _camera.ScreenToWorldPoint(screenPoint);
+            return new Vector3(worldPoint.x, worldPoint.y, 0);
+        }
+
+        //upper
+        
+        private Vector3 _getUpperLeftPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(size.x, _getScreenSize().y - size.y)) + center.AsVector3();
+
+        private Vector3 _getUpperCenterPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x / 2, _getScreenSize().y - size.y)) + center.AsVector3();
+
+        private Vector3 _getUpperRightPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x - size.x, _getScreenSize().y - size.y)) + center.AsVector3();
+
+        //middle
+
+        private Vector3 _getCenterPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x / 2, _getScreenSize().y / 2)) + center.AsVector3();
+
+        private Vector3 _getMiddleRightPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x - size.x, _getScreenSize().y / 2)) + center.AsVector3();
+
+        private Vector3 _getMiddleLeftPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(size.x, _getScreenSize().y / 2)) + center.AsVector3();
+
+        //lower
+        
+        private Vector3 _getLowerCenterPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x / 2, _offset.y)) + center.AsVector3();
+
+        private Vector3 _getLowerLeftPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(size.x, _offset.y)) + center.AsVector3();
+
+        private Vector3 _getLowerRightPosition(Vector2 size, Vector2 center) =>
+            _screenToWorld(new Vector2(_getScreenSize().x - size.x, _offset.y)) + center.AsVector3();
+        
     }
 }

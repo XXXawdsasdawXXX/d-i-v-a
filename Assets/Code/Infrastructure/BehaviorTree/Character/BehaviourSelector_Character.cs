@@ -96,7 +96,7 @@ namespace Code.Infrastructure.BehaviorTree.Character
             }
         }
 
-        private void OnSwitchLowerLiveState(LiveStateKey key)
+        private void OnSwitchLowerLiveState(ELiveStateKey key)
         {
             Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя",
                 Debugging.Type.BehaviorTree);

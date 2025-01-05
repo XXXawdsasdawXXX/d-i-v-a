@@ -73,9 +73,9 @@ namespace Code.Infrastructure.BehaviorTree.Character.Behavior.Stand
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
             Debugging.Instance.Log(
-                $"Нода стояния: колбэк. продолжение работы ноды = {_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None && success}",
+                $"Нода стояния: колбэк. продолжение работы ноды = {_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
                 Debugging.Type.BehaviorTree);
-            if (_statesAnalytic.CurrentLowerLiveStateKey == LiveStateKey.None && success)
+            if (_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success)
             {
                 RunNode(_node_randomSequence);
             }

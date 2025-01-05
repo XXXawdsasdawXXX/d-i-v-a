@@ -13,7 +13,7 @@ namespace Code.Infrastructure.Services
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
-        private LiveStateKey _currentLowerLiveStateKey;
+        private ELiveStateKey _currentLowerLiveStateKey;
 
         public void GameInit()
         {
@@ -48,7 +48,7 @@ namespace Code.Infrastructure.Services
                 return;
             }
 
-            foreach (KeyValuePair<LiveStateKey, CharacterLiveState> liveState in _storage.LiveStates)
+            foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in _storage.LiveStates)
             {
                 if (IsCanUpdateLiveState(liveState))
                 {
@@ -60,15 +60,15 @@ namespace Code.Infrastructure.Services
             }
         }
 
-        private bool IsCantUpdateLiveState(KeyValuePair<LiveStateKey, CharacterLiveState> liveState)
+        private bool IsCantUpdateLiveState(KeyValuePair<ELiveStateKey, CharacterLiveState> liveState)
         {
-            return (liveState.Key == LiveStateKey.Trust && !liveState.Value.IsHealing &&
-                    !_storage.IsEmptyState(LiveStateKey.Hunger));
+            return (liveState.Key == ELiveStateKey.Trust && !liveState.Value.IsHealing &&
+                    !_storage.IsEmptyState(ELiveStateKey.Hunger));
         }
 
-        private bool IsCanUpdateLiveState(KeyValuePair<LiveStateKey, CharacterLiveState> liveState)
+        private bool IsCanUpdateLiveState(KeyValuePair<ELiveStateKey, CharacterLiveState> liveState)
         {
-            return liveState.Key != LiveStateKey.Trust;
+            return liveState.Key != ELiveStateKey.Trust;
         }
     }
 }

@@ -12,8 +12,7 @@ namespace Code.Test
     {
         [SerializeField] private Text _paramText;
         private TimeObserver _timer;
-
-
+        
         private void Start()
         {
             _timer = Container.Instance.FindService<TimeObserver>();

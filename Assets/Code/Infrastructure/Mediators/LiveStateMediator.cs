@@ -60,14 +60,14 @@ namespace Code.Infrastructure.Mediators
                 case InteractionType.Normal:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
                     {
-                        Key = LiveStateKey.Trust,
+                        Key = ELiveStateKey.Trust,
                         Value = value
                     });
                     break;
                 case InteractionType.Bad:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
                     {
-                        Key = LiveStateKey.Trust,
+                        Key = ELiveStateKey.Trust,
                         Value = -value
                     });
                     break;
