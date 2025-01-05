@@ -1,9 +1,8 @@
 ﻿using System;
-using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Entities.Hands
+namespace Code.Components.Entities
 {
     public class HandAnimator : HandComponent
     {

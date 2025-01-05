@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Entities.Hands.Editor
+namespace Code.Components.Entities.Editor
 {
     [CustomEditor(typeof(Hand))]
     public class HandEditor : UnityEditor.Editor

@@ -1,5 +1,5 @@
 ﻿using Code.Components.Common;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
@@ -16,7 +16,7 @@ namespace Code.Infrastructure.CustomActions
         IGameExitListener
     {
         [Header("Character")] private ColliderButton _characterButton;
-        private CharacterAnimationAnalytic _characterAnimationAnalytic;
+        private DivaAnimationAnalytic _divaAnimationAnalytic;
         [Header("Services")] private PositionService _positionService;
         private CoroutineRunner _coroutineRunner;
         [Header("Statis values")] private ParticleSystemFacade _particle;
@@ -34,9 +34,9 @@ namespace Code.Infrastructure.CustomActions
                 _particle = particlesFacades[0];
                 _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
                 //character
-                DIVA diva = Container.Instance.FindEntity<DIVA>();
+                Diva diva = Container.Instance.FindEntity<Diva>();
                 _characterButton = diva.FindCommonComponent<ColliderButton>();
-                _characterAnimationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+                _divaAnimationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
                 //services 
                 _positionService = Container.Instance.FindService<PositionService>();
                 _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
@@ -98,7 +98,7 @@ namespace Code.Infrastructure.CustomActions
         {
             Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
                 Debugging.Type.CustomAction);
-            if (pressDuration < 0.1 && _characterAnimationAnalytic.GetAnimationMode() is CharacterAnimationMode.Stand)
+            if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is CharacterAnimationMode.Stand)
             {
                 if (_isActive)
                 {

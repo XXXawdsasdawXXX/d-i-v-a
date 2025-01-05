@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Components.Entities.Grass.Editor
+namespace Code.Components.Entities.Editor
 {
     [CustomEditor(typeof(Grass))]
     public class GrassEditor : UnityEditor.Editor

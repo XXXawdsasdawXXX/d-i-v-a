@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Components.Entities.Hands
+namespace Code.Components.Entities
 {
     public class HandComponent : MonoBehaviour
     {

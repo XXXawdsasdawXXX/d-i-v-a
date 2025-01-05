@@ -1,4 +1,4 @@
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
 using Code.Utils;
@@ -8,7 +8,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public sealed class BehaviourSelector_Character : BaseNode, IBehaviourCallback
     {
-        [Header("Services")] private readonly CharacterLiveStatesAnalytic _stateAnalytic;
+        [Header("Services")] private readonly DivaLiveStatesAnalytic _stateAnalytic;
 
         [Header("Values")] private readonly BaseNode[] _orderedNodes;
         private BaseNode _currentChild;
@@ -16,8 +16,8 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         public BehaviourSelector_Character()
         {
-            _stateAnalytic = Container.Instance.FindEntity<DIVA>()
-                .FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _stateAnalytic = Container.Instance.FindEntity<Components.Entities.Diva>()
+                .FindCharacterComponent<DivaLiveStatesAnalytic>();
 
             _orderedNodes = new BaseNode[]
             {

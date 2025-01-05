@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e348bfd4e58b4ff08925ea02d1003a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterAnimator: {fileID: 7024979021285652677}
+  _divaAnimator: {fileID: 7024979021285652677}
   _animationStateObserver: {fileID: 7024979022035233821}
 --- !u!114 &7024979021285652677
 MonoBehaviour:

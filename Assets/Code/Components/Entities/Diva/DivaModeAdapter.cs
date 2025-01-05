@@ -5,35 +5,36 @@ using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterModeAdapter : CharacterComponent
+    public class DivaModeAdapter : DivaComponent
     {
-        [Header("Component")] [SerializeField] private BoxCollider2D _boxCollider2D;
+        [Serializable]
+        private class ModeParam
+        {
+            public CharacterAnimationMode AnimationMode;
+            public Vector2 ColliderSize;
+            public Vector2 EatPoint;
+            public Vector2 HeadPoint;
+            public Vector2 LegPoint;
+        }
+
+        [Header("Component")]
+        [SerializeField] private BoxCollider2D _boxCollider2D;
         [SerializeField] private LandingOnWindows _landingOnWindows;
-        [SerializeField] private CharacterAnimator _animationModeObserver;
-        [Header("Sizes")] [SerializeField] private ModeParam[] _sizeParams;
+        [SerializeField] private DivaAnimator _animationModeObserver;
+
+        [Header("Sizes")] 
+        [SerializeField] private ModeParam[] _sizeParams;
 
         private void OnEnable()
         {
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         private void OnDisable()
         {
-            SubscribeToEvents(false);
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _animationModeObserver.OnModeEntered += OnModeEnteredEvent;
-            }
-            else
-            {
-                _animationModeObserver.OnModeEntered -= OnModeEnteredEvent;
-            }
+            _subscribeToEvents(false);
         }
 
         public Vector3 GetWorldEatPoint()
@@ -72,27 +73,30 @@ namespace Code.Components.Entities.Characters
             return transform.position;
         }
 
-        private void OnModeEnteredEvent(CharacterAnimationMode mode)
+        private void _subscribeToEvents(bool flag)
+        {
+            if (flag)
+            {
+                _animationModeObserver.OnModeEntered += _onModeEnteredEvent;
+            }
+            else
+            {
+                _animationModeObserver.OnModeEntered -= _onModeEnteredEvent;
+            }
+        }
+
+        private void _onModeEnteredEvent(CharacterAnimationMode mode)
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
-            Debugging.Instance.Log($"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
+         
+            Debugging.Instance.Log(this, $"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
+            
             if (modeParam != null)
             {
                 _boxCollider2D.size = modeParam.ColliderSize;
                 _boxCollider2D.offset = new Vector2(0, modeParam.ColliderSize.y / 2);
                 _landingOnWindows.SetOffset(modeParam.LegPoint);
             }
-        }
-
-
-        [Serializable]
-        private class ModeParam
-        {
-            public CharacterAnimationMode AnimationMode;
-            public Vector2 ColliderSize;
-            public Vector2 EatPoint;
-            public Vector2 HeadPoint;
-            public Vector2 LegPoint;
         }
     }
 }

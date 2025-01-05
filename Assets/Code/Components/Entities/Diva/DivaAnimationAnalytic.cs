@@ -1,15 +1,15 @@
 ﻿using System;
-using Code.Components.Entities.Characters.AnimationReader.State;
+using Code.Components.Entities.AnimationReader.State;
 using Code.Data.Enums;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterAnimationAnalytic : CharacterComponent, IGameInitListener, IGameExitListener
+    public class DivaAnimationAnalytic : DivaComponent, IGameInitListener, IGameExitListener
     {
-        [SerializeField] private CharacterAnimator _characterAnimator;
-        [SerializeField] private CharacterAnimationStateObserver _animationStateObserver;
+        [SerializeField] private DivaAnimator _divaAnimator;
+        [SerializeField] private DivaAnimationStateObserver _animationStateObserver;
 
         public CharacterAnimationMode CurrentMode { get; private set; }
         public CharacterAnimationState CurrentState { get; private set; }
@@ -34,7 +34,7 @@ namespace Code.Components.Entities.Characters
 
         public CharacterAnimationMode GetAnimationMode()
         {
-            return _characterAnimator.Mode;
+            return _divaAnimator.Mode;
         }
 
         public CharacterAnimationState GetAnimationState()
@@ -46,13 +46,13 @@ namespace Code.Components.Entities.Characters
         {
             if (flag)
             {
-                _characterAnimator.OnModeEntered += OnEnteredModeEvent;
+                _divaAnimator.OnModeEntered += OnEnteredModeEvent;
                 _animationStateObserver.OnStateEntered += OnSwitchStateEvent;
                 _animationStateObserver.OnStateExited += OnSwitchStateEvent;
             }
             else
             {
-                _characterAnimator.OnModeEntered -= OnEnteredModeEvent;
+                _divaAnimator.OnModeEntered -= OnEnteredModeEvent;
                 _animationStateObserver.OnStateEntered -= OnSwitchStateEvent;
                 _animationStateObserver.OnStateExited -= OnSwitchStateEvent;
             }

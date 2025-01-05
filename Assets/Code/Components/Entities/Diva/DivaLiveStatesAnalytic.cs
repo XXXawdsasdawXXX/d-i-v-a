@@ -9,9 +9,9 @@ using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterLiveStatesAnalytic : CharacterComponent, IGameInitListener, IGameStartListener,
+    public class DivaLiveStatesAnalytic : DivaComponent, IGameInitListener, IGameStartListener,
         IGameExitListener
     {
         private TimeObserver _timeObserver;
@@ -25,33 +25,62 @@ namespace Code.Components.Entities.Characters
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
 
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         public void GameStart()
         {
-            CheckLowerState();
+            _checkLowerState();
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
+        }
+        
+        public float GetStatePercent(ELiveStateKey liveStateKey)
+        {
+            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
+            {
+                return characterLiveState.Current;
+            }
+
+            return 0;
         }
 
-        private void SubscribeToEvents(bool flag)
+        public bool TryGetLowerSate(out ELiveStateKey liveStateKey, out float statePercent)
+        {
+            liveStateKey = CurrentLowerLiveStateKey;
+          
+            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
+            {
+                statePercent = characterLiveState.GetPercent();
+                Debugging.Instance.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
+                    Debugging.Type.LiveState);
+                return true;
+            }
+
+            statePercent = 1;
+       
+            Debugging.Instance.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
+                Debugging.Type.LiveState);
+            
+            return false;
+        }
+        
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _timeObserver.TickEvent += CheckLowerState;
+                _timeObserver.TickEvent += _checkLowerState;
             }
             else
             {
-                _timeObserver.TickEvent -= CheckLowerState;
+                _timeObserver.TickEvent -= _checkLowerState;
             }
         }
-
-
-        private void CheckLowerState()
+        
+        private void _checkLowerState()
         {
             IOrderedEnumerable<KeyValuePair<ELiveStateKey, CharacterLiveState>> keyValuePairs = _storage.LiveStates.OrderBy(kv => kv.Value.GetPercent());
          
@@ -82,31 +111,5 @@ namespace Code.Components.Entities.Characters
             }
         }
 
-        public float GetStatePercent(ELiveStateKey liveStateKey)
-        {
-            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
-            {
-                return characterLiveState.Current;
-            }
-
-            return 0;
-        }
-
-        public bool TryGetLowerSate(out ELiveStateKey liveStateKey, out float statePercent)
-        {
-            liveStateKey = CurrentLowerLiveStateKey;
-            if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
-            {
-                statePercent = characterLiveState.GetPercent();
-                Debugging.Instance.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
-                    Debugging.Type.LiveState);
-                return true;
-            }
-
-            statePercent = 1;
-            Debugging.Instance.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
-                Debugging.Type.LiveState);
-            return false;
-        }
     }
 }

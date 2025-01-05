@@ -1,6 +1,6 @@
 ﻿using System;
-using Code.Components.Entities.Characters;
-using Code.Components.Entities.Characters.AnimationReader.State;
+using Code.Components.Entities;
+using Code.Components.Entities.AnimationReader.State;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
@@ -14,8 +14,8 @@ namespace Code.Infrastructure.Reactions
     public class AudioReaction : Reaction, IGameExitListener
     {
         [Header("Components")]
-        private CharacterAnimator _characterAnimator;
-        private CharacterAnimationStateObserver _stateReader;
+        private DivaAnimator _divaAnimator;
+        private DivaAnimationStateObserver _stateReader;
         
         [Header("Services")]
         private LiveStateStorage _liveStateStorage;
@@ -27,9 +27,9 @@ namespace Code.Infrastructure.Reactions
 
         protected override void Init()
         {
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
-            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
-            _stateReader = diva.FindCharacterComponent<CharacterAnimationStateObserver>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
+            _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
+            _stateReader = diva.FindCharacterComponent<DivaAnimationStateObserver>();
             
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
             _effectAwakeningValue = Container.Instance.FindConfig<LiveStateConfig>().Awakening;
@@ -50,7 +50,7 @@ namespace Code.Infrastructure.Reactions
 
         public override void StartReaction()
         {
-            _characterAnimator.PlayReactionVoice();
+            _divaAnimator.PlayReactionVoice();
             RemoveLiveStateValue();
             base.StartReaction();
             base.StopReaction();

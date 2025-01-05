@@ -1,6 +1,6 @@
 ﻿using Code.Data.Enums;
 
-namespace Code.Components.Entities.Characters.AnimationReader.State
+namespace Code.Components.Entities.AnimationReader.State
 {
     public interface IAnimationStateReader
     {

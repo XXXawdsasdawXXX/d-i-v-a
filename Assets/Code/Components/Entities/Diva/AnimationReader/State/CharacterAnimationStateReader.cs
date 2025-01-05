@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.Components.Entities.Characters.AnimationReader.State
+namespace Code.Components.Entities.AnimationReader.State
 {
     public class CharacterAnimationStateReader : StateMachineBehaviour
     {

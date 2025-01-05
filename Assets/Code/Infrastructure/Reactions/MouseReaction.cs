@@ -1,4 +1,4 @@
-﻿using Code.Components.Entities.Characters;
+﻿using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -12,7 +12,7 @@ namespace Code.Infrastructure.Reactions
     {
         private PositionService _positionService;
          
-        private CharacterAnimator _characterAnimator;
+        private DivaAnimator _divaAnimator;
         private Transform _divaTransform;
         
         private readonly float _centralNormalValue = 0.3f;
@@ -24,9 +24,9 @@ namespace Code.Infrastructure.Reactions
         {
             _positionService = Container.Instance.FindService<PositionService>();
            
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
             _divaTransform = diva.transform;
-            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
+            _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             
             base.Init();
         }
@@ -47,14 +47,14 @@ namespace Code.Infrastructure.Reactions
         public override void StartReaction()
         {
             _isActive = true;
-            _characterAnimator.StartPlayReactionMouse();
+            _divaAnimator.StartPlayReactionMouse();
             base.StartReaction();
         }
 
         public override void StopReaction()
         {
             _isActive = false;
-            _characterAnimator.StopPlayReactionMouse();
+            _divaAnimator.StopPlayReactionMouse();
             base.StopReaction();
         }
 
@@ -64,7 +64,7 @@ namespace Code.Infrastructure.Reactions
                 .normalized;
             int roundedX = Mathf.Abs(normal.x) < _centralNormalValue ? 0 : (normal.x < 0 ? -1 : 1);
             int roundedY = Mathf.Abs(normal.y) < _centralNormalValue ? 0 : (normal.y < 0 ? -1 : 1);
-            _characterAnimator.SetMouseNormal(roundedX, roundedY);
+            _divaAnimator.SetMouseNormal(roundedX, roundedY);
         }
     }
 }

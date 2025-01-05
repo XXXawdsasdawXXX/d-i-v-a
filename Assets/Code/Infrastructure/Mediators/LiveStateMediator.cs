@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
@@ -13,7 +13,7 @@ namespace Code.Infrastructure.Mediators
     {
         private LiveStateStorage _liveStateStorage;
 
-        private CharacterItemsController _characterItemsController;
+        private DivaItemsController _characterItemsController;
         private InteractionStorage _interactionStorage;
 
         public void GameInit()
@@ -21,8 +21,8 @@ namespace Code.Infrastructure.Mediators
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
 
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            _characterItemsController = Container.Instance.FindEntity<DIVA>()
-                .FindCharacterComponent<CharacterItemsController>();
+            _characterItemsController = Container.Instance.FindEntity<Diva>()
+                .FindCharacterComponent<DivaItemsController>();
         }
 
         public void GameStart()

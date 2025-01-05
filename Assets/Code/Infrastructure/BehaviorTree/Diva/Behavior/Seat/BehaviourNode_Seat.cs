@@ -1,5 +1,5 @@
 using Code.Components.Common;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
 using Code.Utils;
@@ -10,7 +10,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
     public partial class BehaviourNode_Seat : BaseNode_Root
     {
         [Header("Character")] 
-        private readonly CharacterAnimator _characterAnimator;
+        private readonly DivaAnimator _divaAnimator;
         private readonly CollisionObserver _collisionObserver;
 
         [Header("Services")] 
@@ -22,10 +22,10 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         public BehaviourNode_Seat()
         {
-            DIVA character = Container.Instance.FindEntity<DIVA>();
+            Components.Entities.Diva character = Container.Instance.FindEntity<Components.Entities.Diva>();
           
             //character-------------------------------------------------------------------------------------------------
-            _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
+            _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
             
             //services--------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             {
                 SubscribeToEvents(true);
 
-                _characterAnimator.EnterToMode(CharacterAnimationMode.Seat);
+                _divaAnimator.EnterToMode(CharacterAnimationMode.Seat);
 
                 RunNode(_node_ReactionToItem);
 

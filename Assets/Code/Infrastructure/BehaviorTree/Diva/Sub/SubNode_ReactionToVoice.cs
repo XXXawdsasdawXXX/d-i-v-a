@@ -11,24 +11,20 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public SubNode_ReactionToVoice()
         {
             _audioReaction = Container.Instance.FindReaction<AudioReaction>();
-            _audioReaction.EndReactionEvent += AudioReactionOnEndReactionEvent;
-        }
-
-        private void AudioReactionOnEndReactionEvent()
-        {
-            Return(true);
+           
+            _audioReaction.EndReactionEvent += _onEndReaction;
         }
 
         protected override void Run()
         {
             if (IsCanRun())
             {
-                Debugging.Instance.Log($"Саб нода реакция на звук: запуск", Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log(this, $"[run]", Debugging.Type.BehaviorTree);
                 _audioReaction.StartReaction();
             }
             else
             {
-                Debugging.Instance.Log($"Саб нода реакция на звук: отказ", Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log(this, $"[run] this is not ready", Debugging.Type.BehaviorTree);
                 Return(false);
             }
         }
@@ -36,6 +32,11 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         protected override bool IsCanRun()
         {
             return _audioReaction.IsReady();
+        }
+
+        private void _onEndReaction()
+        {
+            Return(true);
         }
     }
 }

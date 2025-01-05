@@ -1,4 +1,4 @@
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
@@ -12,7 +12,7 @@ namespace Code.Infrastructure.Reactions
     {
         private Interaction_KeyDown _interactionKeyDown;
         private AudioEventsService _audioEventServices;
-        private CharacterAnimationAnalytic _animationAnalytic;
+        private DivaAnimationAnalytic _animationAnalytic;
 
         private InputWord _lastWord;
 
@@ -20,8 +20,8 @@ namespace Code.Infrastructure.Reactions
         {
             _interactionKeyDown = Container.Instance.FindInteractionObserver<Interaction_KeyDown>();
             _audioEventServices = Container.Instance.FindService<AudioEventsService>();
-            _animationAnalytic = Container.Instance.FindEntity<DIVA>()
-                .FindCharacterComponent<CharacterAnimationAnalytic>();
+            _animationAnalytic = Container.Instance.FindEntity<Diva>()
+                .FindCharacterComponent<DivaAnimationAnalytic>();
         }
 
         public void GameStart()

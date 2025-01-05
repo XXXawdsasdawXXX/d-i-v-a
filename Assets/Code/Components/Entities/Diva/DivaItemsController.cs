@@ -7,30 +7,30 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterItemsController : CharacterComponent,
+    public class DivaItemsController : DivaComponent,
         IGameInitListener
     {
         [Header("Components")] 
-        private CharacterAnimationAnalytic _animationAnalytic;
-        private CharacterAnimator _characterAnimator;
-        private CharacterModeAdapter _modeAdapter;
+        private DivaAnimationAnalytic _animationAnalytic;
+        private DivaAnimator _divaAnimator;
+        private DivaModeAdapter _modeAdapter;
         
         private Coroutine _coroutine;
         public event Action<LiveStatePercentageValue[]> OnItemUsed;
 
         public void GameInit()
         {
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
-            _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
-            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
-            _modeAdapter = diva.FindCharacterComponent<CharacterModeAdapter>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
+            _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
+            _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
+            _modeAdapter = diva.FindCharacterComponent<DivaModeAdapter>();
         }
 
         public void StartReactionToObject(Item item, Action OnEndReaction = null)
         {
-            _characterAnimator.StartPlayEat();
+            _divaAnimator.StartPlayEat();
 
             if (_coroutine != null)
             {
@@ -57,7 +57,7 @@ namespace Code.Components.Entities.Characters
             
             item.Use(onCompleted: () =>
             {
-                _characterAnimator.StopPlayEat();
+                _divaAnimator.StopPlayEat();
                 OnItemUsed?.Invoke(item.Data.BonusValues.Values);
                 OnEndReaction?.Invoke();
             });

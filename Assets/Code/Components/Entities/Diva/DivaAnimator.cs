@@ -6,9 +6,9 @@ using Code.Utils;
 using UnityEngine;
 using CoroutineRunner = Code.Infrastructure.Services.CoroutineRunner;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterAnimator : CharacterComponent, IGameInitListener
+    public class DivaAnimator : DivaComponent, IGameInitListener
     {
         [SerializeField] private Animator _characterAnimator;
         [SerializeField] private Animator _frontHairAnimator;

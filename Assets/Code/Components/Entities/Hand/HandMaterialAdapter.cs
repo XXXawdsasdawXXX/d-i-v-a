@@ -6,7 +6,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Components.Entities.Hands
+namespace Code.Components.Entities
 {
     public class HandMaterialAdapter : MaterialAdapter, IGameInitListener, IGameExitListener
     {

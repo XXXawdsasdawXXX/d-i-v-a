@@ -6,7 +6,6 @@ namespace Code.Test
     public class DebugWindow : MonoBehaviour, IGameStartListener, IGameUpdateListener, IGameExitListener
     {
         [SerializeField] private GameObject _body;
-        [SerializeField] private GameObject _console;
 
         [Header("debug panels")] 
         [SerializeField] private DW_Param _param;
@@ -33,7 +32,6 @@ namespace Code.Test
             {
                 _isOpened = !_isOpened;
                 _body.SetActive(_isOpened);
-                _console.SetActive(_isOpened);
             }
 
             if (_isOpened)

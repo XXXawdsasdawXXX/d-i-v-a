@@ -3,9 +3,9 @@ using Code.Components.Common;
 using Code.Data.Interfaces;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class CharacterMaterialAdapter : MaterialAdapter, IWindowsSpecific
+    public class DivaMaterialAdapter : MaterialAdapter, IWindowsSpecific
     {
         private Coroutine _animationCoroutine;
         

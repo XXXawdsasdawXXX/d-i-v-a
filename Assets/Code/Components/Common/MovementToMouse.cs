@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Interfaces;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -29,7 +29,7 @@ namespace Code.Components.Common
         public void GameInit()
         {
             _positionService = Container.Instance.FindService<PositionService>();
-            _divaTransform = Container.Instance.FindEntity<DIVA>().transform;
+            _divaTransform = Container.Instance.FindEntity<Diva>().transform;
         }
 
         public void GameUpdate()

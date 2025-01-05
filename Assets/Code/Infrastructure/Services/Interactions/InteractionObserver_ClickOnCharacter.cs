@@ -1,5 +1,5 @@
 ﻿using Code.Components.Common;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Infrastructure.DI;
@@ -13,7 +13,7 @@ namespace Code.Infrastructure.Services.Interactions
     {
         [Header("Observer components")] 
         private ColliderButton _characterCollisionButton;
-        private CharacterLiveStatesAnalytic _characterState;
+        private DivaLiveStatesAnalytic _divaState;
 
         [Header("Static data")] 
         private InteractionStorage _interactionStorage;
@@ -27,9 +27,9 @@ namespace Code.Infrastructure.Services.Interactions
         public void GameInit()
         {
             //Observer components
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
             _characterCollisionButton = diva.FindCommonComponent<ColliderButton>();
-            _characterState = diva.FindCharacterComponent<CharacterLiveStatesAnalytic>();
+            _divaState = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
 
             //Static data
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
@@ -68,7 +68,7 @@ namespace Code.Infrastructure.Services.Interactions
             }
             else if (click < 3)
             {
-                if (_characterState.TryGetLowerSate(out ELiveStateKey lowerKey, out float percent) &&
+                if (_divaState.TryGetLowerSate(out ELiveStateKey lowerKey, out float percent) &&
                     lowerKey == ELiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(InteractionType.Bad);

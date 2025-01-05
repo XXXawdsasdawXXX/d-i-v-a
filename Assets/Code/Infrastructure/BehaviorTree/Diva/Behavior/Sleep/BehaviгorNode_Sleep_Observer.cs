@@ -8,37 +8,33 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (flag)
             {
-                _characterButton.SeriesOfClicksEvent += OnClickSeries;
-                _timeObserver.StartDayEvent += Rouse;
-                _sleepState.OnChanged += OnChangedSleepStateValue;
+                _characterButton.SeriesOfClicksEvent += _onClickSeries;
+                _timeObserver.StartDayEvent += _rouse;
+                _sleepState.OnChanged += _onChangedSleepStateValue;
             }
             else
             {
-                _characterButton.SeriesOfClicksEvent -= OnClickSeries;
-                _timeObserver.StartDayEvent -= Rouse;
-                _sleepState.OnChanged -= OnChangedSleepStateValue;
+                _characterButton.SeriesOfClicksEvent -= _onClickSeries;
+                _timeObserver.StartDayEvent -= _rouse;
+                _sleepState.OnChanged -= _onChangedSleepStateValue;
             }
         }
-
-        private void OnMaxDecibelRecorder()
-        {
-            RunNode(_subNode_reactionToVoice);
-        }
-
-        private void OnClickSeries(int clickCount)
+        
+        private void _onClickSeries(int clickCount)
         {
             if (clickCount >= 5)
             {
-                Rouse();
+                _rouse();
             }
         }
 
-        private void OnChangedSleepStateValue(float sleepValue)
+        private void _onChangedSleepStateValue(float sleepValue)
         {
             if (_sleepState.GetPercent() > 0.9f)
             {
-                Debugging.Instance.Log($"Нода сна: сон на максимальном значение", Debugging.Type.BehaviorTree);
-                StopSleep();
+                Debugging.Instance.Log(this, $"[_onChangedSleepStateValue] sleep is max", Debugging.Type.BehaviorTree);
+       
+                _stopSleep();
             }
         }
     }

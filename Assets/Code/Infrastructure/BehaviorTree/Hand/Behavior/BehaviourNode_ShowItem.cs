@@ -1,6 +1,5 @@
 ﻿using Code.Components.Common;
-using Code.Components.Entities.Characters;
-using Code.Components.Entities.Hands;
+using Code.Components.Entities;
 using Code.Components.Items;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
@@ -14,7 +13,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         private readonly Transform _divaTransform;
 
         [Header("Hand")] 
-        private readonly Components.Entities.Hands.Hand _hand;
+        private readonly Components.Entities.Hand _hand;
         private readonly HandAnimator _handAnimation;
         private readonly MovementToMouse _movementToMouse;
         private readonly ItemHolder _itemHolder;
@@ -33,10 +32,10 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         public BehaviourNode_ShowItem()
         {
             //d i v a
-            _divaTransform = Container.Instance.FindEntity<DIVA>().transform;
+            _divaTransform = Container.Instance.FindEntity<Components.Entities.Diva>().transform;
             
             //hand
-            _hand = Container.Instance.FindEntity<Components.Entities.Hands.Hand>();
+            _hand = Container.Instance.FindEntity<Components.Entities.Hand>();
             _handAnimation = _hand.FindHandComponent<HandAnimator>();
             _movementToMouse = _hand.FindCommonComponent<MovementToMouse>();
             _itemHolder = _hand.FindCommonComponent<ItemHolder>();

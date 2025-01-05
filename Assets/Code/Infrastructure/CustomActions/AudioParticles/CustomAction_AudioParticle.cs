@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
@@ -16,8 +16,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         IGameInitListener
     {
         protected ParticleSystemFacade[] _particlesSystems;
-        protected CharacterModeAdapter _characterModeAdapter;
-        protected DIVA _diva;
+        protected DivaModeAdapter _characterModeAdapter;
+        protected Diva _diva;
 
         private readonly List<AudioParticleModule> _audioParticles = new();
         private ParticlesStorage _particleStorage;
@@ -31,8 +31,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             if (_particleStorage.TryGetParticles(GetParticleTypes(), out _particlesSystems))
             {
-                _diva = Container.Instance.FindEntity<DIVA>();
-                _characterModeAdapter = _diva.FindCharacterComponent<CharacterModeAdapter>();
+                _diva = Container.Instance.FindEntity<Diva>();
+                _characterModeAdapter = _diva.FindCharacterComponent<DivaModeAdapter>();
                 foreach (ParticleSystemFacade particleSystem in _particlesSystems)
                 {
                     if (particleSystem.TryGetAudioModule(out AudioParticleModule module))

@@ -1,4 +1,4 @@
-﻿using Code.Components.Entities.Characters;
+﻿using Code.Components.Entities;
 using Code.Components.Items;
 using Code.Infrastructure.DI;
 using Code.Utils;
@@ -9,7 +9,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
     public class SubNode_ReactionToItems : BaseNode
     {
         [Header("Character")] 
-        private readonly CharacterItemsController _itemsController;
+        private readonly DivaItemsController _itemsController;
 
         [Header("Values")] 
         private Item _item;
@@ -17,8 +17,8 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public SubNode_ReactionToItems()
         {
             //character-------------------------------------------------------------------------------------------------
-            _itemsController = Container.Instance.FindEntity<DIVA>()
-                .FindCharacterComponent<CharacterItemsController>();
+            _itemsController = Container.Instance.FindEntity<Components.Entities.Diva>()
+                .FindCharacterComponent<DivaItemsController>();
         }
 
         protected override void Run()

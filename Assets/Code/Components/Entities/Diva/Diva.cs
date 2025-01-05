@@ -4,15 +4,15 @@ using Code.Components.Common;
 using Code.Infrastructure.Reactions;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters
+namespace Code.Components.Entities
 {
-    public class DIVA : Entity
+    public class Diva : Entity
     {
-        [SerializeField] private CharacterComponent[] _characterComponent;
+        [SerializeField] private DivaComponent[] _characterComponent;
 
-        public T FindCharacterComponent<T>() where T : CharacterComponent
+        public T FindCharacterComponent<T>() where T : DivaComponent
         {
-            foreach (CharacterComponent component in _characterComponent)
+            foreach (DivaComponent component in _characterComponent)
             {
                 if (component is T characterComponent)
                 {
@@ -27,8 +27,8 @@ namespace Code.Components.Entities.Characters
 
         public void FindAllComponents()
         {
-            List<CharacterComponent> characterComponents = GetComponents<CharacterComponent>().ToList();
-            foreach (CharacterComponent componentsInChild in GetComponentsInChildren<CharacterComponent>())
+            List<DivaComponent> characterComponents = GetComponents<DivaComponent>().ToList();
+            foreach (DivaComponent componentsInChild in GetComponentsInChildren<DivaComponent>())
             {
                 if (!characterComponents.Contains(componentsInChild))
                 {

@@ -1,4 +1,4 @@
-﻿using Code.Components.Entities.Characters;
+﻿using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
 
@@ -6,12 +6,12 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourNode_WaitCharacterWakeUp : BaseNode
     {
-        private readonly CharacterAnimationAnalytic _animationAnalytic;
+        private readonly DivaAnimationAnalytic _animationAnalytic;
 
         public BehaviourNode_WaitCharacterWakeUp()
         {
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
-            _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            Components.Entities.Diva diva = Container.Instance.FindEntity<Components.Entities.Diva>();
+            _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
         }
 
         protected override void Run()

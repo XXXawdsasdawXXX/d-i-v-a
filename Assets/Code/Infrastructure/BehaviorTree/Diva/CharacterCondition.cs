@@ -1,4 +1,4 @@
-﻿using Code.Components.Entities.Characters;
+﻿using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
@@ -15,9 +15,9 @@ namespace Code.Infrastructure.BehaviorTree.Diva
     public class CharacterCondition : IService, IGameInitListener
     {
         [Header("D I V A")]
-        private CharacterLiveStatesAnalytic _statesAnalytic;
+        private DivaLiveStatesAnalytic _statesAnalytic;
         private CharacterLiveState _sleepState;
-        private CharacterAnimationAnalytic _animationAnalytic;
+        private DivaAnimationAnalytic _animationAnalytic;
 
         [Header("Services")] 
         private TimeObserver _timeObserver;
@@ -31,9 +31,9 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public void GameInit()
         {
             //d i v a---------------------------------------------------------------------------------------------------
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
-            _statesAnalytic = diva.FindCharacterComponent<CharacterLiveStatesAnalytic>();
-            _animationAnalytic = diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            Components.Entities.Diva diva = Container.Instance.FindEntity<Components.Entities.Diva>();
+            _statesAnalytic = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
+            _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 
             //services--------------------------------------------------------------------------------------------------
             _timeObserver = Container.Instance.FindService<TimeObserver>();

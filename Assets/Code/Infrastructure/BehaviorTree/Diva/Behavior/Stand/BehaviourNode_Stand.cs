@@ -1,5 +1,5 @@
 ﻿using Code.Components.Common;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Infrastructure.DI;
@@ -10,29 +10,28 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
-        [Header("Character")] 
-        private readonly CharacterAnimator _characterAnimator;
-        private readonly CharacterLiveStatesAnalytic _statesAnalytic;
+        [Header("Character")] private readonly DivaAnimator _divaAnimator;
+        private readonly DivaLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Services")] 
-        private readonly CharacterCondition _characterCondition;
+        [Header("Services")] private readonly CharacterCondition _characterCondition;
 
-        [Header("Sub Node")] 
-        private readonly BaseNode_RandomSequence _node_randomSequence;
+        [Header("Sub Node")] private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ReactionToItems _node_reactionToItem;
         private BaseNode _currentSubNode;
-      
+
 
         public BehaviourNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
-            DIVA character = Container.Instance.FindEntity<DIVA>();
-            _statesAnalytic = character.FindCharacterComponent<CharacterLiveStatesAnalytic>();
-            _characterAnimator = character.FindCharacterComponent<CharacterAnimator>();
+            Components.Entities.Diva character = Container.Instance.FindEntity<Components.Entities.Diva>();
+            _statesAnalytic = character.FindCharacterComponent<DivaLiveStatesAnalytic>();
+            _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
+
             //services--------------------------------------------------------------------------------------------------
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
+
             //node------------------------------------------------------------------------------------------------------
             _node_randomSequence = new BaseNode_RandomSequence(new BaseNode[]
             {
@@ -46,19 +45,19 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                _characterAnimator.EnterToMode(CharacterAnimationMode.Stand);
+                _divaAnimator.EnterToMode(CharacterAnimationMode.Stand);
 
                 SubscribeToEvents(true);
 
                 RunNode(_node_randomSequence);
 
-                Debugging.Instance.Log($"Нода стояния: выбрано", Debugging.Type.BehaviorTree);
+                Debugging.Instance.Log(this, $"[run]", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Instance.Log(
-                    $"Нода стояния: отказ. текущий минимальный стрейт {_statesAnalytic.CurrentLowerLiveStateKey}",
+                Debugging.Instance.Log(this, $"[run] return -> has low state {_statesAnalytic.CurrentLowerLiveStateKey}",
                     Debugging.Type.BehaviorTree);
+                
                 Return(false);
             }
         }
@@ -70,9 +69,10 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log(
-                $"Нода стояния: колбэк. продолжение работы ноды = {_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
+            Debugging.Instance.Log(this, $"callback -> repeat = " +
+                                   $"{_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
                 Debugging.Type.BehaviorTree);
+            
             if (_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success)
             {
                 RunNode(_node_randomSequence);

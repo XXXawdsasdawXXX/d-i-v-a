@@ -2,7 +2,7 @@
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Entities.Grass
+namespace Code.Components.Entities
 {
     public class Grass : Entity
     {

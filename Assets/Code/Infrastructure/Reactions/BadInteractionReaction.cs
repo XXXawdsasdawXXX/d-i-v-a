@@ -1,4 +1,4 @@
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
@@ -9,13 +9,13 @@ namespace Code.Infrastructure.Reactions
 {
     public class BadInteractionReaction: Reaction, IGameStartListener, IGameExitListener
     {
-        private CharacterMaterialAdapter _characterMaterialAdapter;
+        private DivaMaterialAdapter _characterMaterialAdapter;
         private InteractionStorage _interactionStorage;
 
         protected override void Init()
         {
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
-            _characterMaterialAdapter = diva.FindCommonComponent<CharacterMaterialAdapter>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
+            _characterMaterialAdapter = diva.FindCommonComponent<DivaMaterialAdapter>();
 
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             

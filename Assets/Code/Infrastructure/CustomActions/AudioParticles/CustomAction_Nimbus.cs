@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
-using Code.Components.Entities.Characters;
+using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
@@ -17,7 +17,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 {
     public class CustomAction_Nimbus : CustomAction_AudioParticle, IGameExitListener
     {
-        private CharacterAnimationAnalytic _animationAnalytic;
+        private DivaAnimationAnalytic _animationAnalytic;
         private CharacterCondition _characterCondition;
         private InteractionStorage _interactionStorage;
 
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void Init()
         {
-            _animationAnalytic = _diva.FindCharacterComponent<CharacterAnimationAnalytic>();
+            _animationAnalytic = _diva.FindCharacterComponent<DivaAnimationAnalytic>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
 

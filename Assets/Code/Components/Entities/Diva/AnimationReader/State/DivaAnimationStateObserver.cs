@@ -3,9 +3,9 @@ using Code.Data.Enums;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Components.Entities.Characters.AnimationReader.State
+namespace Code.Components.Entities.AnimationReader.State
 {
-    public class CharacterAnimationStateObserver : CharacterComponent, IAnimationStateReader
+    public class DivaAnimationStateObserver : DivaComponent, IAnimationStateReader
     {
         [field: SerializeField] public CharacterAnimationState State { get; private set; }
 

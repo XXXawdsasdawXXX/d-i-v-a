@@ -1,6 +1,5 @@
 ﻿using Code.Components.Common;
-using Code.Components.Entities.Characters;
-using Code.Components.Entities.Grass;
+using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeInt;
@@ -18,7 +17,7 @@ namespace Code.Infrastructure.CustomActions
     {
         [Header("d i v a")] 
         private Transform _divaTransform;
-        private CharacterAnimator _characterAnimator;
+        private DivaAnimator _divaAnimator;
         private PhysicsDragAndDrop _divaDragAndDrop;
 
         [Header("Grass Components")] 
@@ -39,9 +38,9 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameInit()
         {
-            DIVA diva = Container.Instance.FindEntity<DIVA>();
+            Diva diva = Container.Instance.FindEntity<Diva>();
             _divaTransform = diva.transform;
-            _characterAnimator = diva.FindCharacterComponent<CharacterAnimator>();
+            _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _divaDragAndDrop = diva.FindCommonComponent<PhysicsDragAndDrop>();
 
             _grass = Container.Instance.FindEntity<Grass>();
@@ -94,7 +93,7 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _characterAnimator.OnModeEntered += OnCharacterSwitchAnimation;
+                _divaAnimator.OnModeEntered += OnDivaSwitchAnimation;
                 _tickCounter.OnWaitIsOver += OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor += OnNewColorFounded;
                 _grassButton.OnPressedUp += OnGrassPressedUp;
@@ -102,7 +101,7 @@ namespace Code.Infrastructure.CustomActions
             }
             else
             {
-                _characterAnimator.OnModeEntered -= OnCharacterSwitchAnimation;
+                _divaAnimator.OnModeEntered -= OnDivaSwitchAnimation;
                 _tickCounter.OnWaitIsOver -= OnCooldownTick;
                 _grassColorChecker.OnFoundedNewColor -= OnNewColorFounded;
                 _grassButton.OnPressedUp -= OnGrassPressedUp;
@@ -110,7 +109,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        private void OnCharacterSwitchAnimation(CharacterAnimationMode mode)
+        private void OnDivaSwitchAnimation(CharacterAnimationMode mode)
         {
             if (mode == CharacterAnimationMode.Seat && _tickCounter.IsExpectedStart)
             {
