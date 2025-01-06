@@ -4,5 +4,7 @@ namespace Code.Data.Enums
     {
         None,
         Idle,
+        Exit,
+        Enter
     }
 }
