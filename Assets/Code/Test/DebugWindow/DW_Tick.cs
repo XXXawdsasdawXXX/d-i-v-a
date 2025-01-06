@@ -24,9 +24,7 @@ namespace Code.Test
 
         public void Refresh()
         {
-            KeyValuePair<float, float> time = _timer.GetTimeState();
-            
-            string text = $"{Math.Round(time.Key)}/{Math.Round(time.Value)}={Math.Round(time.Key / time.Value, 1)}";
+            string text = $"{Math.Round(_timer.GetCurrentTick())}/{Math.Round(_timer.GetTickDuration())}";
             
             _textTick.text = text;
         }
