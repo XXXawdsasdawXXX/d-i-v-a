@@ -121,7 +121,7 @@ namespace Code.Infrastructure.CustomActions
             _isReviewed = playerProgress.CustomActions.IsReviewedSakura;
         }
 
-        public void UpdateProgress(PlayerProgressData playerProgress)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsReviewedSakura = _isReviewed;
         }

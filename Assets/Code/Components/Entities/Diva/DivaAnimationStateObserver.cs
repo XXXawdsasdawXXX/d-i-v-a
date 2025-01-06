@@ -7,6 +7,9 @@ namespace Code.Components.Entities
 {
     public class DivaAnimationStateObserver : DivaComponent, IAnimationStateReader
     {
+        public event Action<EDivaAnimationState> OnStateEntered;
+        public event Action<EDivaAnimationState> OnStateExited;
+        
         [field: SerializeField] public EDivaAnimationState State { get; private set; }
 
         private readonly int _transition_Seat_Hash = Animator.StringToHash("TransitionSeat");
@@ -20,10 +23,7 @@ namespace Code.Components.Entities
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         private readonly int _reaction_Mouse_Hash = Animator.StringToHash("ReactionMouse");
 
-        public event Action<EDivaAnimationState> OnStateEntered;
-        public event Action<EDivaAnimationState> OnStateExited;
-
-
+        
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);

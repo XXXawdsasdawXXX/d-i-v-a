@@ -73,7 +73,7 @@ namespace Code.Utils
                 if (debugParam.Active)
                 {
                     ColorLog(
-                        $"{invoker.GetType().Name} {InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}",
+                        $"{InsertSpaceBeforeUppercase(type.ToString()).ToUpper()} {invoker.GetType().Name}: {message}",
                         debugParam.Color);
                 }
             }

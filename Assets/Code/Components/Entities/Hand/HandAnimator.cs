@@ -1,12 +1,10 @@
 ﻿using System;
-using Code.Utils;
 using UnityEngine;
 
 namespace Code.Components.Entities
 {
     public class HandAnimator : HandComponent
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Animator _handAnimator;
 
         private static readonly int Enter = Animator.StringToHash("HandEnter");
@@ -18,7 +16,6 @@ namespace Code.Components.Entities
         [ContextMenu("Enter")]
         public void PlayEnterHand(Action onEndEnter = null)
         {
-            // _spriteRenderer.enabled = true;
             _handAnimator.ResetTrigger(Exit);
             _handAnimator.SetTrigger(Enter);
             _endEnterAnimationEvent = onEndEnter;
@@ -27,11 +24,9 @@ namespace Code.Components.Entities
         [ContextMenu("Exit")]
         public void PlayExitHand(Action onEndExit = null)
         {
-            //_spriteRenderer.enabled = false;
             _handAnimator.ResetTrigger(Enter);
             _handAnimator.SetTrigger(Exit);
             _endExitAnimationEvent = onEndExit;
-            Debugging.Instance.Log($"[animator] hide hand", Debugging.Type.Hand);
         }
 
         #region Aimation events

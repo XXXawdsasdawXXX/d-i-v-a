@@ -32,7 +32,7 @@ namespace Code.Infrastructure.BehaviorTree
             StartCoroutine(_loadBehaviorTreeRoutine());
         }
 
-        public void UpdateProgress(PlayerProgressData playerProgress)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
             foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
             {

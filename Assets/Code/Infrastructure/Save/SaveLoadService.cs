@@ -44,7 +44,7 @@ namespace Code.Infrastructure.Save
         {
             foreach (IProgressWriter progressWriter in _progressWriters)
             {
-                progressWriter.UpdateProgress(_playerProgress);
+                progressWriter.SaveProgress(_playerProgress);
             }
 
             PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
@@ -78,7 +78,7 @@ namespace Code.Infrastructure.Save
 
     public interface IProgressWriter : IProgressReader
     {
-        void UpdateProgress(PlayerProgressData playerProgress);
+        void SaveProgress(PlayerProgressData playerProgress);
     }
 
     public interface IProgressReader

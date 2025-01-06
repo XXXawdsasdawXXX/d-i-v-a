@@ -54,7 +54,7 @@ namespace Code.Infrastructure.CustomActions
                 Debugging.Type.CustomAction);
         }
 
-        public void UpdateProgress(PlayerProgressData playerProgress)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
             Debugging.Instance.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",

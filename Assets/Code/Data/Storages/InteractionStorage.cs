@@ -50,7 +50,7 @@ namespace Code.Data.Storages
             OnSwitchDominationType?.Invoke(_currentDominationType);
         }
 
-        public void UpdateProgress(PlayerProgressData playerProgress)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.Interactions = _interactions;
         }

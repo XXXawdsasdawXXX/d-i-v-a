@@ -129,7 +129,7 @@ namespace Code.Data.Storages
                 Debugging.Type.LiveState);
         }
 
-        public void UpdateProgress(PlayerProgressData playerProgress)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
             foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in LiveStates)
             {
