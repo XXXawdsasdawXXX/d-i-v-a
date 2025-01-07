@@ -59,13 +59,13 @@ MonoBehaviour:
     Active: 0
     Color: {r: 1, g: 0.7452422, b: 0.5254902, a: 1}
   - Type: 5
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.5254902, b: 0.9738706, a: 1}
   - Type: 6
-    Active: 1
+    Active: 0
     Color: {r: 0.16516247, g: 0.4433962, b: 0.0983001, a: 1}
   - Type: 7
-    Active: 1
+    Active: 0
     Color: {r: 0.6018156, g: 0.7924528, b: 0.55695975, a: 1}
   - Type: 8
     Active: 0

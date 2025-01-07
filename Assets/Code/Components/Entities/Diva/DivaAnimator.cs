@@ -32,13 +32,10 @@ namespace Code.Components.Entities
         private readonly int _hideHand_b = Animator.StringToHash("HideHand");
         
         private CoroutineRunner _coroutineRunner;
-        private Debugging _debug;
         
-
         public void GameInit()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            _debug = Debugging.Instance;
         }
 
         #region Reaction Animation
