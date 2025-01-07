@@ -10,48 +10,44 @@ namespace Code.Infrastructure.Services.Interactions
         private string _currentInput;
 
         public event Action<EInputWord> OnWordEntered;
-
         
         public void GameUpdate()
         {
-            foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
             {
-                if (Input.GetKeyDown(kcode))
+                if (Input.GetKeyDown(key))
                 {
-                    // Проверка на символы алфавита и цифры
-                    if (kcode >= KeyCode.A && kcode <= KeyCode.Z )
+                    if (key >= KeyCode.A && key <= KeyCode.Z)
                     {
-                        _currentInput += kcode.ToString().ToLower(); // Добавляем символ к строке
+                        _currentInput += key.ToString().ToLower();
                     }
-                    else if (kcode == KeyCode.Backspace && _currentInput.Length > 0)
+                    else if (key == KeyCode.Backspace && _currentInput is { Length: > 0 })
                     {
-                        _currentInput = _currentInput.Remove(_currentInput.Length - 1); // Удаление последнего символа
+                        _currentInput = _currentInput.Remove(_currentInput.Length - 1); 
                     }
-                    else if( kcode == KeyCode.Space)
+                    else if (key == KeyCode.Space)
                     {
                         _currentInput = "";
                     }
 
-                    // Проверяем строку с перечислением
-                    CheckInput();
+                    _checkInput();
                 }
             }
         }
-        
-        
-        private void CheckInput()
+
+        private void _checkInput()
         {
             if (string.IsNullOrEmpty(_currentInput))
             {
                 return;
             }
-            
-            foreach (EInputWord word in System.Enum.GetValues(typeof(EInputWord)))
+
+            foreach (EInputWord word in Enum.GetValues(typeof(EInputWord)))
             {
                 if (_currentInput.Equals(word.ToString()))
                 {
                     Debug.Log($"Input matches: {word}");
-                    _currentInput = ""; // Сбрасываем строку после успешного совпадения
+                    _currentInput = ""; 
                     OnWordEntered?.Invoke(word);
                     break;
                 }

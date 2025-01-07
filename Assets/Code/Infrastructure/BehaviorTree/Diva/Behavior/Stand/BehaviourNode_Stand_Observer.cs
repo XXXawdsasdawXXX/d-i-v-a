@@ -23,7 +23,9 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             if (obj.TryGetComponent(out Item item) && item.IsCanUse())
             {
                 Debugging.Instance.Log(this, $"start reaction to object", Debugging.Type.BehaviorTree);
+            
                 _node_reactionToItem.SetCurrentItem(item);
+                
                 RunNode(_node_reactionToItem);
             }
         }

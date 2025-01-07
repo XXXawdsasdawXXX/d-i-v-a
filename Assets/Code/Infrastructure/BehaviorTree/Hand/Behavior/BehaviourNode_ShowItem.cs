@@ -52,6 +52,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             if (IsCanRun())
             {
                 _hand.transform.position = _spawnPosition;
+                
                 _handAnimation.PlayEnterHand(onEndEnter: () =>
                 {
                     _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);

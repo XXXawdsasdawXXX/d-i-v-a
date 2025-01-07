@@ -82,7 +82,7 @@ namespace Code.Utils
                 ColorLog(message, Color.white);
             }
         }
-        
+
         public static void LogError(object obj, string message)
         {
             ColorLog($"{obj.GetType()} {message}", Color.red);
@@ -97,7 +97,7 @@ namespace Code.Utils
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
-        
+
         private static string InsertSpaceBeforeUppercase(string input)
         {
             StringBuilder result = new StringBuilder();
@@ -123,7 +123,7 @@ namespace Code.Utils
             {
                 debugParam.Active = false;
             }
-            
+
             EditorUtility.SetDirty(this);
         }
 #endif
