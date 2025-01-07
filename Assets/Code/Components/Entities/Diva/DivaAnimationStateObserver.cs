@@ -20,9 +20,15 @@ namespace Code.Components.Entities
         private readonly int _eat_Hash = Animator.StringToHash("Eat");
         private readonly int _enter_Hash = Animator.StringToHash("Enter");
         private readonly int _exit_Hash = Animator.StringToHash("Exit");
+        
         private readonly int _reaction_Voice_Hash = Animator.StringToHash("ReactionVoice");
         private readonly int _reaction_Mouse_Hash = Animator.StringToHash("ReactionMouse");
-
+        
+        private readonly int _hand_Show_Hash = Animator.StringToHash("HandShow");
+        private readonly int _hand_Idle_Hash = Animator.StringToHash("HandIdle");
+        private readonly int _hand_Hide_Hash = Animator.StringToHash("HandHide");
+        
+        
         
         public void EnteredState(int stateHash)
         {
@@ -46,7 +52,7 @@ namespace Code.Components.Entities
         {
             EDivaAnimationState state;
             
-            //Mode
+            //mode
             if (stateHash == _idle_Hash)
                 state = EDivaAnimationState.Idle;
             else if (stateHash == _eat_Hash)
@@ -56,13 +62,22 @@ namespace Code.Components.Entities
             else if (stateHash == _exit_Hash)
                 state = EDivaAnimationState.Exit;
 
-            //Reactions
+            //reactions
             else if (stateHash == _reaction_Voice_Hash)
                 state = EDivaAnimationState.ReactionVoice;
             else if (stateHash == _reaction_Mouse_Hash)
                 state = EDivaAnimationState.ReactionMouse;
 
-            //Transitions
+            //hand
+            else if (stateHash == _hand_Show_Hash)
+                state = EDivaAnimationState.HandShow;
+            else if (stateHash == _hand_Idle_Hash)
+                state = EDivaAnimationState.HandIdle; 
+            else if (stateHash == _hand_Hide_Hash)
+                state = EDivaAnimationState.HandHide;
+            
+            
+            //transitions
             else if (stateHash == _transition_Seat_Hash)
                 state = EDivaAnimationState.TransitionSeat;
             else if (stateHash == _transition_Stand_Hash)

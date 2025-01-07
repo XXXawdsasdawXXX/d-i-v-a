@@ -11,6 +11,9 @@
         TransitionSleep,
         TransitionSeat,
         TransitionStand,
-        ReactionMouse
+        ReactionMouse,
+        HandShow,
+        HandHide,
+        HandIdle
     }
 }

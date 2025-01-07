@@ -31,6 +31,10 @@ namespace Code.Components.Entities.Editor
             if (GUILayout.Button("Start reaction mouse")) divaAnimator.StartPlayReactionMouse();
 
             if (GUILayout.Button("Stop reaction mouse")) divaAnimator.StopPlayReactionMouse();
+            
+            if (GUILayout.Button("Start hide hand")) divaAnimator.StartPlayHideHand();
+            
+            if (GUILayout.Button("Stop hide hand")) divaAnimator.StopPlayHideHand();
         }
     }
 }

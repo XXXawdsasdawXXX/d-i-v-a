@@ -4,14 +4,89 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="refactoring">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateObserver.cs" afterDir="false" />
+    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateReader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Hand/HandAnimationStateObserver.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/EHandAnimationMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EHandAnimationMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animation/Hand/Hand.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animation/Hand/Hand.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Objects/Hand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Objects/Hand.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/DivaAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaAnimatorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Editor/DivaAnimatorEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Enums/EDivaAnimationState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/Interaction_KeyDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/Interaction_KeyDown.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animation/Character/Character_Controller.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animation/Character/Character_Controller.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animation/Hair/BlueHair_Back/BlueHair_Back_Controller.overrideController" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animation/Hair/BlueHair_Back/BlueHair_Back_Controller.overrideController" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animation/Hair/BlueHair_Front/BlueHair_Front_Controller.overrideController" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animation/Hair/BlueHair_Front/BlueHair_Front_Controller.overrideController" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_eat_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_eat_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_eat_start.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_eat_start.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_hideHand.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_hideHand.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_hideHands.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_hideHands.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_movement_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_movement_0.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_transition_sleep.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_transition_sleep.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_voice.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/character_seat_voice.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_eat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_eat.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_enter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_enter.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_reaction_voice.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_reaction_voice.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_transition_sleep.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Seat/old/character_seat_transition_sleep.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_enter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_enter.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_reaction_voice.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Sleep/character_sleep_reaction_voice.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_eat_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_eat_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_eat_start.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_eat_start.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_handToHeart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_handToHeart.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_hideHand.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_hideHand.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_hideHands.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_hideHands.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_idle.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_buttom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_buttom.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_left.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_leftButtom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_leftButtom.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_leftTop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_leftTop.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_right.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_rightButtom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_rightButtom.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_rightTop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_rightTop.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_top.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_reaction_mouse_top.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_transition_seat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_transition_seat.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_transition_sleep.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/character_stand_transition_sleep.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Sprite/Character/Stand/new.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,14 +97,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/4d/385e6247/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da87c2565b1d49249c12d4e941cfd109fe00/38/b587587f/Microphone.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Components/Entities/Diva/Diva.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Components/Entities/Hand/HandAnimator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Components/Entities/Diva/DivaAnimationStateObserver.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Components/Items/Item.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Data/Enums/EHandAnimationMode.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Services/TimeObserver.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Test/DebugWindow/DW_Tick.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Graphics/Animation/Hand/Hand.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Prefabs/Objects/Hand.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/FilePanel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/UniWinCore.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/UniWindowController.cs" root0="SKIP_HIGHLIGHTING" />
@@ -114,7 +184,9 @@
       <workItem from="1736027454358" duration="2245000" />
       <workItem from="1736104619865" duration="12418000" />
       <workItem from="1736118436928" duration="2039000" />
-      <workItem from="1736120505138" duration="2470000" />
+      <workItem from="1736120505138" duration="3184000" />
+      <workItem from="1736175535465" duration="572000" />
+      <workItem from="1736254506121" duration="6656000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring">
       <created>1736025986199</created>
@@ -179,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1736169857152</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="#3 hand animation state observer">
+      <created>1736169906505</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736169906505</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +285,7 @@
     <MESSAGE value="scene references" />
     <MESSAGE value="refactoring time observer" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="#3 hand animation state observer" />
+    <option name="LAST_COMMIT_MESSAGE" value="#3 hand animation state observer" />
   </component>
 </project>
