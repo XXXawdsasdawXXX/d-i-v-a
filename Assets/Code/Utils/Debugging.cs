@@ -31,7 +31,8 @@ namespace Code.Utils
             Items,
             Window,
             CharacterCondition,
-            VFX
+            VFX,
+            Input
         }
 
         [Serializable]

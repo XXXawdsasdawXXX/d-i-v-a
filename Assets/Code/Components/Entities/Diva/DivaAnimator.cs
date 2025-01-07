@@ -102,8 +102,7 @@ namespace Code.Components.Entities
             _characterAnimator.SetBool(_hideHand_b, true);
             _frontHairAnimator.SetBool(_hideHand_b, true);
             _backHairAnimator.SetBool(_hideHand_b, true);
-
-          
+            
             _debug.Log(this, $"[StartPlayHideHand]", Debugging.Type.AnimationState);
         }
 

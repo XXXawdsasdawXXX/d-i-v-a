@@ -1,16 +1,23 @@
 using System;
 using Code.Data.Enums;
 using Code.Infrastructure.GameLoop;
+using Code.Utils;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener
+    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener, IGameInitListener
     {
+        private Debugging _debug;
         private string _currentInput;
 
+        public void GameInit()
+        {
+            _debug = Debugging.Instance;
+        }
+
         public event Action<EInputWord> OnWordEntered;
-        
+
         public void GameUpdate()
         {
             foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
@@ -46,9 +53,12 @@ namespace Code.Infrastructure.Services.Interactions
             {
                 if (_currentInput.Equals(word.ToString()))
                 {
-                    Debug.Log($"Input matches: {word}");
+                    _debug.Log(this, $"Input matches: {word}", Debugging.Type.Input);
+                   
                     _currentInput = ""; 
+                
                     OnWordEntered?.Invoke(word);
+                 
                     break;
                 }
             }

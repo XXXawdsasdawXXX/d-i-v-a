@@ -47,10 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugParams:
   - Type: 1
-    Active: 1
+    Active: 0
     Color: {r: 0.5444066, g: 0.5235849, b: 1, a: 1}
   - Type: 2
-    Active: 1
+    Active: 0
     Color: {r: 0.5254902, g: 0.7554999, b: 1, a: 1}
   - Type: 3
     Active: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
     Active: 0
     Color: {r: 1, g: 0.7452422, b: 0.5254902, a: 1}
   - Type: 5
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.5254902, b: 0.9738706, a: 1}
   - Type: 6
     Active: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0, g: 0, b: 0, a: 1}
   - Type: 15
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
   - Type: 16
     Active: 0
@@ -101,8 +101,11 @@ MonoBehaviour:
     Active: 0
     Color: {r: 0.26258454, g: 0.23137254, b: 1, a: 1}
   - Type: 19
-    Active: 1
+    Active: 0
     Color: {r: 1, g: 0.64764583, b: 0.23137254, a: 1}
+  - Type: 20
+    Active: 0
+    Color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &5377439444576147685
 MonoBehaviour:
   m_ObjectHideFlags: 0
