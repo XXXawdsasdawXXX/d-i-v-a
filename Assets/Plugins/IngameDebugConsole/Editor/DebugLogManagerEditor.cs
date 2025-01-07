@@ -35,11 +35,11 @@ namespace IngameDebugConsole
 		private SerializedProperty popupAvoidsScreenCutout;
 		private SerializedProperty autoFocusOnCommandInputField;
 
-		private readonly GUIContent receivedLogTypesLabel = new GUIContent( "Received Log Types", "Only these logs will be received by the console window, other logs will simply be skipped" );
-		private readonly GUIContent receiveInfoLogsLabel = new GUIContent( "Info" );
-		private readonly GUIContent receiveWarningLogsLabel = new GUIContent( "Warning" );
-		private readonly GUIContent receiveErrorLogsLabel = new GUIContent( "Error" );
-		private readonly GUIContent receiveExceptionLogsLabel = new GUIContent( "Exception" );
+		private readonly GUIContent receivedLogTypesLabel = new( "Received Log Types", "Only these logs will be received by the console window, other logs will simply be skipped" );
+		private readonly GUIContent receiveInfoLogsLabel = new( "Info" );
+		private readonly GUIContent receiveWarningLogsLabel = new( "Warning" );
+		private readonly GUIContent receiveErrorLogsLabel = new( "Error" );
+		private readonly GUIContent receiveExceptionLogsLabel = new( "Exception" );
 
 		private void OnEnable()
 		{

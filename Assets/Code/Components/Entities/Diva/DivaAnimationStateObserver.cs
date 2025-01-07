@@ -29,14 +29,13 @@ namespace Code.Components.Entities
         private readonly int _hand_Hide_Hash = Animator.StringToHash("HandHide");
         
         
-        
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
             
             OnStateEntered?.Invoke(State);
             
-            Debugging.Instance?.Log(this, $"Animation entered state: {State}", Debugging.Type.AnimationState);
+            Debugging.Log(this, $"Animation entered state: {State}", Debugging.Type.AnimationState);
         }
 
         public void ExitedState(int stateHash)
@@ -45,7 +44,7 @@ namespace Code.Components.Entities
             
             OnStateExited?.Invoke(StateFor(stateHash));
             
-            Debugging.Instance?.Log(this, $"Animation exited state: {State}", Debugging.Type.AnimationState);
+            Debugging.Log(this, $"Animation exited state: {State}", Debugging.Type.AnimationState);
         }
 
         private EDivaAnimationState StateFor(int stateHash)
@@ -75,7 +74,6 @@ namespace Code.Components.Entities
                 state = EDivaAnimationState.HandIdle; 
             else if (stateHash == _hand_Hide_Hash)
                 state = EDivaAnimationState.HandHide;
-            
             
             //transitions
             else if (stateHash == _transition_Seat_Hash)

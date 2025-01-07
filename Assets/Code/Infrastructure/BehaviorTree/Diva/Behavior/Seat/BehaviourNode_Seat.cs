@@ -46,11 +46,11 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 RunNode(_node_ReactionToItem);
 
-                Debugging.Instance.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Instance.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
                 Return(false);
             }
         }

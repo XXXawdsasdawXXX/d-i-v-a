@@ -25,7 +25,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                Debugging.Instance.Log($"Саб нода реакции на объект: запущена", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Саб нода реакции на объект: запущена", Debugging.Type.BehaviorTree);
                 _itemsController.StartReactionToObject(_item, OnEndReaction: () =>
                 {
                     Return(true);
@@ -34,7 +34,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             }
             else
             {
-                Debugging.Instance.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана",
+                Debugging.Log($"Саб нода реакции на объект: пустой итем. попытка запустить оборвана",
                     Debugging.Type.BehaviorTree);
                 Return(false);
             }
@@ -47,20 +47,20 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         protected override void OnReturn(bool success)
         {
-            Debugging.Instance.Log($"Саб нода реакции на объект: ретерн {success}", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Саб нода реакции на объект: ретерн {success}", Debugging.Type.BehaviorTree);
             _item = null;
             base.OnReturn(success);
         }
 
         protected override void OnBreak()
         {
-            Debugging.Instance.Log($"Саб нода реакции на объект: брейк", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Саб нода реакции на объект: брейк", Debugging.Type.BehaviorTree);
             _item = null;
         }
 
         public void SetCurrentItem(Item component)
         {
-            Debugging.Instance.Log($"Саб нода реакции на объект: установлен итем", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Саб нода реакции на объект: установлен итем", Debugging.Type.BehaviorTree);
             _item = component;
         }
     }

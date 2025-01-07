@@ -40,7 +40,7 @@ namespace Code.Data.Storages
             }
 
             OnAdd?.Invoke(type, value);
-            Debugging.Instance.Log($"[storage] add {type} {_interactions[type]}", Debugging.Type.Interaction);
+            Debugging.Log($"[storage] add {type} {_interactions[type]}", Debugging.Type.Interaction);
         }
 
         public void LoadProgress(PlayerProgressData playerProgress)

@@ -23,7 +23,7 @@ namespace Code.Infrastructure.GameLoop
 
         #region runtime
 
-        public void Awake()
+        private void Awake()
         {
 #if !UNITY_EDITOR
             _isTestInit = false;
@@ -32,21 +32,24 @@ namespace Code.Infrastructure.GameLoop
             if (_isTestInit)
             {
                 _controller.gameObject.SetActive(false);
+                
                 _initializeListeners();
                 _notifyGameInit();
                 _notifyGameLoad();
-                Debugging.Instance.Log(this, "Awake", Debugging.Type.GameState);
+                
                 StartCoroutine(_startWithDelay());
-                Debugging.Instance.Log("Start", Debugging.Type.GameState);
+              
+                Debugging.Log(this, "[Awake] Test", Debugging.Type.GameState);
             }
             else
             {
                 _controller.OnStateChanged += _onWindowControllerStateChanged;
-                Debugging.Instance.Log(this, "Subscribe", Debugging.Type.GameState);
+               
                 _initializeListeners();
                 _notifyGameInit();
                 _notifyGameLoad();
-                Debugging.Instance.Log(this, "Awake", Debugging.Type.GameState);
+                
+                Debugging.Log(this, "[Awake]", Debugging.Type.GameState);
             }
         }
 
@@ -58,7 +61,8 @@ namespace Code.Infrastructure.GameLoop
         private void OnApplicationQuit()
         {
             _notifyGameExit();
-            Debugging.Instance.Log(this, "Exit", Debugging.Type.GameState);
+            
+            Debugging.Log(this, "[OnApplicationQuit]", Debugging.Type.GameState);
         }
 
         #endregion
@@ -91,12 +95,13 @@ namespace Code.Infrastructure.GameLoop
 
             _notifyGameStart();
 
-            Debugging.Instance.Log(this, "Start", Debugging.Type.GameState);
+            Debugging.Log(this, "[_startWithDelay] Completed", Debugging.Type.GameState);
         }
 
         private void _initializeListeners()
         {
             List<IGameListeners> gameListeners = Container.Instance.GetGameListeners();
+            
             if (Extensions.IsMacOs())
             {
                 gameListeners = gameListeners

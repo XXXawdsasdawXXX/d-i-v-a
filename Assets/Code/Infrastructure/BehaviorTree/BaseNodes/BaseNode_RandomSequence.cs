@@ -19,7 +19,7 @@ namespace Code.Infrastructure.BehaviorTree
         {
             if (IsCanRun())
             {
-                Debugging.Instance.Log($"Рандомная сиквенция: старт", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Рандомная сиквенция: старт", Debugging.Type.BehaviorTree);
                 _currentNodeIndex = 0;
                 _currentChild = _orderNodes[_currentNodeIndex];
                 _currentChild.Run(callback: this);
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.BehaviorTree
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log($"Рандомная сиквенция: калбэк {success}", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Рандомная сиквенция: калбэк {success}", Debugging.Type.BehaviorTree);
             if (!success)
             {
                 Return(false);
@@ -49,7 +49,7 @@ namespace Code.Infrastructure.BehaviorTree
                 return;
             }
 
-            Debugging.Instance.Log($"Рандомная сиквенция: калбэк следующая нода", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Рандомная сиквенция: калбэк следующая нода", Debugging.Type.BehaviorTree);
             _currentNodeIndex++;
             _currentChild = _orderNodes[_currentNodeIndex];
             _currentChild.Run(callback: this);
@@ -61,11 +61,11 @@ namespace Code.Infrastructure.BehaviorTree
             {
                 _currentChild.Break();
                 _currentChild = null;
-                Debugging.Instance.Log($"Рандомная сиквенция: брейк", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Рандомная сиквенция: брейк", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Instance.Log($"Рандомная сиквенция: брейк -> нет дочерней ноды", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Рандомная сиквенция: брейк -> нет дочерней ноды", Debugging.Type.BehaviorTree);
             }
         }
     }

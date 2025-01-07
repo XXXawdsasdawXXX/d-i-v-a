@@ -58,7 +58,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void TryStartAction()
         {
-            Debugging.Instance.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
+            Debugging.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.On();
@@ -69,7 +69,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void StopAction()
         {
-            Debugging.Instance.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
+            Debugging.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.Off();

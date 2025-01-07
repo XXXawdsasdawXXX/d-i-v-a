@@ -94,7 +94,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         private void OnSwitchLowerLiveState(ELiveStateKey key)
         {
-            Debugging.Instance.Log($"Селектор: среагировать на изменение нижнего показателя",
+            Debugging.Log($"Селектор: среагировать на изменение нижнего показателя",
                 Debugging.Type.BehaviorTree);
             _currentChild?.Break();
             Run();

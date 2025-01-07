@@ -22,7 +22,7 @@ namespace AllIn1SpriteShader
         public Vector2 scrollPosition = Vector2.zero;
 
         private DefaultAsset materialTargetFolder = null;
-        private GUIStyle style, bigLabel = new GUIStyle(), titleStyle = new GUIStyle();
+        private GUIStyle style, bigLabel = new(), titleStyle = new();
         private const int bigFontSize = 16;
 
         enum ShaderTypes
@@ -56,7 +56,7 @@ namespace AllIn1SpriteShader
             _2048 = 2048
         }
         private TextureSizes textureSizes = TextureSizes._128;
-        [SerializeField] private Gradient gradient = new Gradient();
+        [SerializeField] private Gradient gradient = new();
         private FilterMode gradientFiltering = FilterMode.Bilinear;
     
         private enum ImageType
@@ -348,7 +348,7 @@ namespace AllIn1SpriteShader
             EditorGUILayout.EndHorizontal();
 
             int textureSize = (int)textureSizes;
-            Texture2D gradTex = new Texture2D(textureSize, 1, TextureFormat.RGBA32, false);
+            Texture2D gradTex = new(textureSize, 1, TextureFormat.RGBA32, false);
             for (int i = 0; i < textureSize; i++) gradTex.SetPixel(i, 0, gradient.Evaluate((float)i / (float)textureSize));
             gradTex.Apply();
 
@@ -441,29 +441,29 @@ namespace AllIn1SpriteShader
         private Texture2D CreateNormalMap(Texture2D t, float normalMult = 5f, int normalSmooth = 0)
         {
             Color[] pixels = new Color[t.width * t.height];
-            Texture2D texNormal = new Texture2D(t.width, t.height, TextureFormat.RGB24, false, false);
-            Vector3 vScale = new Vector3(0.3333f, 0.3333f, 0.3333f);
+            Texture2D texNormal = new(t.width, t.height, TextureFormat.RGB24, false, false);
+            Vector3 vScale = new(0.3333f, 0.3333f, 0.3333f);
 
             for (int y = 0; y < t.height; y++)
             {
                 for (int x = 0; x < t.width; x++)
                 {
                     Color tc = t.GetPixel(x - 1, y - 1);
-                    Vector3 cSampleNegXNegY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSampleNegXNegY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x, y - 1);
-                    Vector3 cSampleZerXNegY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSampleZerXNegY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x + 1, y - 1);
-                    Vector3 cSamplePosXNegY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSamplePosXNegY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x - 1, y);
-                    Vector3 cSampleNegXZerY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSampleNegXZerY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x + 1, y);
-                    Vector3 cSamplePosXZerY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSamplePosXZerY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x - 1, y + 1);
-                    Vector3 cSampleNegXPosY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSampleNegXPosY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x, y + 1);
-                    Vector3 cSampleZerXPosY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSampleZerXPosY = new(tc.r, tc.g, tc.g);
                     tc = t.GetPixel(x + 1, y + 1);
-                    Vector3 cSamplePosXPosY = new Vector3(tc.r, tc.g, tc.g);
+                    Vector3 cSamplePosXPosY = new(tc.r, tc.g, tc.g);
                     float fSampleNegXNegY = Vector3.Dot(cSampleNegXNegY, vScale);
                     float fSampleZerXNegY = Vector3.Dot(cSampleZerXNegY, vScale);
                     float fSamplePosXNegY = Vector3.Dot(cSamplePosXNegY, vScale);
@@ -476,7 +476,7 @@ namespace AllIn1SpriteShader
                     float edgeY = (fSampleNegXNegY - fSampleNegXPosY) * 0.25f + (fSampleZerXNegY - fSampleZerXPosY) * 0.5f + (fSamplePosXNegY - fSamplePosXPosY) * 0.25f;
                     Vector2 vEdge = new Vector2(edgeX, edgeY) * normalMult;
                     Vector3 norm = new Vector3(vEdge.x, vEdge.y, 1.0f).normalized;
-                    Color c = new Color(norm.x * 0.5f + 0.5f, norm.y * 0.5f + 0.5f, norm.z * 0.5f + 0.5f, 1);
+                    Color c = new(norm.x * 0.5f + 0.5f, norm.y * 0.5f + 0.5f, norm.z * 0.5f + 0.5f, 1);
                     pixels[x + y * t.width] = c;
                 }
             }

@@ -55,11 +55,11 @@ namespace IngameDebugConsole
 		public delegate bool ParseFunction( string input, out object output );
 
 		// All the commands
-		private static readonly List<ConsoleMethodInfo> methods = new List<ConsoleMethodInfo>();
-		private static readonly List<ConsoleMethodInfo> matchingMethods = new List<ConsoleMethodInfo>( 4 );
+		private static readonly List<ConsoleMethodInfo> methods = new();
+		private static readonly List<ConsoleMethodInfo> matchingMethods = new( 4 );
 
 		// All the parse functions
-		private static readonly Dictionary<Type, ParseFunction> parseFunctions = new Dictionary<Type, ParseFunction>()
+		private static readonly Dictionary<Type, ParseFunction> parseFunctions = new()
 		{
 			{ typeof( string ), ParseString },
 			{ typeof( bool ), ParseBool },
@@ -94,7 +94,7 @@ namespace IngameDebugConsole
 		};
 
 		// All the readable names of accepted types
-		private static readonly Dictionary<Type, string> typeReadableNames = new Dictionary<Type, string>()
+		private static readonly Dictionary<Type, string> typeReadableNames = new()
 		{
 			{ typeof( string ), "String" },
 			{ typeof( bool ), "Boolean" },
@@ -113,7 +113,7 @@ namespace IngameDebugConsole
 		};
 
 		// Split arguments of an entered command
-		private static readonly List<string> commandArguments = new List<string>( 8 );
+		private static readonly List<string> commandArguments = new( 8 );
 
 		// Command parameter delimeter groups
 		private static readonly string[] inputDelimiters = new string[] { "\"\"", "''", "{}", "()", "[]" };
@@ -217,7 +217,7 @@ namespace IngameDebugConsole
 					length += methods[i].signature.Length + 7;
 			}
 
-			StringBuilder stringBuilder = new StringBuilder( length );
+			StringBuilder stringBuilder = new( length );
 			stringBuilder.Append( "Available commands:" );
 
 			for( int i = 0; i < methods.Count; i++ )
@@ -252,7 +252,7 @@ namespace IngameDebugConsole
 				for( int i = 0; i < matchingMethods.Count; i++ )
 					commandsLength += matchingMethods[i].signature.Length + 7;
 
-				StringBuilder stringBuilder = new StringBuilder( commandsLength );
+				StringBuilder stringBuilder = new( commandsLength );
 				stringBuilder.Append( "Matching commands:" );
 
 				for( int i = 0; i < matchingMethods.Count; i++ )
@@ -268,7 +268,7 @@ namespace IngameDebugConsole
 		// Logs system information
 		public static void LogSystemInfo()
 		{
-			StringBuilder stringBuilder = new StringBuilder( 1024 );
+			StringBuilder stringBuilder = new( 1024 );
 			stringBuilder.Append( "Rig: " ).AppendSysInfoIfPresent( SystemInfo.deviceModel ).AppendSysInfoIfPresent( SystemInfo.processorType )
 				.AppendSysInfoIfPresent( SystemInfo.systemMemorySize, "MB RAM" ).Append( SystemInfo.processorCount ).Append( " cores\n" );
 			stringBuilder.Append( "OS: " ).Append( SystemInfo.operatingSystem ).Append( "\n" );
@@ -507,7 +507,7 @@ namespace IngameDebugConsole
 			}
 
 			// Create the command
-			StringBuilder methodSignature = new StringBuilder( 256 );
+			StringBuilder methodSignature = new( 256 );
 			string[] parameterSignatures = new string[parameterTypes.Length];
 
 #if USE_BOLD_COMMAND_SIGNATURES
@@ -671,7 +671,7 @@ namespace IngameDebugConsole
 					for( int i = 0; i < matchingMethods.Count; i++ )
 						commandsLength += matchingMethods[i].signature.Length + 7;
 
-					StringBuilder stringBuilder = new StringBuilder( commandsLength );
+					StringBuilder stringBuilder = new( commandsLength );
 					if( parameterCountMismatch )
 						stringBuilder.Append( "ERROR: '" ).Append( _command ).Append( "' doesn't take " ).Append( commandArguments.Count - 1 ).Append( " parameter(s). Available command(s):" );
 					else
@@ -1280,7 +1280,7 @@ namespace IngameDebugConsole
 
 		public static bool ParseArray( string input, Type arrayType, out object output )
 		{
-			List<string> valuesToParse = new List<string>( 2 );
+			List<string> valuesToParse = new( 2 );
 			FetchArgumentsFromCommand( input, valuesToParse );
 
 			IList result = (IList) Activator.CreateInstance( arrayType, new object[1] { valuesToParse.Count } );
@@ -1317,7 +1317,7 @@ namespace IngameDebugConsole
 		// Create a vector of specified type (fill the blank slots with 0 or ignore unnecessary slots)
 		private static bool ParseVector( string input, Type vectorType, out object output )
 		{
-			List<string> tokens = new List<string>( input.Replace( ',', ' ' ).Trim().Split( ' ' ) );
+			List<string> tokens = new( input.Replace( ',', ' ' ).Trim().Split( ' ' ) );
 			for( int i = tokens.Count - 1; i >= 0; i-- )
 			{
 				tokens[i] = tokens[i].Trim();
@@ -1391,7 +1391,7 @@ namespace IngameDebugConsole
 			}
 			else if( vectorType == typeof( Color32 ) )
 			{
-				Color32 result = new Color32( 0, 0, 0, 255 );
+				Color32 result = new( 0, 0, 0, 255 );
 
 				if( tokenValues.Length > 0 )
 					result.r = (byte) Mathf.RoundToInt( tokenValues[0] );
@@ -1421,7 +1421,7 @@ namespace IngameDebugConsole
 			}
 			else if( vectorType == typeof( RectOffset ) )
 			{
-				RectOffset result = new RectOffset();
+				RectOffset result = new();
 
 				if( tokenValues.Length > 0 )
 					result.left = Mathf.RoundToInt( tokenValues[0] );
@@ -1467,7 +1467,7 @@ namespace IngameDebugConsole
 			}
 			else if( vectorType == typeof( RectInt ) )
 			{
-				RectInt result = new RectInt();
+				RectInt result = new();
 
 				if( tokenValues.Length > 0 )
 					result.x = Mathf.RoundToInt( tokenValues[0] );

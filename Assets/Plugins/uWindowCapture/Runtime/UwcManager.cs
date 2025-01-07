@@ -67,31 +67,31 @@ public class UwcManager : MonoBehaviour
 
     public WindowTitlesUpdateTiming windowTitlesUpdateTiming = WindowTitlesUpdateTiming.Manual;
 
-    private UwcWindowEvent onWindowAdded_ = new UwcWindowEvent();
+    private UwcWindowEvent onWindowAdded_ = new();
     public static UwcWindowEvent onWindowAdded
     {
         get { return instance.onWindowAdded_; }
     }
 
-    private UwcWindowEvent onWindowRemoved_ = new UwcWindowEvent();
+    private UwcWindowEvent onWindowRemoved_ = new();
     public static UwcWindowEvent onWindowRemoved
     {
         get { return instance.onWindowRemoved_; }
     }
 
-    private UwcWindowEvent onDesktopAdded_ = new UwcWindowEvent();
+    private UwcWindowEvent onDesktopAdded_ = new();
     public static UwcWindowEvent onDesktopAdded
     {
         get { return instance.onDesktopAdded_; }
     }
 
-    private UwcWindowEvent onDesktopRemoved_ = new UwcWindowEvent();
+    private UwcWindowEvent onDesktopRemoved_ = new();
     public static UwcWindowEvent onDesktopRemoved
     {
         get { return instance.onDesktopRemoved_; }
     }
 
-    private UwcEvent onCursorCaptured_ = new UwcEvent();
+    private UwcEvent onCursorCaptured_ = new();
     public static UwcEvent onCursorCaptured
     {
         get { return instance.onCursorCaptured_; }
@@ -99,7 +99,7 @@ public class UwcManager : MonoBehaviour
 
     System.IntPtr renderEventFunc_;
 
-    Dictionary<int, UwcWindow> windows_ = new Dictionary<int, UwcWindow>();
+    Dictionary<int, UwcWindow> windows_ = new();
     static public Dictionary<int, UwcWindow> windows
     {
         get { return instance.windows_; }
@@ -111,13 +111,13 @@ public class UwcManager : MonoBehaviour
         get { return Find(instance.cursorWindowId_); }
     }
 
-    UwcCursor cursor_ = new UwcCursor();
+    UwcCursor cursor_ = new();
     static public UwcCursor cursor
     {
         get { return instance.cursor_; }
     }
 
-    List<int> desktops_ = new List<int>();
+    List<int> desktops_ = new();
     static public int desktopCount
     {
         get { return instance.desktops_.Count; }

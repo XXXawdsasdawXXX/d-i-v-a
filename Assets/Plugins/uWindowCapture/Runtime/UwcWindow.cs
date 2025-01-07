@@ -269,34 +269,34 @@ public class UwcWindow
         set { Lib.SetWindowCursorDraw(id, value); }
     }
 
-    private UnityEvent onCaptured_ = new UnityEvent();
+    private UnityEvent onCaptured_ = new();
     public UnityEvent onCaptured 
     { 
         get { return onCaptured_; } 
     }
 
     private bool isFirstSizeChangedEvent_ = true;
-    private UnityEvent onSizeChanged_ = new UnityEvent();
+    private UnityEvent onSizeChanged_ = new();
     public UnityEvent onSizeChanged
     {
         get { return onSizeChanged_; } 
     }
 
-    private UnityEvent onIconCaptured_ = new UnityEvent();
+    private UnityEvent onIconCaptured_ = new();
     public UnityEvent onIconCaptured 
     { 
         get { return onIconCaptured_; } 
     }
 
     public class ChildAddedEvent : UnityEvent<UwcWindow> {}
-    private ChildAddedEvent onChildAdded_ = new ChildAddedEvent();
+    private ChildAddedEvent onChildAdded_ = new();
     public ChildAddedEvent onChildAdded
     { 
         get { return onChildAdded_; } 
     }
 
     public class ChildRemovedEvent : UnityEvent<UwcWindow> {}
-    private ChildRemovedEvent onChildRemoved_ = new ChildRemovedEvent();
+    private ChildRemovedEvent onChildRemoved_ = new();
     public ChildRemovedEvent onChildRemoved
     { 
         get { return onChildRemoved_; } 

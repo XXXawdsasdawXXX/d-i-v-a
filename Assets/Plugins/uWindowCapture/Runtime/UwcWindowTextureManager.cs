@@ -9,19 +9,19 @@ public class UwcWindowTextureManager : MonoBehaviour
 {
     [SerializeField] GameObject windowPrefab;
 
-    Dictionary<int, UwcWindowTexture> windows_ = new Dictionary<int, UwcWindowTexture>();
+    Dictionary<int, UwcWindowTexture> windows_ = new();
     public Dictionary<int, UwcWindowTexture> windows
     {
         get { return windows_; }
     }
 
-    UwcWindowTextureEvent onWindowTextureAdded_ = new UwcWindowTextureEvent();
+    UwcWindowTextureEvent onWindowTextureAdded_ = new();
     public UwcWindowTextureEvent onWindowTextureAdded 
     { 
         get { return onWindowTextureAdded_; }
     }
 
-    UwcWindowTextureEvent onWindowTextureRemoved_ = new UwcWindowTextureEvent();
+    UwcWindowTextureEvent onWindowTextureRemoved_ = new();
     public UwcWindowTextureEvent onWindowTextureRemoved 
     { 
         get { return onWindowTextureRemoved_; }

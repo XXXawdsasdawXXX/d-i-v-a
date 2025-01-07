@@ -18,39 +18,42 @@ namespace Code.Components.Common
 
         public void GameStart()
         {
-            SetEnable(_isEnable);
+            _setEnable(_isEnable);
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
-
-        #region Events
-
-        private void SubscribeToEvents(bool flag)
+        
+        public void SetOffset(Vector2 offset)
+        {
+            _colorChecker.SetAdditionalOffset(offset);
+        }
+        
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _colliderButton.OnPressedUp += OnPressedUp;
-                _colorChecker.OnFoundedNewColor += OnFoundedNewColor;
+                _colliderButton.OnPressedUp += _onPressedUp;
+                _colorChecker.OnFoundedNewColor += _onFoundedNewColor;
             }
             else
             {
-                _colliderButton.OnPressedUp -= OnPressedUp;
-                _colorChecker.OnFoundedNewColor -= OnFoundedNewColor;
+                _colliderButton.OnPressedUp -= _onPressedUp;
+                _colorChecker.OnFoundedNewColor -= _onFoundedNewColor;
             }
         }
 
-        private void OnPressedUp(Vector2 arg1, float arg2)
+        private void _onPressedUp(Vector2 arg1, float arg2)
         {
-            Debugging.Instance.Log(this, $"{gameObject.name} OnPressedUp", Debugging.Type.Window);
+            Debugging.Log(this, $"{gameObject.name} [OnPressedUp]", Debugging.Type.Window);
             _colorChecker.RefreshLastColor();
         }
 
-        private void OnFoundedNewColor(Color obj)
+        private void _onFoundedNewColor(Color obj)
         {
-            Debugging.Instance.Log(this, $"{gameObject.name} OnFoundedNewColor", Debugging.Type.Window);
+            Debugging.Log(this, $"{gameObject.name} [OnFoundedNewColor]", Debugging.Type.Window);
             switch (_rigidbody2D.bodyType)
             {
                 case RigidbodyType2D.Kinematic:
@@ -63,23 +66,15 @@ namespace Code.Components.Common
             }
         }
 
-        #endregion
-
-        #region Public Methods
-
-        public void SetOffset(Vector2 offset)
+        private void _setEnable(bool isEnable)
         {
-            _colorChecker.SetAdditionalOffset(offset);
-        }
+            Debugging.Log(this, $"{gameObject.name} [SetEnable] {isEnable}", Debugging.Type.Window);
 
-        public void SetEnable(bool isEnable)
-        {
-            Debugging.Instance.Log(this, $"{gameObject.name} SetEnable {isEnable}", Debugging.Type.Window);
             _isEnable = isEnable;
+            
             _colorChecker.SetEnable(isEnable);
-            SubscribeToEvents(isEnable);
+            
+            _subscribeToEvents(isEnable);
         }
-
-        #endregion
     }
 }

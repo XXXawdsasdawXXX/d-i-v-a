@@ -11,7 +11,7 @@ public class UwcWindowList : MonoBehaviour
 
     public UwcWindowTextureManager windowTextureManager;
 
-    Dictionary<int, UwcWindowListItem> items_ = new Dictionary<int, UwcWindowListItem>();
+    Dictionary<int, UwcWindowListItem> items_ = new();
 
     void Start()
     {

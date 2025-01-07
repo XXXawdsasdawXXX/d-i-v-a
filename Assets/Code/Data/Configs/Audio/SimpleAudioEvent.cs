@@ -17,7 +17,7 @@ namespace Code.Data.Configs.Audio
         {
             if (clips.Length == 0) return;
             source.clip = clips[Random.Range(0, clips.Length)];
-            Debugging.Instance.Log($"Play audio {source.clip.name}");
+            Debugging.Log($"Play audio {source.clip.name}");
             source.volume = Random.Range(volume.MinValue, volume.MaxValue);
             source.pitch = Random.Range(pitch.MinValue, pitch.MaxValue);
             source.Play();

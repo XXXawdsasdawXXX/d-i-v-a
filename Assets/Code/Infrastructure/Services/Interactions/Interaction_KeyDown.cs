@@ -6,17 +6,11 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener, IGameInitListener
+    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener
     {
-        private Debugging _debug;
+        public event Action<EInputWord> OnWorldEntered;
+        
         private string _currentInput;
-
-        public void GameInit()
-        {
-            _debug = Debugging.Instance;
-        }
-
-        public event Action<EInputWord> OnWordEntered;
 
         public void GameUpdate()
         {
@@ -53,11 +47,11 @@ namespace Code.Infrastructure.Services.Interactions
             {
                 if (_currentInput.Equals(word.ToString()))
                 {
-                    _debug.Log(this, $"Input matches: {word}", Debugging.Type.Input);
+                    Debugging.Log(this, $"Input matches: {word}", Debugging.Type.Input);
                    
                     _currentInput = ""; 
                 
-                    OnWordEntered?.Invoke(word);
+                    OnWorldEntered?.Invoke(word);
                  
                     break;
                 }

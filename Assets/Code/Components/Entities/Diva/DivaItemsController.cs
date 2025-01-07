@@ -44,7 +44,7 @@ namespace Code.Components.Entities
         {
             item.Lock();
             
-            WaitForEndOfFrame period = new WaitForEndOfFrame();
+            WaitForEndOfFrame period = new();
             Vector3 handPosition = _modeAdapter.GetWorldEatPoint();
 
             while (Vector3.Distance(item.transform.position, handPosition) > 0.05f)

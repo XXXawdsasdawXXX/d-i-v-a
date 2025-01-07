@@ -187,7 +187,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = inspector;
         toggle = GUILayout.Toggle(toggle, effectNameLabel);
@@ -264,7 +264,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + ".Outline";
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -320,7 +320,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         if(effectCounter)
         {
@@ -358,7 +358,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -389,7 +389,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -443,7 +443,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -493,7 +493,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -525,7 +525,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -556,7 +556,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -587,7 +587,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -620,7 +620,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -655,7 +655,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -706,7 +706,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
         bool toggle = oldKeyWords.Contains(keyword);
         bool ini = toggle;
 
-        GUIContent effectNameLabel = new GUIContent();
+        GUIContent effectNameLabel = new();
         effectNameLabel.tooltip = keyword + " (C#)";
         effectNameLabel.text = effectCount + "." + inspector;
         toggle = EditorGUILayout.BeginToggleGroup(effectNameLabel, toggle);
@@ -750,7 +750,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
 
         EditorGUILayout.BeginHorizontal();
         {
-            GUIContent propertyLabel = new GUIContent();
+            GUIContent propertyLabel = new();
             propertyLabel.text = targetProperty.displayName;
             propertyLabel.tooltip = targetProperty.name + " (C#)";
 
@@ -758,7 +758,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
 
             if(!noReset)
             {
-                GUIContent resetButtonLabel = new GUIContent();
+                GUIContent resetButtonLabel = new();
                 resetButtonLabel.text = "R";
                 resetButtonLabel.tooltip = "Resets to default value";
                 if(GUILayout.Button(resetButtonLabel, GUILayout.Width(20))) ResetProperty(targetProperty);
@@ -790,7 +790,7 @@ public class AllIn1SpriteShaderMaterialInspector : ShaderGUI
 
     private bool DrawEffectSubKeywordToggle(string inspector, string keyword, bool setCustomConfigAfter = false)
     {
-        GUIContent propertyLabel = new GUIContent();
+        GUIContent propertyLabel = new();
         propertyLabel.text = inspector;
         propertyLabel.tooltip = keyword + " (C#)";
 

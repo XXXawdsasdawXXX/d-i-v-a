@@ -60,7 +60,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
                 _tickCounter.OnWaitIsOver += _onWaitedTicksEvent;
 
-                Debugging.Instance.Log(this, $"run await {cooldownTicks} ticks", Debugging.Type.Hand);
+                Debugging.Log(this, $"[Run] await {cooldownTicks} ticks", Debugging.Type.Hand);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             _tickCounter.OnWaitIsOver -= _onWaitedTicksEvent;
        
-            Debugging.Instance.Log(this, $"waited ticks", Debugging.Type.Hand);
+            Debugging.Log(this, $"[on waited ticks]", Debugging.Type.Hand);
            
             _coroutineRunner.StopRoutine(_waitingCoroutine);
          
@@ -86,7 +86,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             
             yield return new WaitForSeconds(30);
         
-            Debugging.Instance.Log(this, $"waited user", Debugging.Type.Hand);
+            Debugging.Log(this, $"[on waited user] end routine", Debugging.Type.Hand);
          
             Return(true);
         }

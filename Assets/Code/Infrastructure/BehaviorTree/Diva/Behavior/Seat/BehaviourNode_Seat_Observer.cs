@@ -22,7 +22,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (obj.TryGetComponent(out Item item) && item.IsCanUse())
             {
-                Debugging.Instance.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
                // _node_ReactionToItem.SetCurrentItem(item);
                 RunNode(_node_ReactionToItem);
             }

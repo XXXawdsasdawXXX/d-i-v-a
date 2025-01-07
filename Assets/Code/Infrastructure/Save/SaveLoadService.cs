@@ -31,13 +31,13 @@ namespace Code.Infrastructure.Save
 
             LoadProgress();
 
-            Debugging.Instance.Log($"Game load", Debugging.Type.SaveLoad);
+            Debugging.Log($"Game load", Debugging.Type.SaveLoad);
         }
 
         public void GameExit()
         {
             SaveProgress();
-            Debugging.Instance.Log($"Game save", Debugging.Type.SaveLoad);
+            Debugging.Log($"Game save", Debugging.Type.SaveLoad);
         }
 
         private void SaveProgress()
@@ -50,11 +50,11 @@ namespace Code.Infrastructure.Save
             PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
 
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
-            Debugging.Instance.Log($"Save progress -> " +
-                                   $"{_playerProgress != null} " +
-                                   $"{_playerProgress?.LiveStatesData != null}" +
-                                   $"{_playerProgress?.LiveStatesData?.Count}\n" +
-                                   $"{data} ", Debugging.Type.SaveLoad);
+            Debugging.Log($"Save progress -> " +
+                          $"{_playerProgress != null} " +
+                          $"{_playerProgress?.LiveStatesData != null}" +
+                          $"{_playerProgress?.LiveStatesData?.Count}\n" +
+                          $"{data} ", Debugging.Type.SaveLoad);
         }
 
         private void LoadProgress()
@@ -62,11 +62,11 @@ namespace Code.Infrastructure.Save
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
             _playerProgress = PlayerPrefs.GetString(PROGRESS_KEY)?.ToDeserialized<PlayerProgressData>();
 
-            Debugging.Instance.Log($"Load progress -> " +
-                                   $"{_playerProgress != null} " +
-                                   $"{_playerProgress?.LiveStatesData != null}" +
-                                   $"{_playerProgress?.LiveStatesData?.Count}\n" +
-                                   $"{data} ", Debugging.Type.SaveLoad);
+            Debugging.Log($"Load progress -> " +
+                          $"{_playerProgress != null} " +
+                          $"{_playerProgress?.LiveStatesData != null}" +
+                          $"{_playerProgress?.LiveStatesData?.Count}\n" +
+                          $"{data} ", Debugging.Type.SaveLoad);
 
             _playerProgress ??= new PlayerProgressData();
             foreach (IProgressReader progressReader in _progressReader)

@@ -158,7 +158,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         protected virtual SpectrumPointData[] CalculateSpectrumPoints(double maxValue, float[] fftBuffer)
         {
-            List<SpectrumPointData> dataPoints = new List<SpectrumPointData>();
+            List<SpectrumPointData> dataPoints = new();
 
             double value0 = 0, value = 0;
             double lastValue = 0;

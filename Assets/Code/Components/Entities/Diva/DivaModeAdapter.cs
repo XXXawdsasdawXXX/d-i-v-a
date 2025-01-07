@@ -89,7 +89,7 @@ namespace Code.Components.Entities
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
          
-            Debugging.Instance.Log(this, $"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
+            Debugging.Log(this, $"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
             
             if (modeParam != null)
             {

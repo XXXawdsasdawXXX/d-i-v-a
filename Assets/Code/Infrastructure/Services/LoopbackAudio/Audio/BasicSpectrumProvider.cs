@@ -10,7 +10,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
     public class BasicSpectrumProvider : FftProvider, ISpectrumProvider
     {
         private readonly int _sampleRate;
-        private readonly List<object> _contexts = new List<object>();
+        private readonly List<object> _contexts = new();
 
         public BasicSpectrumProvider(int channels, int sampleRate, FftSize fftSize)
             : base(channels, fftSize)

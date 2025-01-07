@@ -61,7 +61,7 @@ namespace Code.Components.Common
             OnPressedDown?.Invoke(_positionService.GetMouseWorldPosition());
             SeriesOfClicksEvent?.Invoke(_clickNumber);
 
-            Debugging.Instance.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);
+            Debugging.Log($"{gameObject.name}: Mouse down {_clickNumber}", Debugging.Type.ButtonSprite);
         }
 
         private void OnMouseUp()
@@ -70,7 +70,7 @@ namespace Code.Components.Common
             OnPressedUp?.Invoke(_positionService.GetMouseWorldPosition(), _pressedTime);
             _pressedTime = 0;
 
-            Debugging.Instance.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);
+            Debugging.Log($"{gameObject.name}: Mouse up", Debugging.Type.ButtonSprite);
         }
 
         /*private void OnMouseEnter()

@@ -67,10 +67,10 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public bool IsCanSleep(float bonusMinPercent = 0)
         {
             float minPercent = 0.3f + bonusMinPercent;
-            Debugging.Instance.Log($"Проверка на сон:" +
-                                   $" {_sleepState != null}" +
-                                   $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
-                                   $" && {_sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max}",
+            Debugging.Log($"Проверка на сон:" +
+                          $" {_sleepState != null}" +
+                          $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
+                          $" && {_sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max}",
                 Debugging.Type.CharacterCondition);
 
             return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < minPercent) &&
@@ -84,10 +84,10 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
             bool randomResult = Random.Range(0, 100) >= 50;
 
-            Debugging.Instance.Log($"Проверка на выход во сне:" +
-                                   $" {lowerKey is ELiveStateKey.Trust}" +
-                                   $" && ({lowerStatePercent <= 0.4f})" +
-                                   $" && {randomResult}",
+            Debugging.Log($"Проверка на выход во сне:" +
+                          $" {lowerKey is ELiveStateKey.Trust}" +
+                          $" && ({lowerStatePercent <= 0.4f})" +
+                          $" && {randomResult}",
                 Debugging.Type.CharacterCondition);
 
             return lowerKey is ELiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
@@ -117,11 +117,11 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             bool isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
                 is not EInteractionType.Normal;
 
-            Debugging.Instance.Log($"Проверка на нимбус:" +
-                                   $" {!_animationAnalytic.IsTransition}" +
-                                   $" && {isCorrectInteractionResult}" +
-                                   $" && {isCorrectMode}" +
-                                   $" && {isCorrectState}",
+            Debugging.Log($"Проверка на нимбус:" +
+                          $" {!_animationAnalytic.IsTransition}" +
+                          $" && {isCorrectInteractionResult}" +
+                          $" && {isCorrectMode}" +
+                          $" && {isCorrectState}",
                 Debugging.Type.CharacterCondition);
 
             return !_animationAnalytic.IsTransition && isCorrectInteractionResult && isCorrectMode && isCorrectState;

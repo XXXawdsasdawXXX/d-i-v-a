@@ -138,8 +138,8 @@ namespace Code.Components.Common
 
         private IEnumerator MoveUpRoutine()
         {
-            WaitForEndOfFrame period = new WaitForEndOfFrame();
-            Vector3 forward = new Vector3(0, 0.1f, 0);
+            WaitForEndOfFrame period = new();
+            Vector3 forward = new(0, 0.1f, 0);
             
             while (transform.position.y < _boarder.y)
             {

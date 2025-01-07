@@ -143,7 +143,7 @@ public class UwcWindowTexture : MonoBehaviour
     public float scalePer1000Pixel = 1f;
     public bool updateScaleForcely = false;
 
-    static HashSet<UwcWindowTexture> list_ = new HashSet<UwcWindowTexture>();
+    static HashSet<UwcWindowTexture> list_ = new();
     public static HashSet<UwcWindowTexture> list
     {
         get { return list_; }
@@ -181,7 +181,7 @@ public class UwcWindowTexture : MonoBehaviour
     public UwcWindowTextureManager manager { get; set; }
     public UwcWindowTexture parent { get; set; }
 
-    UwcWindowChangeEvent onWindowChanged_ = new UwcWindowChangeEvent();
+    UwcWindowChangeEvent onWindowChanged_ = new();
     public UwcWindowChangeEvent onWindowChanged
     {
         get { return onWindowChanged_; }

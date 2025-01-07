@@ -28,7 +28,7 @@ namespace Code.Components.Common
 
         public void SetDefaultPosition()
         {
-            Debugging.Instance.Log(
+            Debugging.Log(
                 $"[{gameObject.name}] from {transform.position} to {_positionService.GetPosition(_pointAnchor, _entityBounds)}",
                 Debugging.Type.Position);
             transform.position = _positionService.GetPosition(_pointAnchor, _entityBounds);

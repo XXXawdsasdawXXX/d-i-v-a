@@ -23,7 +23,7 @@ namespace Code.Components.Entities
             
             OnStateEntered?.Invoke(State);
             
-            Debugging.Instance?.Log(this, $"Animation entered state: {State}", Debugging.Type.Hand);
+            Debugging.Log(this, $"Animation entered state: {State}", Debugging.Type.Hand);
         }
 
         public void ExitedState(int stateHash)
@@ -32,7 +32,7 @@ namespace Code.Components.Entities
             
             OnStateExited?.Invoke(StateFor(stateHash));
             
-            Debugging.Instance?.Log(this, $"Animation exited state: {State}", Debugging.Type.Hand);
+            Debugging.Log(this, $"Animation exited state: {State}", Debugging.Type.Hand);
         }
 
         private EHandAnimationMode StateFor(int stateHash)

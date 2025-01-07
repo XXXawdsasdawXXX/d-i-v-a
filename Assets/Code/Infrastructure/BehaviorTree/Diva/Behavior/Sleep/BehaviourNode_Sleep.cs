@@ -25,10 +25,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
         private readonly CharacterCondition _characterCondition;
-
-        [Header("Node")] 
-        private readonly SubNode_ReactionToVoice _subNode_reactionToVoice;
-
+        
         [Header("Static values")] 
         private readonly LiveStateStorage _liveStateStorage;
         private readonly LiveStateRangePercentageValue _effectAwakeningValue;
@@ -49,10 +46,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
-            
-            //node------------------------------------------------------------------------------------------------------
-            _subNode_reactionToVoice = new SubNode_ReactionToVoice();
-            
+
             //static values---------------------------------------------------------------------------------------------
             LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
             _effectAwakeningValue = liveStateConfig.Awakening;
@@ -66,7 +60,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                Debugging.Instance.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
 
                 SubscribeToEvents(true);
                 
@@ -76,14 +70,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 if (_characterCondition.IsCanExitWhenSleep())
                 {
-                    Debugging.Instance.Log($"[run] -> exit anim routine", Debugging.Type.BehaviorTree);
+                    Debugging.Log($"[run] Exit anim routine", Debugging.Type.BehaviorTree);
                     
                     _coroutineRunner.StartRoutine(_playExitAnimationRoutine());
                 }
             }
             else
             {
-                Debugging.Instance.Log(this, $"[run] return", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, $"[run] Return", Debugging.Type.BehaviorTree);
                 
                 Return(false);
             }
@@ -97,7 +91,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         protected override void OnBreak()
         {
             _sleepState?.SetDefaultUpdate();
-            Debugging.Instance.Log(this, $"[break]");
+            Debugging.Log(this, $"[break]");
             base.OnBreak();
         }
 
@@ -121,14 +115,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             
             yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(ELiveStateKey.Sleep) >= 0.7f);
             
-            Debugging.Instance.Log(this, $"[run] end exit anim routine", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, $"[_playExitAnimationRoutine] End", Debugging.Type.BehaviorTree);
             
             _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
         }
 
         private void _rouse()
         {
-            Debugging.Instance.Log(this, $"[rouse]", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, $"[_rouse]", Debugging.Type.BehaviorTree);
             
             _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
             
@@ -154,7 +148,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
             SubscribeToEvents(false);
             
-            Debugging.Instance.Log(this, $"stop sleep", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, "[_stop sleep]", Debugging.Type.BehaviorTree);
         }
 
         #endregion
@@ -165,12 +159,12 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             data.SleepRemainingTick = _tickCounter.GetRemainingTick();
             
-            Debugging.Instance.Log(this, $"[save]", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, $"[save]", Debugging.Type.BehaviorTree);
         }
 
         public void LoadData(BehaviourTreeLoader.Data data)
         {
-            Debugging.Instance.Log(this, $"[load] -> SleepRemainingTick = {data.SleepRemainingTick}", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, $"[load] -> SleepRemainingTick = {data.SleepRemainingTick}", Debugging.Type.BehaviorTree);
             
             if (data.SleepRemainingTick > 0)
             {

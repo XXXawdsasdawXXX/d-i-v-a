@@ -29,7 +29,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
                 SpectrumPointData[] spectrumPoints = CalculateSpectrumPoints(maxValue, fftBuffer);
 
                 // Convert to float[]
-                List<float> spectrumData = new List<float>();
+                List<float> spectrumData = new();
                 spectrumPoints.ToList().ForEach(point => spectrumData.Add((float)point.Value));
                 return spectrumData.ToArray();
             }

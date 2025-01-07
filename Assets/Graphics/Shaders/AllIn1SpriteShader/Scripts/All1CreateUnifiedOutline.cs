@@ -33,7 +33,7 @@ namespace AllIn1SpriteShader
                     return;
                 }
 
-                List<Transform> children = new List<Transform>();
+                List<Transform> children = new();
                 GetAllChildren(transform, ref children);
                 foreach (Transform t in children) CreateOutlineSpriteDuplicate(t.gameObject);
                 CreateOutlineSpriteDuplicate(gameObject);
@@ -51,7 +51,7 @@ namespace AllIn1SpriteShader
             else if (ownImage != null) objectIsUi = true;
             else if (ownSr == null && ownImage == null && !transform.Equals(outlineParentTransform)) return;
 
-            GameObject objDuplicate = new GameObject();
+            GameObject objDuplicate = new();
             objDuplicate.name = target.name + "Outline";
             objDuplicate.transform.position = target.transform.position;
             objDuplicate.transform.rotation = target.transform.rotation;

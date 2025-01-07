@@ -8,8 +8,6 @@ namespace Code.Utils
 {
     public class Debugging : MonoBehaviour
     {
-        public static Debugging Instance;
-
         public enum Type
         {
             None,
@@ -45,63 +43,66 @@ namespace Code.Utils
 
         [SerializeField] private DebugParam[] _debugParams;
 
+        private static DebugParam[] _params;
         private void Awake()
         {
-            Instance = this;
+            _params = _debugParams;
         }
 
-        public void Log(string message, Type type = Type.None)
+        public static void Log(string message, Type type = Type.None)
         {
-            DebugParam debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
+      
             if (debugParam != null)
             {
                 if (debugParam.Active)
                 {
-                    ColorLog($"{InsertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
+                    _colorLog($"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
                 }
             }
             else
             {
-                ColorLog(message, Color.white);
+                _colorLog(message, Color.white);
             }
         }
 
-        public void Log(object invoker, string message, Type type = Type.None)
+        public static void Log(object invoker, string message, Type type = Type.None)
         {
-            DebugParam debugParam = _debugParams.FirstOrDefault(d => d.Type == type);
+            DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
+            
             if (debugParam != null)
             {
                 if (debugParam.Active)
                 {
-                    ColorLog(
-                        $"{InsertSpaceBeforeUppercase(type.ToString()).ToUpper()} {invoker.GetType().Name}: {message}",
+                    _colorLog(
+                        $"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()} {invoker.GetType().Name}: {message}",
                         debugParam.Color);
                 }
             }
             else
             {
-                ColorLog(message, Color.white);
+                _colorLog(message, Color.white);
             }
         }
 
         public static void LogError(object obj, string message)
         {
-            ColorLog($"{obj.GetType()} {message}", Color.red);
+            _colorLog($"{obj.GetType()} {message}", Color.red);
         }
 
         public static void LogError(string message)
         {
-            ColorLog(message, Color.red);
+            _colorLog(message, Color.red);
         }
 
-        private static void ColorLog(string message, Color color)
+        private static void _colorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
 
-        private static string InsertSpaceBeforeUppercase(string input)
+        private static string _insertSpaceBeforeUppercase(string input)
         {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
 
             foreach (char character in input)
             {

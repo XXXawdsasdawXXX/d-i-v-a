@@ -10,13 +10,16 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public partial class BehaviourNode_Stand : BaseNode_Root, IBehaviourCallback
     {
-        [Header("Character")] private readonly DivaAnimator _divaAnimator;
+        [Header("Character")] 
+        private readonly DivaAnimator _divaAnimator;
         private readonly DivaLiveStatesAnalytic _statesAnalytic;
         private readonly CollisionObserver _collisionObserver;
 
-        [Header("Services")] private readonly CharacterCondition _characterCondition;
+        [Header("Services")]
+        private readonly CharacterCondition _characterCondition;
 
-        [Header("Sub Node")] private readonly BaseNode_RandomSequence _node_randomSequence;
+        [Header("Sub Node")] 
+        private readonly BaseNode_RandomSequence _node_randomSequence;
         private readonly SubNode_ReactionToItems _node_reactionToItem;
         private BaseNode _currentSubNode;
 
@@ -38,6 +41,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
                 new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.Stand),
                 new SubNode_LookToMouse()
             });
+           
             _node_reactionToItem = new SubNode_ReactionToItems();
         }
 
@@ -51,11 +55,11 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 RunNode(_node_randomSequence);
 
-                Debugging.Instance.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Instance.Log(this, $"[run] return -> has low state {_statesAnalytic.CurrentLowerLiveStateKey}",
+                Debugging.Log(this, $"[run] Return -> has low state {_statesAnalytic.CurrentLowerLiveStateKey}",
                     Debugging.Type.BehaviorTree);
                 
                 Return(false);
@@ -69,8 +73,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log(this, $"callback -> repeat = " +
-                                   $"{_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
+            Debugging.Log(this, $"[InvokeCallback] Repeat = {_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
                 Debugging.Type.BehaviorTree);
             
             if (_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success)

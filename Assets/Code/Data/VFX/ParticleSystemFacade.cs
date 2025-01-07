@@ -121,9 +121,9 @@ namespace Code.Data.VFX
                     alphas[i] = new GradientAlphaKey(gradientData.alphaKeys[i].alpha, i / alphas.Length);
                 }
 
-                Gradient newGradient = new Gradient();
+                Gradient newGradient = new();
                 newGradient.SetKeys(colors, alphas);
-                ParticleSystem.MinMaxGradient gradient = new ParticleSystem.MinMaxGradient()
+                ParticleSystem.MinMaxGradient gradient = new()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient
@@ -144,9 +144,9 @@ namespace Code.Data.VFX
                 }
 
                 GradientAlphaKey[] alphas = gradientData.alphaKeys;
-                Gradient newGradient = new Gradient();
+                Gradient newGradient = new();
                 newGradient.SetKeys(colors, alphas);
-                ParticleSystem.MinMaxGradient minMaxGradient = new ParticleSystem.MinMaxGradient()
+                ParticleSystem.MinMaxGradient minMaxGradient = new()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient

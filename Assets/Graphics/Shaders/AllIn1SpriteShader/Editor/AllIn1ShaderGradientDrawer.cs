@@ -63,7 +63,7 @@ namespace AllIn1SpriteShader
 				EditorGUI.showMixedValue = true;
 			}
 
-			using (EditorGUI.ChangeCheckScope changeScope = new EditorGUI.ChangeCheckScope())
+			using (EditorGUI.ChangeCheckScope changeScope = new())
 			{
 				currentGradient = EditorGUILayout.GradientField(label, currentGradient, GUILayout.Height(15));
 
@@ -187,7 +187,7 @@ namespace AllIn1SpriteShader
 
 			public Gradient ToGradient()
 			{
-				Gradient gradient = new Gradient();
+				Gradient gradient = new();
 				ToGradient(gradient);
 				return gradient;
 			}

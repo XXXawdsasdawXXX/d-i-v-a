@@ -5,8 +5,8 @@ namespace Code.Infrastructure.Services.LoopbackAudio
 {
     public static class Globals
     {
-        public static List<Color> StrongColors = new List<Color>();
-        public static List<Color> PastelColors = new List<Color>();
+        public static List<Color> StrongColors = new();
+        public static List<Color> PastelColors = new();
 
         static Globals()
         {

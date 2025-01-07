@@ -67,14 +67,14 @@ namespace Code.Infrastructure.CustomActions
             _particle.transform.position = _positionService.GetMouseWorldPosition();
             _particle.On();
             _coroutineRunner.StartActionWithDelay(StopAction, _duration);
-            Debugging.Instance.Log($"[{GetActionType()}] [Start Action]", Debugging.Type.CustomAction);
+            Debugging.Log($"[{GetActionType()}] [Start Action]", Debugging.Type.CustomAction);
         }
 
         protected override void StopAction()
         {
             _isActive = false;
             _particle.Off();
-            Debugging.Instance.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
+            Debugging.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
         }
 
         public override ECustomCutsceneActionType GetActionType()
@@ -96,7 +96,7 @@ namespace Code.Infrastructure.CustomActions
 
         private void OnPressedUp(Vector2 _, float pressDuration)
         {
-            Debugging.Instance.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
+            Debugging.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
                 Debugging.Type.CustomAction);
             if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {

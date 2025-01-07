@@ -55,14 +55,14 @@ namespace Code.Components.Entities
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
-                Debugging.Instance.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
+                Debugging.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
                     Debugging.Type.LiveState);
                 return true;
             }
 
             statePercent = 1;
        
-            Debugging.Instance.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
+            Debugging.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
                 Debugging.Type.LiveState);
             
             return false;
@@ -86,14 +86,14 @@ namespace Code.Components.Entities
          
             if (!keyValuePairs.Any())
             {
-                Debugging.Instance.Log(this, $"[CheckLowerState] return when try check lower state",
+                Debugging.Log(this, $"[CheckLowerState] return when try check lower state",
                     Debugging.Type.LiveState);
                 return;
             }
 
             ELiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
 
-            Debugging.Instance.Log(this, 
+            Debugging.Log(this, 
                 $"[CheckLowerState] try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
                 Debugging.Type.LiveState);
@@ -104,7 +104,7 @@ namespace Code.Components.Entities
 
             if (resultState != CurrentLowerLiveStateKey)
             {
-                Debugging.Instance.Log(this, $"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
+                Debugging.Log(this, $"[CheckLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
                     Debugging.Type.LiveState);
                 CurrentLowerLiveStateKey = resultState;
                 SwitchLowerStateKeyEvent?.Invoke(CurrentLowerLiveStateKey);

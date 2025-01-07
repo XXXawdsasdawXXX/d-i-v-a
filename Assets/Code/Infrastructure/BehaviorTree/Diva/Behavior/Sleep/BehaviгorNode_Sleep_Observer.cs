@@ -32,7 +32,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (_sleepState.GetPercent() > 0.9f)
             {
-                Debugging.Instance.Log(this, $"[_onChangedSleepStateValue] sleep is max", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, $"[_onChangedSleepStateValue] sleep is max", Debugging.Type.BehaviorTree);
        
                 _stopSleep();
             }

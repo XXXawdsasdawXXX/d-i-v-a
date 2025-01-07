@@ -47,7 +47,7 @@ namespace Code.Data.Storages
         public bool TryGetParticles(IEnumerable<EParticleType> particleTypes,
             out ParticleSystemFacade[] particlesSystems)
         {
-            List<ParticleSystemFacade> list = new List<ParticleSystemFacade>();
+            List<ParticleSystemFacade> list = new();
             foreach (EParticleType particleType in particleTypes)
             {
                 if (TryGetParticle(particleType, out ParticleSystemFacade[] typedParticles))

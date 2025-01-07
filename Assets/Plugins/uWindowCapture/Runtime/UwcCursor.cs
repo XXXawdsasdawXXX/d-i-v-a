@@ -36,13 +36,13 @@ public class UwcCursor
         private set;
     }
 
-    UwcEvent onCaptured_ = new UwcEvent();
+    UwcEvent onCaptured_ = new();
     public UwcEvent onCaptured
     {
         get { return onCaptured_; }
     }
 
-    UwcEvent onTextureChanged_ = new UwcEvent();
+    UwcEvent onTextureChanged_ = new();
     public UwcEvent onTextureChanged
     {
         get { return onTextureChanged_; }

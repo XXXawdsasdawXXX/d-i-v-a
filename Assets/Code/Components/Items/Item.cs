@@ -59,7 +59,7 @@ namespace Code.Components.Items
 
         public void SetData(ItemData data)
         {
-            Debugging.Instance.Log($"{data.Type} {data.SpawnChance}", Debugging.Type.Items);
+            Debugging.Log($"{data.Type} {data.SpawnChance}", Debugging.Type.Items);
             
             Data = data;
             _itemAnimation.SetController(Data.AnimatorController);

@@ -8,7 +8,7 @@ namespace uWindowCapture
 public class UwcWindowTextureChildrenManager : MonoBehaviour 
 {
     UwcWindowTexture windowTexture_;
-    Dictionary<int, UwcWindowTexture> children_ = new Dictionary<int, UwcWindowTexture>();
+    Dictionary<int, UwcWindowTexture> children_ = new();
 
     void Awake()
     {

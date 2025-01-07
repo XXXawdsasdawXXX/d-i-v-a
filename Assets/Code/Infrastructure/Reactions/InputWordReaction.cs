@@ -43,15 +43,15 @@ namespace Code.Infrastructure.Reactions
         {
             if (flag)
             {
-                _interactionKeyDown.OnWordEntered += InteractionKeyDownOnOnWordEntered;
+                _interactionKeyDown.OnWorldEntered += _onWorldEntered;
             }
             else
             {
-                _interactionKeyDown.OnWordEntered -= InteractionKeyDownOnOnWordEntered;
+                _interactionKeyDown.OnWorldEntered -= _onWorldEntered;
             }
         }
 
-        private void InteractionKeyDownOnOnWordEntered(EInputWord word)
+        private void _onWorldEntered(EInputWord word)
         {
             if (!IsReady() || _animationAnalytic.CurrentMode is EDivaAnimationMode.Sleep)
             {

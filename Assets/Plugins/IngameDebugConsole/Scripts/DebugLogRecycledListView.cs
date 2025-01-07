@@ -42,7 +42,7 @@ namespace IngameDebugConsole
 		private float deltaHeightOfSelectedLogEntry;
 
 		// Log items used to visualize the debug entries at specified indices
-		private readonly Dictionary<int, DebugLogItem> logItemsAtIndices = new Dictionary<int, DebugLogItem>( 256 );
+		private readonly Dictionary<int, DebugLogItem> logItemsAtIndices = new( 256 );
 
 		private bool isCollapseOn = false;
 
@@ -344,7 +344,7 @@ namespace IngameDebugConsole
 			DebugLogItem logItem = manager.PopLogItem();
 
 			// Reposition the log item
-			Vector2 anchoredPosition = new Vector2( 1f, -index * logItemHeight );
+			Vector2 anchoredPosition = new( 1f, -index * logItemHeight );
 			if( index > indexOfSelectedLogEntry )
 				anchoredPosition.y -= deltaHeightOfSelectedLogEntry;
 

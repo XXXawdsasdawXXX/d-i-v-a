@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
         #region Private Member Variables
 
         private RealtimeAudio _realtimeAudio;
-        private readonly List<float> _postScaleAverages = new List<float>();
+        private readonly List<float> _postScaleAverages = new();
 
         #endregion
 

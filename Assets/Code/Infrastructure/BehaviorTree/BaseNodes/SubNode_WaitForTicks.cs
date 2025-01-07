@@ -22,7 +22,7 @@ namespace Code.Infrastructure.BehaviorTree
             {
                 int tickCount = _cooldownRangedTick.GetRandomValue();
                 _tickCounter.StartWait(tickCount);
-                Debugging.Instance.Log($"Caб нода ожидания: запуск. количество тиков {tickCount}",
+                Debugging.Log($"Caб нода ожидания: запуск. количество тиков {tickCount}",
                     Debugging.Type.BehaviorTree);
             }
             else

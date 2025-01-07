@@ -52,7 +52,7 @@ namespace Code.Infrastructure.Services
             {
                 if (IsCanUpdateLiveState(liveState))
                 {
-                    Debugging.Instance.Log(
+                    Debugging.Log(
                         $"[OnTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}",
                         Debugging.Type.LiveState);
                     liveState.Value.TimeUpdate();

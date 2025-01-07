@@ -77,7 +77,7 @@ namespace Code.Infrastructure.DI
                 list.AddRange(mbServices);
             }
 
-            Debugging.Instance.Log(
+            Debugging.Log(
                 $"Init {typeof(T).Name} | mb count = {mbServices.Count()}| list count = {list.Count}",
                 Debugging.Type.DiContainer);
         }
@@ -192,7 +192,7 @@ namespace Code.Infrastructure.DI
 
         private List<T> GetContainerComponents<T>()
         {
-            List<T> list = new List<T>();
+            List<T> list = new();
 
             list.AddRange(_services.OfType<T>().ToList());
             list.AddRange(_storages.OfType<T>().ToList());

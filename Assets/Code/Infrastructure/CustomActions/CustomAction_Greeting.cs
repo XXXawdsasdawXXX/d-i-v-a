@@ -50,14 +50,14 @@ namespace Code.Infrastructure.CustomActions
                 _isAlreadySaidHi = false;
             }
 
-            Debugging.Instance.Log($"[Greeting][LoadProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
+            Debugging.Log($"[Greeting][LoadProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
                 Debugging.Type.CustomAction);
         }
 
         public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
-            Debugging.Instance.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
+            Debugging.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
                 Debugging.Type.CustomAction);
         }
 
@@ -84,21 +84,21 @@ namespace Code.Infrastructure.CustomActions
 
         private void TrySayHi(Vector2 _)
         {
-            Debugging.Instance.Log($"[Greeting][TrySayHi] Trying", Debugging.Type.CustomAction);
+            Debugging.Log($"[Greeting][TrySayHi] Trying", Debugging.Type.CustomAction);
             if (_isAlreadySaidHi || !_isActive)
             {
-                Debugging.Instance.Log($"[Greeting][TrySayHi] is return", Debugging.Type.CustomAction);
+                Debugging.Log($"[Greeting][TrySayHi] is return", Debugging.Type.CustomAction);
                 return;
             }
 
             _isAlreadySaidHi = true;
             _audioEventsService.PlayAudio(EAudioEventType.Hi);
-            Debugging.Instance.Log($"[Greeting][TrySayHi] is say", Debugging.Type.CustomAction);
+            Debugging.Log($"[Greeting][TrySayHi] is say", Debugging.Type.CustomAction);
         }
 
         private void OnInitTime(bool isFirstVisit)
         {
-            Debugging.Instance.Log(
+            Debugging.Log(
                 $"[Greeting][OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
                 Debugging.Type.CustomAction);
             if (_isAlreadySaidHi && isFirstVisit)
@@ -109,7 +109,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void Active(Action OnTurnedOn = null)
         {
-            Debugging.Instance.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
+            Debugging.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
             if (!_isActive)
             {
                 _isActive = true;
@@ -119,7 +119,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void Disable(Action onTurnedOff = null)
         {
-            Debugging.Instance.Log($"[Greeting][Off] is can = {_isActive}", Debugging.Type.CustomAction);
+            Debugging.Log($"[Greeting][Off] is can = {_isActive}", Debugging.Type.CustomAction);
             if (_isActive)
             {
                 _isActive = false;

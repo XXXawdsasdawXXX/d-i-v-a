@@ -1033,7 +1033,7 @@ namespace IngameDebugConsole
 				}
 			}
 
-			QueuedDebugLogEntry queuedLogEntry = new QueuedDebugLogEntry( logString, stackTrace, logType );
+			QueuedDebugLogEntry queuedLogEntry = new( logString, stackTrace, logType );
 			DebugLogEntryTimestamp queuedLogEntryTimestamp;
 			if( queuedLogEntriesTimestamps != null )
 			{
@@ -1655,7 +1655,7 @@ namespace IngameDebugConsole
 
 			length += 100; // Just in case...
 
-			StringBuilder sb = new StringBuilder( length );
+			StringBuilder sb = new( length );
 			for( int i = 0; i < count; i++ )
 			{
 				DebugLogEntry entry = collapsedLogEntries[uncollapsedLogEntriesIndices[i]];

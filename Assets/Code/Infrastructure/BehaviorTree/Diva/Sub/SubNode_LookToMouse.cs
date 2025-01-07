@@ -21,7 +21,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                Debugging.Instance.Log($"Саб нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
+                Debugging.Log($"Саб нода смотреть за курсором: выбрано", Debugging.Type.BehaviorTree);
                 _mouseReaction.StartReaction();
                 _waitFor.Run(this);
                 return;
@@ -39,19 +39,19 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             _waitFor.Break();
             _mouseReaction.StopReaction();
-            Debugging.Instance.Log($"Саб нода смотреть за курсором: брейк", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Саб нода смотреть за курсором: брейк", Debugging.Type.BehaviorTree);
         }
 
         protected override void OnReturn(bool success)
         {
             _mouseReaction.StopReaction();
-            Debugging.Instance.Log($"Саб нода смотреть за курсором: ретерн {success}", Debugging.Type.BehaviorTree);
+            Debugging.Log($"Саб нода смотреть за курсором: ретерн {success}", Debugging.Type.BehaviorTree);
             base.OnReturn(success);
         }
         
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Instance.Log($"Нода смотреть за курсором: ожидание закончилось колбэк",
+            Debugging.Log($"Нода смотреть за курсором: ожидание закончилось колбэк",
                 Debugging.Type.BehaviorTree);
             _mouseReaction.StopReaction();
             Return(true);

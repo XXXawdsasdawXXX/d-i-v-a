@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Services.Interactions
         
         public InteractionObserver_ClickOnCharacter()
         {
-            Debugging.Instance.Log($"construct click series", Debugging.Type.Interaction);
+            Debugging.Log($"construct click series", Debugging.Type.Interaction);
         }
 
         public void GameInit()
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.Services.Interactions
 
             SubscribeToEvents(true);
 
-            Debugging.Instance.Log($"[ClickSeries] init", Debugging.Type.Interaction);
+            Debugging.Log($"[ClickSeries] init", Debugging.Type.Interaction);
         }
 
         public void GameExit()
@@ -58,10 +58,10 @@ namespace Code.Infrastructure.Services.Interactions
 
         private void OnClickSeries(int click)
         {
-            Debugging.Instance.Log($"[ClickSeries] ???????????? {click}", Debugging.Type.Interaction);
+            Debugging.Log($"[ClickSeries] ???????????? {click}", Debugging.Type.Interaction);
             if (click == 1)
             {
-                Debugging.Instance.Log($"[ClickSeries] click good series to character {click}",
+                Debugging.Log($"[ClickSeries] click good series to character {click}",
                     Debugging.Type.Interaction);
                 _interactionStorage.Add(EInteractionType.Good);
                 InvokeInteractionEvent();
@@ -72,13 +72,13 @@ namespace Code.Infrastructure.Services.Interactions
                     lowerKey == ELiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(EInteractionType.Bad);
-                    Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
+                    Debugging.Log($"[ClickSeries] click bad series to character {click}",
                         Debugging.Type.Interaction);
                 }
                 else
                 {
                     _interactionStorage.Add(EInteractionType.Normal);
-                    Debugging.Instance.Log($"[ClickSeries] click series to character {click}",
+                    Debugging.Log($"[ClickSeries] click series to character {click}",
                         Debugging.Type.Interaction);
                 }
 
@@ -86,7 +86,7 @@ namespace Code.Infrastructure.Services.Interactions
             }
             else
             {
-                Debugging.Instance.Log($"[ClickSeries] click bad series to character {click}",
+                Debugging.Log($"[ClickSeries] click bad series to character {click}",
                     Debugging.Type.Interaction);
                 _interactionStorage.Add(EInteractionType.Bad);
                 InvokeInteractionEvent();
