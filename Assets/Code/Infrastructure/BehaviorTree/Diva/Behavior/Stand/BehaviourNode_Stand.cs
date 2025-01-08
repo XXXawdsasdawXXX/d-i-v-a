@@ -1,7 +1,7 @@
-﻿using Code.Components.Common;
-using Code.Components.Entities;
-using Code.Data.Configs;
+﻿using Code.Data.Configs;
 using Code.Data.Enums;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public BehaviourNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
-            Components.Entities.Diva character = Container.Instance.FindEntity<Components.Entities.Diva>();
+            Entities.Diva.DivaEntity character = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
             _statesAnalytic = character.FindCharacterComponent<DivaLiveStatesAnalytic>();
             _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();

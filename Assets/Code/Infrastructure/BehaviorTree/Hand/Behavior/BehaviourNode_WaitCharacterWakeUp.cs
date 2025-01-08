@@ -1,5 +1,5 @@
-﻿using Code.Components.Entities;
-using Code.Data.Enums;
+﻿using Code.Data.Enums;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 
 namespace Code.Infrastructure.BehaviorTree.Hand
@@ -10,7 +10,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         public BehaviourNode_WaitCharacterWakeUp()
         {
-            Components.Entities.Diva diva = Container.Instance.FindEntity<Components.Entities.Diva>();
+            Entities.Diva.DivaEntity diva = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
         }
 

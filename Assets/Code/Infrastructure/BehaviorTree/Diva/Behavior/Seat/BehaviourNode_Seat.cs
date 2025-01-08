@@ -1,6 +1,6 @@
-using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Data.Enums;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         public BehaviourNode_Seat()
         {
-            Components.Entities.Diva character = Container.Instance.FindEntity<Components.Entities.Diva>();
+            Entities.Diva.DivaEntity character = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
           
             //character-------------------------------------------------------------------------------------------------
             _divaAnimator = character.FindCharacterComponent<DivaAnimator>();

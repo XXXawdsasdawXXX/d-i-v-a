@@ -1,6 +1,6 @@
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -20,7 +20,7 @@ namespace Code.Infrastructure.Reactions
         {
             _interactionKeyDown = Container.Instance.FindInteractionObserver<Interaction_KeyDown>();
             _audioEventServices = Container.Instance.FindService<AudioEventsService>();
-            _animationAnalytic = Container.Instance.FindEntity<Diva>()
+            _animationAnalytic = Container.Instance.FindEntity<DivaEntity>()
                 .FindCharacterComponent<DivaAnimationAnalytic>();
         }
 

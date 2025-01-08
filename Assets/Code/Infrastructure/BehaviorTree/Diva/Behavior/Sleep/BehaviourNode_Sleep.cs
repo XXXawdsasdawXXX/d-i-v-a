@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using Code.Utils;
@@ -36,7 +36,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             Container.Instance.FindService<BehaviourTreeLoader>().AddProgressWriter(this);
        
             //character-------------------------------------------------------------------------------------------------
-            Components.Entities.Diva diva = Container.Instance.FindEntity<Components.Entities.Diva>();
+            Entities.Diva.DivaEntity diva = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _statesAnalytic = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
             _characterButton = diva.FindCommonComponent<ColliderButton>();

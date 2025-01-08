@@ -1,4 +1,4 @@
-﻿using Code.Components.Items;
+﻿using Code.Entities.Items;
 using UnityEngine;
 
 namespace Code.Data.Configs

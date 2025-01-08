@@ -1,9 +1,9 @@
 ﻿using System;
-using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 
@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Mediators
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
 
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            _characterItemsController = Container.Instance.FindEntity<Diva>()
+            _characterItemsController = Container.Instance.FindEntity<DivaEntity>()
                 .FindCharacterComponent<DivaItemsController>();
         }
 

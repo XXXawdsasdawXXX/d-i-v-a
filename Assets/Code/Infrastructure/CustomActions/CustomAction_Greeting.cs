@@ -1,9 +1,9 @@
 using System;
-using Code.Components.Common;
-using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.SavedData;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.CustomActions
         {
             _audioEventsService = Container.Instance.FindService<AudioEventsService>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            Diva diva = Container.Instance.FindEntity<Diva>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _colliderButton = diva.FindCommonComponent<ColliderButton>();
             Active();
         }

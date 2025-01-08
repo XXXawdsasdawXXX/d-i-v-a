@@ -1,4 +1,4 @@
-﻿using Code.Components.Items;
+﻿using Code.Entities.Items;
 using Code.Utils;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         private void _startReactionToObject(GameObject obj)
         {
-            if (obj.TryGetComponent(out Item item) && item.IsCanUse())
+            if (obj.TryGetComponent(out ItemEntity item) && item.IsCanUse())
             {
                 Debugging.Log(this, $"[_start reaction to object] {item.Data.Type}", Debugging.Type.BehaviorTree);
             

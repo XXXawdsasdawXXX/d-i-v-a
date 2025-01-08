@@ -1,9 +1,9 @@
-﻿using Code.Components.Entities;
-using Code.Data.Configs;
+﻿using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Interfaces;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -31,7 +31,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public void GameInit()
         {
             //d i v a---------------------------------------------------------------------------------------------------
-            Components.Entities.Diva diva = Container.Instance.FindEntity<Components.Entities.Diva>();
+            Entities.Diva.DivaEntity diva = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
             _statesAnalytic = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 

@@ -1,5 +1,5 @@
-﻿using Code.Components.Entities;
-using Code.Data.Configs;
+﻿using Code.Data.Configs;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -24,7 +24,7 @@ namespace Code.Infrastructure.Reactions
         {
             _positionService = Container.Instance.FindService<PositionService>();
            
-            Diva diva = Container.Instance.FindEntity<Diva>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaTransform = diva.transform;
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             

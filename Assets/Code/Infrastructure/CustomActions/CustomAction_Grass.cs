@@ -1,8 +1,9 @@
-﻿using Code.Components.Common;
-using Code.Components.Entities;
-using Code.Data.Configs;
+﻿using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Value.RangeInt;
+using Code.Entities.Common;
+using Code.Entities.Diva;
+using Code.Entities.Grass;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -21,7 +22,7 @@ namespace Code.Infrastructure.CustomActions
         private PhysicsDragAndDrop _divaDragAndDrop;
 
         [Header("Grass Components")] 
-        private Grass _grass;
+        private GrassEntity _grass;
         private ColorChecker _grassColorChecker;
 
         [Header("Action Delay")] 
@@ -38,12 +39,12 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameInit()
         {
-            Diva diva = Container.Instance.FindEntity<Diva>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaTransform = diva.transform;
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _divaDragAndDrop = diva.FindCommonComponent<PhysicsDragAndDrop>();
 
-            _grass = Container.Instance.FindEntity<Grass>();
+            _grass = Container.Instance.FindEntity<GrassEntity>();
             _grassColorChecker = _grass.FindCommonComponent<ColorChecker>();
             _grassButton = _grass.FindCommonComponent<ColliderButton>();
 

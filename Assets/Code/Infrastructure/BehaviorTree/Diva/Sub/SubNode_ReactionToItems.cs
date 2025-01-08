@@ -1,5 +1,5 @@
-﻿using Code.Components.Entities;
-using Code.Components.Items;
+﻿using Code.Entities.Diva;
+using Code.Entities.Items;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -12,12 +12,12 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         private readonly DivaItemsController _itemsController;
 
         [Header("Values")] 
-        private Item _item;
+        private ItemEntity _item;
 
         public SubNode_ReactionToItems()
         {
             //character-------------------------------------------------------------------------------------------------
-            _itemsController = Container.Instance.FindEntity<Components.Entities.Diva>()
+            _itemsController = Container.Instance.FindEntity<Entities.Diva.DivaEntity>()
                 .FindCharacterComponent<DivaItemsController>();
         }
 
@@ -58,7 +58,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             _item = null;
         }
 
-        public void SetCurrentItem(Item component)
+        public void SetCurrentItem(ItemEntity component)
         {
             Debugging.Log($"Саб нода реакции на объект: установлен итем", Debugging.Type.BehaviorTree);
             _item = component;

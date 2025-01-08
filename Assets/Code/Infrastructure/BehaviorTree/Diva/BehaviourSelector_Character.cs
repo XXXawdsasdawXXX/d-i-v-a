@@ -1,5 +1,5 @@
-using Code.Components.Entities;
 using Code.Data.Enums;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         public BehaviourSelector_Character()
         {
-            _stateAnalytic = Container.Instance.FindEntity<Components.Entities.Diva>()
+            _stateAnalytic = Container.Instance.FindEntity<Entities.Diva.DivaEntity>()
                 .FindCharacterComponent<DivaLiveStatesAnalytic>();
 
             _orderedNodes = new BaseNode[]

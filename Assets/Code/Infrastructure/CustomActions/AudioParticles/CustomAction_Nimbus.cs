@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Linq;
-using Code.Components.Entities;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value.RangeFloat;
 using Code.Data.VFX;
+using Code.Entities.Diva;
 using Code.Infrastructure.BehaviorTree;
 using Code.Infrastructure.BehaviorTree.Diva;
 using Code.Infrastructure.DI;

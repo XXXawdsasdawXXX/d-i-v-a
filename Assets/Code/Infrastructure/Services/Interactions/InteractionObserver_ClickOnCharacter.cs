@@ -1,7 +1,7 @@
-﻿using Code.Components.Common;
-using Code.Components.Entities;
-using Code.Data.Enums;
+﻿using Code.Data.Enums;
 using Code.Data.Storages;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
@@ -27,7 +27,7 @@ namespace Code.Infrastructure.Services.Interactions
         public void GameInit()
         {
             //Observer components
-            Diva diva = Container.Instance.FindEntity<Diva>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _characterCollisionButton = diva.FindCommonComponent<ColliderButton>();
             _divaState = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
 

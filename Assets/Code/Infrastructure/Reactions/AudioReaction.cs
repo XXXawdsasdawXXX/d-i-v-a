@@ -1,9 +1,9 @@
 ﻿using System;
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Enums;
 using Code.Data.Storages;
 using Code.Data.Value;
+using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.Reactions
 
         protected override void Init()
         {
-            Diva diva = Container.Instance.FindEntity<Diva>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _stateReader = diva.FindCharacterComponent<DivaAnimationStateObserver>();
             

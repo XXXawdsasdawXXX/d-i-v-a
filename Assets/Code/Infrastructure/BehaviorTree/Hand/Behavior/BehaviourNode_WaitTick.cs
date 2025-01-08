@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using Code.Components.Entities;
 using Code.Data.Configs;
 using Code.Data.Storages;
+using Code.Entities.Hand;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Interactions;
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         public BehaviourNode_WaitTick()
         {
             //hand
-            Components.Entities.Hand hand = Container.Instance.FindEntity<Components.Entities.Hand>();
+            Entities.Hand.HandEntity hand = Container.Instance.FindEntity<Entities.Hand.HandEntity>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
 
             //services
