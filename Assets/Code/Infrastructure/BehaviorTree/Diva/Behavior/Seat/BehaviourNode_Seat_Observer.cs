@@ -10,12 +10,26 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (flag)
             {
-                _collisionObserver.EnterEvent += _startReactionToObject;
+                _divaCollision.EnterEvent += _startReactionToObject;
+                _handEvents.OnWillAppear += _onHandWillAppear;
+                _handEvents.OnHidden += _onHandHidden;
             }
             else
             {
-                _collisionObserver.EnterEvent -= _startReactionToObject;
+                _divaCollision.EnterEvent -= _startReactionToObject;
+                _handEvents.OnWillAppear -= _onHandWillAppear;
+                _handEvents.OnHidden -= _onHandHidden;
             }
+        }
+
+        private void _onHandHidden()
+        {
+            ChildBreak();
+        }
+
+        private void _onHandWillAppear()
+        {
+            RunNode(_node_HideHand);
         }
 
         private void _startReactionToObject(GameObject obj)
@@ -25,6 +39,8 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 #if DEBUGGING
                 Debugging.Log(this, $"[_startReactionToObject]", Debugging.Type.BehaviorTree);
 #endif
+                _node_ReactionToItem.SetCurrentItem(item);
+                
                 RunNode(_node_ReactionToItem);
             }
         }

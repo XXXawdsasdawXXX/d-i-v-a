@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Diva
 {
-    public class CharacterCondition : IService, IGameInitListener
+    public class DivaCondition : IService, IGameInitListener
     {
         [Header("D I V A")]
         private DivaLiveStatesAnalytic _statesAnalytic;

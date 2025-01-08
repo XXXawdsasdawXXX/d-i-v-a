@@ -9,6 +9,7 @@ namespace Code.Entities.Diva.Editor
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
+         
             DivaEntity diva = (DivaEntity)target;
 
             if (GUILayout.Button("Find all components"))

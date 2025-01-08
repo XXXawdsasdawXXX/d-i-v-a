@@ -28,7 +28,9 @@ namespace Code.Entities.Common
         public ItemEntity DropItem()
         {
             ItemEntity item = SelectedItem;
+        
             SelectedItem = null;
+            
             return item;
         }
     }

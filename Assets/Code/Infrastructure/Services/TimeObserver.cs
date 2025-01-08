@@ -25,10 +25,11 @@ namespace Code.Infrastructure.Services
         private float _tickDuration;
 
         [Header("Dynamic value")] 
-        private float _currentTick;
+        private float _currentDeltaTime;
         private DateTime _currentTime;
         private bool _isInit;
         private bool _isNight;
+        private int _tickCount;
         private CoroutineRunner _coroutineRunner;
 
         public void GameInit()
@@ -92,16 +93,17 @@ namespace Code.Infrastructure.Services
 
         private void _updateTickTime()
         {
-            _currentTick += Time.deltaTime;
+            _currentDeltaTime += Time.deltaTime;
 
-            if (_currentTick >= _tickDuration)
+            if (_currentDeltaTime >= _tickDuration)
             {
                 _tickDuration = _tickRangedTime.GetRandomValue();
 
-                _currentTick = 0;
+                _currentDeltaTime = 0;
 
+                _tickCount++;
 #if DEBUGGING
-                Debugging.Log(this, "[_updateTickTime] Tick.", Debugging.Type.Time);
+                Debugging.Log(this, $"[_updateTickTime] Tick #{_tickCount}.", Debugging.Type.Time);
 #endif
 
                 TickEvent?.Invoke();
@@ -193,7 +195,7 @@ namespace Code.Infrastructure.Services
 
         public float GetCurrentTick()
         {
-            return _currentTick;
+            return _currentDeltaTime;
         }
 
         public float GetTickDuration()

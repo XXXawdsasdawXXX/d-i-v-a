@@ -2,6 +2,7 @@
 using System.Linq;
 using Code.Entities.Common;
 using Code.Infrastructure.Reactions;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Entities.Diva
@@ -23,8 +24,11 @@ namespace Code.Entities.Diva
             return null;
         }
 
-        #region Editor
-
+#if UNITY_EDITOR
+        
+        /// <summary>
+        /// Editor
+        /// </summary>
         public void FindAllComponents()
         {
             List<DivaComponent> characterComponents = GetComponents<DivaComponent>().ToList();
@@ -57,8 +61,10 @@ namespace Code.Entities.Diva
                     reactions.Add(componentsInChild);
                 }
             }
+            
+            EditorUtility.SetDirty(gameObject);
         }
-
-        #endregion
+        
+#endif
     }
 }

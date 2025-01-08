@@ -26,7 +26,17 @@
             _node_Current = node;
             _node_Current.Run(this);
         }
+        
+        protected void ChildBreak()
+        {
+            _node_Current?.Break();
+        }
 
+        protected bool IsEqualsChild(BaseNode node)
+        {
+            return _node_Current != null && _node_Current.Equals(node);
+        }
+        
         protected virtual void SubscribeToEvents(bool flag)
         {
         }

@@ -21,7 +21,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         private readonly CoroutineRunner _coroutineRunner;
         private readonly TimeObserver _timeObserver;
         private readonly TickCounter _tickCounter;
-        private readonly CharacterCondition _characterCondition;
+        private readonly DivaCondition _divaCondition;
         
         [Header("Static values")] 
         private readonly LiveStateStorage _liveStateStorage;
@@ -42,7 +42,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
-            _characterCondition = Container.Instance.FindService<CharacterCondition>();
+            _divaCondition = Container.Instance.FindService<DivaCondition>();
 
             //static values---------------------------------------------------------------------------------------------
             LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
@@ -66,7 +66,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
 
-                if (_characterCondition.IsCanExitWhenSleep())
+                if (_divaCondition.IsCanExitWhenSleep())
                 {
 #if DEBUGGING
                     Debugging.Log($"[run] Exit anim routine.", Debugging.Type.BehaviorTree);
@@ -85,7 +85,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         protected override bool IsCanRun()
         {
-            return _characterCondition.IsCanSleep();
+            return _divaCondition.IsCanSleep();
         }
 
         protected override void OnBreak()
@@ -165,15 +165,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             data.SleepRemainingTick = _tickCounter.GetRemainingTick();
 
 #if DEBUGGING
-            Debugging.Log(this, $"[save]", Debugging.Type.BehaviorTree);
+            Debugging.Log(this, "[Save]", Debugging.Type.BehaviorTree);
 #endif
         }
 
         public void LoadData(BehaviourTreeLoader.Data data)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[load] -> SleepRemainingTick = {data.SleepRemainingTick}",
-                Debugging.Type.BehaviorTree);
+            Debugging.Log(this, $"[Load] -> SleepRemainingTick = {data.SleepRemainingTick}.", Debugging.Type.BehaviorTree);
 #endif
 
             if (data.SleepRemainingTick > 0)

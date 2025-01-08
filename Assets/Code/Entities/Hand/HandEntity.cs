@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Entities.Common;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Entities.Hand
@@ -21,9 +22,12 @@ namespace Code.Entities.Hand
 
             return null;
         }
-
-        #region Editor
-
+        
+#if UNITY_EDITOR
+        
+        /// <summary>
+        /// Editor
+        /// </summary>
         public void FindAllComponents()
         {
             List<HandComponent> handComponents = GetComponents<HandComponent>().ToList();
@@ -48,8 +52,10 @@ namespace Code.Entities.Hand
             }
 
             _commonComponents = commonComponents.ToArray();
+
+            EditorUtility.SetDirty(gameObject);
         }
 
-        #endregion
+#endif
     }
 }

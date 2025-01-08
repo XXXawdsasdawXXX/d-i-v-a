@@ -81,6 +81,7 @@ namespace Code.Entities.Items
         public void Lock()
         {
             _dragAndDrop.Disable();
+           
             _liveTime.StopWait();
         }
         
@@ -101,6 +102,7 @@ namespace Code.Entities.Items
         private void _onPressedDown(Vector2 _)
         {
             _dragAndDrop.Active();
+            
             OnPressed?.Invoke();
         }
 
@@ -117,9 +119,9 @@ namespace Code.Entities.Items
                 OnDestroyed?.Invoke();
             });
         }
-
-        #region Editor
-
+        
+#if UNITY_EDITOR
+        
         /// <summary>
         /// Editor
         /// </summary>
@@ -127,7 +129,8 @@ namespace Code.Entities.Items
         {
             _commonComponents = GetComponentsInChildren<CommonComponent>(true);
         }
-
-        #endregion
+        
+#endif
+        
     }
 }

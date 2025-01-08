@@ -21,6 +21,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         private readonly MovementToMouse _movementToMouse;
         private readonly ItemHolder _itemHolder;
         private readonly HandBehaviorEvents _handEvents;
+        private readonly ColliderButton _handCollision;
 
         [Header("Item")] 
         private readonly ItemSpawner _itemSpawner;
@@ -46,6 +47,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             _movementToMouse = _hand.FindCommonComponent<MovementToMouse>();
             _itemHolder = _hand.FindCommonComponent<ItemHolder>();
             _handEvents = _hand.FindHandComponent<HandBehaviorEvents>();
+            _handCollision = _hand.FindCommonComponent<ColliderButton>();
             
             //item
             _itemSpawner = Container.Instance.FindService<ItemSpawner>();
@@ -58,7 +60,6 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             if (IsCanRun())
             {
-                
                 _handEvents.InvokeWillAppear();
                 
                 _hand.transform.position = _spawnPosition;
@@ -90,26 +91,33 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             }
         }
         
-        private void _subscribeToItemEvents(bool flag)
+        private void _subscribeToBehaviorEvents(bool flag)
         {
             if (flag)
             {
+              //  _handCollision.OnPressedDown += _onPressHand;
                 _item.OnDestroyed += _hideHand;
                 _item.OnPressed += _hideHand;
             }
             else
             {
+//                _handCollision.OnPressedDown -= _onPressHand;
                 _item.OnDestroyed -= _hideHand;
                 _item.OnPressed -= _hideHand;
             }
         }
 
+        private void _onPressHand(Vector2 obj)
+        {
+            _hideHand();
+        }
+
         private void _showHand(EDivaAnimationState state)
         {
-            _subscribeToDivaEvents(false);
-            
             if (state == EDivaAnimationState.HandIdle)
             {
+                _subscribeToDivaEvents(false);
+                
                 _handAnimation.PlayEnterHand(onEndEnter: () =>
                 {
                     _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
@@ -117,17 +125,23 @@ namespace Code.Infrastructure.BehaviorTree.Hand
                     _itemHolder.SetItem(_item);
                     
                     _movementToMouse.Active();
+                    
+                    _subscribeToBehaviorEvents(true);
                 });
             }
         }
 
         private void _hideHand()
         {
-            _subscribeToItemEvents(false);
+            _subscribeToBehaviorEvents(false);
             
             _movementToMouse.Disable();
             
             _itemHolder.DropItem();
+            
+            _item = null;
+            
+            _handEvents.InvokeHidden();
             
             _handAnimation.PlayExitHand(() =>
             {

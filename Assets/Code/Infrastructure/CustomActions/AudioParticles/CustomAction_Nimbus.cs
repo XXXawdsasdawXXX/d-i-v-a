@@ -15,7 +15,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
     public class CustomAction_Nimbus : CustomAction_AudioParticle, IGameExitListener
     {
         private DivaAnimationAnalytic _animationAnalytic;
-        private CharacterCondition _characterCondition;
+        private DivaCondition _divaCondition;
         private InteractionStorage _interactionStorage;
 
         private CoroutineRunner _coroutineRunner;
@@ -31,7 +31,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         {
             _animationAnalytic = _diva.FindCharacterComponent<DivaAnimationAnalytic>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            _characterCondition = Container.Instance.FindService<CharacterCondition>();
+            _divaCondition = Container.Instance.FindService<DivaCondition>();
 
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
 
@@ -97,7 +97,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void TryStartAction()
         {
-            if (!_characterCondition.CanShowNimbus())
+            if (!_divaCondition.CanShowNimbus())
             {
                 Stop();
                 return;

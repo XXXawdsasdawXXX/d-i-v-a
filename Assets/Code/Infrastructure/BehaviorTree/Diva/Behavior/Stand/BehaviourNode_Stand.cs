@@ -15,7 +15,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         private readonly CollisionObserver _collisionObserver;
 
         [Header("Services")]
-        private readonly CharacterCondition _characterCondition;
+        private readonly DivaCondition _divaCondition;
 
         [Header("Sub Node")] 
         private readonly BaseNode_RandomSequence _node_randomSequence;
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
 
             //services--------------------------------------------------------------------------------------------------
-            _characterCondition = Container.Instance.FindService<CharacterCondition>();
+            _divaCondition = Container.Instance.FindService<DivaCondition>();
 
             //node------------------------------------------------------------------------------------------------------
             _node_randomSequence = new BaseNode_RandomSequence(new BaseNode[]
@@ -70,7 +70,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         protected override bool IsCanRun()
         {
-            return _characterCondition.IsCanStand();
+            return _divaCondition.IsCanStand();
         }
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)

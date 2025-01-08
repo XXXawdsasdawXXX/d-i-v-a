@@ -33,6 +33,13 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             return true;
         }
 
+        protected override void OnBreak()
+        {
+            _divaAnimator.PlayShowHand();
+
+            base.OnBreak();
+        }
+
         private void _onHandHidden()
         {
 #if DEBUGGING
