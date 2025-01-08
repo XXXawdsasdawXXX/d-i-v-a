@@ -7,14 +7,13 @@ namespace Code.Entities.Common
 {
     public class LandingOnWindows : CommonComponent, IWindowsSpecific, IGameStartListener, IGameExitListener
     {
-        [Header("Components")] [SerializeField]
-        private Rigidbody2D _rigidbody2D;
-
+        [Header("Components")] 
+        [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColorChecker _colorChecker;
 
-        [Header("Dynamic Data")] [SerializeField]
-        private bool _isEnable = true;
+        [Header("Dynamic Data")] 
+        [SerializeField] private bool _isEnable = true;
 
         public void GameStart()
         {
@@ -47,13 +46,17 @@ namespace Code.Entities.Common
 
         private void _onPressedUp(Vector2 arg1, float arg2)
         {
+#if DEBUGGING
             Debugging.Log(this, $"{gameObject.name} [OnPressedUp]", Debugging.Type.Window);
+#endif
             _colorChecker.RefreshLastColor();
         }
 
         private void _onFoundedNewColor(Color obj)
         {
+#if DEBUGGING
             Debugging.Log(this, $"{gameObject.name} [OnFoundedNewColor]", Debugging.Type.Window);
+#endif
             switch (_rigidbody2D.bodyType)
             {
                 case RigidbodyType2D.Kinematic:
@@ -68,7 +71,9 @@ namespace Code.Entities.Common
 
         private void _setEnable(bool isEnable)
         {
+#if DEBUGGING
             Debugging.Log(this, $"{gameObject.name} [SetEnable] {isEnable}", Debugging.Type.Window);
+#endif
 
             _isEnable = isEnable;
             

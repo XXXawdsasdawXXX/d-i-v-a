@@ -27,7 +27,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public void GameInit()
         {
             //d i v a---------------------------------------------------------------------------------------------------
-            Entities.Diva.DivaEntity diva = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _statesAnalytic = diva.FindCharacterComponent<DivaLiveStatesAnalytic>();
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 
@@ -46,7 +46,9 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             {
                 if (!_liveStateStorage.TryGetLiveState(ELiveStateKey.Sleep, out _sleepState))
                 {
-                    Debugging.LogError(this, "не нашел стейт сна");
+#if DEBUGGING
+                    Debugging.LogError(this, "[GameInit] Not found sleep state");
+#endif
                 }
             };
         }
@@ -63,11 +65,13 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public bool IsCanSleep(float bonusMinPercent = 0)
         {
             float minPercent = 0.3f + bonusMinPercent;
-            Debugging.Log($"Проверка на сон:" +
-                          $" {_sleepState != null}" +
-                          $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
-                          $" && {_sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max}",
+#if DEBUGGING
+            Debugging.Log(this, "[IsCanSleep]" +
+                                $" {_sleepState != null}" +
+                                $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
+                                $" && {_sleepState?.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState?.Max}",
                 Debugging.Type.CharacterCondition);
+#endif
 
             return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < minPercent) &&
                    _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
@@ -80,11 +84,13 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
             bool randomResult = Random.Range(0, 100) >= 50;
 
-            Debugging.Log($"Проверка на выход во сне:" +
+#if DEBUGGING
+            Debugging.Log("[IsCanExitWhenSleep]" +
                           $" {lowerKey is ELiveStateKey.Trust}" +
                           $" && ({lowerStatePercent <= 0.4f})" +
                           $" && {randomResult}",
                 Debugging.Type.CharacterCondition);
+#endif
 
             return lowerKey is ELiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
         }
@@ -113,12 +119,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             bool isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
                 is not EInteractionType.Normal;
 
-            Debugging.Log($"Проверка на нимбус:" +
-                          $" {!_animationAnalytic.IsTransition}" +
-                          $" && {isCorrectInteractionResult}" +
-                          $" && {isCorrectMode}" +
-                          $" && {isCorrectState}",
+#if DEBUGGING
+            Debugging.Log(this, "[CanShowNimbus]" +
+                                $" {!_animationAnalytic.IsTransition}" +
+                                $" && {isCorrectInteractionResult}" +
+                                $" && {isCorrectMode}" +
+                                $" && {isCorrectState}",
                 Debugging.Type.CharacterCondition);
+#endif
 
             return !_animationAnalytic.IsTransition && isCorrectInteractionResult && isCorrectMode && isCorrectState;
         }

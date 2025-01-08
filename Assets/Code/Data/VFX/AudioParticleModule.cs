@@ -17,17 +17,20 @@ namespace Code.Data
             ScaledEnergy
         }
 
-        [Header("Base")] [SerializeField] private ParticleSystemFacade _particleSystem;
+        [Header("Base")] 
+        [SerializeField] private ParticleSystemFacade _particleSystem;
 
-        [Space] [SerializeField] private Data[] _effectsData;
+        [Space] 
+        [SerializeField] private Data[] _effectsData;
 
-        [Header("Optional")] [SerializeField] private GradientType _gradient;
+        [Header("Optional")] 
+        [SerializeField] private GradientType _gradient;
 
-        [Header("Services")] private LoopbackAudioService _loopbackAudioService;
+        [Header("Services")] 
+        private LoopbackAudioService _loopbackAudioService;
 
-        [Header("Dynamic data")] [SerializeField]
-        private bool _isActive;
-
+        [Header("Dynamic data")] 
+        [SerializeField] private bool _isActive;
         [SerializeField] private float _disableSpeed = 1;
 
         private float _enabledTime;
@@ -83,13 +86,17 @@ namespace Code.Data
         {
             _isActive = true;
             _enabledTime = 0;
+#if DEBUGGING
             Debugging.Log($"On {_particleSystem.Type}", Debugging.Type.VFX);
+#endif
         }
 
         public virtual void Off()
         {
             _isActive = false;
+#if DEBUGGING
             Debugging.Log($"Off {_particleSystem.Type}", Debugging.Type.VFX);
+#endif
         }
 
         private void Refresh(Data effect)

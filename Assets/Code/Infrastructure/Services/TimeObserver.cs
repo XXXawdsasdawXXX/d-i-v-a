@@ -37,7 +37,7 @@ namespace Code.Infrastructure.Services
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
 
             _tickDuration = _tickRangedTime.GetRandomValue();
-            
+
 #if DEBUGGING
             Debugging.Log(this, $"[Init] Current time {_currentTime}.", Debugging.Type.Time);
 #endif
@@ -101,7 +101,7 @@ namespace Code.Infrastructure.Services
                 _currentTick = 0;
 
 #if DEBUGGING
-                Debugging.Log(this, "Tick", Debugging.Type.Time);
+                Debugging.Log(this, "[_updateTickTime] Tick.", Debugging.Type.Time);
 #endif
 
                 TickEvent?.Invoke();

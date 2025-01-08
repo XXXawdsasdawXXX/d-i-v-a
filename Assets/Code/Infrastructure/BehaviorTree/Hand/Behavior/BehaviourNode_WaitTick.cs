@@ -44,22 +44,24 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _whiteBoard = Container.Instance.FindStorage<WhiteBoard_Hand>();
         }
-        
+
         protected override void Run()
         {
             if (IsCanRun())
             {
                 _whiteBoard.SetData(WhiteBoard_Hand.Type.IsHidden, true);
-                
+
                 _handAnimator.PlayExitHand();
 
                 int cooldownTicks = _handConfig.GetVoidTime(_interactionStorage.GetSum());
-                
+
                 _tickCounter.StartWait(cooldownTicks);
 
                 _tickCounter.OnWaitIsOver += _onWaitedTicksEvent;
 
-                Debugging.Log(this, $"[Run] Await {cooldownTicks} ticks.", Debugging.Type.Hand);
+#if DEBUGGING
+                Debugging.Log(this, $"[run] Await {cooldownTicks} ticks.", Debugging.Type.Hand);
+#endif
             }
         }
 
@@ -71,22 +73,26 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         private void _onWaitedTicksEvent()
         {
             _tickCounter.OnWaitIsOver -= _onWaitedTicksEvent;
-       
-            Debugging.Log(this, $"[_on waited ticks] Start routine.", Debugging.Type.Hand);
-           
+
+#if DEBUGGING
+            Debugging.Log(this, "[_on waited ticks] Start routine.", Debugging.Type.Hand);
+#endif
+
             _coroutineRunner.StopRoutine(_waitingCoroutine);
-         
+
             _waitingCoroutine = _coroutineRunner.StartRoutine(_waitReturnAfterAbsence());
         }
 
         private IEnumerator _waitReturnAfterAbsence()
         {
             yield return new WaitUntil(() => !_returnAfterAbsence.IsAbsence);
-            
+
             yield return new WaitForSeconds(Random.Range(0, 5));
-        
-            Debugging.Log(this, $"[_on waited user] End routine.", Debugging.Type.Hand);
-         
+
+#if DEBUGGING
+            Debugging.Log(this, "[_on waited user] End routine.", Debugging.Type.Hand);
+#endif
+
             Return(true);
         }
     }

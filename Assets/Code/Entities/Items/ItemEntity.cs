@@ -67,8 +67,10 @@ namespace Code.Entities.Items
             {
                 _liveTime.StartWait(ticks);
             }
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"{data.Type} {data.SpawnChance}", Debugging.Type.Items);
+#endif
         }
 
         public void Use(Action onCompleted = null)

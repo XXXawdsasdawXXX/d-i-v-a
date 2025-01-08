@@ -14,12 +14,20 @@ namespace Code.Data.Audio
 
         public override void Play(AudioSource source)
         {
-            if (clips.Length == 0) return;
+            if (clips.Length == 0)
+            {
+                return;
+            }
             source.clip = clips[Random.Range(0, clips.Length)];
-            Debugging.Log($"Play audio {source.clip.name}");
+
             source.volume = Random.Range(volume.MinValue, volume.MaxValue);
+            
             source.pitch = Random.Range(pitch.MinValue, pitch.MaxValue);
+      
             source.Play();
+#if DEBUGGING
+            Debugging.Log(this, $"[Play] {source.clip.name}.", Debugging.Type.Audio);
+#endif
         }
     }
 }

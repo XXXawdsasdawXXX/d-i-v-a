@@ -8,11 +8,11 @@ namespace Code.Data
 {
     public class InteractionStorage : IStorage, IProgressWriter
     {
-        private Dictionary<EInteractionType, int> _interactions;
-        private EInteractionType _currentDominationType;
-        
         public event Action<EInteractionType> OnSwitchDominationType;
         public event Action<EInteractionType, int> OnAdd;
+        
+        private Dictionary<EInteractionType, int> _interactions;
+        private EInteractionType _currentDominationType;
 
         public int GetSum()
         {
@@ -36,13 +36,17 @@ namespace Code.Data
             }
 
             OnAdd?.Invoke(type, value);
-            Debugging.Log($"[storage] add {type} {_interactions[type]}", Debugging.Type.Interaction);
+#if DEBUGGING
+            Debugging.Log(this, $"[Add] {type} {_interactions[type]}", Debugging.Type.Interaction);
+#endif
         }
 
         public void LoadProgress(PlayerProgressData playerProgress)
         {
             _interactions = playerProgress.Interactions;
+            
             _currentDominationType = GetDominantInteractionType();
+            
             OnSwitchDominationType?.Invoke(_currentDominationType);
         }
 
@@ -59,6 +63,7 @@ namespace Code.Data
             }
 
             KeyValuePair<EInteractionType, int> maxPair = _interactions.OrderByDescending(pair => pair.Value).FirstOrDefault();
+       
             return maxPair.Key;
         }
     }

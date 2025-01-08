@@ -24,14 +24,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public BehaviourNode_Seat()
         {
             DivaEntity character = Container.Instance.FindEntity<DivaEntity>();
-          
+
             //character-------------------------------------------------------------------------------------------------
             _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
-            
+
             //services--------------------------------------------------------------------------------------------------
             _characterCondition = Container.Instance.FindService<CharacterCondition>();
-            
+
             //nodes-----------------------------------------------------------------------------------------------------
             _node_ReactionToItem = new SubNode_ReactionToItems();
             _node_HideHand = new SubNode_HideHand();
@@ -47,12 +47,15 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 RunNode(_node_ReactionToItem);
 
-                Debugging.Log(this, "[Run]", Debugging.Type.BehaviorTree);
+#if DEBUGGING
+                Debugging.Log(this, "[run]", Debugging.Type.BehaviorTree);
+#endif
             }
             else
             {
-                Debugging.Log(this, $"[Run] Return.", Debugging.Type.BehaviorTree);
-             
+#if DEBUGGING
+                Debugging.Log(this, $"[run] Return.", Debugging.Type.BehaviorTree);
+#endif
                 Return(false);
             }
         }

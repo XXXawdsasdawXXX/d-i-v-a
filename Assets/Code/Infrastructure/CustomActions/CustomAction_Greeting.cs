@@ -48,15 +48,17 @@ namespace Code.Infrastructure.CustomActions
                 _isAlreadySaidHi = false;
             }
 
-            Debugging.Log($"[Greeting][LoadProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
-                Debugging.Type.CustomAction);
+#if DEBUGGING
+            Debugging.Log(this, $"[Load] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+#endif
         }
 
         public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
-            Debugging.Log($"[Greeting][UpdateProgress] _isAlreadySaidHi = {_isAlreadySaidHi}",
-                Debugging.Type.CustomAction);
+#if DEBUGGING
+            Debugging.Log(this, $"[Save] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+#endif
         }
 
         public override ECustomCutsceneActionType GetActionType()
@@ -64,9 +66,33 @@ namespace Code.Infrastructure.CustomActions
             return ECustomCutsceneActionType.Greeting;
         }
 
-        #region Events
+        
+        public void Active(Action OnTurnedOn = null)
+        {
+#if DEBUGGING
+            Debugging.Log(this, $"[Active] is can = {!_isActive}", Debugging.Type.CustomAction);
+#endif
+            if (!_isActive)
+            {
+                _isActive = true;
+                _subscribeToEvents(true);
+            }
+        }
 
-        private void SubscribeToEvents(bool flag)
+        public void Disable(Action onTurnedOff = null)
+        {
+#if DEBUGGING
+            Debugging.Log(this, $"[Disable] is can = {_isActive}", Debugging.Type.CustomAction);
+#endif
+            if (_isActive)
+            {
+                _isActive = false;
+                _subscribeToEvents(false);
+            }
+        }
+
+
+        private void _subscribeToEvents(bool flag)
         {
             /*if(flag)
             {
@@ -80,51 +106,35 @@ namespace Code.Infrastructure.CustomActions
             }*/
         }
 
-        private void TrySayHi(Vector2 _)
+        private void _trySayHi(Vector2 _)
         {
-            Debugging.Log($"[Greeting][TrySayHi] Trying", Debugging.Type.CustomAction);
             if (_isAlreadySaidHi || !_isActive)
             {
-                Debugging.Log($"[Greeting][TrySayHi] is return", Debugging.Type.CustomAction);
+#if DEBUGGING
+                Debugging.Log(this, "[TrySayHi] (_isAlreadySaidHi || !_isActive)", Debugging.Type.CustomAction);
+#endif
                 return;
             }
-
+            
             _isAlreadySaidHi = true;
             _audioEventsService.PlayAudio(EAudioEventType.Hi);
-            Debugging.Log($"[Greeting][TrySayHi] is say", Debugging.Type.CustomAction);
+            
+#if DEBUGGING
+            Debugging.Log(this, "[TrySayHi] Say", Debugging.Type.CustomAction);
+#endif
         }
 
-        private void OnInitTime(bool isFirstVisit)
+        private void _onInitTime(bool isFirstVisit)
         {
-            Debugging.Log(
-                $"[Greeting][OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
+#if DEBUGGING
+            Debugging.Log(this, $"[OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
                 Debugging.Type.CustomAction);
+#endif
             if (_isAlreadySaidHi && isFirstVisit)
             {
                 _isAlreadySaidHi = false;
             }
         }
 
-        public void Active(Action OnTurnedOn = null)
-        {
-            Debugging.Log($"[Greeting][On] is can = {!_isActive}", Debugging.Type.CustomAction);
-            if (!_isActive)
-            {
-                _isActive = true;
-                SubscribeToEvents(true);
-            }
-        }
-
-        public void Disable(Action onTurnedOff = null)
-        {
-            Debugging.Log($"[Greeting][Off] is can = {_isActive}", Debugging.Type.CustomAction);
-            if (_isActive)
-            {
-                _isActive = false;
-                SubscribeToEvents(false);
-            }
-        }
-
-        #endregion
     }
 }

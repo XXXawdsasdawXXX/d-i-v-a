@@ -6,20 +6,25 @@ namespace Code.Entities.Grass
 {
     public class GrassEntity : Entity
     {
-        [SerializeField] private GrassAnimator _grassAnimator;
         public bool IsActive { get; private set; }
+        
+        [SerializeField] private GrassAnimator _grassAnimator;
 
         public void Grow()
         {
             IsActive = true;
             _grassAnimator.PlayGrow();
-            Debugging.Log(this, $"Grow", Debugging.Type.Grass);
+#if DEBUGGING
+            Debugging.Log(this, "[Grow]", Debugging.Type.Grass);
+#endif
         }
 
         public void Die()
         {
             IsActive = false;
-            Debugging.Log(this, $"Die", Debugging.Type.Grass);
+#if DEBUGGING
+            Debugging.Log(this, "[Die]", Debugging.Type.Grass);
+#endif
             _grassAnimator.PlayDie();
         }
 

@@ -11,7 +11,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public SubNode_ReactionToVoice()
         {
             _audioReaction = Container.Instance.FindReaction<AudioReaction>();
-           
+
             _audioReaction.EndReactionEvent += _onEndReaction;
         }
 
@@ -19,12 +19,16 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[Run]", Debugging.Type.BehaviorTree);
+#endif
                 _audioReaction.StartReaction();
             }
             else
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[Run] Is not ready.", Debugging.Type.BehaviorTree);
+#endif
                 Return(false);
             }
         }

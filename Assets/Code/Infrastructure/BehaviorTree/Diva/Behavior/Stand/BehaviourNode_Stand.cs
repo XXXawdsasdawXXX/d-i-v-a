@@ -26,7 +26,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         public BehaviourNode_Stand()
         {
             //character-------------------------------------------------------------------------------------------------
-            Entities.Diva.DivaEntity character = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
+            DivaEntity character = Container.Instance.FindEntity<DivaEntity>();
             _statesAnalytic = character.FindCharacterComponent<DivaLiveStatesAnalytic>();
             _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
             _collisionObserver = character.FindCommonComponent<CollisionObserver>();
@@ -40,7 +40,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
                 new SubNode_WaitForTicks(Container.Instance.FindConfig<TimeConfig>().Duration.Stand),
                 new SubNode_LookToMouse()
             });
-           
+
             _node_reactionToItem = new SubNode_ReactionToItems();
         }
 
@@ -54,13 +54,16 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 RunNode(_node_randomSequence);
 
+#if DEBUGGING
                 Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+#endif
             }
             else
             {
-                Debugging.Log(this, $"[run] Return -> has low state {_statesAnalytic.CurrentLowerLiveStateKey}",
+#if DEBUGGING
+                Debugging.Log(this, $"[run] Return -> has low state {_statesAnalytic.CurrentLowerLiveStateKey}.",
                     Debugging.Type.BehaviorTree);
-                
+#endif
                 Return(false);
             }
         }
@@ -72,8 +75,11 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Log(this, $"[InvokeCallback] Repeat = {_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}",
+#if DEBUGGING
+            Debugging.Log(this,
+                $"[InvokeCallback] Repeat = {_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}.",
                 Debugging.Type.BehaviorTree);
+#endif
             
             if (_statesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success)
             {

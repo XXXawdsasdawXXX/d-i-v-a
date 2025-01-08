@@ -88,9 +88,12 @@ namespace Code.Entities.Diva
         private void _onModeEnteredEvent(EDivaAnimationMode mode)
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
-         
-            Debugging.Log(this, $"[_onModeEnteredEvent] Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
-            
+
+#if DEBUGGING
+            Debugging.Log(this, $"[_onModeEnteredEvent] Collision switch mode {mode} {modeParam != null}",
+                Debugging.Type.Collision);
+#endif
+
             if (modeParam != null)
             {
                 _boxCollider2D.size = modeParam.ColliderSize;

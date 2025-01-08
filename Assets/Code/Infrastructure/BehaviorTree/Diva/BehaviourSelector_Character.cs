@@ -8,15 +8,17 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 {
     public sealed class BehaviourSelector_Character : BaseNode, IBehaviourCallback
     {
-        [Header("Services")] private readonly DivaLiveStatesAnalytic _stateAnalytic;
+        [Header("Services")]
+        private readonly DivaLiveStatesAnalytic _stateAnalytic;
 
-        [Header("Values")] private readonly BaseNode[] _orderedNodes;
+        [Header("Values")] 
+        private readonly BaseNode[] _orderedNodes;
         private BaseNode _currentChild;
         private int _currentChildIndex;
 
         public BehaviourSelector_Character()
         {
-            _stateAnalytic = Container.Instance.FindEntity<Entities.Diva.DivaEntity>()
+            _stateAnalytic = Container.Instance.FindEntity<DivaEntity>()
                 .FindCharacterComponent<DivaLiveStatesAnalytic>();
 
             _orderedNodes = new BaseNode[]
@@ -26,12 +28,12 @@ namespace Code.Infrastructure.BehaviorTree.Diva
                 new BehaviourNode_Stand(),
             };
 
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         ~BehaviourSelector_Character()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
         protected override void Run()
@@ -80,23 +82,25 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             }
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _stateAnalytic.SwitchLowerStateKeyEvent += OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent += _onSwitchLowerLiveState;
             }
             else
             {
-                _stateAnalytic.SwitchLowerStateKeyEvent -= OnSwitchLowerLiveState;
+                _stateAnalytic.SwitchLowerStateKeyEvent -= _onSwitchLowerLiveState;
             }
         }
 
-        private void OnSwitchLowerLiveState(ELiveStateKey key)
+        private void _onSwitchLowerLiveState(ELiveStateKey key)
         {
-            Debugging.Log($"Селектор: среагировать на изменение нижнего показателя",
-                Debugging.Type.BehaviorTree);
+#if DEBUGGING
+            Debugging.Log(this, $"[_onSwitchLowerLiveState] -> _child?.Break();.", Debugging.Type.BehaviorTree);
+#endif
             _currentChild?.Break();
+            
             Run();
         }
     }

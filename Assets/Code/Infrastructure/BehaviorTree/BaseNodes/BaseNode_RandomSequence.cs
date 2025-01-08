@@ -19,7 +19,9 @@ namespace Code.Infrastructure.BehaviorTree
         {
             if (IsCanRun())
             {
-                Debugging.Log($"Рандомная сиквенция: старт", Debugging.Type.BehaviorTree);
+#if DEBUGGING
+                Debugging.Log(this, "[run]", Debugging.Type.BehaviorTree);
+#endif
                 _currentNodeIndex = 0;
                 _currentChild = _orderNodes[_currentNodeIndex];
                 _currentChild.Run(callback: this);
@@ -36,7 +38,9 @@ namespace Code.Infrastructure.BehaviorTree
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-            Debugging.Log($"Рандомная сиквенция: калбэк {success}", Debugging.Type.BehaviorTree);
+#if DEBUGGING
+            Debugging.Log(this, $"[InvokeCallback] Success {success}.", Debugging.Type.BehaviorTree);
+#endif
             if (!success)
             {
                 Return(false);
@@ -48,10 +52,13 @@ namespace Code.Infrastructure.BehaviorTree
                 Return(true);
                 return;
             }
-
-            Debugging.Log($"Рандомная сиквенция: калбэк следующая нода", Debugging.Type.BehaviorTree);
+            
             _currentNodeIndex++;
+            
             _currentChild = _orderNodes[_currentNodeIndex];
+#if DEBUGGING
+            Debugging.Log(this, $"[InvokeCallback] Run next node {_currentChild.GetType().Name}", Debugging.Type.BehaviorTree);
+#endif
             _currentChild.Run(callback: this);
         }
 
@@ -60,12 +67,17 @@ namespace Code.Infrastructure.BehaviorTree
             if (_currentChild != null && _currentChild.IsRunning)
             {
                 _currentChild.Break();
+                
                 _currentChild = null;
-                Debugging.Log($"Рандомная сиквенция: брейк", Debugging.Type.BehaviorTree);
+#if DEBUGGING
+                Debugging.Log(this, "[break]", Debugging.Type.BehaviorTree);
+#endif
             }
             else
             {
-                Debugging.Log($"Рандомная сиквенция: брейк -> нет дочерней ноды", Debugging.Type.BehaviorTree);
+#if DEBUGGING
+                Debugging.Log(this, "[break] Has not child node.", Debugging.Type.BehaviorTree);
+#endif
             }
         }
     }

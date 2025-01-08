@@ -20,7 +20,9 @@ namespace Code.Infrastructure.Services.Interactions
         
         public InteractionObserver_ClickOnCharacter()
         {
-            Debugging.Log($"construct click series", Debugging.Type.Interaction);
+#if DEBUGGING
+            Debugging.Log(this, "[Construct]", Debugging.Type.Interaction);
+#endif
         }
 
         public void GameInit()
@@ -33,60 +35,67 @@ namespace Code.Infrastructure.Services.Interactions
             //Static data
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
 
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
 
-            Debugging.Log($"[ClickSeries] init", Debugging.Type.Interaction);
+#if DEBUGGING
+            Debugging.Log(this, "[GameInit]", Debugging.Type.Interaction);
+#endif
         }
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _characterCollisionButton.SeriesOfClicksEvent += OnClickSeries;
+                _characterCollisionButton.SeriesOfClicksEvent += _onClickSeries;
             }
             else
             {
-                _characterCollisionButton.SeriesOfClicksEvent -= OnClickSeries;
+                _characterCollisionButton.SeriesOfClicksEvent -= _onClickSeries;
             }
         }
 
-        private void OnClickSeries(int click)
+        private void _onClickSeries(int click)
         {
-            Debugging.Log($"[ClickSeries] ???????????? {click}", Debugging.Type.Interaction);
+#if DEBUGGING
+            Debugging.Log(this, $"[_onClickSeries] Click #{click}.", Debugging.Type.Interaction);
+#endif
             if (click == 1)
             {
-                Debugging.Log($"[ClickSeries] click good series to character {click}",
-                    Debugging.Type.Interaction);
+#if DEBUGGING
+                Debugging.Log(this, "[_onClickSeries] Click good series.", Debugging.Type.Interaction);
+#endif
                 _interactionStorage.Add(EInteractionType.Good);
                 InvokeInteractionEvent();
             }
             else if (click < 3)
             {
-                if (_divaState.TryGetLowerSate(out ELiveStateKey lowerKey, out float percent) &&
-                    lowerKey == ELiveStateKey.Sleep)
+                if (_divaState.TryGetLowerSate(out ELiveStateKey lowerKey, out float _) && lowerKey == ELiveStateKey.Sleep)
                 {
                     _interactionStorage.Add(EInteractionType.Bad);
-                    Debugging.Log($"[ClickSeries] click bad series to character {click}",
-                        Debugging.Type.Interaction);
+#if DEBUGGING
+                    Debugging.Log(this, "[_onClickSeries] Click bad series.", Debugging.Type.Interaction);
+#endif
                 }
                 else
                 {
                     _interactionStorage.Add(EInteractionType.Normal);
-                    Debugging.Log($"[ClickSeries] click series to character {click}",
-                        Debugging.Type.Interaction);
+#if DEBUGGING
+                    Debugging.Log(this, "[_onClickSeries] Click normal series", Debugging.Type.Interaction);
+#endif
                 }
 
                 InvokeInteractionEvent();
             }
             else
             {
-                Debugging.Log($"[ClickSeries] click bad series to character {click}",
-                    Debugging.Type.Interaction);
+#if DEBUGGING
+                Debugging.Log(this, "[_onClickSeries] Click bad series.", Debugging.Type.Interaction);
+#endif
                 _interactionStorage.Add(EInteractionType.Bad);
                 InvokeInteractionEvent();
             }

@@ -21,12 +21,14 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-                Debugging.Log(this, "[Run]", Debugging.Type.BehaviorTree);
-           
+#if DEBUGGING
+                Debugging.Log(this, "[run]", Debugging.Type.BehaviorTree);
+#endif
+
                 _mouseReaction.StartReaction();
-           
+
                 _waitFor.Run(this);
-           
+
                 return;
             }
 
@@ -41,24 +43,30 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         protected override void OnBreak()
         {
             _waitFor.Break();
-            
+
             _mouseReaction.StopReaction();
-            
+
+#if DEBUGGING
             Debugging.Log(this, "[break]", Debugging.Type.BehaviorTree);
+#endif
         }
 
         protected override void OnReturn(bool success)
         {
             _mouseReaction.StopReaction();
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[on Return] {success}", Debugging.Type.BehaviorTree);
-            
+#endif
+
             base.OnReturn(success);
         }
-        
+
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
+#if DEBUGGING
             Debugging.Log(this, "[InvokeCallback]", Debugging.Type.BehaviorTree);
+#endif
         
             _mouseReaction.StopReaction();
         

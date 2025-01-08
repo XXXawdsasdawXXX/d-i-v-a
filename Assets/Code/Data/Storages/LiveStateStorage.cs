@@ -10,10 +10,13 @@ namespace Code.Data
 {
     public class LiveStateStorage : IStorage, IGameInitListener, IProgressWriter
     {
-        private LiveStateConfig _liveStateConfig;
-        public Dictionary<ELiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
         public event Action OnInit;
 
+        public Dictionary<ELiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
+
+        private LiveStateConfig _liveStateConfig;
+      
+        
         public void GameInit()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
@@ -40,17 +43,14 @@ namespace Code.Data
             liveState = null;
             return false;
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="values">value from 0 to 1</param>
+        
         public void AddPercentageValues(LiveStatePercentageValue[] values)
         {
             if (values == null)
             {
+#if DEBUGGING
                 Debugging.Log(this, "[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
+#endif
                 return;
             }
 
@@ -58,14 +58,15 @@ namespace Code.Data
             {
                 if (TryGetLiveState(liveStateValue.Key, out CharacterLiveState state))
                 {
+#if DEBUGGING
                     Debugging.Log(this, $"[AddPercentageValues] add {liveStateValue.Key} {liveStateValue.Value}",
                         Debugging.Type.LiveState);
-                    
+#endif
                     _addPercent(state, liveStateValue.Value);
                 }
             }
         }
-        
+
         public void AddPercentageValue(LiveStatePercentageValue value)
         {
             if (TryGetLiveState(value.Key, out CharacterLiveState state))
@@ -73,7 +74,7 @@ namespace Code.Data
                 _addPercent(state, value.Value);
             }
         }
-        
+
         public void AddPercentageValue(LiveStateRangePercentageValue value)
         {
             if (TryGetLiveState(value.Key, out CharacterLiveState state))
@@ -86,12 +87,14 @@ namespace Code.Data
         private void _addPercent(CharacterLiveState state, float value)
         {
             float max = state.Max;
-          
-            float result = max / 100 * _getCorrectValue(value);
 
-            Debugging.Log(this, $"[_addPercent] {max} / 100 * `{value}` = {result} | state value = {state.Current}", 
+            float result = max / 100 * _getCorrectValue(value);
+#if DEBUGGING
+
+            Debugging.Log(this, $"[_addPercent] {max} / 100 * `{value}` = {result} | state value = {state.Current}",
                 Debugging.Type.LiveState);
-      
+#endif
+
             state.Add(result);
         }
 
@@ -104,8 +107,6 @@ namespace Code.Data
 
             return value;
         }
-
-        #region Initialize
 
         public void LoadProgress(PlayerProgressData playerProgress)
         {
@@ -120,7 +121,8 @@ namespace Code.Data
         {
             foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in LiveStates)
             {
-                LiveStateSavedData savedState = playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
+                LiveStateSavedData savedState =
+                    playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
 
                 if (savedState != null)
                 {
@@ -142,7 +144,7 @@ namespace Code.Data
         private Dictionary<ELiveStateKey, CharacterLiveState> _initNewStates()
         {
             Dictionary<ELiveStateKey, CharacterLiveState> characterLiveStates = new();
-            
+
             int liveStateCount = Enum.GetNames(typeof(ELiveStateKey)).Length;
 
             for (int i = 1; i < liveStateCount; i++)
@@ -153,8 +155,10 @@ namespace Code.Data
                 characterLiveStates.Add((ELiveStateKey)i, state);
             }
 
-            Debugging.Log(this, "init new states", Debugging.Type.LiveState);
-            
+#if DEBUGGING
+            Debugging.Log(this, "[_init new states]", Debugging.Type.LiveState);
+#endif
+
             return characterLiveStates;
         }
 
@@ -172,16 +176,19 @@ namespace Code.Data
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 
-            Debugging.Log(this, $"load states", Debugging.Type.LiveState);
-            
+#if DEBUGGING
+            Debugging.Log(this, $"[_load states]", Debugging.Type.LiveState);
+#endif
+
             return characterLiveStates;
         }
 
-        private CharacterLiveState CreateNewState(ELiveStateKey stateKey, bool currentIsMaxValue, float currentValue = 0,
+        private CharacterLiveState CreateNewState(ELiveStateKey stateKey, bool currentIsMaxValue,
+            float currentValue = 0,
             bool isHealing = false)
         {
             LiveStateStaticParam staticParam = _liveStateConfig.GetStaticParam(stateKey);
-        
+
             CharacterLiveState characterLiveState = new(
                 current: currentIsMaxValue ? staticParam.MaxValue : currentValue,
                 max: staticParam.MaxValue,
@@ -192,7 +199,5 @@ namespace Code.Data
             return characterLiveState;
         }
 
-        #endregion
-        
     }
 }

@@ -8,7 +8,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 {
     public class BehaviourSelector_Hand : BaseNode, IBehaviourCallback
     {
-        [Header("Services")]
+        [Header("Services")] 
         private readonly DivaLiveStatesAnalytic _stateAnalytic;
 
         [Header("Values")] 
@@ -18,7 +18,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         public BehaviourSelector_Hand()
         {
-            _stateAnalytic = Container.Instance.FindEntity<Entities.Diva.DivaEntity>()
+            _stateAnalytic = Container.Instance.FindEntity<DivaEntity>()
                 .FindCharacterComponent<DivaLiveStatesAnalytic>();
 
             _orderedNodes = new BaseNode[]
@@ -104,10 +104,12 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
         private void _onSwitchLowerLiveState(ELiveStateKey key)
         {
+#if DEBUGGING
             Debugging.Log(this, $"[_onSwitchLowerLiveState] {key}", Debugging.Type.Hand);
-            
+#endif
+
             _currentChild?.Break();
-            
+
             Run();
         }
 

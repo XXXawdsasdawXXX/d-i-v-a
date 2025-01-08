@@ -10,22 +10,23 @@ namespace Code.Entities.Common
 {
     public class ColorChecker : CommonComponent, IWindowsSpecific, IGameInitListener, IGameUpdateListener
     {
-        [Header("Static values")] [SerializeField]
-        private Vector3 _offset;
+        public event Action<Color> OnFoundedNewColor;
 
+        [Header("Static values")] 
+        [SerializeField] private Vector3 _offset;
         private bool _enable;
         private byte _sensitivity;
 
-        [Header("Services")] private DisplayColor _colorAnalyzer;
+        [Header("Services")] 
+        private DisplayColor _colorAnalyzer;
 
-        [Header("Dynamic value")] [SerializeField]
-        private Color32 _lastColor = Color.white;
-
+        [Header("Dynamic value")] 
+        [SerializeField] private Color32 _lastColor = Color.white;
         private Vector3 _additionalOffset;
 
-        [Header("Debug")] [SerializeField] private Transform _debugPoint;
+        [Header("Debug")] 
+        [SerializeField] private Transform _debugPoint;
 
-        public event Action<Color> OnFoundedNewColor;
 
         public void GameInit()
         {
@@ -48,8 +49,10 @@ namespace Code.Entities.Common
 
                 string newColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(newColor)}>other</color>";
                 string lastColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>other</color>";
-                
+
+#if DEBUGGING
                 Debugging.Log(this, $"Find other color {lastColorHtml} vs {newColorHtml}", Debugging.Type.Window);
+#endif
 
                 _lastColor = newColor;
 
@@ -65,7 +68,6 @@ namespace Code.Entities.Common
         public void RefreshLastColor()
         {
             _lastColor = _colorAnalyzer.GetColor(GetCheckPosition());
-            ;
         }
 
         public void SetAdditionalOffset(Vector3 offset)

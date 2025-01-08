@@ -12,13 +12,20 @@ namespace Code.Infrastructure.CustomActions
     public class CustomAction_StarryMouse : CustomAction, IGameInitListener, IGameStartListener, IGameUpdateListener,
         IGameExitListener
     {
-        [Header("Character")] private ColliderButton _characterButton;
+        [Header("Character")] 
+        private ColliderButton _characterButton;
         private DivaAnimationAnalytic _divaAnimationAnalytic;
-        [Header("Services")] private PositionService _positionService;
+        
+        [Header("Services")] 
+        private PositionService _positionService;
         private CoroutineRunner _coroutineRunner;
-        [Header("Statis values")] private ParticleSystemFacade _particle;
+        
+        [Header("Static values")] 
+        private ParticleSystemFacade _particle;
         private float _duration;
-        [Header("Dinamic values")] private bool _isActive;
+        
+        [Header("Dynamic values")] 
+        private bool _isActive;
         private Vector3 _lastPoint;
 
 
@@ -26,6 +33,7 @@ namespace Code.Infrastructure.CustomActions
         {
             //static values
             ParticlesStorage particles = Container.Instance.FindStorage<ParticlesStorage>();
+          
             if (particles.TryGetParticle(EParticleType.StarryMouse, out ParticleSystemFacade[] particlesFacades))
             {
                 _particle = particlesFacades[0];
@@ -38,7 +46,7 @@ namespace Code.Infrastructure.CustomActions
                 _positionService = Container.Instance.FindService<PositionService>();
                 _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
 
-                SubscribeToEvents(true);
+                _subscribeToEvents(true);
             }
         }
 
@@ -49,29 +57,38 @@ namespace Code.Infrastructure.CustomActions
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
         public void GameUpdate()
         {
             Vector3 currentMousePosition = _positionService.GetMouseWorldPosition();
+            
             _particle.transform.position = currentMousePosition;
         }
 
         protected sealed override void TryStartAction()
         {
             _isActive = true;
+            
             _particle.transform.position = _positionService.GetMouseWorldPosition();
+            
             _particle.On();
+            
             _coroutineRunner.StartActionWithDelay(StopAction, _duration);
-            Debugging.Log($"[{GetActionType()}] [Start Action]", Debugging.Type.CustomAction);
+#if DEBUGGING
+            Debugging.Log(this, $"[start Action] {GetActionType()}.", Debugging.Type.CustomAction);
+#endif
         }
 
         protected override void StopAction()
         {
             _isActive = false;
+            
             _particle.Off();
-            Debugging.Log($"[{GetActionType()}] [Stop Action]", Debugging.Type.CustomAction);
+#if DEBUGGING
+            Debugging.Log(this, $"[stop Action] {GetActionType()}.", Debugging.Type.CustomAction);
+#endif
         }
 
         public override ECustomCutsceneActionType GetActionType()
@@ -79,22 +96,24 @@ namespace Code.Infrastructure.CustomActions
             return ECustomCutsceneActionType.StarryMouse;
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _characterButton.OnPressedUp += OnPressedUp;
+                _characterButton.OnPressedUp += _onPressedUp;
             }
             else
             {
-                _characterButton.OnPressedUp -= OnPressedUp;
+                _characterButton.OnPressedUp -= _onPressedUp;
             }
         }
 
-        private void OnPressedUp(Vector2 _, float pressDuration)
+        private void _onPressedUp(Vector2 _, float pressDuration)
         {
-            Debugging.Log($"[{GetActionType()}] [CharacterButtonOnDownEvent] is active {_isActive}",
-                Debugging.Type.CustomAction);
+#if DEBUGGING
+            Debugging.Log(this, $"[_onPressedUp] {GetActionType()}. Is active {_isActive}.", Debugging.Type.CustomAction);
+#endif
+           
             if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {
                 if (_isActive)

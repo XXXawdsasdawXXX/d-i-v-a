@@ -42,7 +42,9 @@ namespace Code.Entities.Items
                     return itemData;
                 }
 
+#if DEBUGGING
                 Debugging.Log(this, $"(chance {itemData.SpawnChance} >= {randomChance})", Debugging.Type.Items);
+#endif
             }
 
             return items[Random.Range(0, items.Length - 1)];

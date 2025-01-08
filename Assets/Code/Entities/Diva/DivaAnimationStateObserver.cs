@@ -35,17 +35,21 @@ namespace Code.Entities.Diva
             State = StateFor(stateHash);
             
             OnStateEntered?.Invoke(State);
-            
-            Debugging.Log(this, $"Animation entered state: {State}", Debugging.Type.AnimationState);
+
+#if DEBUGGING
+            Debugging.Log(this, $"[EnteredState] {State}.", Debugging.Type.AnimationState);
+#endif
         }
 
         public void ExitedState(int stateHash)
         {
             EDivaAnimationState state = StateFor(stateHash);
-            
+
             OnStateExited?.Invoke(StateFor(stateHash));
-            
-            Debugging.Log(this, $"Animation exited state: {State}", Debugging.Type.AnimationState);
+
+#if DEBUGGING
+            Debugging.Log(this, $"[ExitedState] {State}.", Debugging.Type.AnimationState);
+#endif
         }
 
         private EDivaAnimationState StateFor(int stateHash)

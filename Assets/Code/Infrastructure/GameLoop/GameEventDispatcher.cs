@@ -36,20 +36,24 @@ namespace Code.Infrastructure.GameLoop
                 _initializeListeners();
                 _notifyGameInit();
                 _notifyGameLoad();
-                
+
                 StartCoroutine(_startWithDelay());
-              
+
+#if DEBUGGING
                 Debugging.Log(this, "[Awake] Test", Debugging.Type.GameState);
+#endif
             }
             else
             {
                 _controller.OnStateChanged += _onWindowControllerStateChanged;
-               
+
                 _initializeListeners();
                 _notifyGameInit();
                 _notifyGameLoad();
-                
+
+#if DEBUGGING
                 Debugging.Log(this, "[Awake]", Debugging.Type.GameState);
+#endif
             }
         }
 
@@ -61,8 +65,10 @@ namespace Code.Infrastructure.GameLoop
         private void OnApplicationQuit()
         {
             _notifyGameExit();
-            
+
+#if DEBUGGING
             Debugging.Log(this, "[OnApplicationQuit]", Debugging.Type.GameState);
+#endif
         }
 
         #endregion
@@ -95,13 +101,15 @@ namespace Code.Infrastructure.GameLoop
 
             _notifyGameStart();
 
+#if DEBUGGING
             Debugging.Log(this, "[_startWithDelay] Completed", Debugging.Type.GameState);
+#endif
         }
 
         private void _initializeListeners()
         {
             List<IGameListeners> gameListeners = Container.Instance.GetGameListeners();
-            
+
             if (Extensions.IsMacOs())
             {
                 gameListeners = gameListeners
@@ -123,7 +131,7 @@ namespace Code.Infrastructure.GameLoop
                     _exitListeners.Add(exitListener);
             }
         }
-        
+
         private void _notifyGameInit()
         {
             foreach (IGameInitListener listener in _initListeners)

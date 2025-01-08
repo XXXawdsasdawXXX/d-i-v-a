@@ -2,7 +2,7 @@
 
 namespace Code.Infrastructure.BehaviorTree.Diva
 {
-    public partial class BehaviourNode_Sleep 
+    public partial class BehaviourNode_Sleep
     {
         protected override void SubscribeToEvents(bool flag)
         {
@@ -19,7 +19,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
                 _sleepState.OnChanged -= _onChangedSleepStateValue;
             }
         }
-        
+
         private void _onClickSeries(int clickCount)
         {
             if (clickCount >= 5)
@@ -32,8 +32,10 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (_sleepState.GetPercent() > 0.9f)
             {
-                Debugging.Log(this, $"[_onChangedSleepStateValue] sleep is max", Debugging.Type.BehaviorTree);
-       
+#if DEBUGGING
+                Debugging.Log(this, $"[_onChangedSleepStateValue] Sleep is max.", Debugging.Type.BehaviorTree);
+#endif
+
                 _stopSleep();
             }
         }

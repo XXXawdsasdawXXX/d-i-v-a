@@ -10,12 +10,11 @@ namespace Code.Infrastructure.Save
     public class SaveLoadService : IService, IGameLoadListener, IGameExitListener
     {
         private const string PROGRESS_KEY = "Progress";
-
-        private PlayerProgressData _playerProgress;
-
-        private List<IProgressWriter> _progressWriters = new();
+        
+        private readonly List<IProgressWriter> _progressWriters = new();
         private List<IProgressReader> _progressReader = new();
 
+        private PlayerProgressData _playerProgress;
 
         public void GameLoad()
         {
@@ -30,13 +29,17 @@ namespace Code.Infrastructure.Save
 
             LoadProgress();
 
-            Debugging.Log($"Game load", Debugging.Type.SaveLoad);
+#if DEBUGGING
+            Debugging.Log(this, "[Game load]", Debugging.Type.SaveLoad);
+#endif
         }
 
         public void GameExit()
         {
             SaveProgress();
-            Debugging.Log($"Game save", Debugging.Type.SaveLoad);
+#if DEBUGGING
+            Debugging.Log(this, "[Game save]", Debugging.Type.SaveLoad);
+#endif
         }
 
         private void SaveProgress()
@@ -49,24 +52,26 @@ namespace Code.Infrastructure.Save
             PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
 
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
+#if DEBUGGING
             Debugging.Log($"Save progress -> " +
                           $"{_playerProgress != null} " +
                           $"{_playerProgress?.LiveStatesData != null}" +
                           $"{_playerProgress?.LiveStatesData?.Count}\n" +
                           $"{data} ", Debugging.Type.SaveLoad);
+#endif
         }
 
         private void LoadProgress()
         {
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
             _playerProgress = PlayerPrefs.GetString(PROGRESS_KEY)?.ToDeserialized<PlayerProgressData>();
-
+#if DEBUGGING
             Debugging.Log($"Load progress -> " +
                           $"{_playerProgress != null} " +
                           $"{_playerProgress?.LiveStatesData != null}" +
                           $"{_playerProgress?.LiveStatesData?.Count}\n" +
                           $"{data} ", Debugging.Type.SaveLoad);
-
+#endif
             _playerProgress ??= new PlayerProgressData();
             foreach (IProgressReader progressReader in _progressReader)
             {

@@ -11,6 +11,7 @@ namespace Code.Entities.Diva
     public class DivaAnimator : DivaComponent, IGameInitListener
     {
         public event Action<EDivaAnimationMode> OnModeEntered;
+     
         public EDivaAnimationMode Mode { get; private set; }
 
         [SerializeField] private Animator _characterAnimator;
@@ -39,13 +40,15 @@ namespace Code.Entities.Diva
         }
 
         #region Reaction Animation
-        
+
         public void PlayReactionVoice()
         {
             _characterAnimator.SetTrigger(_reactionVoiceHash_t);
             _frontHairAnimator.SetTrigger(_reactionVoiceHash_t);
             _backHairAnimator.SetTrigger(_reactionVoiceHash_t);
+#if DEBUGGING
             Debugging.Log(this, $"[PlayReactionVoice]", Debugging.Type.AnimationState);
+#endif
         }
 
         public void StartPlayEat(Action OnReadyEat = null)
@@ -54,7 +57,9 @@ namespace Code.Entities.Diva
             _frontHairAnimator.SetBool(_eatHash_b, true);
             _backHairAnimator.SetBool(_eatHash_b, true);
             _coroutineRunner.StartActionWithDelay(OnReadyEat, 1);
+#if DEBUGGING
             Debugging.Log(this, $"", Debugging.Type.AnimationState);
+#endif
         }
 
         public void StopPlayEat()
@@ -62,15 +67,19 @@ namespace Code.Entities.Diva
             _characterAnimator.SetBool(_eatHash_b, false);
             _frontHairAnimator.SetBool(_eatHash_b, false);
             _backHairAnimator.SetBool(_eatHash_b, false);
+#if DEBUGGING
             Debugging.Log(this, $"[StopPlayEat]", Debugging.Type.AnimationState);
+#endif
         }
-        
+
         public void StartPlayReactionMouse()
         {
             _characterAnimator.SetBool(_reactionMouseHash_b, true);
             _frontHairAnimator.SetBool(_reactionMouseHash_b, true);
             _backHairAnimator.SetBool(_reactionMouseHash_b, true);
+#if DEBUGGING
             Debugging.Log(this, $"[StartPlayReactionMouse]", Debugging.Type.AnimationState);
+#endif
         }
 
         public void StopPlayReactionMouse()
@@ -78,10 +87,12 @@ namespace Code.Entities.Diva
             _characterAnimator.SetBool(_reactionMouseHash_b, false);
             _frontHairAnimator.SetBool(_reactionMouseHash_b, false);
             _backHairAnimator.SetBool(_reactionMouseHash_b, false);
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[StopPlayReactionMouse]", Debugging.Type.AnimationState);
+#endif
         }
-        
+
         public void SetMouseNormal(float x, float y)
         {
             _characterAnimator.SetFloat(_mouseXHash_f, x);
@@ -99,8 +110,10 @@ namespace Code.Entities.Diva
             _characterAnimator.SetBool(_hideHand_b, true);
             _frontHairAnimator.SetBool(_hideHand_b, true);
             _backHairAnimator.SetBool(_hideHand_b, true);
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[StartPlayHideHand]", Debugging.Type.AnimationState);
+#endif
         }
 
         public void PlayShowHand()
@@ -109,7 +122,9 @@ namespace Code.Entities.Diva
             _frontHairAnimator.SetBool(_hideHand_b, false);
             _backHairAnimator.SetBool(_hideHand_b, false);
 
+#if DEBUGGING
             Debugging.Log(this, $"[StopPlayHideHand]", Debugging.Type.AnimationState);
+#endif
         }
 
         #endregion
@@ -120,8 +135,10 @@ namespace Code.Entities.Diva
         {
             if (Mode == EDivaAnimationMode.None)
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[SetEmptyMode] State is already set.", Debugging.Type.AnimationMode);
-              
+#endif
+
                 return;
             }
 
@@ -130,18 +147,22 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetBool(_empty_b, true);
 
             Mode = EDivaAnimationMode.None;
-            
+
             OnModeEntered?.Invoke(Mode);
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[SetEmptyMode]", Debugging.Type.AnimationMode);
+#endif
         }
 
         public void SetSleepMode()
         {
             if (Mode == EDivaAnimationMode.Sleep)
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[SetSleepMode] State is already set.", Debugging.Type.AnimationMode);
-                
+#endif
+
                 return;
             }
 
@@ -152,17 +173,21 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetTrigger(_sleepHash_t);
 
             Mode = EDivaAnimationMode.Sleep;
-         
+
             OnModeEntered?.Invoke(Mode);
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[SetSleepMode]", Debugging.Type.AnimationMode);
+#endif
         }
 
         public void SetStandMode()
         {
             if (Mode == EDivaAnimationMode.Stand)
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[SetStandMode] State is already set.", Debugging.Type.AnimationMode);
+#endif
                 return;
             }
 
@@ -173,17 +198,21 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetTrigger(_standHash_t);
 
             Mode = EDivaAnimationMode.Stand;
-            
+
             OnModeEntered?.Invoke(Mode);
-        
+
+#if DEBUGGING
             Debugging.Log(this, $"[SetStandMode]", Debugging.Type.AnimationMode);
+#endif
         }
 
         public void SetSeatMode()
         {
             if (Mode == EDivaAnimationMode.Seat)
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[SetSeatMode] State is already set.", Debugging.Type.AnimationMode);
+#endif
                 return;
             }
 
@@ -194,10 +223,12 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetTrigger(_seatHash_t);
 
             Mode = EDivaAnimationMode.Seat;
-            
+
             OnModeEntered?.Invoke(Mode);
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[SetSeatMode]", Debugging.Type.AnimationMode);
+#endif
         }
 
 
@@ -226,10 +257,12 @@ namespace Code.Entities.Diva
         private void _reset()
         {
             _resetBoolStates();
-           
+
             _resetTriggers();
-            
+
+#if DEBUGGING
             Debugging.Log(this, $"[Reset]", Debugging.Type.AnimationMode);
+#endif
         }
 
         private void _resetBoolStates()

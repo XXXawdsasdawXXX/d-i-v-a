@@ -11,7 +11,6 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             if (flag)
             {
                 _collisionObserver.EnterEvent += _startReactionToObject;
-                
             }
             else
             {
@@ -23,8 +22,9 @@ namespace Code.Infrastructure.BehaviorTree.Diva
         {
             if (obj.TryGetComponent(out ItemEntity item) && item.IsCanUse())
             {
+#if DEBUGGING
                 Debugging.Log(this, $"[_startReactionToObject]", Debugging.Type.BehaviorTree);
-                
+#endif
                 RunNode(_node_ReactionToItem);
             }
         }

@@ -21,19 +21,23 @@ namespace Code.Entities.Hand
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
-            
+
             OnStateEntered?.Invoke(State);
-            
-            Debugging.Log(this, $"Animation entered state: {State}", Debugging.Type.Hand);
+
+#if DEBUGGING
+            Debugging.Log(this, $"[EnteredState] {State}.", Debugging.Type.Hand);
+#endif
         }
 
         public void ExitedState(int stateHash)
         {
             EHandAnimationMode state = StateFor(stateHash);
-            
+
             OnStateExited?.Invoke(StateFor(stateHash));
-            
-            Debugging.Log(this, $"Animation exited state: {State}", Debugging.Type.Hand);
+
+#if DEBUGGING
+            Debugging.Log(this, $"[ExitedState] {State}.", Debugging.Type.Hand);
+#endif
         }
 
         private EHandAnimationMode StateFor(int stateHash)

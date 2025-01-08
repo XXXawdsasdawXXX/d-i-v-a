@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Code.Infrastructure.Pools
 {
@@ -38,7 +39,7 @@ namespace Code.Infrastructure.Pools
 
         private T AddNewEntity(params object[] initParams)
         {
-            T entity = GameObject.Instantiate(_prefab, _root);
+            T entity = Object.Instantiate(_prefab, _root);
             entity.Init(initParams);
             _all.Add(entity);
             return entity;
