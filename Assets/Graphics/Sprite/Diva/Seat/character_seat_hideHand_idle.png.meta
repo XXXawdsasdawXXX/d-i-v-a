@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26ee8a78deb15194ca1a915150a0513e
+guid: 6ccfe99b3c071a7428ec6e00d0cccef9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -113,35 +113,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_seat_idle_0
+      name: character_seat_hideHand_idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5cb532ce4431ca42809a2660d613ab9
-      internalID: -250668861
+      spriteID: 3034aeb4efa7ec9428aa2054c672152c
+      internalID: -1623876297
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_seat_idle_1
+      name: character_seat_hideHand_idle_1
       rect:
         serializedVersion: 2
         x: 256
@@ -176,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4726ff8d8126b74197d07f656eca6c8
-      internalID: 2096673843
+      spriteID: 0242281a7b1fbbf44b3814976573e9e9
+      internalID: 1528976197
       vertices: []
       indices: 
       edges: []
@@ -193,8 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      character_seat_idle_0: -250668861
-      character_seat_idle_1: 2096673843
+      character_seat_hideHand_idle_0: -1623876297
+      character_seat_hideHand_idle_1: 1528976197
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
