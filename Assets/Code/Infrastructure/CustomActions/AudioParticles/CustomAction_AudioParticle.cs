@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.Storages;
-using Code.Data.VFX;
+using Code.Data;
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;

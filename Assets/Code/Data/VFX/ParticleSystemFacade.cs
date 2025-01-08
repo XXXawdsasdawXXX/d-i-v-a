@@ -1,11 +1,9 @@
 ﻿using System;
-using Code.Data.Enums;
-using Code.Data.Storages;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Data.VFX
+namespace Code.Data
 {
     public class ParticleSystemFacade : MonoBehaviour, IGameInitListener
     {

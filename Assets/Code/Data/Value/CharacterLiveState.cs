@@ -1,7 +1,6 @@
 ﻿using System;
-using Code.Utils;
 
-namespace Code.Data.Value
+namespace Code.Data
 {
     [Serializable]
     public class CharacterLiveState

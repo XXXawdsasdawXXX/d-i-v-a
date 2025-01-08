@@ -26,24 +26,28 @@ namespace Code.Entities.Items
         
         public void Init(params object[] parameters)
         {
-            _liveTime = new();
+            _liveTime = new TickCounter();
         }
 
         public void Enable()
         {
             IsActive = true;
+          
             _dragAndDrop.Disable();
 
             _subscribeToEvents(true);
 
             gameObject.SetActive(true);
+            
             _itemAnimation.PlayEnter();
         }
 
         public void Disable()
         {
             IsActive = false;
+            
             _subscribeToEvents(false);
+            
             gameObject.SetActive(false);
         }
 

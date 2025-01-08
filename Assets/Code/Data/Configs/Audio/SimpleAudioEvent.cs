@@ -1,9 +1,8 @@
-﻿using Code.Data.Value.RangeFloat;
-using Code.Utils;
+﻿using Code.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Code.Data.Configs.Audio
+namespace Code.Data.Audio
 {
     [CreateAssetMenu(menuName = "Configs/Audio Events/Simple", fileName = "AudioEvent_")]
     public class SimpleAudioEvent : AudioEvent

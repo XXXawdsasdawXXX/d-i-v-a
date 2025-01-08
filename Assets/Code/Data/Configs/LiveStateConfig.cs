@@ -1,10 +1,7 @@
 ﻿using System.Linq;
-using Code.Data.Enums;
-using Code.Data.StaticData;
-using Code.Data.Value;
 using UnityEngine;
 
-namespace Code.Data.Configs
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "LiveStateConfig", menuName = "Configs/Live State config")]
     public class LiveStateConfig : ScriptableObject

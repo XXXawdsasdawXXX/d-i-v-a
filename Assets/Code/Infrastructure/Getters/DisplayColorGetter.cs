@@ -1,4 +1,4 @@
-﻿using Code.Data.Interfaces;
+﻿using Code.Data;
 using Code.Utils;
 using UnityEngine;
 

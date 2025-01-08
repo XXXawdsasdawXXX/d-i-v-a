@@ -1,7 +1,5 @@
-using Code.Data.Configs;
-using Code.Data.Configs.Audio;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
+using Code.Data;
+using Code.Data.Audio;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;

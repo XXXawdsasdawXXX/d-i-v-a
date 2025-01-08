@@ -1,5 +1,5 @@
 using System;
-using Code.Data.Configs;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;

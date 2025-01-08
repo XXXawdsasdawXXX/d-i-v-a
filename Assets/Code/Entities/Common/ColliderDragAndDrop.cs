@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;

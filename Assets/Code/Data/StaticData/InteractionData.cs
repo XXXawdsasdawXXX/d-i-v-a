@@ -1,7 +1,6 @@
 ﻿using System;
-using Code.Data.Enums;
 
-namespace Code.Data.StaticData
+namespace Code.Data
 {
     [Serializable]
     public class InteractionData

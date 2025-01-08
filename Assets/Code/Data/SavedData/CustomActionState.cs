@@ -1,8 +1,6 @@
 ﻿using System;
-using Code.Data.Enums;
-using Code.Infrastructure.CustomActions;
 
-namespace Code.Data.SavedData
+namespace Code.Data
 {
     [Serializable]
     public class CustomActionState

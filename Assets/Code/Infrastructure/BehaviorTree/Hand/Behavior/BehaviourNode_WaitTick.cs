@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-using Code.Data.Configs;
-using Code.Data.Storages;
+using Code.Data;
 using Code.Entities.Hand;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Services;
@@ -32,7 +31,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         public BehaviourNode_WaitTick()
         {
             //hand
-            Entities.Hand.HandEntity hand = Container.Instance.FindEntity<Entities.Hand.HandEntity>();
+            HandEntity hand = Container.Instance.FindEntity<HandEntity>();
             _handAnimator = hand.FindHandComponent<HandAnimator>();
 
             //services
@@ -60,7 +59,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
 
                 _tickCounter.OnWaitIsOver += _onWaitedTicksEvent;
 
-                Debugging.Log(this, $"[Run] await {cooldownTicks} ticks", Debugging.Type.Hand);
+                Debugging.Log(this, $"[Run] Await {cooldownTicks} ticks.", Debugging.Type.Hand);
             }
         }
 
@@ -73,7 +72,7 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             _tickCounter.OnWaitIsOver -= _onWaitedTicksEvent;
        
-            Debugging.Log(this, $"[on waited ticks]", Debugging.Type.Hand);
+            Debugging.Log(this, $"[_on waited ticks] Start routine.", Debugging.Type.Hand);
            
             _coroutineRunner.StopRoutine(_waitingCoroutine);
          
@@ -84,9 +83,9 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             yield return new WaitUntil(() => !_returnAfterAbsence.IsAbsence);
             
-            yield return new WaitForSeconds(30);
+            yield return new WaitForSeconds(Random.Range(0, 5));
         
-            Debugging.Log(this, $"[on waited user] end routine", Debugging.Type.Hand);
+            Debugging.Log(this, $"[_on waited user] End routine.", Debugging.Type.Hand);
          
             Return(true);
         }

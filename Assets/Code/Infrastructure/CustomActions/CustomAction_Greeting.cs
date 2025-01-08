@@ -1,7 +1,5 @@
 using System;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.SavedData;
+using Code.Data;
 using Code.Entities.Common;
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;

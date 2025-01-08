@@ -1,8 +1,6 @@
 ﻿using System;
-using Code.Data.Enums;
-using Code.Data.Value.RangeFloat;
 
-namespace Code.Data.Value
+namespace Code.Data
 {
     [Serializable]
     public struct LiveStateRangePercentageValue

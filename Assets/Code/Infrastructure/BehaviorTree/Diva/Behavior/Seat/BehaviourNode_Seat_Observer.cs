@@ -4,26 +4,27 @@ using UnityEngine;
 
 namespace Code.Infrastructure.BehaviorTree.Diva
 {
-    public partial class BehaviourNode_Seat 
+    public partial class BehaviourNode_Seat
     {
         protected override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _collisionObserver.EnterEvent += StartReactionToObject;
+                _collisionObserver.EnterEvent += _startReactionToObject;
+                
             }
             else
             {
-                _collisionObserver.EnterEvent -= StartReactionToObject;
+                _collisionObserver.EnterEvent -= _startReactionToObject;
             }
         }
-        
-        private void StartReactionToObject(GameObject obj)
+
+        private void _startReactionToObject(GameObject obj)
         {
             if (obj.TryGetComponent(out ItemEntity item) && item.IsCanUse())
             {
-                Debugging.Log($"Нода сидения: начинает реакцию на итем ", Debugging.Type.BehaviorTree);
-               // _node_ReactionToItem.SetCurrentItem(item);
+                Debugging.Log(this, $"[_startReactionToObject]", Debugging.Type.BehaviorTree);
+                
                 RunNode(_node_ReactionToItem);
             }
         }

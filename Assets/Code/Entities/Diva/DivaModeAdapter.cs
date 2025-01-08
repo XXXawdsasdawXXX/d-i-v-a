@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Code.Data.Enums;
+using Code.Data;
 using Code.Entities.Common;
 using Code.Utils;
 using UnityEngine;
@@ -89,7 +89,7 @@ namespace Code.Entities.Diva
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
          
-            Debugging.Log(this, $"Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
+            Debugging.Log(this, $"[_onModeEnteredEvent] Collision switch mode {mode} {modeParam != null}", Debugging.Type.Collision);
             
             if (modeParam != null)
             {

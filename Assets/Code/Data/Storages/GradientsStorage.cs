@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Code.Data.Interfaces;
 using UnityEngine;
 
-namespace Code.Data.Storages
+namespace Code.Data
 {
     public class GradientsStorage : MonoBehaviour, IStorage
     {

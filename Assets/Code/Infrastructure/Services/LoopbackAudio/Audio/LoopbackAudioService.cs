@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;

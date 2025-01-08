@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Enums;
-using Code.Data.Storages;
-using Code.Data.Value;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
@@ -55,8 +53,10 @@ namespace Code.Entities.Diva
             if (_storage != null && _storage.TryGetLiveState(liveStateKey, out CharacterLiveState characterLiveState))
             {
                 statePercent = characterLiveState.GetPercent();
+               
                 Debugging.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}",
                     Debugging.Type.LiveState);
+                
                 return true;
             }
 

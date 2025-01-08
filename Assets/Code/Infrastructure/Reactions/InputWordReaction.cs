@@ -1,5 +1,4 @@
-using Code.Data.Configs;
-using Code.Data.Enums;
+using Code.Data;
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;

@@ -1,4 +1,4 @@
-using Code.Data.Enums;
+using Code.Data;
 using Code.Entities.Common;
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;
@@ -18,11 +18,12 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
         [Header("Sub nodes")] 
         private readonly SubNode_ReactionToItems _node_ReactionToItem;
-        private readonly SubNode_ReactionToVoice _node_ReactionToVoice;
+        private readonly SubNode_HideHand _node_HideHand;
+        
 
         public BehaviourNode_Seat()
         {
-            Entities.Diva.DivaEntity character = Container.Instance.FindEntity<Entities.Diva.DivaEntity>();
+            DivaEntity character = Container.Instance.FindEntity<DivaEntity>();
           
             //character-------------------------------------------------------------------------------------------------
             _divaAnimator = character.FindCharacterComponent<DivaAnimator>();
@@ -33,7 +34,7 @@ namespace Code.Infrastructure.BehaviorTree.Diva
             
             //nodes-----------------------------------------------------------------------------------------------------
             _node_ReactionToItem = new SubNode_ReactionToItems();
-            _node_ReactionToVoice = new SubNode_ReactionToVoice();
+            _node_HideHand = new SubNode_HideHand();
         }
 
         protected override void Run()
@@ -46,11 +47,12 @@ namespace Code.Infrastructure.BehaviorTree.Diva
 
                 RunNode(_node_ReactionToItem);
 
-                Debugging.Log($"Нода сидения: выбрано", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, "[Run]", Debugging.Type.BehaviorTree);
             }
             else
             {
-                Debugging.Log($"Нода сидения: отказ ", Debugging.Type.BehaviorTree);
+                Debugging.Log(this, $"[Run] Return.", Debugging.Type.BehaviorTree);
+             
                 Return(false);
             }
         }

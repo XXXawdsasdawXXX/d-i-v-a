@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Utils;
 using Kirurobo;

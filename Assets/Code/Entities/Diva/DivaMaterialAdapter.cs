@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Entities.Common;
 using UnityEngine;
 

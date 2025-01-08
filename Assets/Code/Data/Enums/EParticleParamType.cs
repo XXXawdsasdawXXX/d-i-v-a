@@ -1,4 +1,4 @@
-﻿namespace Code.Data.Enums
+﻿namespace Code.Data
 {
     public enum EParticleParamType
     {

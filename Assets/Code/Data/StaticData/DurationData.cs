@@ -1,9 +1,7 @@
 ﻿using System;
-using Code.Data.Value.RangeFloat;
-using Code.Data.Value.RangeInt;
 using UnityEngine;
 
-namespace Code.Data.StaticData
+namespace Code.Data
 {
     [Serializable]
     public class DurationData

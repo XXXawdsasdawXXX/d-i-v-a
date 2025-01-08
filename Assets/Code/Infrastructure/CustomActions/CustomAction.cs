@@ -1,5 +1,5 @@
 using System;
-using Code.Data.Enums;
+using Code.Data;
 
 namespace Code.Infrastructure.CustomActions
 {

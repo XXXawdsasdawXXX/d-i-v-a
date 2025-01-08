@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Infrastructure.DI;
 
 namespace Code.Infrastructure.Services
@@ -7,6 +7,9 @@ namespace Code.Infrastructure.Services
     [Serializable]
     public class TickCounter : IToggle
     {
+        public event Action OnWaitIsOver;
+        public bool IsExpectedStart { get; private set; } = true;
+
         private readonly TimeObserver _timeObserver;
 
         private int _tickCount;
@@ -15,17 +18,12 @@ namespace Code.Infrastructure.Services
         private bool _isLoop;
         private bool _isActive;
 
-        public bool IsExpectedStart { get; private set; } = true;
-        
-        public event Action OnWaitIsOver;
-
-        #region Constructors
 
         public TickCounter(bool isLoop = true)
         {
             _isLoop = isLoop;
-            _timeObserver = Container.Instance?.FindService<TimeObserver>();
-            SubscribeToEvents(true);
+            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _subscribeToEvents(true);
         }
 
         public TickCounter(int tickCount, bool isLoop = true)
@@ -33,12 +31,8 @@ namespace Code.Infrastructure.Services
             _isLoop = isLoop;
             _tickCount = tickCount;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
-
-        #endregion
-
-        #region Methods
 
         public int GetRemainingTick()
         {
@@ -92,23 +86,19 @@ namespace Code.Infrastructure.Services
             _isActive = false;
         }
 
-        #endregion
-
-        #region Events
-
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _timeObserver.TickEvent += OnTick;
+                _timeObserver.TickEvent += _onTick;
             }
             else
             {
-                _timeObserver.TickEvent -= OnTick;
+                _timeObserver.TickEvent -= _onTick;
             }
         }
 
-        private void OnTick()
+        private void _onTick()
         {
             if (IsExpectedStart || !_isActive)
             {
@@ -116,13 +106,13 @@ namespace Code.Infrastructure.Services
             }
 
             _currentTickNumber++;
+         
             if (_currentTickNumber >= _tickCount)
             {
                 OnWaitIsOver?.Invoke();
+            
                 StopWait();
             }
         }
-
-        #endregion
     }
 }

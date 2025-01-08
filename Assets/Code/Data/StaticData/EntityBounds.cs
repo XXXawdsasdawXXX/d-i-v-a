@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.Data.StaticData
+namespace Code.Data
 {
     [Serializable]
     public class EntityBounds

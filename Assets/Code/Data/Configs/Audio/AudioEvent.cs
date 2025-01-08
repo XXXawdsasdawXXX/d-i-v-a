@@ -1,7 +1,6 @@
-using Code.Data.Enums;
 using UnityEngine;
 
-namespace Code.Data.Configs.Audio
+namespace Code.Data.Audio
 {
     public abstract class AudioEvent : ScriptableObject
     {

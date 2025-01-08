@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.SavedData;
-using Code.Data.StaticData;
 using Code.Infrastructure.Save;
 using Code.Utils;
 
-namespace Code.Data.Storages
+namespace Code.Data
 {
     public class InteractionStorage : IStorage, IProgressWriter
     {

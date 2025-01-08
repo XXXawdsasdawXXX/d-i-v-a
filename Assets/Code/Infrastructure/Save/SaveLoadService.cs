@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Data.Interfaces;
-using Code.Data.SavedData;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;

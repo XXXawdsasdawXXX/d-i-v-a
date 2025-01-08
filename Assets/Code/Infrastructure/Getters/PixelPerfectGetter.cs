@@ -1,4 +1,4 @@
-﻿using Code.Data.Interfaces;
+﻿using Code.Data;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 using UnityEngine.U2D;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8130108482925967798}
   - component: {fileID: 8130108482925967793}
   - component: {fileID: 8130108482925967790}
+  - component: {fileID: 7357281253218756715}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -53,7 +54,9 @@ MonoBehaviour:
   - {fileID: 8130108482925967793}
   - {fileID: 8130108482925967790}
   _handComponents:
+  - {fileID: 7357281253218756715}
   - {fileID: 1100587841849840646}
+  - {fileID: 6867979642667569704}
 --- !u!114 &8130108482925967798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +104,18 @@ MonoBehaviour:
   valueType: 0
   _newFloatValue: 3.14
   _spriteRenderer: {fileID: 8130108483120630225}
+--- !u!114 &7357281253218756715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130108482925967801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7580592b794514addb135791e01e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8130108483120630227
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a8bf49e7b6403ebe923a1f1f488a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 8130108483120630225}
   _handAnimator: {fileID: 9001671302648725551}
 --- !u!114 &6867979642667569704
 MonoBehaviour:

@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Code.Data.Value.RangeInt.Editor
+namespace Code.Data.Editor
 {
     [CustomPropertyDrawer(typeof(RangedInt), true)]
     public class RangedIntDrawer : PropertyDrawer

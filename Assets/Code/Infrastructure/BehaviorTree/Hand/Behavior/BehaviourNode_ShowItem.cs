@@ -1,4 +1,6 @@
-﻿using Code.Entities.Common;
+﻿using Code.Data;
+using Code.Entities.Common;
+using Code.Entities.Diva;
 using Code.Entities.Hand;
 using Code.Entities.Items;
 using Code.Infrastructure.DI;
@@ -11,12 +13,14 @@ namespace Code.Infrastructure.BehaviorTree.Hand
     {
         [Header("d i v a")] 
         private readonly Transform _divaTransform;
+        private readonly DivaAnimationAnalytic _divaAnimationAnalytic;
 
         [Header("Hand")] 
-        private readonly Entities.Hand.HandEntity _hand;
+        private readonly HandEntity _hand;
         private readonly HandAnimator _handAnimation;
         private readonly MovementToMouse _movementToMouse;
         private readonly ItemHolder _itemHolder;
+        private readonly HandBehaviorEvents _handEvents;
 
         [Header("Item")] 
         private readonly ItemSpawner _itemSpawner;
@@ -28,18 +32,20 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         [Header("Dynamic data")] 
         private ItemData _currentItemData;
         private Vector3 _spawnPosition;
-        
+
         public BehaviourNode_ShowItem()
         {
             //diva
-            Entities.Diva.DivaEntity diva = Container.Instance.FindEntity<Entities.Diva.DivaEntity>(); 
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>(); 
             _divaTransform = diva.transform;
+            _divaAnimationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 
             //hand
-            _hand = Container.Instance.FindEntity<Entities.Hand.HandEntity>();
+            _hand = Container.Instance.FindEntity<HandEntity>();
             _handAnimation = _hand.FindHandComponent<HandAnimator>();
             _movementToMouse = _hand.FindCommonComponent<MovementToMouse>();
             _itemHolder = _hand.FindCommonComponent<ItemHolder>();
+            _handEvents = _hand.FindHandComponent<HandBehaviorEvents>();
             
             //item
             _itemSpawner = Container.Instance.FindService<ItemSpawner>();
@@ -52,18 +58,14 @@ namespace Code.Infrastructure.BehaviorTree.Hand
         {
             if (IsCanRun())
             {
+                
+                _handEvents.InvokeWillAppear();
+                
                 _hand.transform.position = _spawnPosition;
                 
-                _handAnimation.PlayEnterHand(onEndEnter: () =>
-                {
-                    _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
-                    _itemHolder.SetItem(_item);
-                    _movementToMouse.Active();
-                    _subscribeToEvents(true);
-                });
+                _subscribeToDivaEvents(true);
                 
                 return;
-                
             }
 
             Return(false);
@@ -76,7 +78,19 @@ namespace Code.Infrastructure.BehaviorTree.Hand
                     out _spawnPosition);
         }
 
-        private void _subscribeToEvents(bool flag)
+        private void _subscribeToDivaEvents(bool flag)
+        {
+            if (flag)
+            {
+                _divaAnimationAnalytic.OnSwitchState += _showHand;
+            }
+            else
+            {
+                _divaAnimationAnalytic.OnSwitchState -= _showHand;
+            }
+        }
+        
+        private void _subscribeToItemEvents(bool flag)
         {
             if (flag)
             {
@@ -90,9 +104,26 @@ namespace Code.Infrastructure.BehaviorTree.Hand
             }
         }
 
+        private void _showHand(EDivaAnimationState state)
+        {
+            _subscribeToDivaEvents(false);
+            
+            if (state == EDivaAnimationState.HandIdle)
+            {
+                _handAnimation.PlayEnterHand(onEndEnter: () =>
+                {
+                    _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
+                   
+                    _itemHolder.SetItem(_item);
+                    
+                    _movementToMouse.Active();
+                });
+            }
+        }
+
         private void _hideHand()
         {
-            _subscribeToEvents(false);
+            _subscribeToItemEvents(false);
             
             _movementToMouse.Disable();
             

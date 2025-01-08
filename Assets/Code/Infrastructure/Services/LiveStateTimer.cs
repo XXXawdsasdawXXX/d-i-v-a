@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.Storages;
-using Code.Data.Value;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;

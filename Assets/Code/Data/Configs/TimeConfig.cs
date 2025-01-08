@@ -1,8 +1,6 @@
-﻿using Code.Data.StaticData;
-using Code.Data.Value.RangeFloat;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Code.Data.Configs
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "TimeConfig", menuName = "Configs/Time config")]
     public class TimeConfig : ScriptableObject

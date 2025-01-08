@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using Code.Data.Value;
 using UnityEngine;
 
-namespace Code.Data.Configs
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "HandConfig", menuName = "Configs/Hand Config")]
     public class HandConfig : ScriptableObject

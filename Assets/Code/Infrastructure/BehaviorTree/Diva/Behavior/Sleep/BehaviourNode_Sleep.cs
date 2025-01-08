@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using Code.Data.Configs;
-using Code.Data.Enums;
-using Code.Data.Storages;
-using Code.Data.Value;
+using Code.Data;
 using Code.Entities.Common;
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;

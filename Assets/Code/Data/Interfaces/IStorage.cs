@@ -1,4 +1,4 @@
-﻿namespace Code.Data.Interfaces
+﻿namespace Code.Data
 {
     public interface IStorage
     {

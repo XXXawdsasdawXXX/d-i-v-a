@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Enums;
-using Code.Data.VFX;
 using UnityEngine;
 
-namespace Code.Data.Configs
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "VFXConfig", menuName = "Configs/VFXConfig")]
     public class VFXConfig : ScriptableObject

@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Data.Enums;
+using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
@@ -94,7 +94,7 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetFloat(_mouseYHash_f, y);
         }
 
-        public void StartPlayHideHand()
+        public void PlayHideHand()
         {
             _characterAnimator.SetBool(_hideHand_b, true);
             _frontHairAnimator.SetBool(_hideHand_b, true);
@@ -103,7 +103,7 @@ namespace Code.Entities.Diva
             Debugging.Log(this, $"[StartPlayHideHand]", Debugging.Type.AnimationState);
         }
 
-        public void StopPlayHideHand()
+        public void PlayShowHand()
         {
             _characterAnimator.SetBool(_hideHand_b, false);
             _frontHairAnimator.SetBool(_hideHand_b, false);

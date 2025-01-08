@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Code.Data.Interfaces;
+using Code.Data;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 

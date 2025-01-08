@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Data.Enums;
 
-namespace Code.Data.SavedData
+namespace Code.Data
 {
     [Serializable]
     public class PlayerProgressData

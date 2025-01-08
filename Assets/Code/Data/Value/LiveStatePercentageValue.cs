@@ -1,8 +1,7 @@
 ﻿using System;
-using Code.Data.Enums;
 using UnityEngine;
 
-namespace Code.Data.Value
+namespace Code.Data
 {
     [Serializable]
     public class LiveStatePercentageValue

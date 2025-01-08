@@ -1,7 +1,6 @@
 using System;
-using Code.Data.Value.RangeInt;
 
-namespace Code.Data.Value
+namespace Code.Data
 {
     [Serializable]
     public class InteractionsValueData

@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using Code.Data.Configs.Audio;
-using Code.Data.Enums;
+using Code.Data.Audio;
 using UnityEngine;
 
-namespace Code.Data.Configs
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "AudioConfig", menuName = "Configs/Audio config")]
     public class AudioConfig : ScriptableObject

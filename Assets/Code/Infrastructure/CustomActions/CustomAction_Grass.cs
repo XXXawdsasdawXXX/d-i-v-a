@@ -1,6 +1,4 @@
-﻿using Code.Data.Configs;
-using Code.Data.Enums;
-using Code.Data.Value.RangeInt;
+﻿using Code.Data;
 using Code.Entities.Common;
 using Code.Entities.Diva;
 using Code.Entities.Grass;

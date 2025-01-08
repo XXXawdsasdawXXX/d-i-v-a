@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Code.Data.Interfaces;
 
-namespace Code.Data.Storages
+namespace Code.Data
 {
     public class WhiteBoard_Hand : IStorage
     {

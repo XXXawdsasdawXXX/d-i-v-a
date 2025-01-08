@@ -1,6 +1,5 @@
 ﻿using System;
-using Code.Data.Value;
-using Code.Data.Value.RangeInt;
+using Code.Data;
 using UnityEngine;
 
 namespace Code.Entities.Items

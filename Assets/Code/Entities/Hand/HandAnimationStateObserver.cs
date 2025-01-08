@@ -1,5 +1,5 @@
 using System;
-using Code.Data.Enums;
+using Code.Data;
 using Code.Entities.Common;
 using Code.Utils;
 using UnityEngine;

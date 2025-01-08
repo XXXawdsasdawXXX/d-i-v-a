@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Data.Configs;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.VFX;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.GameLoop;
 using UnityEngine;
 
-namespace Code.Data.Storages
+namespace Code.Data
 {
     public class ParticlesStorage : MonoBehaviour, IStorage, IGameInitListener
     {

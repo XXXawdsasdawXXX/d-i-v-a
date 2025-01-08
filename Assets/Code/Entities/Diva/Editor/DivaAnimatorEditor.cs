@@ -32,9 +32,9 @@ namespace Code.Entities.Diva.Editor
 
             if (GUILayout.Button("Stop reaction mouse")) divaAnimator.StopPlayReactionMouse();
             
-            if (GUILayout.Button("Start hide hand")) divaAnimator.StartPlayHideHand();
+            if (GUILayout.Button("Start hide hand")) divaAnimator.PlayHideHand();
             
-            if (GUILayout.Button("Stop hide hand")) divaAnimator.StopPlayHideHand();
+            if (GUILayout.Button("Stop hide hand")) divaAnimator.PlayShowHand();
         }
     }
 }

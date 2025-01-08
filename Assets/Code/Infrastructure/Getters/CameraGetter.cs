@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Data.Interfaces;
+using Code.Data;
 using UnityEngine;
 
 namespace Code.Infrastructure.Getters

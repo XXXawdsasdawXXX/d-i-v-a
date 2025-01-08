@@ -1,8 +1,6 @@
 ﻿using System;
-using Code.Data.Enums;
-using Code.Data.VFX;
 
-namespace Code.Data.StaticData
+namespace Code.Data
 {
     [Serializable]
     public class ParticleData

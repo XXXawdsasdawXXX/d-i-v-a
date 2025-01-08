@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Data.Interfaces
+namespace Code.Data
 {
     public interface IToggle
     {

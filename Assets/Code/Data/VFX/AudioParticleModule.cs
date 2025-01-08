@@ -1,15 +1,11 @@
 ﻿using System;
-using Code.Data.Enums;
-using Code.Data.Interfaces;
-using Code.Data.Storages;
-using Code.Data.Value.RangeFloat;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services.LoopbackAudio.Audio;
 using Code.Utils;
 using UnityEngine;
 
-namespace Code.Data.VFX
+namespace Code.Data
 {
     public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameUpdateListener,
         IGameStartListener

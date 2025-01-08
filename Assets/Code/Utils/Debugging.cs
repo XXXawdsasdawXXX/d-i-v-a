@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -49,6 +50,7 @@ namespace Code.Utils
             _params = _debugParams;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Log(string message, Type type = Type.None)
         {
             DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
@@ -66,6 +68,7 @@ namespace Code.Utils
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Log(object invoker, string message, Type type = Type.None)
         {
             DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
@@ -85,21 +88,25 @@ namespace Code.Utils
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void LogError(object obj, string message)
         {
             _colorLog($"{obj.GetType()} {message}", Color.red);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void LogError(string message)
         {
             _colorLog(message, Color.red);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void _colorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string _insertSpaceBeforeUppercase(string input)
         {
             StringBuilder result = new();
@@ -118,16 +125,16 @@ namespace Code.Utils
         }
 
 #if UNITY_EDITOR
-
         public void DisableAll()
         {
             foreach (DebugParam debugParam in _debugParams)
             {
                 debugParam.Active = false;
             }
-
+            
             EditorUtility.SetDirty(this);
         }
 #endif
+        
     }
 }
