@@ -9,13 +9,13 @@ namespace Code.BehaviorTree.Diva
             if (flag)
             {
                 _characterButton.SeriesOfClicksEvent += _onClickSeries;
-                _timeObserver.StartDayEvent += _rouse;
+                _timeObserver.OnDayStarted += _rouse;
                 _sleepState.OnChanged += _onChangedSleepStateValue;
             }
             else
             {
                 _characterButton.SeriesOfClicksEvent -= _onClickSeries;
-                _timeObserver.StartDayEvent -= _rouse;
+                _timeObserver.OnDayStarted -= _rouse;
                 _sleepState.OnChanged -= _onChangedSleepStateValue;
             }
         }

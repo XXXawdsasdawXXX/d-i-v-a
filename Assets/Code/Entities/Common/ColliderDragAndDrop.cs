@@ -10,9 +10,9 @@ using UnityEngine;
 namespace Code.Entities.Common
 {
     public class ColliderDragAndDrop : CommonComponent, IToggle,
-        IGameInitListener, 
-        IGameStartListener,
-        IGameUpdateListener
+        IInitListener, 
+        IStartListener,
+        IUpdateListener
     {
         [Header("Params")] 
         [SerializeField] protected bool _isActive;
@@ -34,7 +34,7 @@ namespace Code.Entities.Common
         public event Action<float> OnEndedDrag;
         
         
-        public void GameInit()
+        public void GameInitialize()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _positionService = Container.Instance.FindService<PositionService>();

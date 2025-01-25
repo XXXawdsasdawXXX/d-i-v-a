@@ -9,8 +9,8 @@ using Code.Utils;
 
 namespace Code.Entities.Diva
 {
-    public class DivaLiveStatesAnalytic : DivaComponent, IGameInitListener, IGameStartListener,
-        IGameExitListener
+    public class DivaLiveStatesAnalytic : DivaComponent, IInitListener, IStartListener,
+        IExitListener
     {
         private TimeObserver _timeObserver;
         private LiveStateStorage _storage;
@@ -18,7 +18,7 @@ namespace Code.Entities.Diva
 
         public event Action<ELiveStateKey> SwitchLowerStateKeyEvent;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
@@ -72,11 +72,11 @@ namespace Code.Entities.Diva
         {
             if (flag)
             {
-                _timeObserver.TickEvent += _checkLowerState;
+                _timeObserver.OnTicked += _checkLowerState;
             }
             else
             {
-                _timeObserver.TickEvent -= _checkLowerState;
+                _timeObserver.OnTicked -= _checkLowerState;
             }
         }
         

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class ColliderButton : CommonComponent, IGameInitListener, IGameUpdateListener
+    public class ColliderButton : CommonComponent, IInitListener, IUpdateListener
     {
         [Header("Services")]
         private PositionService _positionService;
@@ -26,7 +26,7 @@ namespace Code.Entities.Common
         public event Action<Vector2, float> OnPressedUp;
         public event Action<int> SeriesOfClicksEvent;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;
             _positionService = Container.Instance.FindService<PositionService>();

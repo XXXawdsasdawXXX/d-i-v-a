@@ -9,9 +9,9 @@ using UnityEngine;
 namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Sakura : CustomAction, IProgressWriter, 
-        IGameInitListener,  
-        IGameUpdateListener, 
-        IGameExitListener
+        IInitListener,  
+        IUpdateListener, 
+        IExitListener
     {
         private const float MAX_ACTIVE_MIN = 20;
         private const float NEEDED_ABSENCE_SEC = 60 * 60;
@@ -24,7 +24,7 @@ namespace Code.Infrastructure.CustomActions
 
         private ParticleSystemFacade[] _particleSystems;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             ParticlesStorage particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
             if (particleStorage.TryGetParticle(EParticleType.Sakura, out _particleSystems))
@@ -82,12 +82,12 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += OnInitTimeEvent;
+                _timeObserver.OnTimeInitialized += _onTimeInitialized;
                 _interaction_returnAfterAbsence.UserReturnEvent += TryStartAction;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= OnInitTimeEvent;
+                _timeObserver.OnTimeInitialized -= _onTimeInitialized;
                 _interaction_returnAfterAbsence.UserReturnEvent -= TryStartAction;
             }
         }
@@ -105,7 +105,7 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        private void OnInitTimeEvent(bool isFirstVisit)
+        private void _onTimeInitialized(bool isFirstVisit)
         {
             if (_isReviewed && isFirstVisit)
             {

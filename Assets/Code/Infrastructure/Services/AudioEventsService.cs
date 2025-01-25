@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
-    public class AudioEventsService : MonoBehaviour, IService, IGameInitListener
+    public class AudioEventsService : MonoBehaviour, IService, IInitListener
     {
         [SerializeField] private AudioSource _audioSource;
         private AudioConfig _config;
 
-        void IGameInitListener.GameInit()
+        void IInitListener.GameInitialize()
         {
             _config = Container.Instance.FindConfig<AudioConfig>();
         }

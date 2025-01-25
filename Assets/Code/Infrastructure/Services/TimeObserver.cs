@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
@@ -11,12 +10,12 @@ using UnityEngine.Networking;
 
 namespace Code.Infrastructure.Services
 {
-    public class TimeObserver : IService, IGameInitListener, IGameUpdateListener, IProgressWriter
+    public class TimeObserver : IService, IInitListener, IStartListener ,IUpdateListener, IProgressWriter
     {
-        public event Action TickEvent;
-        public event Action<bool> InitTimeEvent;
-        public event Action StartDayEvent;
-        public event Action StartNightEvent;
+        public event Action<bool> OnTimeInitialized;
+        public event Action OnTicked;
+        public event Action OnDayStarted;
+        public event Action OnNightStarted;
 
         [Header("Static value")] 
         private static readonly TimeSpan NightStart = new(22, 0, 0);
@@ -30,18 +29,22 @@ namespace Code.Infrastructure.Services
         private bool _isInit;
         private bool _isNight;
         private int _tickCount;
+
         private CoroutineRunner _coroutineRunner;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _tickRangedTime = Container.Instance.FindConfig<TimeConfig>().TickRangedTime;
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-
-            _tickDuration = _tickRangedTime.GetRandomValue();
-
+            
 #if DEBUGGING
             Debugging.Log(this, $"[Init] Current time {_currentTime}.", Debugging.Type.Time);
 #endif
+        }
+
+        public void GameStart()
+        {
+            _tickDuration = _tickRangedTime.GetRandomValue();
         }
 
         public void GameUpdate()
@@ -106,7 +109,7 @@ namespace Code.Infrastructure.Services
                 Debugging.Log(this, $"[_updateTickTime] Tick #{_tickCount}.", Debugging.Type.Time);
 #endif
 
-                TickEvent?.Invoke();
+                OnTicked?.Invoke();
 
                 _checkTimeOfDay();
             }
@@ -120,7 +123,7 @@ namespace Code.Infrastructure.Services
             {
                 _isNight = true;
 
-                StartNightEvent?.Invoke();
+                OnNightStarted?.Invoke();
 #if DEBUGGING
                 Debugging.Log(this, "[_checkTimeOfDay] Start night.", Debugging.Type.Time);
 #endif
@@ -129,7 +132,7 @@ namespace Code.Infrastructure.Services
             {
                 _isNight = false;
 
-                StartDayEvent?.Invoke();
+                OnDayStarted?.Invoke();
 #if DEBUGGING
                 Debugging.Log(this, "[_checkTimeOfDay] Start day.", Debugging.Type.Time);
 #endif
@@ -188,7 +191,7 @@ namespace Code.Infrastructure.Services
                 playerProgressData.CustomActions = new CustomActionsSavedData();
             }
 
-            InitTimeEvent?.Invoke(isFirstVisit);
+            OnTimeInitialized?.Invoke(isFirstVisit);
         }
 
         #region Editor

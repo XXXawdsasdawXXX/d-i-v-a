@@ -3,14 +3,14 @@ using Code.Infrastructure.Services;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public abstract class Reaction :  IGameInitListener
+    public abstract class Reaction :  IInitListener
     {
         private int _cooldownTickCount;
 
         private TickCounter _tickCounter;
         private bool _isReady = true;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             Init();
             GetCooldownMinutes();

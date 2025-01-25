@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Code.Infrastructure.CustomActions
 {
     //todo сейчас не активна, возможно стоит вырезать
-    public class CustomAction_Greeting : CustomAction, IProgressWriter, IGameInitListener, IGameExitListener, IToggle
+    public class CustomAction_Greeting : CustomAction, IProgressWriter, IInitListener, IExitListener, IToggle
     {
         [Header("Services")] 
         private AudioEventsService _audioEventsService;
@@ -26,7 +26,7 @@ namespace Code.Infrastructure.CustomActions
 
         private bool _isActive;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _audioEventsService = Container.Instance.FindService<AudioEventsService>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();

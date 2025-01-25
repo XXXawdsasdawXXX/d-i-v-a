@@ -7,8 +7,8 @@ using UnityEngine;
 namespace Code.Infrastructure.Services.Interactions
 {
     public class Interaction_ReturnAfterAbsence : InteractionObserver, 
-        IGameInitListener,
-        IGameUpdateListener
+        IInitListener,
+        IUpdateListener
     {
         private float _userStandStillSecond;
         private float _absenceSecond;
@@ -17,7 +17,7 @@ namespace Code.Infrastructure.Services.Interactions
 
         public event Action<float> UserReturnEvent;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _userStandStillSecond = Container.Instance.FindConfig<TimeConfig>().Duration.UserStandStillSecond;
         }

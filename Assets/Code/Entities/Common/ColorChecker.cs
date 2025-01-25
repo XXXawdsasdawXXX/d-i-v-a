@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class ColorChecker : CommonComponent, IWindowsSpecific, IGameInitListener, IGameUpdateListener
+    public class ColorChecker : CommonComponent, IWindowsSpecific, IInitListener, IUpdateListener
     {
         public event Action<Color> OnFoundedNewColor;
 
@@ -29,7 +29,7 @@ namespace Code.Entities.Common
         [SerializeField] private Transform _debugPoint;
 
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _colorAnalyzer = Container.Instance.FindGetter<DisplayColorGetter>().Get() as DisplayColor;
             _sensitivity = Container.Instance.FindConfig<SettingsConfig>().ColorCheckSensitivity;

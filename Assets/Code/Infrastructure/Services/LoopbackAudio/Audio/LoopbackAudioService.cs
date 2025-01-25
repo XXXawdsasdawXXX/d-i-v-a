@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
-    public class LoopbackAudioService : MonoBehaviour, IService, IGameInitListener, IWindowsSpecific
+    public class LoopbackAudioService : MonoBehaviour, IService, IInitListener, IWindowsSpecific
     {
         #region Constants
 
@@ -46,7 +46,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         #region Startup / Shutdown
 
-        public void GameInit()
+        public void GameInitialize()
         {
             SpectrumData = new float[SpectrumSize];
             PostScaledSpectrumData = new float[SpectrumSize];

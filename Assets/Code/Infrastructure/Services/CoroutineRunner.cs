@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
-    public class CoroutineRunner : MonoBehaviour, IService, IGameExitListener
+    public class CoroutineRunner : MonoBehaviour, IService, IExitListener
     {
         public void GameExit()
         {

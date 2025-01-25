@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Save
 {
-    public class SaveLoadService : IService, IGameLoadListener, IGameExitListener
+    public class SaveLoadService : IService, ILoadListener, IExitListener
     {
         private const string PROGRESS_KEY = "Progress";
         

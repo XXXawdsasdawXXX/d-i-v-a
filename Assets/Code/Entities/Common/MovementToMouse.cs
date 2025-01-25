@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Code.Entities.Common
 {
     public class MovementToMouse : CommonComponent, 
-        IGameInitListener, IGameUpdateListener, 
+        IInitListener, IUpdateListener, 
         IToggle
     {
         [Header("Static value")] 
@@ -25,7 +25,7 @@ namespace Code.Entities.Common
         private Transform _divaTransform;
 
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _positionService = Container.Instance.FindService<PositionService>();
             _divaTransform = Container.Instance.FindEntity<Diva.DivaEntity>().transform;

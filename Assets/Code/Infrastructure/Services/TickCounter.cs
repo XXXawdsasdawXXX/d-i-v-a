@@ -90,11 +90,11 @@ namespace Code.Infrastructure.Services
         {
             if (flag)
             {
-                _timeObserver.TickEvent += _onTick;
+                _timeObserver.OnTicked += _onTick;
             }
             else
             {
-                _timeObserver.TickEvent -= _onTick;
+                _timeObserver.OnTicked -= _onTick;
             }
         }
 

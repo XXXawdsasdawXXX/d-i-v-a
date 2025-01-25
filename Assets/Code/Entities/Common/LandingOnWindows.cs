@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IGameStartListener, IGameExitListener
+    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IStartListener, IExitListener
     {
         [Header("Components")] 
         [SerializeField] private Rigidbody2D _rigidbody2D;

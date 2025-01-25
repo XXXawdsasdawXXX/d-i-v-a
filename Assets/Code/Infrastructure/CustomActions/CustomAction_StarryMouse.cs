@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction, IGameInitListener, IGameStartListener, IGameUpdateListener,
-        IGameExitListener
+    public class CustomAction_StarryMouse : CustomAction, IInitListener, IStartListener, IUpdateListener,
+        IExitListener
     {
         [Header("Character")] 
         private ColliderButton _characterButton;
@@ -29,7 +29,7 @@ namespace Code.Infrastructure.CustomActions
         private Vector3 _lastPoint;
 
 
-        public void GameInit()
+        public void GameInitialize()
         {
             //static values
             ParticlesStorage particles = Container.Instance.FindStorage<ParticlesStorage>();

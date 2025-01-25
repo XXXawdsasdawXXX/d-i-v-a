@@ -5,7 +5,7 @@ using Code.Infrastructure.Services;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarrySky : CustomAction, IGameStartListener, IGameExitListener
+    public class CustomAction_StarrySky : CustomAction, IStartListener, IExitListener
     {
         private readonly TimeObserver _timeObserver;
         private readonly ParticleSystemFacade _skyStarsParticle;
@@ -39,13 +39,13 @@ namespace Code.Infrastructure.CustomActions
         {
             if (flag)
             {
-                _timeObserver.StartNightEvent += TryStartAction;
-                _timeObserver.StartDayEvent += StopAction;
+                _timeObserver.OnNightStarted += TryStartAction;
+                _timeObserver.OnDayStarted += StopAction;
             }
             else
             {
-                _timeObserver.StartNightEvent -= TryStartAction;
-                _timeObserver.StartDayEvent -= StopAction;
+                _timeObserver.OnNightStarted -= TryStartAction;
+                _timeObserver.OnDayStarted -= StopAction;
             }
         }
 

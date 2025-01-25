@@ -6,13 +6,13 @@ using Code.Utils;
 
 namespace Code.Infrastructure.Services
 {
-    public class LiveStateTimer : IService, IGameInitListener, IGameExitListener
+    public class LiveStateTimer : IService, IInitListener, IExitListener
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
         private ELiveStateKey _currentLowerLiveStateKey;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
@@ -29,11 +29,11 @@ namespace Code.Infrastructure.Services
         {
             if (flag)
             {
-                _timeObserver.TickEvent += _onTimeObserverTick;
+                _timeObserver.OnTicked += _onTimeObserverTick;
             }
             else
             {
-                _timeObserver.TickEvent -= _onTimeObserverTick;
+                _timeObserver.OnTicked -= _onTimeObserverTick;
             }
         }
 

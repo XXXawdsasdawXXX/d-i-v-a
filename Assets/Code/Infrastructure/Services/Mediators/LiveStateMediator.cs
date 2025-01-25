@@ -5,14 +5,14 @@ using Code.Infrastructure.GameLoop;
 
 namespace Code.Infrastructure.Services.Mediators
 {
-    public class LiveStateMediator : IMono, IGameInitListener, IGameStartListener, IGameExitListener
+    public class LiveStateMediator : IMono, IInitListener, IStartListener, IExitListener
     {
         private LiveStateStorage _liveStateStorage;
 
         private DivaItemsController _characterItemsController;
         private InteractionStorage _interactionStorage;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
 

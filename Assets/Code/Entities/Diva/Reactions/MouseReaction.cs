@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class MouseReaction : Reaction, IGameUpdateListener
+    public class MouseReaction : Reaction, IUpdateListener
     {
         private PositionService _positionService;
          

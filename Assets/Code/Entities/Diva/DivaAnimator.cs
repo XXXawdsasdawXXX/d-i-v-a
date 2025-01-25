@@ -8,7 +8,7 @@ using CoroutineRunner = Code.Infrastructure.Services.CoroutineRunner;
 
 namespace Code.Entities.Diva
 {
-    public class DivaAnimator : DivaComponent, IGameInitListener
+    public class DivaAnimator : DivaComponent, IInitListener
     {
         public event Action<EDivaAnimationMode> OnModeEntered;
      
@@ -34,7 +34,7 @@ namespace Code.Entities.Diva
         
         private CoroutineRunner _coroutineRunner;
         
-        public void GameInit()
+        public void GameInitialize()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
         }

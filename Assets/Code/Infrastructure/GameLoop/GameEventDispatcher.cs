@@ -15,11 +15,11 @@ namespace Code.Infrastructure.GameLoop
       
         private UniWindowController _controller;
 
-        private readonly List<IGameInitListener> _initListeners = new();
-        private readonly List<IGameLoadListener> _loadListeners = new();
-        private readonly List<IGameStartListener> _startListeners = new();
-        private readonly List<IGameUpdateListener> _tickListeners = new();
-        private readonly List<IGameExitListener> _exitListeners = new();
+        private readonly List<IInitListener> _initListeners = new();
+        private readonly List<ILoadListener> _loadListeners = new();
+        private readonly List<IStartListener> _startListeners = new();
+        private readonly List<IUpdateListener> _tickListeners = new();
+        private readonly List<IExitListener> _exitListeners = new();
 
         #region runtime
 
@@ -75,17 +75,17 @@ namespace Code.Infrastructure.GameLoop
 
         public void InitializeRuntimeListener(IGameListeners listener)
         {
-            if (listener is IGameInitListener initListener) initListener.GameInit();
-            if (listener is IGameLoadListener loadListener) loadListener.GameLoad();
-            if (listener is IGameStartListener startListener) startListener.GameStart();
-            if (listener is IGameUpdateListener tickListener) _tickListeners.Add(tickListener);
-            if (listener is IGameExitListener exitListener) _exitListeners.Add(exitListener);
+            if (listener is IInitListener initListener) initListener.GameInitialize();
+            if (listener is ILoadListener loadListener) loadListener.GameLoad();
+            if (listener is IStartListener startListener) startListener.GameStart();
+            if (listener is IUpdateListener tickListener) _tickListeners.Add(tickListener);
+            if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
         }
 
         public void RemoveRuntimeListener(IGameListeners listener)
         {
-            if (listener is IGameUpdateListener tickListener) _tickListeners.Remove(tickListener);
-            if (listener is IGameExitListener exitListener) _exitListeners.Remove(exitListener);
+            if (listener is IUpdateListener tickListener) _tickListeners.Remove(tickListener);
+            if (listener is IExitListener exitListener) _exitListeners.Remove(exitListener);
         }
 
         private void _onWindowControllerStateChanged(UniWindowController.WindowStateEventType type)
@@ -119,30 +119,30 @@ namespace Code.Infrastructure.GameLoop
 
             foreach (IGameListeners listener in gameListeners)
             {
-                if (listener is IGameInitListener initListener)
+                if (listener is IInitListener initListener)
                     _initListeners.Add(initListener);
-                if (listener is IGameLoadListener loadListener)
+                if (listener is ILoadListener loadListener)
                     _loadListeners.Add(loadListener);
-                if (listener is IGameStartListener startListener)
+                if (listener is IStartListener startListener)
                     _startListeners.Add(startListener);
-                if (listener is IGameUpdateListener tickListener)
+                if (listener is IUpdateListener tickListener)
                     _tickListeners.Add(tickListener);
-                if (listener is IGameExitListener exitListener)
+                if (listener is IExitListener exitListener)
                     _exitListeners.Add(exitListener);
             }
         }
 
         private void _notifyGameInit()
         {
-            foreach (IGameInitListener listener in _initListeners)
+            foreach (IInitListener listener in _initListeners)
             {
-                listener.GameInit();
+                listener.GameInitialize();
             }
         }
 
         private void _notifyGameLoad()
         {
-            foreach (IGameLoadListener listener in _loadListeners)
+            foreach (ILoadListener listener in _loadListeners)
             {
                 listener.GameLoad();
             }
@@ -150,7 +150,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void _notifyGameStart()
         {
-            foreach (IGameStartListener listener in _startListeners)
+            foreach (IStartListener listener in _startListeners)
             {
                 listener.GameStart();
             }
@@ -158,7 +158,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void _notifyGameUpdate()
         {
-            foreach (IGameUpdateListener listener in _tickListeners)
+            foreach (IUpdateListener listener in _tickListeners)
             {
                 listener.GameUpdate();
             }
@@ -166,7 +166,7 @@ namespace Code.Infrastructure.GameLoop
 
         private void _notifyGameExit()
         {
-            foreach (IGameExitListener listener in _exitListeners)
+            foreach (IExitListener listener in _exitListeners)
             {
                 listener.GameExit();
             }

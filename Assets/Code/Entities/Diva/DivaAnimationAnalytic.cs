@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Entities.Diva
 {
-    public class DivaAnimationAnalytic : DivaComponent, IGameInitListener, IGameExitListener
+    public class DivaAnimationAnalytic : DivaComponent, IInitListener, IExitListener
     {
         public event Action<EDivaAnimationMode> OnEnteredMode;
         public event Action<EDivaAnimationState> OnSwitchState;
@@ -21,7 +21,7 @@ namespace Code.Entities.Diva
         [SerializeField] private DivaAnimator _divaAnimator;
         [SerializeField] private DivaAnimationStateObserver _divaAnimationStateObserver;
         
-        public void GameInit()
+        public void GameInitialize()
         {
             _subscribeToEvents(true);
         }

@@ -6,22 +6,23 @@ using UnityEngine;
 
 namespace Code.BehaviorTree.Hand
 {
-    public class BehaviourRunner_Hand : MonoBehaviour, IService, IGameInitListener, IGameUpdateListener,
-        IGameExitListener
+    public class BehaviourRunner_Hand : MonoBehaviour, IService, IInitListener, IUpdateListener, IExitListener
     {
+        public bool IsInitBehaviorTree { get; private set; }
+        
         [SerializeField] private bool _isRun;
         [SerializeField] private float _runDelaySeconds = 5;
+  
         private BaseNode _rootNode;
         private TimeObserver _timeObserver;
         private CoroutineRunner _coroutineRunner;
 
-        public bool IsInitBehaviorTree { get; private set; }
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            SubscribeToEvents(true);
+            _subscribeToEvents(true);
         }
 
         public void GameUpdate()
@@ -39,22 +40,22 @@ namespace Code.BehaviorTree.Hand
 
         public void GameExit()
         {
-            SubscribeToEvents(false);
+            _subscribeToEvents(false);
         }
 
-        private void SubscribeToEvents(bool flag)
+        private void _subscribeToEvents(bool flag)
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += TimeObserverOnInitTimeEvent;
+                _timeObserver.OnTimeInitialized += _onTimeInitialized;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= TimeObserverOnInitTimeEvent;
+                _timeObserver.OnTimeInitialized -= _onTimeInitialized;
             }
         }
 
-        private void TimeObserverOnInitTimeEvent(bool obj)
+        private void _onTimeInitialized(bool obj)
         {
             _coroutineRunner.StartActionWithDelay(() =>
             {

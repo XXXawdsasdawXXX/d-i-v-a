@@ -4,7 +4,7 @@ using Code.Infrastructure.GameLoop;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class BadInteractionReaction: Reaction, IGameStartListener, IGameExitListener
+    public class BadInteractionReaction: Reaction, IStartListener, IExitListener
     {
         private DivaMaterialAdapter _characterMaterialAdapter;
         private InteractionStorage _interactionStorage;

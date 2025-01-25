@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace Code.Data
 {
-    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IGameInitListener, IGameUpdateListener,
-        IGameStartListener
+    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IInitListener, IUpdateListener,
+        IStartListener
     {
         private enum LoopBackAudioParamType
         {
@@ -44,7 +44,7 @@ namespace Code.Data
             [MinMaxRangeFloat(0, 50)] public RangedFloat Range;
         }
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
         }

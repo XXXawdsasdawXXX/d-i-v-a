@@ -10,9 +10,9 @@ using UnityEngine;
 namespace Code.Infrastructure.CustomActions
 {
     public class CustomAction_Grass : CustomAction, 
-        IGameInitListener, 
-        IGameStartListener, 
-        IGameExitListener
+        IInitListener, 
+        IStartListener, 
+        IExitListener
     {
         [Header("d i v a")] 
         private Transform _divaTransform;
@@ -35,7 +35,7 @@ namespace Code.Infrastructure.CustomActions
 
         public override ECustomCutsceneActionType GetActionType() => ECustomCutsceneActionType.Grass;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaTransform = diva.transform;

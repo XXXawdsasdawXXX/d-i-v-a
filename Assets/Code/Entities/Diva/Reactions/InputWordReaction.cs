@@ -6,7 +6,7 @@ using Code.Infrastructure.Services.Interactions;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class InputWordReaction : Reaction, IGameStartListener, IGameExitListener
+    public class InputWordReaction : Reaction, IStartListener, IExitListener
     {
         private Interaction_KeyDown _interactionKeyDown;
         private AudioEventsService _audioEventServices;

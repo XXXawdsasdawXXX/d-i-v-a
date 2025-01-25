@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.BehaviorTree.Diva
 {
-    public class DivaCondition : IService, IGameInitListener
+    public class DivaCondition : IService, IInitListener
     {
         [Header("D I V A")]
         private DivaLiveStatesAnalytic _statesAnalytic;
@@ -24,7 +24,7 @@ namespace Code.BehaviorTree.Diva
         private int _stoppingTicksToMaximumSleepValues;
         private LiveStateStorage _liveStateStorage;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             //d i v a---------------------------------------------------------------------------------------------------
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();

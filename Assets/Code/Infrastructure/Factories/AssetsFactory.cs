@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Factories
 {
-    public class AssetsFactory : IService, IGameInitListener
+    public class AssetsFactory : IService, IInitListener
     {
         private VFXConfig _vfxConfig;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _vfxConfig = Container.Instance.FindConfig<VFXConfig>();
         }
@@ -32,7 +32,7 @@ namespace Code.Infrastructure.Factories
         {
             ParticleSystemFacade particle = Object.Instantiate(prefab, position, prefab.transform.rotation);
             particle.transform.SetParent(root);
-            particle.GameInit();
+            particle.GameInitialize();
             if (!particle.gameObject.activeSelf)
             {
                 particle.gameObject.SetActive(true);

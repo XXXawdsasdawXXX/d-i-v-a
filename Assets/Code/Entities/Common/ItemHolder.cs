@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class ItemHolder : CommonComponent, IGameUpdateListener
+    public class ItemHolder : CommonComponent, IUpdateListener
     {
         [Header("Static value")] 
         [SerializeField] private Vector2 _offset;

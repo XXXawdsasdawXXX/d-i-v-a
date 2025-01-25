@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class PositionInitializer : CommonComponent, IGameInitListener, IGameStartListener
+    public class PositionInitializer : CommonComponent, IInitListener, IStartListener
     {
         [SerializeField] private EPointAnchor _pointAnchor;
         [SerializeField] private Vector2 _offset;
@@ -15,7 +15,7 @@ namespace Code.Entities.Common
 
         private PositionService _positionService;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _positionService = Container.Instance.FindService<PositionService>();
         }

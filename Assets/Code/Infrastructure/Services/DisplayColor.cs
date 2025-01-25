@@ -6,7 +6,7 @@ using uWindowCapture;
 
 namespace Code.Infrastructure.Services
 {
-    public class DisplayColor : MonoBehaviour, IWindowsSpecific, IGameInitListener
+    public class DisplayColor : MonoBehaviour, IWindowsSpecific, IInitListener
     {
         [SerializeField] private UwcWindowTexture _uwcTexture;
         [SerializeField] private int _w = 1;
@@ -17,7 +17,7 @@ namespace Code.Infrastructure.Services
 
         private PositionService _positionService;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _material = GetComponent<Renderer>().material;
             _positionService = Container.Instance.FindService<PositionService>();

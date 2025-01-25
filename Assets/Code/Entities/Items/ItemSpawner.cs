@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Code.Entities.Items
 {
-    public class ItemSpawner: MonoBehaviour, IService, IGameInitListener
+    public class ItemSpawner: MonoBehaviour, IService, IInitListener
     {
         [SerializeField] private MonoPool<ItemEntity> _monoPool;
         
         [Header("Services")]
         private ItemDataService _itemDataService;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _itemDataService = Container.Instance.FindService<ItemDataService>();
         }

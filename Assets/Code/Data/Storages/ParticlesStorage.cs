@@ -7,14 +7,14 @@ using UnityEngine;
 
 namespace Code.Data
 {
-    public class ParticlesStorage : MonoBehaviour, IStorage, IGameInitListener
+    public class ParticlesStorage : MonoBehaviour, IStorage, IInitListener
     {
         [SerializeField] private List<ParticleSystemFacade> _particles;
 
         private VFXConfig _vfxConfig;
         private AssetsFactory _factory;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _factory = Container.Instance.FindService<AssetsFactory>();
         }

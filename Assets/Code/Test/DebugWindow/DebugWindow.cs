@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class DebugWindow : MonoBehaviour, IGameStartListener, IGameUpdateListener, IGameExitListener
+    public class DebugWindow : MonoBehaviour, IStartListener, IUpdateListener, IExitListener
     {
         [SerializeField] private GameObject _body;
 

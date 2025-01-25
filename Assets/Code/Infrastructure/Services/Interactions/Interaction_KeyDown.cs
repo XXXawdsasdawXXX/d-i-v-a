@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IGameUpdateListener
+    public class Interaction_KeyDown : InteractionObserver, IUpdateListener
     {
         public event Action<EInputWord> OnWorldEntered;
         

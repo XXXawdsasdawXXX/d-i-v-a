@@ -4,28 +4,28 @@
     {
     }
 
-    internal interface IGameInitListener : IGameListeners
+    internal interface IInitListener : IGameListeners
     {
-        void GameInit();
+        void GameInitialize();
     }
 
-    public interface IGameLoadListener : IGameListeners
+    public interface ILoadListener : IGameListeners
     {
         void GameLoad();
     }
 
-    public interface IGameStartListener : IGameListeners
+    public interface IStartListener : IGameListeners
     {
         void GameStart();
     }
 
-    public interface IGameUpdateListener : IGameListeners
+    public interface IUpdateListener : IGameListeners
     {
         void GameUpdate();
     }
 
 
-    public interface IGameExitListener : IGameListeners
+    public interface IExitListener : IGameListeners
     {
         void GameExit();
     }

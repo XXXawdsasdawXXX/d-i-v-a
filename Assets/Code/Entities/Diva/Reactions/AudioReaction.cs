@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class AudioReaction : Reaction, IGameExitListener
+    public class AudioReaction : Reaction, IExitListener
     {
         [Header("Components")]
         private DivaAnimator _divaAnimator;

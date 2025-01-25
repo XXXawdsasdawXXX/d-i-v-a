@@ -8,9 +8,9 @@ using Code.Utils;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IGameUpdateListener,
-        IGameStartListener,
-        IGameInitListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IUpdateListener,
+        IStartListener,
+        IInitListener
     {
         protected ParticleSystemFacade[] _particlesSystems;
         protected DivaModeAdapter _characterModeAdapter;
@@ -19,7 +19,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         private readonly List<AudioParticleModule> _audioParticles = new();
         private ParticlesStorage _particleStorage;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
         }

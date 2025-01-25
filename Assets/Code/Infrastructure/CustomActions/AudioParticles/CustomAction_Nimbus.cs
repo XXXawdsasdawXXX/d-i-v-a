@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public class CustomAction_Nimbus : CustomAction_AudioParticle, IGameExitListener
+    public class CustomAction_Nimbus : CustomAction_AudioParticle, IExitListener
     {
         private DivaAnimationAnalytic _animationAnalytic;
         private DivaCondition _divaCondition;

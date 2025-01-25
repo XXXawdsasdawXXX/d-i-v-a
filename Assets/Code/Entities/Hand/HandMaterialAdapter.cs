@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Entities.Hand
 {
-    public class HandMaterialAdapter : MaterialAdapter, IGameInitListener, IGameExitListener
+    public class HandMaterialAdapter : MaterialAdapter, IInitListener, IExitListener
     {
         [Header("Components")] [SerializeField]
         private SpriteRenderer _spriteRenderer;
@@ -14,7 +14,7 @@ namespace Code.Entities.Hand
         [Header("Static values")] private HandConfig _handConfig;
         private InteractionStorage _interactionStorage;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();

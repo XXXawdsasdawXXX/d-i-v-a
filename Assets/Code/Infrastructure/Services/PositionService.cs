@@ -10,7 +10,7 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Services
 {
-    public class PositionService : MonoBehaviour, IService, IGameInitListener
+    public class PositionService : MonoBehaviour, IService, IInitListener
     {
         [SerializeField] private RectTransform _canvas;
 
@@ -18,7 +18,7 @@ namespace Code.Infrastructure.Services
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _camera = Container.Instance.FindGetter<CameraGetter>().Get() as Camera;
             _perfectCamera = Container.Instance.FindGetter<PixelPerfectGetter>().Get() as PixelPerfectCamera;

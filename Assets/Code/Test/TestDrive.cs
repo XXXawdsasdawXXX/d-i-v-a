@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class TestDrive : MonoBehaviour, IGameStartListener
+    public class TestDrive : MonoBehaviour, IStartListener
     {
         [SerializeField] private float _timeScale;
 

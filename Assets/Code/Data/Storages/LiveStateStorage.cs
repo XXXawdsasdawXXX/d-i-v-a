@@ -8,7 +8,7 @@ using Code.Utils;
 
 namespace Code.Data
 {
-    public class LiveStateStorage : IStorage, IGameInitListener, IProgressWriter
+    public class LiveStateStorage : IStorage, IInitListener, IProgressWriter
     {
         public event Action OnInit;
 
@@ -17,7 +17,7 @@ namespace Code.Data
         private LiveStateConfig _liveStateConfig;
       
         
-        public void GameInit()
+        public void GameInitialize()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
         }

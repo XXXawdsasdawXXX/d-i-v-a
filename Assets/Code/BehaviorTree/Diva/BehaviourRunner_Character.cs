@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Code.BehaviorTree.Diva
 {
-    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IGameInitListener, IGameUpdateListener,
-        IGameExitListener
+    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IInitListener, IUpdateListener,
+        IExitListener
     {
         [SerializeField] private bool _isRun;
 
@@ -16,7 +16,7 @@ namespace Code.BehaviorTree.Diva
 
         public bool IsInitBehaviorTree { get; private set; }
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             SubscribeToEvents(true);
@@ -45,15 +45,15 @@ namespace Code.BehaviorTree.Diva
         {
             if (flag)
             {
-                _timeObserver.InitTimeEvent += TimeObserverOnInitTimeEvent;
+                _timeObserver.OnTimeInitialized += _onTimeInitialized;
             }
             else
             {
-                _timeObserver.InitTimeEvent -= TimeObserverOnInitTimeEvent;
+                _timeObserver.OnTimeInitialized -= _onTimeInitialized;
             }
         }
 
-        private void TimeObserverOnInitTimeEvent(bool obj)
+        private void _onTimeInitialized(bool obj)
         {
             _rootNode = new BehaviourSelector_Character();
             IsInitBehaviorTree = true;

@@ -5,10 +5,12 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IGameInitListener, IGameExitListener
+    [Preserve]
+    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IInitListener, IExitListener
     {
         [Header("Observer components")] 
         private ColliderButton _characterCollisionButton;
@@ -16,8 +18,7 @@ namespace Code.Infrastructure.Services.Interactions
 
         [Header("Static data")] 
         private InteractionStorage _interactionStorage;
-        
-        
+
         public InteractionObserver_ClickOnCharacter()
         {
 #if DEBUGGING
@@ -25,7 +26,7 @@ namespace Code.Infrastructure.Services.Interactions
 #endif
         }
 
-        public void GameInit()
+        public void GameInitialize()
         {
             //Observer components
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
@@ -70,6 +71,7 @@ namespace Code.Infrastructure.Services.Interactions
                 Debugging.Log(this, "[_onClickSeries] Click good series.", Debugging.Type.Interaction);
 #endif
                 _interactionStorage.Add(EInteractionType.Good);
+            
                 InvokeInteractionEvent();
             }
             else if (click < 3)
@@ -97,6 +99,7 @@ namespace Code.Infrastructure.Services.Interactions
                 Debugging.Log(this, "[_onClickSeries] Click bad series.", Debugging.Type.Interaction);
 #endif
                 _interactionStorage.Add(EInteractionType.Bad);
+            
                 InvokeInteractionEvent();
             }
         }

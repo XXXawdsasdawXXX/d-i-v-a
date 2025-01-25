@@ -8,11 +8,11 @@ using Random = UnityEngine.Random;
 
 namespace Code.Entities.Items
 {
-    public class ItemDataService : IService, IGameInitListener
+    public class ItemDataService : IService, IInitListener
     {
         private ItemData[] _itemsData;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             _itemsData = Container.Instance.FindConfig<ItemsConfig>().Items;
         }

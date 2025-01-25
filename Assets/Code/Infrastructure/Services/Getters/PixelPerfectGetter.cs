@@ -5,11 +5,11 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Services.Getters
 {
-    public class PixelPerfectGetter : MonoBehaviour, IGetter, IGameInitListener
+    public class PixelPerfectGetter : MonoBehaviour, IGetter, IInitListener
     {
         [SerializeField] private PixelPerfectCamera _pixelPerfect;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             DisplayInfo display = Screen.mainWindowDisplayInfo;
             if (display.height > _pixelPerfect.refResolutionY || display.width > _pixelPerfect.refResolutionX)

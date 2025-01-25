@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class DebugCommands : MonoBehaviour,  IGameStartListener
+    public class DebugCommands : MonoBehaviour,  IStartListener
     {
         public void GameStart()
         {

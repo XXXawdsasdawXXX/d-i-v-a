@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Code.Entities.Diva
 {
     public class DivaItemsController : DivaComponent,
-        IGameInitListener
+        IInitListener
     {
         [Header("Components")] 
         private DivaAnimationAnalytic _animationAnalytic;
@@ -19,7 +19,7 @@ namespace Code.Entities.Diva
         private Coroutine _coroutine;
         public event Action<LiveStatePercentageValue[]> OnItemUsed;
 
-        public void GameInit()
+        public void GameInitialize()
         {
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
