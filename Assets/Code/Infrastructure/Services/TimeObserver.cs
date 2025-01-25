@@ -141,13 +141,13 @@ namespace Code.Infrastructure.Services
 
         private IEnumerator _initCurrentTime(PlayerProgressData playerProgressData)
         {
-            UnityWebRequest myHttpWebRequest = UnityWebRequest.Get("https://www.google.com");
+            UnityWebRequest webRequest = UnityWebRequest.Get("https://www.google.com");
 
-            if (myHttpWebRequest != null)
+            if (webRequest is { result: UnityWebRequest.Result.Success })
             {
-                yield return myHttpWebRequest.SendWebRequest();
+                yield return webRequest.SendWebRequest();
 
-                string netTime = myHttpWebRequest.GetResponseHeader("date");
+                string netTime = webRequest.GetResponseHeader("date");
 #if DEBUGGING
                 Debugging.Log(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Debugging.Type.Time);
 #endif
