@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Entities.Common;
-using Code.Infrastructure.Reactions;
+using Code.Entities.Diva.Reactions;
 using UnityEditor;
 using UnityEngine;
 

@@ -3,7 +3,7 @@ using System.Linq;
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Getters;
+using Code.Infrastructure.Services.Getters;
 using Code.Utils;
 using UnityEngine;
 using UnityEngine.U2D;

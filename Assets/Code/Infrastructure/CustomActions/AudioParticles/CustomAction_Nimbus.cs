@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Linq;
+using Code.BehaviorTree.Diva;
 using Code.Data;
 using Code.Entities.Diva;
-using Code.Infrastructure.BehaviorTree;
-using Code.Infrastructure.BehaviorTree.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;

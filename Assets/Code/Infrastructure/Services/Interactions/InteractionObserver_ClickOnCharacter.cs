@@ -16,7 +16,7 @@ namespace Code.Infrastructure.Services.Interactions
 
         [Header("Static data")] 
         private InteractionStorage _interactionStorage;
-
+        
         
         public InteractionObserver_ClickOnCharacter()
         {

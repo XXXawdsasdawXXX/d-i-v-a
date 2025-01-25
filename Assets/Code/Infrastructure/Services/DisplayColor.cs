@@ -1,11 +1,10 @@
 ﻿using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Services;
 using UnityEngine;
 using uWindowCapture;
 
-namespace Code
+namespace Code.Infrastructure.Services
 {
     public class DisplayColor : MonoBehaviour, IWindowsSpecific, IGameInitListener
     {

@@ -4,26 +4,102 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="debug directive">
+    <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/ItemHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/ItemHolder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColorChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColorChecker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Editor/DivaEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Editor/DivaEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Hand/HandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Hand/HandEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Items/ItemEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Items/ItemEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Root.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Root.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/CharacterCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/DivaCondition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/CharacterCondition.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/DivaCondition.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_HideHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_HideHand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_RandomSequence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_RandomSequence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_RandomSequence.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_RandomSequence.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Root.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_Root.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Root.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_Root.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Sequence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_Sequence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_Sequence.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/BaseNode_Sequence.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/SubNode_WaitForTicks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/SubNode_WaitForTicks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/SubNode_WaitForTicks.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BaseNodes/SubNode_WaitForTicks.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BehaviourTreeLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BehaviourTreeLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/BehaviourTreeLoader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/BehaviourTreeLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourRunner_Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/BehaviourRunner_Character.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourRunner_Character.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/BehaviourRunner_Character.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourSelector_Character.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/BehaviourSelector_Character.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourSelector_Character.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/BehaviourSelector_Character.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/DivaCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/DivaCondition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/DivaCondition.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/DivaCondition.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_HideHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_HideHand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_HideHand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_HideHand.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_LookToMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_LookToMouse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_LookToMouse.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_LookToMouse.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourRunner_Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourRunner_Hand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourRunner_Hand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourRunner_Hand.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourSelector_Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourSelector_Hand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourSelector_Hand.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourSelector_Hand.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/IBehaviourCallback.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/IBehaviourCallback.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/IBehaviourCallback.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/IBehaviourCallback.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/IProgressWriterNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/IProgressWriterNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/BehaviorTree/IProgressWriterNode.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/IProgressWriterNode.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/TimeObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/TimeObserver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Objects/Hand.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Objects/Hand.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/win.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/win.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/DI/Container.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/DI/Container.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/CameraGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraGetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/CameraGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraGetter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/DisplayColorGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorGetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/DisplayColorGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorGetter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/PixelPerfectGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectGetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Getters/PixelPerfectGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectGetter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Mediators.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Mediators.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Mediators/LiveStateMediator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Mediators/LiveStateMediator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Mediators/LiveStateMediator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Mediators/LiveStateMediator.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/AudioReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/AudioReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/AudioReaction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/AudioReaction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/BadInteractionReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/BadInteractionReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/BadInteractionReaction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/BadInteractionReaction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/InputWordReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/InputWordReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/InputWordReaction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/InputWordReaction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/MouseReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/MouseReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/MouseReaction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/MouseReaction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/Reaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/Reaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Reactions/Reaction.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/Reaction.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/DisplayColor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/DisplayColor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/InteractionObserver_ClickOnCharacter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Interactions/InteractionObserver_ClickOnCharacter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/LiveStateTimer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/LiveStateTimer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/PositionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/PositionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/TestCameraColor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/TestCameraColor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,49 +110,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/4d/385e6247/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da87c2565b1d49249c12d4e941cfd109fe00/38/b587587f/Microphone.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d303c2bf72cd4cec95665b89c457d265d2b8ef3ed6da17cd4f85587c2f9de7/System.Linq.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Data/Configs/Audio/SimpleAudioEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Data/Storages/InteractionStorage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Data/Storages/LiveStateStorage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Data/VFX/AudioParticleModule.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Common/ColliderButton.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Common/CollisionObserver.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Common/ColorChecker.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Common/LandingOnWindows.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Diva/DivaAnimationStateObserver.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Diva/DivaAnimator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaEntity.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Diva/DivaModeAdapter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Grass/GrassEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Hand/HandAnimationStateObserver.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Items/ItemDataService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Entities/Items/ItemEntity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Entities/Items/ItemEntity.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/BaseNodes/BaseNode_RandomSequence.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat_Observer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Sleep/BehaviгorNode_Sleep_Observer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand_Observer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/BehaviourSelector_Character.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/CharacterCondition.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_HideHand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_LookToMouse.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToItems.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Diva/Sub/SubNode_ReactionToVoice.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitCharacterWakeUp.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/BehaviorTree/Hand/BehaviourSelector_Hand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/GameLoop/GameEventDispatcher.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Pools/MonoPool.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Save/SaveLoadService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Services/Interactions/InteractionObserver_ClickOnCharacter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Services/Interactions/Interaction_KeyDown.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Code/Infrastructure/Services/TimeObserver.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/user/Documents/GitHub/d-i-v-a/Assets/Prefabs/SceneComponents/---OBJECTS---.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/FilePanel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/UniWinCore.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/UniWindowController.cs" root0="SKIP_HIGHLIGHTING" />
@@ -92,20 +127,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "RiderCSharpLiveTemplatesSettingsId",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;RiderCSharpLiveTemplatesSettingsId&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Standalone Player.Standalone Player">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../../d i v a\d i v a.exe" />
@@ -165,7 +200,16 @@
       <workItem from="1736120505138" duration="3184000" />
       <workItem from="1736175535465" duration="572000" />
       <workItem from="1736254506121" duration="12423000" />
-      <workItem from="1736326534295" duration="12464000" />
+      <workItem from="1736326534295" duration="14041000" />
+      <workItem from="1736371268553" duration="553000" />
+      <workItem from="1736781243806" duration="56000" />
+      <workItem from="1736781669474" duration="980000" />
+      <workItem from="1736839550558" duration="596000" />
+      <workItem from="1737319764831" duration="1114000" />
+      <workItem from="1737360150090" duration="686000" />
+      <workItem from="1737557291734" duration="1153000" />
+      <workItem from="1737722960657" duration="472000" />
+      <workItem from="1737790916437" duration="610000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring">
       <created>1736025986199</created>
@@ -300,7 +344,14 @@
       <option name="project" value="LOCAL" />
       <updated>1736339563543</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="#32 seat behavior">
+      <created>1736342683921</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1736342683921</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +384,7 @@
     <MESSAGE value="#32 seat hide hand animation" />
     <MESSAGE value="refactoring" />
     <MESSAGE value="debug directive" />
-    <option name="LAST_COMMIT_MESSAGE" value="debug directive" />
+    <MESSAGE value="#32 seat behavior" />
+    <option name="LAST_COMMIT_MESSAGE" value="#32 seat behavior" />
   </component>
 </project>
