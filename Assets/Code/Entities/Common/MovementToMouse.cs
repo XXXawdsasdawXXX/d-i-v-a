@@ -3,13 +3,12 @@ using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class MovementToMouse : CommonComponent, 
-        IInitListener, IUpdateListener, 
-        IToggle
+    public class MovementToMouse : CommonComponent, IInitListener, IUpdateListener, IToggle
     {
         [Header("Static value")] 
         [SerializeField] private float _speed;
@@ -23,12 +22,13 @@ namespace Code.Entities.Common
         [Header("Service")] 
         private PositionService _positionService;
         private Transform _divaTransform;
-
-
-        public void GameInitialize()
+        
+        public UniTask GameInitialize()
         {
             _positionService = Container.Instance.FindService<PositionService>();
             _divaTransform = Container.Instance.FindEntity<Diva.DivaEntity>().transform;
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()

@@ -3,6 +3,7 @@ using System.Linq;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Data
@@ -12,38 +13,43 @@ namespace Code.Data
         [SerializeField] private List<ParticleSystemFacade> _particles;
 
         private VFXConfig _vfxConfig;
-        private AssetsFactory _factory;
+        private ParticleFactory _factory;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
-            _factory = Container.Instance.FindService<AssetsFactory>();
+            _factory = Container.Instance.FindService<ParticleFactory>();
+            
+            return UniTask.CompletedTask;
         }
 
-        public bool TryGetParticle(EParticleType particleType, out ParticleSystemFacade[] particleSystem)
+        public bool TryGetParticle(EParticleType particleType, out ParticleSystemFacade[] particles)
         {
-            particleSystem = _particles.Where(p => p.Type == particleType).ToArray();
+            particles = _particles.Where(p => p.Type == particleType).ToArray();
 
-            if (particleSystem.Length == 0)
+            if (particles.Length == 0)
             {
-                particleSystem = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray();
-                _particles.AddRange(particleSystem);
+                particles = _factory.CreateParticles(particleType, transform, Vector3.zero).ToArray();
+             
+                _particles.AddRange(particles);
             }
 
-            return particleSystem != null && particleSystem.Length > 0;
+            return particles != null && particles.Length > 0;
         }
 
-        [ContextMenu("Init")]
-        public void InitSceneParticles()
+        [ContextMenu("InitializeSceneParticles")]
+        public void InitializeSceneParticles()
         {
             ParticleSystemFacade[] allParticles = GetComponentsInChildren<ParticleSystemFacade>();
+            
             _particles.Clear();
+            
             _particles = allParticles.ToList();
         }
 
-        public bool TryGetParticles(IEnumerable<EParticleType> particleTypes,
-            out ParticleSystemFacade[] particlesSystems)
+        public bool TryGetParticles(IEnumerable<EParticleType> particleTypes, out ParticleSystemFacade[] particles)
         {
             List<ParticleSystemFacade> list = new();
+            
             foreach (EParticleType particleType in particleTypes)
             {
                 if (TryGetParticle(particleType, out ParticleSystemFacade[] typedParticles))
@@ -52,8 +58,9 @@ namespace Code.Data
                 }
             }
 
-            particlesSystems = list.ToArray();
-            return particlesSystems.Length > 0;
+            particles = list.ToArray();
+            
+            return particles.Length > 0;
         }
     }
 }

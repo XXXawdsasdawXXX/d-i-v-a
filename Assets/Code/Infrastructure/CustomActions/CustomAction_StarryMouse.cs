@@ -5,12 +5,14 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarryMouse : CustomAction, IInitListener, IStartListener, IUpdateListener,
-        IExitListener
+    [Preserve]
+    public class CustomAction_StarryMouse : CustomAction, ISubscriber, IInitListener, IStartListener, IUpdateListener 
     {
         [Header("Character")] 
         private ColliderButton _characterButton;
@@ -29,7 +31,7 @@ namespace Code.Infrastructure.CustomActions
         private Vector3 _lastPoint;
 
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             //static values
             ParticlesStorage particles = Container.Instance.FindStorage<ParticlesStorage>();
@@ -38,26 +40,32 @@ namespace Code.Infrastructure.CustomActions
             {
                 _particle = particlesFacades[0];
                 _duration = Container.Instance.FindConfig<TimeConfig>().Duration.StarryMouse;
-                //character
+               
+                //diva
                 DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
                 _characterButton = diva.FindCommonComponent<ColliderButton>();
                 _divaAnimationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
+                
                 //services 
                 _positionService = Container.Instance.FindService<PositionService>();
                 _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-
-                _subscribeToEvents(true);
             }
+            
+            return UniTask.CompletedTask;
         }
 
-        public void GameStart()
+        public UniTask Subscribe()
+        {
+            _characterButton.OnPressedUp += _onPressedUp;
+            
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
         {
             _particle.Off();
-        }
-
-        public void GameExit()
-        {
-            _subscribeToEvents(false);
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()
@@ -65,6 +73,16 @@ namespace Code.Infrastructure.CustomActions
             Vector3 currentMousePosition = _positionService.GetMouseWorldPosition();
             
             _particle.transform.position = currentMousePosition;
+        }
+
+        public void Unsubscribe()
+        {
+            _characterButton.OnPressedUp -= _onPressedUp;
+        }
+
+        public override ECustomCutsceneActionType GetActionType()
+        {
+            return ECustomCutsceneActionType.StarryMouse;
         }
 
         protected sealed override void TryStartAction()
@@ -91,29 +109,11 @@ namespace Code.Infrastructure.CustomActions
 #endif
         }
 
-        public override ECustomCutsceneActionType GetActionType()
-        {
-            return ECustomCutsceneActionType.StarryMouse;
-        }
-
-        private void _subscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _characterButton.OnPressedUp += _onPressedUp;
-            }
-            else
-            {
-                _characterButton.OnPressedUp -= _onPressedUp;
-            }
-        }
-
         private void _onPressedUp(Vector2 _, float pressDuration)
         {
 #if DEBUGGING
             Debugging.Log(this, $"[_onPressedUp] {GetActionType()}. Is active {_isActive}.", Debugging.Type.CustomAction);
 #endif
-           
             if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {
                 if (_isActive)

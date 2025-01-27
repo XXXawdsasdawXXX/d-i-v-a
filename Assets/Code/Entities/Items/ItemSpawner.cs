@@ -2,6 +2,7 @@
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Pools;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Items
@@ -13,15 +14,19 @@ namespace Code.Entities.Items
         [Header("Services")]
         private ItemDataService _itemDataService;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _itemDataService = Container.Instance.FindService<ItemDataService>();
+            
+            return UniTask.CompletedTask;
         }
         
-        public ItemEntity SpawnRandomItem(Transform anchor)
+        public ItemEntity SpawnRandomItem()
         {
            ItemEntity item =  _monoPool.GetNext();
+           
            item.SetData(_itemDataService.GetRandomItemData());
+           
            return item;
         }
     }

@@ -3,10 +3,13 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.Entities.Diva.Reactions
 {
+    [Preserve]
     public class MouseReaction : Reaction, IUpdateListener
     {
         private PositionService _positionService;
@@ -19,7 +22,7 @@ namespace Code.Entities.Diva.Reactions
 
         private bool _isActive;
         
-        protected override void Init()
+        protected override UniTask InitializeReaction()
         {
             _positionService = Container.Instance.FindService<PositionService>();
            
@@ -27,7 +30,7 @@ namespace Code.Entities.Diva.Reactions
             _divaTransform = diva.transform;
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             
-            base.Init();
+            return  base.InitializeReaction();
         }
 
         protected override int GetCooldownMinutes()
@@ -46,14 +49,18 @@ namespace Code.Entities.Diva.Reactions
         public override void StartReaction()
         {
             _isActive = true;
+            
             _divaAnimator.StartPlayReactionMouse();
+          
             base.StartReaction();
         }
 
         public override void StopReaction()
         {
             _isActive = false;
+            
             _divaAnimator.StopPlayReactionMouse();
+            
             base.StopReaction();
         }
 
@@ -61,8 +68,10 @@ namespace Code.Entities.Diva.Reactions
         {
             Vector3 normal = (_positionService.GetMouseWorldPosition() - (_divaTransform.position + _offset.AsVector3()))
                 .normalized;
+       
             int roundedX = Mathf.Abs(normal.x) < _centralNormalValue ? 0 : (normal.x < 0 ? -1 : 1);
             int roundedY = Mathf.Abs(normal.y) < _centralNormalValue ? 0 : (normal.y < 0 ? -1 : 1);
+            
             _divaAnimator.SetMouseNormal(roundedX, roundedY);
         }
     }

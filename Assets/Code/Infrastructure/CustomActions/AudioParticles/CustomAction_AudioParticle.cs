@@ -5,12 +5,11 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Test;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IUpdateListener,
-        IStartListener,
-        IInitListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IInitListener, IUpdateListener
     {
         protected ParticleSystemFacade[] _particlesSystems;
         protected DivaModeAdapter _characterModeAdapter;
@@ -19,17 +18,16 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
         private readonly List<AudioParticleModule> _audioParticles = new();
         private ParticlesStorage _particleStorage;
 
-        public void GameInitialize()
+        public async UniTask GameInitialize()
         {
             _particleStorage = Container.Instance.FindStorage<ParticlesStorage>();
-        }
 
-        public void GameStart()
-        {
+            _diva = Container.Instance.FindEntity<DivaEntity>();
+            
+            _characterModeAdapter = _diva.FindCharacterComponent<DivaModeAdapter>();
+            
             if (_particleStorage.TryGetParticles(GetParticleTypes(), out _particlesSystems))
             {
-                _diva = Container.Instance.FindEntity<DivaEntity>();
-                _characterModeAdapter = _diva.FindCharacterComponent<DivaModeAdapter>();
                 foreach (ParticleSystemFacade particleSystem in _particlesSystems)
                 {
                     if (particleSystem.TryGetAudioModule(out AudioParticleModule module))
@@ -37,26 +35,29 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
                         _audioParticles.Add(module);
                     }
                 }
-
-                Init();
             }
-        }
 
-        protected abstract EParticleType[] GetParticleTypes();
+            await InitializeCustomAction();
+        }
 
         public void GameUpdate()
         {
             UpdateParticles();
         }
 
-        protected virtual void Init()
+        protected abstract EParticleType[] GetParticleTypes();
+
+        protected virtual UniTask InitializeCustomAction()
         {
+            return UniTask.CompletedTask;
         }
 
         protected override void TryStartAction()
         {
-            Debugging.Log($"Старт события {GetActionType()} particles count = {_particlesSystems.Length}",
+#if DEBUGGING
+            Debugging.Log(this, $"[tryStartAction] {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
+#endif
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.On();
             foreach (AudioParticleModule particleModule in _audioParticles) particleModule.On();
@@ -66,8 +67,10 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void StopAction()
         {
-            Debugging.Log($"Стоп события {GetActionType()} particles count = {_particlesSystems.Length}",
+#if DEBUGGING
+            Debugging.Log(this, $"[stopAction] {GetActionType()} particles count = {_particlesSystems.Length}",
                 Debugging.Type.CustomAction);
+#endif
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.Off();
             foreach (AudioParticleModule particleModule in _audioParticles) particleModule.Off();

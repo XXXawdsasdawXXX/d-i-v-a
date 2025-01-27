@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
+    //todo delete and refactoring to unitask
     public class CoroutineRunner : MonoBehaviour, IService, IExitListener
     {
         public void GameExit()

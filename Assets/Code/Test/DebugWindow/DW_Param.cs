@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.Pools;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Test
@@ -17,7 +18,7 @@ namespace Code.Test
 
         private Dictionary<ELiveStateKey, DW_ParamTab> _paramTabs;
         
-        public Task Initialize()
+        public UniTask Initialize()
         {
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
 
@@ -54,7 +55,7 @@ namespace Code.Test
                 _paramTabs.Add(key, tab);
             }
             
-            return Task.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public void Refresh()

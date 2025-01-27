@@ -2,56 +2,41 @@
 using Code.Entities.Common;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Hand
 {
-    public class HandMaterialAdapter : MaterialAdapter, IInitListener, IExitListener
+    public class HandMaterialAdapter : MaterialAdapter, IInitListener, ISubscriber
     {
-        [Header("Components")] [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        [Header("Components")] 
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        [Header("Static values")] private HandConfig _handConfig;
+        [Header("Static values")] 
+        private HandConfig _handConfig;
         private InteractionStorage _interactionStorage;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _handConfig = Container.Instance.FindConfig<HandConfig>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
 
-            SubscribeToEvents(true);
+            return UniTask.CompletedTask;
         }
-
-        public void GameExit()
+        
+        public UniTask Subscribe()
         {
-            SubscribeToEvents(false);
+            _interactionStorage.OnSwitchDominationType += _onSwitchDominationInteraction;
+            
+            return UniTask.CompletedTask;
         }
 
-        private void SubscribeToEvents(bool flag)
+        public void Unsubscribe()
         {
-            if (flag)
-            {
-                _interactionStorage.OnSwitchDominationType += InteractionStorageOnSwitchDominationTypeEvent;
-            }
-            else
-            {
-                _interactionStorage.OnSwitchDominationType -= InteractionStorageOnSwitchDominationTypeEvent;
-            }
+            _interactionStorage.OnSwitchDominationType -= _onSwitchDominationInteraction;
         }
 
-        private void SetLightMaterial()
-        {
-            _material = _handConfig.LightMaterial;
-            _spriteRenderer.material = _material;
-        }
-
-        private void SetDarkMaterial()
-        {
-            _material = _handConfig.DarkMaterial;
-            _spriteRenderer.material = _material;
-        }
-
-        private void InteractionStorageOnSwitchDominationTypeEvent(EInteractionType interactionType)
+        private void _onSwitchDominationInteraction(EInteractionType interactionType)
         {
             switch (interactionType)
             {
@@ -59,12 +44,25 @@ namespace Code.Entities.Hand
                 case EInteractionType.None:
                 case EInteractionType.Good:
                 case EInteractionType.Normal:
-                    SetLightMaterial();
+                    _setLightMaterial();
                     break;
+              
                 case EInteractionType.Bad:
-                    SetDarkMaterial();
+                    _setDarkMaterial();
                     break;
             }
+        }
+
+        private void _setLightMaterial()
+        {
+            _material = _handConfig.LightMaterial;
+            _spriteRenderer.material = _material;
+        }
+
+        private void _setDarkMaterial()
+        {
+            _material = _handConfig.DarkMaterial;
+            _spriteRenderer.material = _material;
         }
     }
 }

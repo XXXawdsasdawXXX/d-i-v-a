@@ -120,7 +120,7 @@ namespace Code.BehaviorTree.Hand
                 
                 _handAnimation.PlayEnterHand(onEndEnter: () =>
                 {
-                    _item = _itemSpawner.SpawnRandomItem(anchor: _hand.transform);
+                    _item = _itemSpawner.SpawnRandomItem();
                    
                     _itemHolder.SetItem(_item);
                     

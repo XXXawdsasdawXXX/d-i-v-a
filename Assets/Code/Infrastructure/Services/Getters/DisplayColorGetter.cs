@@ -13,6 +13,7 @@ namespace Code.Infrastructure.Services.Getters
             if (Extensions.IsMacOs())
             {
                 MonoBehaviour[] components = GetComponentsInChildren<MonoBehaviour>();
+               
                 foreach (MonoBehaviour behaviour in components)
                 {
                     behaviour.enabled = false;
@@ -20,9 +21,16 @@ namespace Code.Infrastructure.Services.Getters
             }
         }
 
-        public object Get()
+        public void Get<T>(out T component) where T : class
         {
-            return _displayColor;
+            if (typeof(T) == typeof(DisplayColor))
+            {
+                component = _displayColor as T;
+            }
+            else
+            {
+                component = default;
+            }
         }
     }
 }

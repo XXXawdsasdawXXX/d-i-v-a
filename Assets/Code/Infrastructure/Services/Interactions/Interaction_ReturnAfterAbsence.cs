@@ -2,24 +2,27 @@ using System;
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_ReturnAfterAbsence : InteractionObserver, 
-        IInitListener,
-        IUpdateListener
+    [Preserve]
+    public class Interaction_ReturnAfterAbsence : InteractionObserver, IInitListener, IUpdateListener
     {
+        public event Action<float> UserReturnEvent;
+        
+        public bool IsAbsence { get; private set; }
+        
         private float _userStandStillSecond;
         private float _absenceSecond;
 
-        public bool IsAbsence { get; private set; }
-
-        public event Action<float> UserReturnEvent;
-
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _userStandStillSecond = Container.Instance.FindConfig<TimeConfig>().Duration.UserStandStillSecond;
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()
@@ -36,9 +39,11 @@ namespace Code.Infrastructure.Services.Interactions
             }
 
             _absenceSecond += Time.deltaTime;
+        
             if (_absenceSecond >= _userStandStillSecond * 60 && !IsAbsence)
             {
                 IsAbsence = true;
+              
                 InvokeInteractionEvent();
             }
         }

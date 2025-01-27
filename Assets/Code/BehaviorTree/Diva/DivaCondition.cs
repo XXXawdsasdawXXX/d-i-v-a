@@ -4,11 +4,14 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.BehaviorTree.Diva
 {
-    public class DivaCondition : IService, IInitListener
+    [Preserve]
+    public class DivaCondition : IService, IInitListener, IStartListener
     {
         [Header("D I V A")]
         private DivaLiveStatesAnalytic _statesAnalytic;
@@ -24,7 +27,7 @@ namespace Code.BehaviorTree.Diva
         private int _stoppingTicksToMaximumSleepValues;
         private LiveStateStorage _liveStateStorage;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             //d i v a---------------------------------------------------------------------------------------------------
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
@@ -37,23 +40,24 @@ namespace Code.BehaviorTree.Diva
 
             //static values---------------------------------------------------------------------------------------------
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
+            
             LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
             _sleepHealValue = liveStateConfig.GetStaticParam(ELiveStateKey.Sleep).HealValue;
+          
             TimeConfig timeConfig = Container.Instance.FindConfig<TimeConfig>();
             _stoppingTicksToMaximumSleepValues = timeConfig.Duration.StoppingTicksToMaximumSleepValues;
-
-            _liveStateStorage.OnInit += () =>
-            {
-                if (!_liveStateStorage.TryGetLiveState(ELiveStateKey.Sleep, out _sleepState))
-                {
-#if DEBUGGING
-                    Debugging.LogError(this, "[GameInit] Not found sleep state");
-#endif
-                }
-            };
+            
+            return UniTask.CompletedTask;
         }
 
         #region Behavior tree
+
+        public UniTask GameStart()
+        {
+            _liveStateStorage.TryGetLiveState(ELiveStateKey.Sleep, out _sleepState);
+            
+            return UniTask.CompletedTask;
+        }
 
         public bool IsCanSeat()
         {
@@ -65,9 +69,9 @@ namespace Code.BehaviorTree.Diva
         public bool IsCanSleep(float bonusMinPercent = 0)
         {
             float minPercent = 0.3f + bonusMinPercent;
+            
 #if DEBUGGING
             Debugging.Log(this, "[IsCanSleep]" +
-                                $" {_sleepState != null}" +
                                 $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
                                 $" && {_sleepState?.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState?.Max}",
                 Debugging.Type.CharacterCondition);
@@ -75,7 +79,6 @@ namespace Code.BehaviorTree.Diva
 
             return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < minPercent) &&
                    _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
-            return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState?.GetPercent() < minPercent);
         }
 
         public bool IsCanExitWhenSleep()
@@ -133,4 +136,5 @@ namespace Code.BehaviorTree.Diva
 
         #endregion
     }
+    
 }

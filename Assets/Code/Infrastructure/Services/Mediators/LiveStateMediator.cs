@@ -2,56 +2,51 @@
 using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services.Mediators
 {
-    public class LiveStateMediator : IMono, IInitListener, IStartListener, IExitListener
+    [Preserve]
+    public class LiveStateMediator : IMono, IInitListener, ISubscriber
     {
         private LiveStateStorage _liveStateStorage;
-
         private DivaItemsController _characterItemsController;
         private InteractionStorage _interactionStorage;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _liveStateStorage = Container.Instance.FindStorage<LiveStateStorage>();
-
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            _characterItemsController = Container.Instance.FindEntity<DivaEntity>()
-                .FindCharacterComponent<DivaItemsController>();
+            
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
+            _characterItemsController = diva.FindCharacterComponent<DivaItemsController>();
+            
+            return UniTask.CompletedTask;
         }
 
-        public void GameStart()
+        public UniTask Subscribe()
         {
-            SubscribeToEvents(true);
+            _characterItemsController.OnItemUsed += _onItemUsed;
+            _interactionStorage.OnAdded += _onAddedInteraction;
+            
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public void Unsubscribe()
         {
-            SubscribeToEvents(false);
+            _characterItemsController.OnItemUsed -= _onItemUsed;
+            _interactionStorage.OnAdded -= _onAddedInteraction;
         }
 
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _characterItemsController.OnItemUsed += OnItemUsed;
-                _interactionStorage.OnAdd += OnAddInteraction;
-            }
-            else
-            {
-                _characterItemsController.OnItemUsed -= OnItemUsed;
-                _interactionStorage.OnAdd -= OnAddInteraction;
-            }
-        }
-
-        private void OnAddInteraction(EInteractionType interactionType, int value)
+        private void _onAddedInteraction(EInteractionType interactionType, int value)
         {
             switch (interactionType)
             {
                 case EInteractionType.None:
                 default:
                     break;
+               
                 case EInteractionType.Good:
                 case EInteractionType.Normal:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
@@ -60,6 +55,7 @@ namespace Code.Infrastructure.Services.Mediators
                         Value = value
                     });
                     break;
+             
                 case EInteractionType.Bad:
                     _liveStateStorage.AddPercentageValue(new LiveStatePercentageValue()
                     {
@@ -70,7 +66,7 @@ namespace Code.Infrastructure.Services.Mediators
             }
         }
 
-        private void OnItemUsed(LiveStatePercentageValue[] values)
+        private void _onItemUsed(LiveStatePercentageValue[] values)
         {
             _liveStateStorage.AddPercentageValues(values);
         }

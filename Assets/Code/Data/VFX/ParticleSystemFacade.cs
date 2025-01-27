@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Data
@@ -8,19 +9,22 @@ namespace Code.Data
     public class ParticleSystemFacade : MonoBehaviour, IInitListener
     {
         [field: SerializeField] public EParticleType Type { get; private set; }
+     
         [SerializeField] private ParticleSystem _particleSystem;
 
-        [Header("Optional modules")] [SerializeField]
-        protected AudioParticleModule _audio;
+        [Header("Optional modules")] 
+        [SerializeField] protected AudioParticleModule _audio;
 
-        [Header("Modules")] protected ParticleSystem.EmissionModule _emission;
+        [Header("Modules")]
+        protected ParticleSystem.EmissionModule _emission;
         protected ParticleSystem.MainModule _main;
         protected ParticleSystem.TrailModule _trails;
         protected ParticleSystem.NoiseModule _noise;
         protected ParticleSystem.VelocityOverLifetimeModule _velocityOverLifetime;
         protected ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
 
-        [Header("Services")] protected GradientsStorage _gradientsStorage;
+        [Header("Services")]
+        protected GradientsStorage _gradientsStorage;
 
         protected readonly FacadeSettings _defaultSettings = new();
 
@@ -31,7 +35,7 @@ namespace Code.Data
             public float LiveTime;
         }
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _emission = _particleSystem.emission;
             _main = _particleSystem.main;
@@ -39,11 +43,12 @@ namespace Code.Data
             _noise = _particleSystem.noise;
             _velocityOverLifetime = _particleSystem.velocityOverLifetime;
             _colorOverLifetime = _particleSystem.colorOverLifetime;
-
             _defaultSettings.TrailLiveTime = _trails.lifetimeMultiplier;
             _defaultSettings.LiveTime = _main.startLifetimeMultiplier;
 
             _gradientsStorage = Container.Instance.FindStorage<GradientsStorage>();
+            
+            return UniTask.CompletedTask;
         }
 
         public virtual void On()
@@ -53,7 +58,10 @@ namespace Code.Data
                 return;
             }
 
-            _audio?.On();
+            if (_audio != null)
+            {
+                _audio.On();
+            }
 
             _trails.lifetimeMultiplier = _defaultSettings.TrailLiveTime;
             _main.startLifetimeMultiplier = _defaultSettings.LiveTime;
@@ -63,7 +71,10 @@ namespace Code.Data
 
         public virtual void Off()
         {
-            _audio?.Off();
+            if (_audio != null)
+            {
+                _audio.Off();
+            }
 
             _trails.lifetimeMultiplier = 0;
             _main.startLifetimeMultiplier = 0;
@@ -120,12 +131,15 @@ namespace Code.Data
                 }
 
                 Gradient newGradient = new();
+                
                 newGradient.SetKeys(colors, alphas);
+                
                 ParticleSystem.MinMaxGradient gradient = new()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient
                 };
+                
                 _trails.colorOverLifetime = gradient;
             }
         }
@@ -142,13 +156,17 @@ namespace Code.Data
                 }
 
                 GradientAlphaKey[] alphas = gradientData.alphaKeys;
+             
                 Gradient newGradient = new();
+                
                 newGradient.SetKeys(colors, alphas);
+                
                 ParticleSystem.MinMaxGradient minMaxGradient = new()
                 {
                     gradient = newGradient,
                     mode = ParticleSystemGradientMode.Gradient
                 };
+           
                 _colorOverLifetime.color = minMaxGradient;
             }
         }
@@ -162,16 +180,22 @@ namespace Code.Data
                 case EParticleParamType.ColorLiveTime:
                 default:
                     return 0;
+              
                 case EParticleParamType.SizeMultiplier:
                     return _main.startSizeMultiplier;
+                
                 case EParticleParamType.TrailWidthOverTrail:
                     return _trails.widthOverTrailMultiplier;
+                
                 case EParticleParamType.VelocitySpeed:
                     return _velocityOverLifetime.speedModifierMultiplier;
+                
                 case EParticleParamType.NoiseSize:
                     return _noise.sizeAmount.constant;
+                
                 case EParticleParamType.TrailLiveTime:
                     return _trails.lifetimeMultiplier;
+                
                 case EParticleParamType.LiveTime:
                     return _main.startLifetimeMultiplier;
             }
@@ -180,6 +204,7 @@ namespace Code.Data
         public bool TryGetAudioModule(out AudioParticleModule audioModule)
         {
             audioModule = _audio;
+            
             return audioModule != null;
         }
     }

@@ -9,7 +9,7 @@ namespace Code.Infrastructure.Services
     {
         public event Action OnWaitIsOver;
         public bool IsExpectedStart { get; private set; } = true;
-
+        
         private readonly TimeObserver _timeObserver;
 
         private int _tickCount;
@@ -17,12 +17,12 @@ namespace Code.Infrastructure.Services
 
         private bool _isLoop;
         private bool _isActive;
-
-
+        
         public TickCounter(bool isLoop = true)
         {
             _isLoop = isLoop;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            
             _subscribeToEvents(true);
         }
 
@@ -31,6 +31,7 @@ namespace Code.Infrastructure.Services
             _isLoop = isLoop;
             _tickCount = tickCount;
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            
             _subscribeToEvents(false);
         }
 
@@ -42,6 +43,7 @@ namespace Code.Infrastructure.Services
         public void StartWait()
         {
             _currentTickNumber = 0;
+      
             if (IsExpectedStart && _tickCount > 0)
             {
                 IsExpectedStart = false;
@@ -59,8 +61,11 @@ namespace Code.Infrastructure.Services
             if (IsExpectedStart && count > 0)
             {
                 IsExpectedStart = false;
+            
                 _tickCount = count;
+                
                 onStartWait?.Invoke();
+                
                 Active();
             }
         }
@@ -68,6 +73,7 @@ namespace Code.Infrastructure.Services
         public void StopWait(bool isStopLoop = false)
         {
             _currentTickNumber = 0;
+        
             IsExpectedStart = true;
 
             if (!_isLoop || (_isLoop && isStopLoop))

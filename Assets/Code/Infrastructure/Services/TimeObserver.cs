@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections;
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services
 {
-    public class TimeObserver : IService, IInitListener, IStartListener ,IUpdateListener, IProgressWriter
+    [Preserve]
+    public class TimeObserver : IService, IInitListener, IStartListener, IUpdateListener, IProgressWriter
     {
         public event Action<bool> OnTimeInitialized;
         public event Action OnTicked;
@@ -26,55 +28,38 @@ namespace Code.Infrastructure.Services
         [Header("Dynamic value")] 
         private float _currentDeltaTime;
         private DateTime _currentTime;
-        private bool _isInit;
         private bool _isNight;
         private int _tickCount;
 
-        private CoroutineRunner _coroutineRunner;
-
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _tickRangedTime = Container.Instance.FindConfig<TimeConfig>().TickRangedTime;
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            
-#if DEBUGGING
-            Debugging.Log(this, $"[Init] Current time {_currentTime}.", Debugging.Type.Time);
-#endif
+
+            return UniTask.CompletedTask;
         }
 
-        public void GameStart()
+        public UniTask GameStart()
         {
             _tickDuration = _tickRangedTime.GetRandomValue();
+
+            return UniTask.CompletedTask;
+        }
+
+        public async UniTask LoadProgress(PlayerProgressData playerProgress)
+        {
+            await _initCurrentTime(playerProgress);
         }
 
         public void GameUpdate()
         {
-            if (!_isInit)
-            {
-                return;
-            }
-
             _updateCurrentTime();
 
             _updateTickTime();
         }
 
-        public void LoadProgress(PlayerProgressData playerProgress)
-        {
-            _coroutineRunner.StartRoutine(_initCurrentTime(playerProgress));
-
-#if DEBUGGING
-            Debugging.Log(this, "[Load]", Debugging.Type.Time);
-#endif
-        }
-
         public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.GameExitTime = _currentTime;
-
-#if DEBUGGING
-            Debugging.Log(this, "[Save]", Debugging.Type.Time);
-#endif
         }
 
         public bool IsNightTime()
@@ -87,6 +72,59 @@ namespace Code.Infrastructure.Services
             }
 
             return timeOfDay >= NightStart || timeOfDay < NightEnd;
+        }
+
+        private async UniTask _initCurrentTime(PlayerProgressData playerProgressData)
+        {
+            UnityWebRequest webRequest = UnityWebRequest.Get("https://www.google.com");
+
+            if (webRequest is { result: UnityWebRequest.Result.Success })
+            {
+                await webRequest.SendWebRequest();
+
+                string netTime = webRequest.GetResponseHeader("date");
+#if DEBUGGING
+                Debugging.Log(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Debugging.Type.Time);
+#endif
+                if (!DateTime.TryParse(netTime, out _currentTime))
+                {
+                    _currentTime = DateTime.UtcNow;
+#if DEBUGGING
+                    Debugging.Log(this, $"[_initCurrentTime] Lose google time parsing. Time = {_currentTime}",
+                        Debugging.Type.Time);
+#endif
+                }
+            }
+            else
+            {
+                _currentTime = DateTime.UtcNow;
+#if DEBUGGING
+                Debugging.Log(this, $"[_initCurrentTime] Init standalone time. Time = {_currentTime}",
+                    Debugging.Type.Time);
+#endif
+            }
+
+            DateTime lastVisit = playerProgressData.GameEnterTime;
+
+            playerProgressData.GameEnterTime = _currentTime;
+
+            _checkTimeOfDay();
+
+#if DEBUGGING
+            Debugging.Log(this, $"[_initCurrentTime] End init.\n" +
+                                $"Is first visit = {!Extensions.IsEqualDay(lastVisit, _currentTime)}\n" +
+                                $"Current time =  {_currentTime}. Saving time = {lastVisit}",
+                Debugging.Type.Time);
+#endif
+
+            bool isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
+
+            if (isFirstVisit)
+            {
+                playerProgressData.CustomActions = new CustomActionsSavedData();
+            }
+
+            OnTimeInitialized?.Invoke(isFirstVisit);
         }
 
         private void _updateCurrentTime()
@@ -137,61 +175,6 @@ namespace Code.Infrastructure.Services
                 Debugging.Log(this, "[_checkTimeOfDay] Start day.", Debugging.Type.Time);
 #endif
             }
-        }
-
-        private IEnumerator _initCurrentTime(PlayerProgressData playerProgressData)
-        {
-            UnityWebRequest webRequest = UnityWebRequest.Get("https://www.google.com");
-
-            if (webRequest is { result: UnityWebRequest.Result.Success })
-            {
-                yield return webRequest.SendWebRequest();
-
-                string netTime = webRequest.GetResponseHeader("date");
-#if DEBUGGING
-                Debugging.Log(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Debugging.Type.Time);
-#endif
-                if (!DateTime.TryParse(netTime, out _currentTime))
-                {
-                    _currentTime = DateTime.UtcNow;
-#if DEBUGGING
-                    Debugging.Log(this, $"[_initCurrentTime] Lose google time parsing. Time = {_currentTime}",
-                        Debugging.Type.Time);
-#endif
-                }
-            }
-            else
-            {
-                _currentTime = DateTime.UtcNow;
-#if DEBUGGING
-                Debugging.Log(this, $"[_initCurrentTime] Init standalone time. Time = {_currentTime}",
-                    Debugging.Type.Time);
-#endif
-            }
-
-            DateTime lastVisit = playerProgressData.GameEnterTime;
-
-            playerProgressData.GameEnterTime = _currentTime;
-
-            _checkTimeOfDay();
-
-            _isInit = true;
-
-#if DEBUGGING
-            Debugging.Log(this, $" [_initCurrentTime] End init.\n" +
-                                $"Is first visit = {!Extensions.IsEqualDay(lastVisit, _currentTime)}\n" +
-                                $"Current time =  {_currentTime}. Saving time = {lastVisit}",
-                Debugging.Type.Time);
-#endif
-            
-            bool isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
-
-            if (isFirstVisit)
-            {
-                playerProgressData.CustomActions = new CustomActionsSavedData();
-            }
-
-            OnTimeInitialized?.Invoke(isFirstVisit);
         }
 
         #region Editor

@@ -7,11 +7,12 @@ using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.CustomActions
 {
-    //todo сейчас не активна, возможно стоит вырезать
+    //todo #46 вернуть функционал
     public class CustomAction_Greeting : CustomAction, IProgressWriter, IInitListener, IExitListener, IToggle
     {
         [Header("Services")] 
@@ -26,13 +27,17 @@ namespace Code.Infrastructure.CustomActions
 
         private bool _isActive;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _audioEventsService = Container.Instance.FindService<AudioEventsService>();
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _colliderButton = diva.FindCommonComponent<ColliderButton>();
+            
             Active();
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameExit()
@@ -40,17 +45,18 @@ namespace Code.Infrastructure.CustomActions
             Disable();
         }
 
-        public void LoadProgress(PlayerProgressData playerProgress)
+        public UniTask LoadProgress(PlayerProgressData playerProgress)
         {
             _isAlreadySaidHi = playerProgress.CustomActions.IsAlreadySaidHi;
+          
             if (_isAlreadySaidHi && _isFirstVisit)
             {
                 _isAlreadySaidHi = false;
             }
-
 #if DEBUGGING
             Debugging.Log(this, $"[Load] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
 #endif
+            return UniTask.CompletedTask;
         }
 
         public void SaveProgress(PlayerProgressData playerProgress)
@@ -65,7 +71,6 @@ namespace Code.Infrastructure.CustomActions
         {
             return ECustomCutsceneActionType.Greeting;
         }
-
         
         public void Active(Action OnTurnedOn = null)
         {
@@ -75,6 +80,7 @@ namespace Code.Infrastructure.CustomActions
             if (!_isActive)
             {
                 _isActive = true;
+                
                 _subscribeToEvents(true);
             }
         }
@@ -87,6 +93,7 @@ namespace Code.Infrastructure.CustomActions
             if (_isActive)
             {
                 _isActive = false;
+                
                 _subscribeToEvents(false);
             }
         }

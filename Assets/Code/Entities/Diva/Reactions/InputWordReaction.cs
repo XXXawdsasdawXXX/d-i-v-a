@@ -3,10 +3,13 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Interactions;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class InputWordReaction : Reaction, IStartListener, IExitListener
+    [Preserve]
+    public class InputWordReaction : Reaction, ISubscriber
     {
         private Interaction_KeyDown _interactionKeyDown;
         private AudioEventsService _audioEventServices;
@@ -14,39 +17,32 @@ namespace Code.Entities.Diva.Reactions
 
         private EInputWord _lastWord;
 
-        protected override void Init()
+        protected override UniTask InitializeReaction()
         {
             _interactionKeyDown = Container.Instance.FindInteractionObserver<Interaction_KeyDown>();
             _audioEventServices = Container.Instance.FindService<AudioEventsService>();
-            _animationAnalytic = Container.Instance.FindEntity<DivaEntity>()
-                .FindCharacterComponent<DivaAnimationAnalytic>();
-        }
+            
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
+            _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 
-        public void GameStart()
+            return base.InitializeReaction();
+        }
+        
+        public UniTask Subscribe()
         {
-            SubscribeToEvents(true);
+            _interactionKeyDown.OnWorldEntered += _onWorldEntered;
+
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public void Unsubscribe()
         {
-            SubscribeToEvents(false);
+            _interactionKeyDown.OnWorldEntered -= _onWorldEntered;
         }
-
+        
         protected override int GetCooldownMinutes()
         {
             return Container.Instance.FindConfig<TimeConfig>().Cooldown.InputWordsReactionMin;
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _interactionKeyDown.OnWorldEntered += _onWorldEntered;
-            }
-            else
-            {
-                _interactionKeyDown.OnWorldEntered -= _onWorldEntered;
-            }
         }
 
         private void _onWorldEntered(EInputWord word)
@@ -57,6 +53,7 @@ namespace Code.Entities.Diva.Reactions
             }
             
             _lastWord = word;
+            
             StartReaction();
         }
 
@@ -70,14 +67,17 @@ namespace Code.Entities.Diva.Reactions
                 case EInputWord.yo:
                     _audioEventServices.PlayAudio(EAudioEventType.Hi);
                     break;
+                
                 case EInputWord.love:
                     _audioEventServices.PlayAudio(EAudioEventType.Song);
                     break;
+            
                 default:
                     break;
             }
 
             base.StartReaction();
+        
             StopReaction();
         }
     }

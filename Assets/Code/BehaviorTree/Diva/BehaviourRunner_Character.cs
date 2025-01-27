@@ -1,25 +1,21 @@
 using Code.Data;
-using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Services;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.BehaviorTree.Diva
 {
-    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IInitListener, IUpdateListener,
-        IExitListener
+    public sealed class BehaviourRunner_Character : MonoBehaviour, IService, IStartListener ,IUpdateListener
     {
         [SerializeField] private bool _isRun;
 
         private BaseNode _rootNode;
-        private TimeObserver _timeObserver;
-
-        public bool IsInitBehaviorTree { get; private set; }
-
-        public void GameInitialize()
+        
+        public UniTask GameStart()
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
-            SubscribeToEvents(true);
+            _rootNode = new BehaviourSelector_Character();
+        
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()
@@ -33,30 +29,6 @@ namespace Code.BehaviorTree.Diva
             {
                 _rootNode.Run(null);
             }
-        }
-
-
-        public void GameExit()
-        {
-            SubscribeToEvents(false);
-        }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _timeObserver.OnTimeInitialized += _onTimeInitialized;
-            }
-            else
-            {
-                _timeObserver.OnTimeInitialized -= _onTimeInitialized;
-            }
-        }
-
-        private void _onTimeInitialized(bool obj)
-        {
-            _rootNode = new BehaviourSelector_Character();
-            IsInitBehaviorTree = true;
         }
     }
 }

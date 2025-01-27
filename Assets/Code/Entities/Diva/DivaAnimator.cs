@@ -3,12 +3,13 @@ using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using CoroutineRunner = Code.Infrastructure.Services.CoroutineRunner;
 
 namespace Code.Entities.Diva
 {
-    public class DivaAnimator : DivaComponent, IInitListener
+    public class DivaAnimator : DivaComponent, IInitListener, IStartListener
     {
         public event Action<EDivaAnimationMode> OnModeEntered;
      
@@ -34,9 +35,24 @@ namespace Code.Entities.Diva
         
         private CoroutineRunner _coroutineRunner;
         
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
+            _characterAnimator.enabled = false;
+            _frontHairAnimator.enabled = false;
+            _backHairAnimator.enabled = false;
+            
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            
+            return UniTask.CompletedTask;
+        }
+        
+        public UniTask GameStart()
+        {
+            _characterAnimator.enabled = true;
+            _frontHairAnimator.enabled = true;
+            _backHairAnimator.enabled = true;
+            
+            return UniTask.CompletedTask;
         }
 
         #region Reaction Animation
@@ -285,5 +301,7 @@ namespace Code.Entities.Diva
             _frontHairAnimator.ResetTrigger(_reactionVoiceHash_t);
             _backHairAnimator.ResetTrigger(_reactionVoiceHash_t);
         }
+
+        
     }
 }

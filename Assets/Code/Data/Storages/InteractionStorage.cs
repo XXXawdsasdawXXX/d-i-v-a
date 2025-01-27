@@ -3,16 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Infrastructure.Save;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Data
 {
+    [Preserve]
     public class InteractionStorage : IStorage, IProgressWriter
     {
         public event Action<EInteractionType> OnSwitchDominationType;
-        public event Action<EInteractionType, int> OnAdd;
+        public event Action<EInteractionType, int> OnAdded;
         
         private Dictionary<EInteractionType, int> _interactions;
         private EInteractionType _currentDominationType;
+
+        public UniTask LoadProgress(PlayerProgressData playerProgress)
+        {
+            _interactions = playerProgress.Interactions;
+            
+            _currentDominationType = GetDominantInteractionType();
+            
+            OnSwitchDominationType?.Invoke(_currentDominationType);
+            
+            return UniTask.CompletedTask;
+        }
+
+        public void SaveProgress(PlayerProgressData playerProgress)
+        {
+            playerProgress.Interactions = _interactions;
+        }
 
         public int GetSum()
         {
@@ -35,24 +54,11 @@ namespace Code.Data
                 _interactions.Add(type, value);
             }
 
-            OnAdd?.Invoke(type, value);
+            OnAdded?.Invoke(type, value);
+            
 #if DEBUGGING
             Debugging.Log(this, $"[Add] {type} {_interactions[type]}", Debugging.Type.Interaction);
 #endif
-        }
-
-        public void LoadProgress(PlayerProgressData playerProgress)
-        {
-            _interactions = playerProgress.Interactions;
-            
-            _currentDominationType = GetDominantInteractionType();
-            
-            OnSwitchDominationType?.Invoke(_currentDominationType);
-        }
-
-        public void SaveProgress(PlayerProgressData playerProgress)
-        {
-            playerProgress.Interactions = _interactions;
         }
 
         public EInteractionType GetDominantInteractionType()

@@ -5,31 +5,56 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Save;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Data
 {
+    [Preserve]
     public class LiveStateStorage : IStorage, IInitListener, IProgressWriter
     {
-        public event Action OnInit;
-
         public Dictionary<ELiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
 
         private LiveStateConfig _liveStateConfig;
-      
         
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();
+            
+            return UniTask.CompletedTask;
+        }
+        
+        public UniTask LoadProgress(PlayerProgressData playerProgress)
+        {
+            LiveStates = playerProgress?.LiveStatesData == null || playerProgress.LiveStatesData.Count == 0
+                ? _initNewStates()
+                : LoadSavedStates(playerProgress.LiveStatesData);
+            
+            return UniTask.CompletedTask;
         }
 
-        public bool IsEmptyState(ELiveStateKey key)
+        public void SaveProgress(PlayerProgressData playerProgress)
         {
-            if (TryGetLiveState(key, out CharacterLiveState state))
+            foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in LiveStates)
             {
-                return state.Current <= 0;
-            }
+                LiveStateSavedData savedState =
+                    playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
 
-            return false;
+                if (savedState != null)
+                {
+                    savedState.CurrentValue = liveState.Value.Current;
+                    savedState.IsHealing = liveState.Value.IsHealing;
+                }
+                else
+                {
+                    playerProgress.LiveStatesData.Add(new LiveStateSavedData()
+                    {
+                        Key = liveState.Key,
+                        CurrentValue = liveState.Value.Current,
+                        IsHealing = liveState.Value.IsHealing
+                    });
+                }
+            }
         }
 
         public bool TryGetLiveState(ELiveStateKey key, out CharacterLiveState liveState)
@@ -108,39 +133,7 @@ namespace Code.Data
             return value;
         }
 
-        public void LoadProgress(PlayerProgressData playerProgress)
-        {
-            LiveStates = playerProgress?.LiveStatesData == null || playerProgress.LiveStatesData.Count == 0
-                ? _initNewStates()
-                : LoadSavedStates(playerProgress.LiveStatesData);
-
-            OnInit?.Invoke();
-        }
-
-        public void SaveProgress(PlayerProgressData playerProgress)
-        {
-            foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in LiveStates)
-            {
-                LiveStateSavedData savedState =
-                    playerProgress.LiveStatesData.FirstOrDefault(l => l.Key == liveState.Key);
-
-                if (savedState != null)
-                {
-                    savedState.CurrentValue = liveState.Value.Current;
-                    savedState.IsHealing = liveState.Value.IsHealing;
-                }
-                else
-                {
-                    playerProgress.LiveStatesData.Add(new LiveStateSavedData()
-                    {
-                        Key = liveState.Key,
-                        CurrentValue = liveState.Value.Current,
-                        IsHealing = liveState.Value.IsHealing
-                    });
-                }
-            }
-        }
-
+    
         private Dictionary<ELiveStateKey, CharacterLiveState> _initNewStates()
         {
             Dictionary<ELiveStateKey, CharacterLiveState> characterLiveStates = new();

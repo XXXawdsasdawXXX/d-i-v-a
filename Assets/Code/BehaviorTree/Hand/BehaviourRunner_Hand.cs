@@ -2,11 +2,12 @@
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.BehaviorTree.Hand
 {
-    public class BehaviourRunner_Hand : MonoBehaviour, IService, IInitListener, IUpdateListener, IExitListener
+    public class BehaviourRunner_Hand : MonoBehaviour, IService, IInitListener, IStartListener, IUpdateListener, IExitListener
     {
         public bool IsInitBehaviorTree { get; private set; }
         
@@ -16,13 +17,21 @@ namespace Code.BehaviorTree.Hand
         private BaseNode _rootNode;
         private TimeObserver _timeObserver;
         private CoroutineRunner _coroutineRunner;
-
-
-        public void GameInitialize()
+        
+        public UniTask GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
+            
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
+        {
             _subscribeToEvents(true);
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()

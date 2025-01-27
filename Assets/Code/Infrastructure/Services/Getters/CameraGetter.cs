@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Data;
+﻿using Code.Data;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Getters
@@ -7,9 +6,7 @@ namespace Code.Infrastructure.Services.Getters
     public class CameraGetter : MonoBehaviour, IGetter
     {
         [SerializeField] private Camera _camera;
-
-        public Type Type => typeof(Camera);
-
+        
         public object Get()
         {
             return _camera;
@@ -20,6 +17,18 @@ namespace Code.Infrastructure.Services.Getters
             if (_camera == null)
             {
                 TryGetComponent(out _camera);
+            }
+        }
+
+        public void Get<T>(out T component) where T : class
+        {
+            if (typeof(T) == typeof(Camera))
+            {
+                component = _camera as T;
+            }
+            else
+            {
+                component = default;
             }
         }
     }

@@ -5,6 +5,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services.Getters;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -18,10 +19,13 @@ namespace Code.Infrastructure.Services
         private PixelPerfectCamera _perfectCamera;
         private Camera _camera;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _camera = Container.Instance.FindGetter<CameraGetter>().Get() as Camera;
+            
             _perfectCamera = Container.Instance.FindGetter<PixelPerfectGetter>().Get() as PixelPerfectCamera;
+            
+            return UniTask.CompletedTask;
         }
 
         public Vector3 GetPosition(EPointAnchor pointAnchor, EntityBounds entityBounds = null)

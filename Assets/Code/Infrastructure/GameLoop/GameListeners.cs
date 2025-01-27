@@ -1,30 +1,37 @@
-﻿namespace Code.Infrastructure.GameLoop
+﻿using Cysharp.Threading.Tasks;
+
+namespace Code.Infrastructure.GameLoop
 {
     public interface IGameListeners
     {
     }
 
-    internal interface IInitListener : IGameListeners
+    public interface ISubscriber : IGameListeners
     {
-        void GameInitialize();
+        UniTask Subscribe();
+        void Unsubscribe();
+    }
+    
+    public  interface IInitListener : IGameListeners
+    {
+        UniTask GameInitialize();
     }
 
     public interface ILoadListener : IGameListeners
     {
-        void GameLoad();
+        UniTask GameLoad();
     }
 
     public interface IStartListener : IGameListeners
     {
-        void GameStart();
+        UniTask GameStart();
     }
 
     public interface IUpdateListener : IGameListeners
     {
         void GameUpdate();
     }
-
-
+    
     public interface IExitListener : IGameListeners
     {
         void GameExit();

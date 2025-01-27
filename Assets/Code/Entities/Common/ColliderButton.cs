@@ -4,12 +4,17 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
 {
     public class ColliderButton : CommonComponent, IInitListener, IUpdateListener
     {
+        public event Action<Vector2> OnPressedDown;
+        public event Action<Vector2, float> OnPressedUp;
+        public event Action<int> SeriesOfClicksEvent;
+        
         [Header("Services")]
         private PositionService _positionService;
 
@@ -22,14 +27,13 @@ namespace Code.Entities.Common
         private float _currentClickCooldown;
         private int _clickNumber;
 
-        public event Action<Vector2> OnPressedDown;
-        public event Action<Vector2, float> OnPressedUp;
-        public event Action<int> SeriesOfClicksEvent;
-
-        public void GameInitialize()
+        
+        public UniTask GameInitialize()
         {
             _maxClickCooldown = Container.Instance.FindConfig<TimeConfig>().ClickSeries;
             _positionService = Container.Instance.FindService<PositionService>();
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()

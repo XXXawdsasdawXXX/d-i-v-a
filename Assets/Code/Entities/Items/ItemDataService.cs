@@ -4,6 +4,7 @@ using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using Random = UnityEngine.Random;
 
 namespace Code.Entities.Items
@@ -12,9 +13,11 @@ namespace Code.Entities.Items
     {
         private ItemData[] _itemsData;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _itemsData = Container.Instance.FindConfig<ItemsConfig>().Items;
+            
+            return UniTask.CompletedTask;
         }
 
         public ItemData GetRandomItemData(ItemType itemType = ItemType.None)
@@ -24,8 +27,7 @@ namespace Code.Entities.Items
                 itemType = _getRandomType();
             }
 
-            //var items = _itemsData.Where(i => i.Type == itemType).ToArray();
-            ItemData[] items = _itemsData; //todo восстановить, когда будет больше итемов
+            ItemData[] items = _itemsData.Where(i => i.Type == itemType).ToArray();
            
             Extensions.ShuffleArray(items);
 

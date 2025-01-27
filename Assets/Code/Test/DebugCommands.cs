@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Test
 {
-    public class DebugCommands : MonoBehaviour,  IStartListener
+    public class DebugCommands : MonoBehaviour
     {
         public void GameStart()
         {
@@ -16,6 +16,5 @@ namespace Code.Test
         {
            // DebugLogConsole.AddCommand<int>("add.sleep", "", AddSleepValue);
         }
-        
     }
 }

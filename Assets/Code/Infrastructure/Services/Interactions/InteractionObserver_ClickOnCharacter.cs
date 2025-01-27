@@ -4,13 +4,14 @@ using Code.Entities.Diva;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services.Interactions
 {
     [Preserve]
-    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IInitListener, IExitListener
+    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IInitListener, ISubscriber
     {
         [Header("Observer components")] 
         private ColliderButton _characterCollisionButton;
@@ -19,14 +20,7 @@ namespace Code.Infrastructure.Services.Interactions
         [Header("Static data")] 
         private InteractionStorage _interactionStorage;
 
-        public InteractionObserver_ClickOnCharacter()
-        {
-#if DEBUGGING
-            Debugging.Log(this, "[Construct]", Debugging.Type.Interaction);
-#endif
-        }
-
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             //Observer components
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
@@ -35,30 +29,25 @@ namespace Code.Infrastructure.Services.Interactions
 
             //Static data
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-
-            _subscribeToEvents(true);
-
+            
 #if DEBUGGING
             Debugging.Log(this, "[GameInit]", Debugging.Type.Interaction);
 #endif
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public UniTask Subscribe()
         {
-            _subscribeToEvents(false);
+            _characterCollisionButton.SeriesOfClicksEvent += _onClickSeries;
+            
+            return UniTask.CompletedTask;
         }
 
-        private void _subscribeToEvents(bool flag)
+        public void Unsubscribe()
         {
-            if (flag)
-            {
-                _characterCollisionButton.SeriesOfClicksEvent += _onClickSeries;
-            }
-            else
-            {
-                _characterCollisionButton.SeriesOfClicksEvent -= _onClickSeries;
-            }
+            _characterCollisionButton.SeriesOfClicksEvent -= _onClickSeries;
         }
+     
 
         private void _onClickSeries(int click)
         {
@@ -103,5 +92,6 @@ namespace Code.Infrastructure.Services.Interactions
                 InvokeInteractionEvent();
             }
         }
+
     }
 }

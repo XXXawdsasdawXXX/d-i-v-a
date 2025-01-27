@@ -3,58 +3,60 @@ using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Services
 {
-    public class LiveStateTimer : IService, IInitListener, IExitListener
+    [Preserve]
+    public class LiveStateTimer : IService, IInitListener, ISubscriber
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;
+        
         private ELiveStateKey _currentLowerLiveStateKey;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _timeObserver = Container.Instance.FindService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
-         
-            SubscribeToEvents(true);
+
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public UniTask Subscribe()
         {
-            SubscribeToEvents(false);
+            _timeObserver.OnTicked += _onTimeObserverTick;
+
+            return UniTask.CompletedTask;
         }
 
-        private void SubscribeToEvents(bool flag)
+        public void Unsubscribe()
         {
-            if (flag)
-            {
-                _timeObserver.OnTicked += _onTimeObserverTick;
-            }
-            else
-            {
-                _timeObserver.OnTicked -= _onTimeObserverTick;
-            }
+            _timeObserver.OnTicked -= _onTimeObserverTick;
         }
 
         private void _onTimeObserverTick()
         {
+#if DEBUGGING
             if (_storage.LiveStates == null)
             {
-                Debugging.LogError(this, 
+                Debugging.LogError(this,
                     $"[_onTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
-              
                 return;
             }
+#endif
 
             foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in _storage.LiveStates)
             {
                 if (_isCanUpdateLiveState(liveState))
                 {
+#if DEBUGGING
                     Debugging.Log(this,
                         $"[_onTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}",
                         Debugging.Type.LiveState);
-                  
+#endif
+
                     liveState.Value.TimeUpdate();
                 }
             }

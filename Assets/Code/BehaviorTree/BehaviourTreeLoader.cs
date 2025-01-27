@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Data;
 using Code.Infrastructure.Save;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.BehaviorTree
@@ -16,19 +16,16 @@ namespace Code.BehaviorTree
         private readonly List<IProgressWriterNode> _progressWriterNodes = new();
         private readonly Data _data = new();
 
-        public void AddProgressWriter(IProgressWriterNode node)
-        {
-            if (!_progressWriterNodes.Contains(node))
-            {
-                _progressWriterNodes.Add(node);
-            }
-        }
-
-        public void LoadProgress(PlayerProgressData playerProgress)
+        public UniTask LoadProgress(PlayerProgressData playerProgress)
         {
             _data.SleepRemainingTick = playerProgress.Cooldowns.SleepRemainingTick;
          
-            StartCoroutine(_loadBehaviorTreeRoutine());
+            foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
+            {
+                progressWriterNode.LoadData(_data);
+            }
+            
+            return UniTask.CompletedTask;
         }
 
         public void SaveProgress(PlayerProgressData playerProgress)
@@ -41,19 +38,12 @@ namespace Code.BehaviorTree
             playerProgress.Cooldowns.SleepRemainingTick = _data.SleepRemainingTick;
         }
 
-        private IEnumerator _loadBehaviorTreeRoutine()
+        public void AddProgressWriter(IProgressWriterNode node)
         {
-            yield return new WaitUntil(_isInitBehaviorProgressWriter);
-         
-            foreach (IProgressWriterNode progressWriterNode in _progressWriterNodes)
+            if (!_progressWriterNodes.Contains(node))
             {
-                progressWriterNode.LoadData(_data);
+                _progressWriterNodes.Add(node);
             }
-        }
-
-        private bool _isInitBehaviorProgressWriter()
-        {
-            return _progressWriterNodes.Count > 0;
         }
     }
 }

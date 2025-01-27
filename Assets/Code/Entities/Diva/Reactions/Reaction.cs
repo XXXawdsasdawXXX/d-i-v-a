@@ -1,24 +1,30 @@
 ﻿using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Entities.Diva.Reactions
 {
+    [Preserve]
     public abstract class Reaction :  IInitListener
     {
-        private int _cooldownTickCount;
-
         private TickCounter _tickCounter;
+        private int _cooldownTickCount;
         private bool _isReady = true;
 
-        public void GameInitialize()
+        public async UniTask GameInitialize()
         {
-            Init();
+            await InitializeReaction();
+            
             GetCooldownMinutes();
+         
             _tickCounter = new TickCounter(_cooldownTickCount, isLoop: false);
-            _tickCounter.OnWaitIsOver += () => _isReady = true;
+         
+            _tickCounter.OnWaitIsOver += () =>
+            {
+                _isReady = true;
+            };
         }
-        
-        protected abstract int GetCooldownMinutes();
 
         public bool IsReady()
         {
@@ -35,8 +41,11 @@ namespace Code.Entities.Diva.Reactions
             _tickCounter.StartWait();
         }
 
-        protected virtual void Init()
+        protected virtual UniTask InitializeReaction()
         {
+            return UniTask.CompletedTask;
         }
+
+        protected abstract int GetCooldownMinutes();
     }
 }

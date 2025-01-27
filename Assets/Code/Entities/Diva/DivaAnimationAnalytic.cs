@@ -1,11 +1,12 @@
 ﻿using System;
 using Code.Data;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Diva
 {
-    public class DivaAnimationAnalytic : DivaComponent, IInitListener, IExitListener
+    public class DivaAnimationAnalytic : DivaComponent, ISubscriber
     {
         public event Action<EDivaAnimationMode> OnEnteredMode;
         public event Action<EDivaAnimationState> OnSwitchState;
@@ -20,15 +21,22 @@ namespace Code.Entities.Diva
         
         [SerializeField] private DivaAnimator _divaAnimator;
         [SerializeField] private DivaAnimationStateObserver _divaAnimationStateObserver;
-        
-        public void GameInitialize()
-        {
-            _subscribeToEvents(true);
-        }
 
-        public void GameExit()
+
+        public UniTask Subscribe()
         {
-            _subscribeToEvents(false);
+            _divaAnimator.OnModeEntered += _onEnteredModeEvent;
+            _divaAnimationStateObserver.OnStateEntered += _onSwitchStateEvent;
+            _divaAnimationStateObserver.OnStateExited += _onSwitchStateEvent;
+            
+            return UniTask.CompletedTask;
+        }
+        
+        public void Unsubscribe()
+        {
+            _divaAnimator.OnModeEntered -= _onEnteredModeEvent;
+            _divaAnimationStateObserver.OnStateEntered -= _onSwitchStateEvent;
+            _divaAnimationStateObserver.OnStateExited -= _onSwitchStateEvent;
         }
 
         public EDivaAnimationMode GetAnimationMode()
@@ -39,22 +47,6 @@ namespace Code.Entities.Diva
         public EDivaAnimationState GetAnimationState()
         {
             return _divaAnimationStateObserver.State;
-        }
-
-        private void _subscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _divaAnimator.OnModeEntered += _onEnteredModeEvent;
-                _divaAnimationStateObserver.OnStateEntered += _onSwitchStateEvent;
-                _divaAnimationStateObserver.OnStateExited += _onSwitchStateEvent;
-            }
-            else
-            {
-                _divaAnimator.OnModeEntered -= _onEnteredModeEvent;
-                _divaAnimationStateObserver.OnStateEntered -= _onSwitchStateEvent;
-                _divaAnimationStateObserver.OnStateExited -= _onSwitchStateEvent;
-            }
         }
 
         private void _onSwitchStateEvent(EDivaAnimationState state)

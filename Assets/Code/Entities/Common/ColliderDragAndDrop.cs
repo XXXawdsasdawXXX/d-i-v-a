@@ -5,6 +5,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
@@ -34,17 +35,19 @@ namespace Code.Entities.Common
         public event Action<float> OnEndedDrag;
         
         
-        public void GameInitialize()
+        public async UniTask GameInitialize()
         {
             _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
             _positionService = Container.Instance.FindService<PositionService>();
 
-            Init();
+            await InitializeDragAndDrop();
         }
 
-        public void GameStart()
+        public UniTask GameStart()
         {
             _boarder = (Vector2)_positionService.GetPosition(EPointAnchor.LowerRight);
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()
@@ -72,8 +75,9 @@ namespace Code.Entities.Common
             SubscribeToEvents(false);
         }
 
-        protected virtual void Init()
+        protected virtual UniTask InitializeDragAndDrop()
         {
+            return UniTask.CompletedTask;
         }
 
         private void SetTarget()
@@ -118,8 +122,12 @@ namespace Code.Entities.Common
         protected virtual void OnPressedDown(Vector2 obj)
         {
             Vector3 clickPosition = _positionService.GetMouseWorldPosition();
-            _startDragPosition = transform.position;
-            _offset = transform.position - clickPosition;
+
+            Vector3 position = transform.position;
+            
+            _startDragPosition = position;
+            
+            _offset = position - clickPosition;
 
             if (_coroutine != null)
             {
@@ -132,9 +140,11 @@ namespace Code.Entities.Common
         private void OnUp()
         {
             _coroutine = _coroutineRunner.StartRoutine(MoveUpRoutine());
+          
             OnEndedDrag?.Invoke(Vector3.Distance(_startDragPosition, transform.position));
         }
 
+        //todo refactoring to unitask
         private IEnumerator MoveUpRoutine()
         {
             WaitForEndOfFrame period = new();

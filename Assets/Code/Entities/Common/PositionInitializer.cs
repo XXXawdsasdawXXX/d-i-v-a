@@ -3,6 +3,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
@@ -15,22 +16,28 @@ namespace Code.Entities.Common
 
         private PositionService _positionService;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             _positionService = Container.Instance.FindService<PositionService>();
+            
+            return UniTask.CompletedTask;
         }
 
-        public void GameStart()
+        public UniTask GameStart()
         {
             SetDefaultPosition();
+            
+            return UniTask.CompletedTask;
         }
 
         public void SetDefaultPosition()
         {
-            Debugging.Log(
+            transform.position = _positionService.GetPosition(_pointAnchor, _entityBounds);
+#if DEBUGGING
+            Debugging.Log(this,
                 $"[{gameObject.name}] from {transform.position} to {_positionService.GetPosition(_pointAnchor, _entityBounds)}",
                 Debugging.Type.Position);
-            transform.position = _positionService.GetPosition(_pointAnchor, _entityBounds);
+#endif
         }
     }
 }

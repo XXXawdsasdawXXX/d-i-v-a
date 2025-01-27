@@ -39,29 +39,7 @@ namespace Code.Utils
         }
 
 
-        public static Vector3 AsVector3(this Vector2 vector)
-        {
-            return new Vector3(vector.x, vector.y, 0);
-        }
 
-        public static Vector2 AsVector2(this Vector3 vector)
-        {
-            return new Vector2(vector.x, vector.y);
-        }
-
-        public static bool Equal(this Color32 color1, Color32 color2)
-        {
-            return color1.r == color2.r && color1.g == color2.g && color1.b == color2.b && color1.a == color2.a;
-        }
-
-        public static bool Equal(this Color32 color1, Color32 color2, byte sensitivity = 0)
-        {
-            byte rDiff = (byte)Mathf.Abs(color1.r - color2.r);
-            byte gDiff = (byte)Mathf.Abs(color1.g - color2.g);
-            byte bDiff = (byte)Mathf.Abs(color1.b - color2.b);
-            byte aDiff = (byte)Mathf.Abs(color1.a - color2.a);
-
-            return rDiff <= sensitivity && gDiff <= sensitivity && bDiff <= sensitivity && aDiff <= sensitivity;
-        }
+        
     }
 }

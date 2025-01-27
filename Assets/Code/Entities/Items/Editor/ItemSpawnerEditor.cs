@@ -14,7 +14,7 @@ namespace Code.Entities.Items.Editor
 
             if (GUILayout.Button("Spawn Random Item"))
             {
-                spawner.SpawnRandomItem(null);
+                spawner.SpawnRandomItem();
             }
         }
     }

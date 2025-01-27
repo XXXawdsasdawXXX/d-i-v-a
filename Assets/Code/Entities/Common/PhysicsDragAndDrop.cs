@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
@@ -7,7 +8,7 @@ namespace Code.Entities.Common
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
-        protected override void Init()
+        protected override UniTask InitializeDragAndDrop()
         {
             if (_isActive)
             {
@@ -18,13 +19,15 @@ namespace Code.Entities.Common
                 Disable();
             }
 
-            SetPhysicsActive(false);
-            base.Init();
+            _setPhysicsActive(false);
+            
+            return base.InitializeDragAndDrop();
         }
 
         public override void Active(Action OnTurnedOn = null)
         {
-            SetPhysicsActive(true);
+            _setPhysicsActive(true);
+         
             base.Active(OnTurnedOn);
             
             _isDragging = _colliderButton.IsPressed;
@@ -32,19 +35,21 @@ namespace Code.Entities.Common
 
         public override void Disable(Action onTurnedOff = null)
         {
-            SetPhysicsActive(false);
+            _setPhysicsActive(false);
+        
             base.Disable(onTurnedOff);
+            
             _isDragging = false;
         }
 
         public void SetKinematicMode()
         {
-            SetPhysicsActive(false);
+            _setPhysicsActive(false);
         }
 
         public void SetDynamicMode()
         {
-            SetPhysicsActive(true);
+            _setPhysicsActive(true);
         }
 
         protected override void OnPressedDown(Vector2 obj)
@@ -54,7 +59,8 @@ namespace Code.Entities.Common
                 return;
             }
 
-            SetPhysicsActive(false);
+            _setPhysicsActive(false);
+            
             base.OnPressedDown(obj);
         }
 
@@ -65,11 +71,12 @@ namespace Code.Entities.Common
                 return;
             }
 
-            SetPhysicsActive(true);
+            _setPhysicsActive(true);
+           
             base.OnPressedUp(arg1, arg2);
         }
 
-        private void SetPhysicsActive(bool isActive)
+        private void _setPhysicsActive(bool isActive)
         {
             if (_rigidbody2D == null)
             {
@@ -77,6 +84,7 @@ namespace Code.Entities.Common
             }
 
             _rigidbody2D.bodyType = isActive ? RigidbodyType2D.Dynamic : RigidbodyType2D.Kinematic;
+            
             _rigidbody2D.velocity = Vector2.zero;
         }
     }

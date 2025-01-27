@@ -1,52 +1,49 @@
 using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Entities.Diva.Reactions
 {
-    public class BadInteractionReaction: Reaction, IStartListener, IExitListener
+    [Preserve]
+    public class BadInteractionReaction: Reaction, ISubscriber
     {
         private DivaMaterialAdapter _characterMaterialAdapter;
         private InteractionStorage _interactionStorage;
 
-        protected override void Init()
-        {
-            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
-            _characterMaterialAdapter = diva.FindCommonComponent<DivaMaterialAdapter>();
+        private int _cooldownMinutes;
 
+        protected override UniTask InitializeReaction()
+        {
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             
-            base.Init();
+            DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
+            _characterMaterialAdapter = diva.FindCommonComponent<DivaMaterialAdapter>();
+            
+            _cooldownMinutes = Container.Instance.FindConfig<TimeConfig>().Cooldown.BadInteractionReactionMin;
+            
+            return base.InitializeReaction();
         }
 
         protected override int GetCooldownMinutes()
         {
-            return Container.Instance.FindConfig<TimeConfig>().Cooldown.BadInteractionReactionMin;
+            return _cooldownMinutes;
         }
         
-        public void GameStart()
+        public UniTask Subscribe()
         {
-            SubscribeToEvents(true);
+            _interactionStorage.OnAdded += _onAddedInteraction; 
+
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public void Unsubscribe()
         {
-            SubscribeToEvents(false);
+            _interactionStorage.OnAdded -= _onAddedInteraction;
         }
 
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _interactionStorage.OnAdd += OnAddedInteraction; 
-            }
-            else
-            {
-                _interactionStorage.OnAdd += OnAddedInteraction;
-            }
-        }
-
-        private void OnAddedInteraction(EInteractionType type, int arg2)
+        private void _onAddedInteraction(EInteractionType type, int arg2)
         {
             if(type == EInteractionType.Bad)
             {

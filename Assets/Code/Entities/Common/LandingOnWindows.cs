@@ -1,47 +1,42 @@
 ﻿using Code.Data;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IStartListener, IExitListener
+    public class LandingOnWindows : CommonComponent, IWindowsSpecific, IStartListener, ISubscriber
     {
         [Header("Components")] 
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColorChecker _colorChecker;
 
-        [Header("Dynamic Data")] 
-        [SerializeField] private bool _isEnable = true;
-
-        public void GameStart()
+        public UniTask Subscribe()
         {
-            _setEnable(_isEnable);
+            _colliderButton.OnPressedUp += _onPressedUp;
+            _colorChecker.OnFoundedNewColor += _onFoundedNewColor;
+            
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public UniTask GameStart()
         {
-            _subscribeToEvents(false);
+            _colorChecker.SetEnable(true);
+
+            return UniTask.CompletedTask;
         }
-        
+
+        public void Unsubscribe()
+        {
+            _colliderButton.OnPressedUp -= _onPressedUp;
+            _colorChecker.OnFoundedNewColor -= _onFoundedNewColor;
+        }
+
         public void SetOffset(Vector2 offset)
         {
             _colorChecker.SetAdditionalOffset(offset);
-        }
-        
-        private void _subscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _colliderButton.OnPressedUp += _onPressedUp;
-                _colorChecker.OnFoundedNewColor += _onFoundedNewColor;
-            }
-            else
-            {
-                _colliderButton.OnPressedUp -= _onPressedUp;
-                _colorChecker.OnFoundedNewColor -= _onFoundedNewColor;
-            }
         }
 
         private void _onPressedUp(Vector2 arg1, float arg2)
@@ -62,24 +57,12 @@ namespace Code.Entities.Common
                 case RigidbodyType2D.Kinematic:
                     _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                     break;
+              
                 case RigidbodyType2D.Dynamic:
                     _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
                     _rigidbody2D.velocity = Vector2.zero;
                     break;
             }
-        }
-
-        private void _setEnable(bool isEnable)
-        {
-#if DEBUGGING
-            Debugging.Log(this, $"{gameObject.name} [SetEnable] {isEnable}", Debugging.Type.Window);
-#endif
-
-            _isEnable = isEnable;
-            
-            _colorChecker.SetEnable(isEnable);
-            
-            _subscribeToEvents(isEnable);
         }
     }
 }

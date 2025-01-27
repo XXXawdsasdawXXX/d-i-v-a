@@ -5,6 +5,7 @@ using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
 using Code.Infrastructure.Services.Getters;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Common
@@ -27,14 +28,16 @@ namespace Code.Entities.Common
 
         [Header("Debug")] 
         [SerializeField] private Transform _debugPoint;
-
-
-        public void GameInitialize()
+        
+        public UniTask GameInitialize()
         {
-            _colorAnalyzer = Container.Instance.FindGetter<DisplayColorGetter>().Get() as DisplayColor;
+            Container.Instance.FindGetter<DisplayColorGetter>().Get(out _colorAnalyzer);
+            
             _sensitivity = Container.Instance.FindConfig<SettingsConfig>().ColorCheckSensitivity;
 
-            TrySetDebugPointPosition();
+            _trySetDebugPointPosition();
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameUpdate()
@@ -44,19 +47,17 @@ namespace Code.Entities.Common
                 return;
             }
 
-            if (IsDifferentColorDetected())
+            if (_isDifferentColorDetected())
             {
-                Color32 newColor = _colorAnalyzer.GetColor(GetCheckPosition());
+                Color32 newColor = _colorAnalyzer.GetColor(_getCheckPosition());
 
                 string newColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(newColor)}>other</color>";
                 string lastColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>other</color>";
 
+                _lastColor = newColor;
 #if DEBUGGING
                 Debugging.Log(this, $"Find other color {lastColorHtml} vs {newColorHtml}", Debugging.Type.Window);
 #endif
-
-                _lastColor = newColor;
-
                 OnFoundedNewColor?.Invoke(_lastColor);
             }
         }
@@ -68,42 +69,42 @@ namespace Code.Entities.Common
 
         public void RefreshLastColor()
         {
-            _lastColor = _colorAnalyzer.GetColor(GetCheckPosition());
+            _lastColor = _colorAnalyzer.GetColor(_getCheckPosition());
         }
 
         public void SetAdditionalOffset(Vector3 offset)
         {
             _additionalOffset = offset;
-            TrySetDebugPointPosition();
+            _trySetDebugPointPosition();
         }
 
-        private bool IsDifferentColorDetected()
+        private bool _isDifferentColorDetected()
         {
-            return !_lastColor.Equal(_colorAnalyzer.GetColor(GetCheckPosition()), _sensitivity);
+            return !_lastColor.Equal(_colorAnalyzer.GetColor(_getCheckPosition()), _sensitivity);
         }
 
-        private Vector3 GetCheckPosition()
+        private Vector3 _getCheckPosition()
         {
             return transform.position + _offset + _additionalOffset;
         }
 
-        private void TrySetDebugPointPosition()
+        private void _trySetDebugPointPosition()
         {
             if (_debugPoint != null)
             {
-                _debugPoint.position = GetCheckPosition() + new Vector3(0, _debugPoint.localScale.y / 2 - 0.1f, 0);
+                _debugPoint.position = _getCheckPosition() + new Vector3(0, _debugPoint.localScale.y / 2 - 0.1f, 0);
             }
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawSphere(GetCheckPosition(), 0.01f);
+            Gizmos.DrawSphere(_getCheckPosition(), 0.01f);
         }
 
         private void OnValidate()
         {
-            TrySetDebugPointPosition();
+            _trySetDebugPointPosition();
         }
     }
 }

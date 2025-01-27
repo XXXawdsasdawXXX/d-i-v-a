@@ -4,6 +4,7 @@ using Code.Data;
 using Code.Entities.Items;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Entities.Diva
@@ -19,12 +20,15 @@ namespace Code.Entities.Diva
         private Coroutine _coroutine;
         public event Action<LiveStatePercentageValue[]> OnItemUsed;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
+            
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _modeAdapter = diva.FindCharacterComponent<DivaModeAdapter>();
+            
+            return UniTask.CompletedTask;
         }
 
         public void StartReactionToObject(ItemEntity item, Action OnEndReaction = null)
@@ -39,6 +43,7 @@ namespace Code.Entities.Diva
             _coroutine = StartCoroutine(Use(item, OnEndReaction));
         }
 
+        //todo refactoring to unitask
         private IEnumerator Use(ItemEntity item, Action OnEndReaction = null)
         {
             item.Lock();

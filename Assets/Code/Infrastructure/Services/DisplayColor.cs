@@ -1,6 +1,7 @@
 ﻿using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using uWindowCapture;
 
@@ -17,10 +18,13 @@ namespace Code.Infrastructure.Services
 
         private PositionService _positionService;
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
-            _material = GetComponent<Renderer>().material;
             _positionService = Container.Instance.FindService<PositionService>();
+            
+            _material = GetComponent<Renderer>().material;
+            
+            return UniTask.CompletedTask;
         }
 
         private void CreateTextureIfNeeded()
@@ -45,23 +49,25 @@ namespace Code.Infrastructure.Services
 
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
-
-
+            
             float displayX = Mathf.Clamp(screenPosition.x, 0, screenWidth) +
                              GetTotalWidthOfPreviousDisplays(screenPosition);
+         
             float displayY = Mathf.Clamp(screenPosition.y, 0, screenHeight);
-            displayY = screenHeight - displayY; // Переворачиваем ось Y
+            displayY = screenHeight - displayY;
 
             int x = Mathf.RoundToInt(displayX);
             int y = Mathf.RoundToInt(displayY);
 
             _material.color = window.GetPixel(x, y);
+          
             return _material.color;
         }
 
         private static float GetTotalWidthOfPreviousDisplays(Vector2 screenPosition)
         {
             float totalWidthOfPreviousDisplays = 0f;
+          
             for (int i = 0; i < Display.displays.Length; i++)
             {
                 if (screenPosition.x >= Display.displays[i].systemWidth)

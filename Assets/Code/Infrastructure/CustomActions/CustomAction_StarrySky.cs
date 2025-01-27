@@ -2,10 +2,13 @@
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Infrastructure.Services;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.CustomActions
 {
-    public class CustomAction_StarrySky : CustomAction, IStartListener, IExitListener
+    [Preserve]
+    public class CustomAction_StarrySky : CustomAction, ISubscriber, IStartListener
     {
         private readonly TimeObserver _timeObserver;
         private readonly ParticleSystemFacade _skyStarsParticle;
@@ -13,6 +16,7 @@ namespace Code.Infrastructure.CustomActions
         public CustomAction_StarrySky()
         {
             ParticlesStorage particleDictionary = Container.Instance.FindStorage<ParticlesStorage>();
+           
             if (particleDictionary.TryGetParticle(EParticleType.StarrySky, out ParticleSystemFacade[] skyStarsParticle))
             {
                 _timeObserver = Container.Instance.FindService<TimeObserver>();
@@ -20,35 +24,30 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public void GameStart()
+        public UniTask Subscribe()
+        {
+            _timeObserver.OnNightStarted += TryStartAction;
+            _timeObserver.OnDayStarted += StopAction;
+
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
         {
             if (_timeObserver.IsNightTime())
             {
                 TryStartAction();
             }
 
-            SubscribeToEvents(true);
+            return UniTask.CompletedTask;
         }
 
-        public void GameExit()
+        public void Unsubscribe()
         {
-            SubscribeToEvents(false);
+            _timeObserver.OnNightStarted -= TryStartAction;
+            _timeObserver.OnDayStarted -= StopAction;
         }
-
-        private void SubscribeToEvents(bool flag)
-        {
-            if (flag)
-            {
-                _timeObserver.OnNightStarted += TryStartAction;
-                _timeObserver.OnDayStarted += StopAction;
-            }
-            else
-            {
-                _timeObserver.OnNightStarted -= TryStartAction;
-                _timeObserver.OnDayStarted -= StopAction;
-            }
-        }
-
+        
         protected override void TryStartAction()
         {
             _skyStarsParticle.On();

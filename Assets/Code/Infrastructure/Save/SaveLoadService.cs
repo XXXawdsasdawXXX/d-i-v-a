@@ -3,10 +3,13 @@ using Code.Data;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Code.Infrastructure.Save
 {
+    [Preserve]
     public class SaveLoadService : IService, ILoadListener, IExitListener
     {
         private const string PROGRESS_KEY = "Progress";
@@ -16,9 +19,10 @@ namespace Code.Infrastructure.Save
 
         private PlayerProgressData _playerProgress;
 
-        public void GameLoad()
+        public UniTask GameLoad()
         {
             _progressReader = Container.Instance.GetProgressReaders();
+      
             foreach (IProgressReader progressReader in _progressReader)
             {
                 if (progressReader is IProgressWriter writer)
@@ -32,17 +36,20 @@ namespace Code.Infrastructure.Save
 #if DEBUGGING
             Debugging.Log(this, "[Game load]", Debugging.Type.SaveLoad);
 #endif
+            
+            return UniTask.CompletedTask;
         }
 
         public void GameExit()
         {
-            SaveProgress();
+            _saveProgress();
+            
 #if DEBUGGING
             Debugging.Log(this, "[Game save]", Debugging.Type.SaveLoad);
 #endif
         }
 
-        private void SaveProgress()
+        private void _saveProgress()
         {
             foreach (IProgressWriter progressWriter in _progressWriters)
             {
@@ -78,15 +85,5 @@ namespace Code.Infrastructure.Save
                 progressReader.LoadProgress(_playerProgress);
             }
         }
-    }
-
-    public interface IProgressWriter : IProgressReader
-    {
-        void SaveProgress(PlayerProgressData playerProgress);
-    }
-
-    public interface IProgressReader
-    {
-        void LoadProgress(PlayerProgressData playerProgress);
     }
 }

@@ -2,6 +2,7 @@
 {
     public interface IGetter
     {
-        object Get();
+        void Get<T>(out T component) where T : class;
+
     }
 }

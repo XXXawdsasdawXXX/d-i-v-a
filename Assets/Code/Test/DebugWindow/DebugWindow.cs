@@ -1,4 +1,5 @@
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Test
@@ -16,7 +17,7 @@ namespace Code.Test
         
         private bool _isOpened;
         
-        public async void GameStart()
+        public async UniTask GameStart()
         {
             await _param.Initialize();
             await _tick.Initialize();

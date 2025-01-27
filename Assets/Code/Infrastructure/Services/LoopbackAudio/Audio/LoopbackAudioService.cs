@@ -4,6 +4,7 @@ using System.Linq;
 using Code.Data;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.LoopbackAudio.Audio
@@ -46,7 +47,7 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
         #region Startup / Shutdown
 
-        public void GameInitialize()
+        public UniTask GameInitialize()
         {
             SpectrumData = new float[SpectrumSize];
             PostScaledSpectrumData = new float[SpectrumSize];
@@ -138,7 +139,10 @@ namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 
                 IsIdle = isIdle;
             });
+            
             _realtimeAudio.StartListen();
+            
+            return UniTask.CompletedTask;
         }
 
         public void OnApplicationQuit()

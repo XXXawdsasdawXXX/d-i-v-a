@@ -2,6 +2,7 @@ using Code.Data;
 using Code.Data.Audio;
 using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services
@@ -9,19 +10,23 @@ namespace Code.Infrastructure.Services
     public class AudioEventsService : MonoBehaviour, IService, IInitListener
     {
         [SerializeField] private AudioSource _audioSource;
+      
         private AudioConfig _config;
 
-        void IInitListener.GameInitialize()
+        public UniTask GameInitialize()
         {
             _config = Container.Instance.FindConfig<AudioConfig>();
+            
+            return UniTask.CompletedTask;
         }
 
         public void PlayAudio(EAudioEventType type)
         {
-            AudioEvent audio = _config.GetRandomAudioEvent(type);
-            if (audio != null)
+            AudioEvent audioEvent = _config.GetRandomAudioEvent(type);
+         
+            if (audioEvent != null)
             {
-                audio.Play(_audioSource);
+                audioEvent.Play(_audioSource);
             }
         }
     }
