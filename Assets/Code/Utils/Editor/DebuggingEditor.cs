@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Code.Utils.Editor
 {
-    [CustomEditor(typeof(Debugging))]
+    [CustomEditor(typeof(Log))]
     public class DebuggingEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            Debugging debugging = (Debugging)target;
+            Log log = (Log)target;
 
             if (GUILayout.Button("Disable All"))
             {
-                debugging.DisableAll();
+                log.DisableAll();
             }
         }
     }

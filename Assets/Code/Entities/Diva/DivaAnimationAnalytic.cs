@@ -23,13 +23,11 @@ namespace Code.Entities.Diva
         [SerializeField] private DivaAnimationStateObserver _divaAnimationStateObserver;
 
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _divaAnimator.OnModeEntered += _onEnteredModeEvent;
             _divaAnimationStateObserver.OnStateEntered += _onSwitchStateEvent;
             _divaAnimationStateObserver.OnStateExited += _onSwitchStateEvent;
-            
-            return UniTask.CompletedTask;
         }
         
         public void Unsubscribe()

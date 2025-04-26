@@ -25,7 +25,7 @@ namespace Code.BehaviorTree.Diva
             if (IsCanRun())
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run]", Log.Type.BehaviorTree);
 #endif
                 _itemsController.StartReactionToObject(_item, OnEndReaction: () =>
                 {
@@ -36,7 +36,7 @@ namespace Code.BehaviorTree.Diva
             else
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[run] Return -> item is null", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run] Return -> item is null", Log.Type.BehaviorTree);
 #endif
                 Return(false);
             }
@@ -46,7 +46,7 @@ namespace Code.BehaviorTree.Diva
         {
             _item = item;
 #if DEBUGGING
-            Debugging.Log(this, "[SetCurrentItem]", Debugging.Type.BehaviorTree);
+            Log.Info(this, "[SetCurrentItem]", Log.Type.BehaviorTree);
 #endif
         }
 
@@ -58,7 +58,7 @@ namespace Code.BehaviorTree.Diva
         protected override void OnReturn(bool success)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[on return] {success}", Debugging.Type.BehaviorTree);
+            Log.Info(this, $"[on return] {success}", Log.Type.BehaviorTree);
 #endif
             _item = null;
 
@@ -70,7 +70,7 @@ namespace Code.BehaviorTree.Diva
             _item = null;
 
 #if DEBUGGING
-            Debugging.Log(this, "[on break]", Debugging.Type.BehaviorTree);
+            Log.Info(this, "[on break]", Log.Type.BehaviorTree);
 #endif
         }
     }

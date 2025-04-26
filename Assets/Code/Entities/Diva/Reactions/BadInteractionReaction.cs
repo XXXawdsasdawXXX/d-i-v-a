@@ -31,11 +31,9 @@ namespace Code.Entities.Diva.Reactions
             return _cooldownMinutes;
         }
         
-        public UniTask Subscribe()
+        public void Subscribe()
         {
-            _interactionStorage.OnAdded += _onAddedInteraction; 
-
-            return UniTask.CompletedTask;
+            _interactionStorage.OnAdded += _onAddedInteraction;
         }
 
         public void Unsubscribe()

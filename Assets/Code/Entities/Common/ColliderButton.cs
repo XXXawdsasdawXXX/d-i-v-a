@@ -66,7 +66,7 @@ namespace Code.Entities.Common
             SeriesOfClicksEvent?.Invoke(_clickNumber);
 
 #if DEBUGGING
-            Debugging.Log(this, $"{gameObject.name}: Mouse down {_clickNumber}.", Debugging.Type.ButtonSprite);
+            Log.Info(this, $"{gameObject.name}: Mouse down {_clickNumber}.", Log.Type.ButtonSprite);
 #endif
         }
 
@@ -77,7 +77,7 @@ namespace Code.Entities.Common
             _pressedTime = 0;
 
 #if DEBUGGING
-            Debugging.Log(this, $"{gameObject.name}: Mouse up.", Debugging.Type.ButtonSprite);
+            Log.Info(this, $"{gameObject.name}: Mouse up.", Log.Type.ButtonSprite);
 #endif
         }
 

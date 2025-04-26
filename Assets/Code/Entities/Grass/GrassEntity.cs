@@ -15,7 +15,7 @@ namespace Code.Entities.Grass
             IsActive = true;
             _grassAnimator.PlayGrow();
 #if DEBUGGING
-            Debugging.Log(this, "[Grow]", Debugging.Type.Grass);
+            Log.Info(this, "[Grow]", Log.Type.Grass);
 #endif
         }
 
@@ -23,7 +23,7 @@ namespace Code.Entities.Grass
         {
             IsActive = false;
 #if DEBUGGING
-            Debugging.Log(this, "[Die]", Debugging.Type.Grass);
+            Log.Info(this, "[Die]", Log.Type.Grass);
 #endif
             _grassAnimator.PlayDie();
         }

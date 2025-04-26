@@ -13,12 +13,10 @@ namespace Code.Entities.Common
         [SerializeField] private ColliderButton _colliderButton;
         [SerializeField] private ColorChecker _colorChecker;
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _colliderButton.OnPressedUp += _onPressedUp;
             _colorChecker.OnFoundedNewColor += _onFoundedNewColor;
-            
-            return UniTask.CompletedTask;
         }
 
         public UniTask GameStart()
@@ -42,7 +40,7 @@ namespace Code.Entities.Common
         private void _onPressedUp(Vector2 arg1, float arg2)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"{gameObject.name} [OnPressedUp]", Debugging.Type.Window);
+            Log.Info(this, $"{gameObject.name} [OnPressedUp]", Log.Type.Window);
 #endif
             _colorChecker.RefreshLastColor();
         }
@@ -50,7 +48,7 @@ namespace Code.Entities.Common
         private void _onFoundedNewColor(Color obj)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"{gameObject.name} [OnFoundedNewColor]", Debugging.Type.Window);
+            Log.Info(this, $"{gameObject.name} [OnFoundedNewColor]", Log.Type.Window);
 #endif
             switch (_rigidbody2D.bodyType)
             {

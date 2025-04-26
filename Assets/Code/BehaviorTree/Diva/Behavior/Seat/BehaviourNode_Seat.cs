@@ -47,14 +47,14 @@ namespace Code.BehaviorTree.Diva
 
                 _divaAnimator.EnterToMode(EDivaAnimationMode.Seat);
 #if DEBUGGING
-                Debugging.Log(this, "[run]", Debugging.Type.BehaviorTree);
+                Log.Info(this, "[run]", Log.Type.BehaviorTree);
 #endif
             }
             else
             {
                 Return(false);
 #if DEBUGGING
-                Debugging.Log(this, $"[run] Return.", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run] Return.", Log.Type.BehaviorTree);
 #endif
             }
         }

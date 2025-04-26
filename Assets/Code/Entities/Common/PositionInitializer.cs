@@ -34,9 +34,9 @@ namespace Code.Entities.Common
         {
             transform.position = _positionService.GetPosition(_pointAnchor, _entityBounds);
 #if DEBUGGING
-            Debugging.Log(this,
+            Log.Info(this,
                 $"[{gameObject.name}] from {transform.position} to {_positionService.GetPosition(_pointAnchor, _entityBounds)}",
-                Debugging.Type.Position);
+                Log.Type.Position);
 #endif
         }
     }

@@ -48,7 +48,7 @@ namespace Code.Infrastructure.Services.Interactions
                 if (_currentInput.Equals(word.ToString()))
                 {
 #if DEBUGGING
-                    Debugging.Log(this, $"[_checkInput] Input matches: {word}.", Debugging.Type.Input);
+                    Log.Info(this, $"[_checkInput] Input matches: {word}.", Log.Type.Input);
 #endif
                    
                     _currentInput = ""; 

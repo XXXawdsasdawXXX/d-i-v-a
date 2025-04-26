@@ -58,7 +58,7 @@ namespace Code.BehaviorTree.Diva
             if (IsCanRun())
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run]", Log.Type.BehaviorTree);
 #endif
                 SubscribeToEvents(true);
 
@@ -69,7 +69,7 @@ namespace Code.BehaviorTree.Diva
                 if (_divaCondition.IsCanExitWhenSleep())
                 {
 #if DEBUGGING
-                    Debugging.Log($"[run] Exit anim routine.", Debugging.Type.BehaviorTree);
+                    Log.Info($"[run] Exit anim routine.", Log.Type.BehaviorTree);
 #endif
                     _coroutineRunner.StartRoutine(_playExitAnimationRoutine());
                 }
@@ -77,7 +77,7 @@ namespace Code.BehaviorTree.Diva
             else
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[run] Return.", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run] Return.", Log.Type.BehaviorTree);
 #endif
                 Return(false);
             }
@@ -92,7 +92,7 @@ namespace Code.BehaviorTree.Diva
         {
             _sleepState?.SetDefaultUpdate();
 #if DEBUGGING
-            Debugging.Log(this, $"[break]");
+            Log.Info(this, $"[break]");
 #endif
             base.OnBreak();
         }
@@ -117,7 +117,7 @@ namespace Code.BehaviorTree.Diva
 
             yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(ELiveStateKey.Sleep) >= 0.7f);
 #if DEBUGGING
-            Debugging.Log(this, $"[_playExitAnimationRoutine] End.", Debugging.Type.BehaviorTree);
+            Log.Info(this, $"[_playExitAnimationRoutine] End.", Log.Type.BehaviorTree);
 #endif
             _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
         }
@@ -125,7 +125,7 @@ namespace Code.BehaviorTree.Diva
         private void _rouse()
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[_rouse]", Debugging.Type.BehaviorTree);
+            Log.Info(this, $"[_rouse]", Log.Type.BehaviorTree);
 #endif
             _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
 
@@ -152,7 +152,7 @@ namespace Code.BehaviorTree.Diva
             SubscribeToEvents(false);
 
 #if DEBUGGING
-            Debugging.Log(this, "[_stop sleep]", Debugging.Type.BehaviorTree);
+            Log.Info(this, "[_stop sleep]", Log.Type.BehaviorTree);
 #endif
         }
 
@@ -165,14 +165,14 @@ namespace Code.BehaviorTree.Diva
             data.SleepRemainingTick = _tickCounter.GetRemainingTick();
 
 #if DEBUGGING
-            Debugging.Log(this, "[Save]", Debugging.Type.BehaviorTree);
+            Log.Info(this, "[Save]", Log.Type.BehaviorTree);
 #endif
         }
 
         public void LoadData(BehaviourTreeLoader.Data data)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[Load] -> SleepRemainingTick = {data.SleepRemainingTick}.", Debugging.Type.BehaviorTree);
+            Log.Info(this, $"[Load] -> SleepRemainingTick = {data.SleepRemainingTick}.", Log.Type.BehaviorTree);
 #endif
 
             if (data.SleepRemainingTick > 0)

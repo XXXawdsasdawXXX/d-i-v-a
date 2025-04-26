@@ -38,11 +38,9 @@ namespace Code.Entities.Diva.Reactions
             return base.InitializeReaction();
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _stateReader.OnStateExited += _onAnimationOnStateExited;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()

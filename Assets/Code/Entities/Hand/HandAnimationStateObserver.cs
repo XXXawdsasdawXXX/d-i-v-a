@@ -25,7 +25,7 @@ namespace Code.Entities.Hand
             OnStateEntered?.Invoke(State);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[EnteredState] {State}.", Debugging.Type.Hand);
+            Log.Info(this, $"[EnteredState] {State}.", Log.Type.Hand);
 #endif
         }
 
@@ -36,7 +36,7 @@ namespace Code.Entities.Hand
             OnStateExited?.Invoke(StateFor(stateHash));
 
 #if DEBUGGING
-            Debugging.Log(this, $"[ExitedState] {State}.", Debugging.Type.Hand);
+            Log.Info(this, $"[ExitedState] {State}.", Log.Type.Hand);
 #endif
         }
 

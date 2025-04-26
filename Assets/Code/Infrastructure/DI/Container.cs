@@ -77,9 +77,9 @@ namespace Code.Infrastructure.DI
                 list.AddRange(mbServices);
             }
 
-            Debugging.Log(
+            Log.Info(
                 $"Init {typeof(T).Name} | mb count = {mbServices.Count()}| list count = {list.Count}",
-                Debugging.Type.DiContainer);
+                Log.Type.DiContainer);
         }
 
         public UniWindowController GetUniWindowController()

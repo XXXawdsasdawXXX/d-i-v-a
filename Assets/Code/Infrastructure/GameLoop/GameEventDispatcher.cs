@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Data;
 using Code.Infrastructure.DI;
@@ -12,48 +13,67 @@ namespace Code.Infrastructure.GameLoop
 {
     public class GameEventDispatcher : MonoBehaviour, IService
     {
-
+        
+        private enum State
+        {
+            None,
+            Initialize,
+            Subscribe,            
+            Load,
+            Start,
+            Update,
+            Unsubscribe,
+            Exit
+        }
+        
         private UniWindowController _controller;
 
         private readonly List<IInitListener> _initListeners = new();
         private readonly List<ILoadListener> _loadListeners = new();
         private readonly List<IStartListener> _startListeners = new();
-        private readonly List<IUpdateListener> _tickListeners = new();
+        private readonly List<IUpdateListener> _updateListeners = new();
         private readonly List<IExitListener> _exitListeners = new();
         private readonly List<ISubscriber> _subscribers = new();
+        
+        private ProfilerMarker _updateMarker = new("update");
 
-        private bool _isTestInit = true;
-        private bool _isGameBooted;
-
+        private State _currentState;
+        
         private void Awake()
         {
-#if !UNITY_EDITOR
-            _isTestInit = false;
-#endif
             _controller = Container.Instance.GetUniWindowController();
 
             _initializeListeners();
 
-            if (_isTestInit)
+            if (Application.isEditor)
             {
                 _controller.gameObject.SetActive(false);
                 _bootGame();
 #if DEBUGGING
-                Debugging.Log(this, "[Awake] editor", Debugging.Type.GameState);
+                Log.Info(this, "[Awake] editor", Log.Type.GameState);
 #endif
             }
             else
             {
                 _controller.OnStateChanged += _onWindowInitialized;
 #if DEBUGGING
-                Debugging.Log(this, "[Awake] build", Debugging.Type.GameState);
+                Log.Info(this, "[Awake] build", Log.Type.GameState);
 #endif
             }
         }
 
+        private async void Start()
+        {
+            await UniTask.WaitUntil(() => _currentState is State.Start);
+          
+            await _notifyGameStart();
+            
+            _currentState = State.Update;
+        }
+
         private void Update()
         {
-            if (_isGameBooted)
+            if (_currentState is State.Update)
             {
                 _notifyGameUpdate();
             }
@@ -61,20 +81,20 @@ namespace Code.Infrastructure.GameLoop
 
         private void OnApplicationQuit()
         {
-            if (_isGameBooted)
+            if (_currentState > State.Subscribe)
             {
                 _notifyGameExit();
             }
 
 #if DEBUGGING
-            Debugging.Log(this, "[OnApplicationQuit]", Debugging.Type.GameState);
+            Log.Info(this, "[OnApplicationQuit]", Log.Type.GameState);
 #endif
         }
 
         public async void InitializeRuntimeListener(IGameListeners listener)
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker($"RuntimeListener: {listener.GetType().Name}");
+            ProfilerMarker marker = new($"RuntimeListener: {listener.GetType().Name}");
             marker.Begin();
 #endif
             if (listener is IInitListener initListener)
@@ -98,7 +118,7 @@ namespace Code.Infrastructure.GameLoop
                 await startListener.GameStart();
             }
 
-            if (listener is IUpdateListener tickListener) _tickListeners.Add(tickListener);
+            if (listener is IUpdateListener tickListener) _updateListeners.Add(tickListener);
 
             if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
 
@@ -109,7 +129,7 @@ namespace Code.Infrastructure.GameLoop
 
         public void RemoveRuntimeListener(IGameListeners listener)
         {
-            if (listener is IUpdateListener tickListener) _tickListeners.Remove(tickListener);
+            if (listener is IUpdateListener tickListener) _updateListeners.Remove(tickListener);
 
             if (listener is IExitListener exitListener) _exitListeners.Remove(exitListener);
 
@@ -126,22 +146,26 @@ namespace Code.Infrastructure.GameLoop
         private async void _bootGame()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_bootGame");
+            ProfilerMarker marker = new("_bootGame");
             marker.Begin();
 #endif
+            _currentState = State.Initialize;
             await _notifyGameInitialize();
+            
+            _currentState = State.Subscribe;
             await _notifySubscribe();
+            
+            _currentState = State.Load;
             await _notifyGameLoad();
-            await _notifyGameStart();
 
-            _isGameBooted = true;
-
+            _currentState = State.Start;
+            
 #if UNITY_EDITOR
             marker.End();
 #endif
 
 #if DEBUGGING
-            Debugging.Log(this, "[_bootGame] completed", Debugging.Type.GameState);
+            Log.Info(this, "[_bootGame] completed", Log.Type.GameState);
 #endif
         }
 
@@ -164,7 +188,7 @@ namespace Code.Infrastructure.GameLoop
 
                 if (listener is IStartListener startListener) _startListeners.Add(startListener);
 
-                if (listener is IUpdateListener tickListener) _tickListeners.Add(tickListener);
+                if (listener is IUpdateListener tickListener) _updateListeners.Add(tickListener);
 
                 if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
             }
@@ -173,7 +197,7 @@ namespace Code.Infrastructure.GameLoop
         private async UniTask _notifyGameInitialize()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_notifyGameInitialize");
+            ProfilerMarker marker = new("_notifyGameInitialize");
             marker.Begin();
 #endif
             foreach (IInitListener listener in _initListeners)
@@ -188,7 +212,7 @@ namespace Code.Infrastructure.GameLoop
         private async UniTask _notifyGameLoad()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_notifyGameLoad");
+            ProfilerMarker marker = new("_notifyGameLoad");
             marker.Begin();
 #endif
             foreach (ILoadListener listener in _loadListeners)
@@ -200,25 +224,28 @@ namespace Code.Infrastructure.GameLoop
 #endif
         }
 
-        private async UniTask _notifySubscribe()
+        private UniTask _notifySubscribe()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_notifySubscribe");
+            ProfilerMarker marker = new("_notifySubscribe");
             marker.Begin();
 #endif
             foreach (ISubscriber subscriber in _subscribers)
-            {
-                await subscriber.Subscribe();
+            { 
+                subscriber.Subscribe();
             }
+            
 #if UNITY_EDITOR
             marker.End();
 #endif
+            
+            return UniTask.CompletedTask;
         }
 
         private async UniTask _notifyGameStart()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_notifyGameStart");
+            ProfilerMarker marker = new("_notifyGameStart");
             marker.Begin();
 #endif
             foreach (IStartListener listener in _startListeners)
@@ -232,11 +259,11 @@ namespace Code.Infrastructure.GameLoop
 
         private void _notifyGameUpdate()
         {
-            foreach (IUpdateListener listener in _tickListeners)
+            foreach (IUpdateListener listener in _updateListeners)
             {
 #if UNITY_EDITOR
                 string listenerName = listener.GetType().Name;
-                ProfilerMarker marker = new ProfilerMarker($"GameUpdate: {listenerName}");
+                ProfilerMarker marker = new($"GameUpdate: {listenerName}");
                 marker.Begin();
 #endif
                 listener.GameUpdate();
@@ -249,7 +276,7 @@ namespace Code.Infrastructure.GameLoop
         private void _notifyGameExit()
         {
 #if UNITY_EDITOR
-            ProfilerMarker marker = new ProfilerMarker("_notifyGameExit");
+            ProfilerMarker marker = new("_notifyGameExit");
             marker.Begin();
 #endif
             foreach (ISubscriber subscriber in _subscribers)

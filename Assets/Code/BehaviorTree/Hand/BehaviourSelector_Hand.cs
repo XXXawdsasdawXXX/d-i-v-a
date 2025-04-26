@@ -105,7 +105,7 @@ namespace Code.BehaviorTree.Hand
         private void _onSwitchLowerLiveState(ELiveStateKey key)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[_onSwitchLowerLiveState] {key}", Debugging.Type.Hand);
+            Log.Info(this, $"[_onSwitchLowerLiveState] {key}", Log.Type.Hand);
 #endif
 
             _currentChild?.Break();

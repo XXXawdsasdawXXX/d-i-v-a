@@ -8,7 +8,7 @@ namespace Code.Infrastructure.GameLoop
 
     public interface ISubscriber : IGameListeners
     {
-        UniTask Subscribe();
+        void Subscribe();
         void Unsubscribe();
     }
     

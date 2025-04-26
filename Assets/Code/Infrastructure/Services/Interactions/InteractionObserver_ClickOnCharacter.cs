@@ -31,16 +31,14 @@ namespace Code.Infrastructure.Services.Interactions
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             
 #if DEBUGGING
-            Debugging.Log(this, "[GameInit]", Debugging.Type.Interaction);
+            Log.Info(this, "[GameInit]", Log.Type.Interaction);
 #endif
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _characterCollisionButton.SeriesOfClicksEvent += _onClickSeries;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
@@ -52,12 +50,12 @@ namespace Code.Infrastructure.Services.Interactions
         private void _onClickSeries(int click)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[_onClickSeries] Click #{click}.", Debugging.Type.Interaction);
+            Log.Info(this, $"[_onClickSeries] Click #{click}.", Log.Type.Interaction);
 #endif
             if (click == 1)
             {
 #if DEBUGGING
-                Debugging.Log(this, "[_onClickSeries] Click good series.", Debugging.Type.Interaction);
+                Log.Info(this, "[_onClickSeries] Click good series.", Log.Type.Interaction);
 #endif
                 _interactionStorage.Add(EInteractionType.Good);
             
@@ -69,14 +67,14 @@ namespace Code.Infrastructure.Services.Interactions
                 {
                     _interactionStorage.Add(EInteractionType.Bad);
 #if DEBUGGING
-                    Debugging.Log(this, "[_onClickSeries] Click bad series.", Debugging.Type.Interaction);
+                    Log.Info(this, "[_onClickSeries] Click bad series.", Log.Type.Interaction);
 #endif
                 }
                 else
                 {
                     _interactionStorage.Add(EInteractionType.Normal);
 #if DEBUGGING
-                    Debugging.Log(this, "[_onClickSeries] Click normal series", Debugging.Type.Interaction);
+                    Log.Info(this, "[_onClickSeries] Click normal series", Log.Type.Interaction);
 #endif
                 }
 
@@ -85,7 +83,7 @@ namespace Code.Infrastructure.Services.Interactions
             else
             {
 #if DEBUGGING
-                Debugging.Log(this, "[_onClickSeries] Click bad series.", Debugging.Type.Interaction);
+                Log.Info(this, "[_onClickSeries] Click bad series.", Log.Type.Interaction);
 #endif
                 _interactionStorage.Add(EInteractionType.Bad);
             

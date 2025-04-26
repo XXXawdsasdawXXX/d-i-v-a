@@ -84,14 +84,14 @@ namespace Code.Infrastructure.Services
 
                 string netTime = webRequest.GetResponseHeader("date");
 #if DEBUGGING
-                Debugging.Log(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Debugging.Type.Time);
+                Log.Info(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Log.Type.Time);
 #endif
                 if (!DateTime.TryParse(netTime, out _currentTime))
                 {
                     _currentTime = DateTime.UtcNow;
 #if DEBUGGING
-                    Debugging.Log(this, $"[_initCurrentTime] Lose google time parsing. Time = {_currentTime}",
-                        Debugging.Type.Time);
+                    Log.Info(this, $"[_initCurrentTime] Lose google time parsing. Time = {_currentTime}",
+                        Log.Type.Time);
 #endif
                 }
             }
@@ -99,8 +99,8 @@ namespace Code.Infrastructure.Services
             {
                 _currentTime = DateTime.UtcNow;
 #if DEBUGGING
-                Debugging.Log(this, $"[_initCurrentTime] Init standalone time. Time = {_currentTime}",
-                    Debugging.Type.Time);
+                Log.Info(this, $"[_initCurrentTime] Init standalone time. Time = {_currentTime}",
+                    Log.Type.Time);
 #endif
             }
 
@@ -111,10 +111,10 @@ namespace Code.Infrastructure.Services
             _checkTimeOfDay();
 
 #if DEBUGGING
-            Debugging.Log(this, $"[_initCurrentTime] End init.\n" +
+            Log.Info(this, $"[_initCurrentTime] End init.\n" +
                                 $"Is first visit = {!Extensions.IsEqualDay(lastVisit, _currentTime)}\n" +
                                 $"Current time =  {_currentTime}. Saving time = {lastVisit}",
-                Debugging.Type.Time);
+                Log.Type.Time);
 #endif
 
             bool isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
@@ -144,7 +144,7 @@ namespace Code.Infrastructure.Services
 
                 _tickCount++;
 #if DEBUGGING
-                Debugging.Log(this, $"[_updateTickTime] Tick #{_tickCount}.", Debugging.Type.Time);
+                Log.Info(this, $"[_updateTickTime] Tick #{_tickCount}.", Log.Type.Time);
 #endif
 
                 OnTicked?.Invoke();
@@ -163,7 +163,7 @@ namespace Code.Infrastructure.Services
 
                 OnNightStarted?.Invoke();
 #if DEBUGGING
-                Debugging.Log(this, "[_checkTimeOfDay] Start night.", Debugging.Type.Time);
+                Log.Info(this, "[_checkTimeOfDay] Start night.", Log.Type.Time);
 #endif
             }
             else if (!isNightTime && _isNight)
@@ -172,7 +172,7 @@ namespace Code.Infrastructure.Services
 
                 OnDayStarted?.Invoke();
 #if DEBUGGING
-                Debugging.Log(this, "[_checkTimeOfDay] Start day.", Debugging.Type.Time);
+                Log.Info(this, "[_checkTimeOfDay] Start day.", Log.Type.Time);
 #endif
             }
         }

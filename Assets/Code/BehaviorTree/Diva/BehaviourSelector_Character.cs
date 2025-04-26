@@ -97,7 +97,7 @@ namespace Code.BehaviorTree.Diva
         private void _onSwitchLowerLiveState(ELiveStateKey key)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[_onSwitchLowerLiveState] -> _child?.Break();.", Debugging.Type.BehaviorTree);
+            Log.Info(this, $"[_onSwitchLowerLiveState] -> _child?.Break();.", Log.Type.BehaviorTree);
 #endif
             _currentChild?.Break();
             

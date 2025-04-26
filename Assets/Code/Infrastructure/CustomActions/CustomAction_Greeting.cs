@@ -54,7 +54,7 @@ namespace Code.Infrastructure.CustomActions
                 _isAlreadySaidHi = false;
             }
 #if DEBUGGING
-            Debugging.Log(this, $"[Load] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+            Log.Info(this, $"[Load] _isAlreadySaidHi = {_isAlreadySaidHi}", Log.Type.CustomAction);
 #endif
             return UniTask.CompletedTask;
         }
@@ -63,7 +63,7 @@ namespace Code.Infrastructure.CustomActions
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
 #if DEBUGGING
-            Debugging.Log(this, $"[Save] _isAlreadySaidHi = {_isAlreadySaidHi}", Debugging.Type.CustomAction);
+            Log.Info(this, $"[Save] _isAlreadySaidHi = {_isAlreadySaidHi}", Log.Type.CustomAction);
 #endif
         }
 
@@ -75,7 +75,7 @@ namespace Code.Infrastructure.CustomActions
         public void Active(Action OnTurnedOn = null)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[Active] is can = {!_isActive}", Debugging.Type.CustomAction);
+            Log.Info(this, $"[Active] is can = {!_isActive}", Log.Type.CustomAction);
 #endif
             if (!_isActive)
             {
@@ -88,7 +88,7 @@ namespace Code.Infrastructure.CustomActions
         public void Disable(Action onTurnedOff = null)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[Disable] is can = {_isActive}", Debugging.Type.CustomAction);
+            Log.Info(this, $"[Disable] is can = {_isActive}", Log.Type.CustomAction);
 #endif
             if (_isActive)
             {
@@ -118,7 +118,7 @@ namespace Code.Infrastructure.CustomActions
             if (_isAlreadySaidHi || !_isActive)
             {
 #if DEBUGGING
-                Debugging.Log(this, "[TrySayHi] (_isAlreadySaidHi || !_isActive)", Debugging.Type.CustomAction);
+                Log.Info(this, "[TrySayHi] (_isAlreadySaidHi || !_isActive)", Log.Type.CustomAction);
 #endif
                 return;
             }
@@ -127,15 +127,15 @@ namespace Code.Infrastructure.CustomActions
             _audioEventsService.PlayAudio(EAudioEventType.Hi);
             
 #if DEBUGGING
-            Debugging.Log(this, "[TrySayHi] Say", Debugging.Type.CustomAction);
+            Log.Info(this, "[TrySayHi] Say", Log.Type.CustomAction);
 #endif
         }
 
         private void _onInitTime(bool isFirstVisit)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
-                Debugging.Type.CustomAction);
+            Log.Info(this, $"[OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
+                Log.Type.CustomAction);
 #endif
             if (_isAlreadySaidHi && isFirstVisit)
             {

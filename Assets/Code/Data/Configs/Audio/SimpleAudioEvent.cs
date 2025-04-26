@@ -26,7 +26,7 @@ namespace Code.Data.Audio
       
             source.Play();
 #if DEBUGGING
-            Debugging.Log(this, $"[Play] {source.clip.name}.", Debugging.Type.Audio);
+            Log.Info(this, $"[Play] {source.clip.name}.", Log.Type.Audio);
 #endif
         }
     }

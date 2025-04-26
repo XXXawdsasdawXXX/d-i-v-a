@@ -69,7 +69,7 @@ namespace Code.Entities.Items
             }
 
 #if DEBUGGING
-            Debugging.Log(this, $"{data.Type} {data.SpawnChance}", Debugging.Type.Items);
+            Log.Info(this, $"{data.Type} {data.SpawnChance}", Log.Type.Items);
 #endif
         }
 

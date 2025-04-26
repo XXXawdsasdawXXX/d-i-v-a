@@ -57,7 +57,7 @@ namespace Code.Data
             OnAdded?.Invoke(type, value);
             
 #if DEBUGGING
-            Debugging.Log(this, $"[Add] {type} {_interactions[type]}", Debugging.Type.Interaction);
+            Log.Info(this, $"[Add] {type} {_interactions[type]}", Log.Type.Interaction);
 #endif
         }
 

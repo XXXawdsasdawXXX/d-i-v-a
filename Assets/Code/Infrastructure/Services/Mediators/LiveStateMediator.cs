@@ -25,12 +25,10 @@ namespace Code.Infrastructure.Services.Mediators
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _characterItemsController.OnItemUsed += _onItemUsed;
             _interactionStorage.OnAdded += _onAddedInteraction;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()

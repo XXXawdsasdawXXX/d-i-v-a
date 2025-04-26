@@ -77,8 +77,8 @@ namespace Code.Data
                 float value = _particleSystem.GetValue(effect.ParticleParam);
                 if (value > effect.Range.MinValue)
                 {
-                    Debugging.Log($"{_particleSystem.Type} sleep -> {effect.ParticleParam}",
-                        Debugging.Type.VFX);
+                    Log.Info($"{_particleSystem.Type} sleep -> {effect.ParticleParam}",
+                        Log.Type.VFX);
                     return false;
                 }
             }
@@ -91,7 +91,7 @@ namespace Code.Data
             _isActive = true;
             _enabledTime = 0;
 #if DEBUGGING
-            Debugging.Log($"On {_particleSystem.Type}", Debugging.Type.VFX);
+            Log.Info($"On {_particleSystem.Type}", Log.Type.VFX);
 #endif
         }
 
@@ -99,7 +99,7 @@ namespace Code.Data
         {
             _isActive = false;
 #if DEBUGGING
-            Debugging.Log($"Off {_particleSystem.Type}", Debugging.Type.VFX);
+            Log.Info($"Off {_particleSystem.Type}", Log.Type.VFX);
 #endif
         }
 

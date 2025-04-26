@@ -27,11 +27,9 @@ namespace Code.Entities.Diva
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _timeObserver.OnTicked += _checkLowerState;
-
-            return UniTask.CompletedTask;
         }
 
         public UniTask GameStart()
@@ -65,8 +63,8 @@ namespace Code.Entities.Diva
                 statePercent = characterLiveState.GetPercent();
 
 #if DEBUGGING
-                Debugging.Log(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}", 
-                    Debugging.Type.LiveState);
+                Log.Info(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}", 
+                    Log.Type.LiveState);
 #endif
                 
                 return true;
@@ -75,8 +73,8 @@ namespace Code.Entities.Diva
             statePercent = 1;
 
 #if DEBUGGING
-            Debugging.Log(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
-                Debugging.Type.LiveState);
+            Log.Info(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
+                Log.Type.LiveState);
 #endif
             
             return false;
@@ -90,10 +88,10 @@ namespace Code.Entities.Diva
             ELiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
 
 #if DEBUGGING
-            Debugging.Log(this, 
+            Log.Info(this, 
                 $"[_checkLowerState] try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
-                Debugging.Type.LiveState);
+                Log.Type.LiveState);
 #endif
 
             ELiveStateKey resultState = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
@@ -103,8 +101,8 @@ namespace Code.Entities.Diva
             if (resultState != CurrentLowerLiveStateKey)
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[_checkLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
-                    Debugging.Type.LiveState);
+                Log.Info(this, $"[_checkLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
+                    Log.Type.LiveState);
 #endif
                
                 CurrentLowerLiveStateKey = resultState;

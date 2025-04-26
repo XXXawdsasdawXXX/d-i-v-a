@@ -12,7 +12,7 @@ namespace Code.Entities.Common
         private void OnCollisionEnter2D(Collision2D col)
         {
 #if DEBUGGING
-            Debugging.Log($"[{col.gameObject.name}] Collision enter ", Debugging.Type.Collision);
+            Log.Info($"[{col.gameObject.name}] Collision enter ", Log.Type.Collision);
 #endif
             EnterEvent?.Invoke(col.gameObject);
         }
@@ -20,7 +20,7 @@ namespace Code.Entities.Common
         private void OnCollisionExit2D(Collision2D col)
         {
 #if DEBUGGING
-            Debugging.Log($"[{col.gameObject.name}] Collision exit ", Debugging.Type.Collision);
+            Log.Info($"[{col.gameObject.name}] Collision exit ", Log.Type.Collision);
 #endif
             ExitEvent?.Invoke(col.gameObject);
         }
@@ -29,7 +29,7 @@ namespace Code.Entities.Common
         private void OnTriggerEnter2D(Collider2D col)
         {
 #if DEBUGGING
-            Debugging.Log($"[{col.gameObject.name}] Trigger enter ", Debugging.Type.Collision);
+            Log.Info($"[{col.gameObject.name}] Trigger enter ", Log.Type.Collision);
 #endif
             EnterEvent?.Invoke(col.gameObject);
         }
@@ -37,7 +37,7 @@ namespace Code.Entities.Common
         private void OnTriggerExit2D(Collider2D col)
         {
 #if DEBUGGING
-            Debugging.Log($"[{col.gameObject.name}] Trigger exit ", Debugging.Type.Collision);
+            Log.Info($"[{col.gameObject.name}] Trigger exit ", Log.Type.Collision);
 #endif
             ExitEvent?.Invoke(col.gameObject);
         }

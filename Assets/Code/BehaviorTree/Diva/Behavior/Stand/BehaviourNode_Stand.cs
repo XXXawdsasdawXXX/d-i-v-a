@@ -61,14 +61,14 @@ namespace Code.BehaviorTree.Diva
                 RunNode(_node_randomSequence);
 
 #if DEBUGGING
-                Debugging.Log(this, $"[run]", Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run]", Log.Type.BehaviorTree);
 #endif
             }
             else
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[run] Return -> has low state {_divaStatesAnalytic.CurrentLowerLiveStateKey}.",
-                    Debugging.Type.BehaviorTree);
+                Log.Info(this, $"[run] Return -> has low state {_divaStatesAnalytic.CurrentLowerLiveStateKey}.",
+                    Log.Type.BehaviorTree);
 #endif
                 Return(false);
             }
@@ -82,9 +82,9 @@ namespace Code.BehaviorTree.Diva
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
 #if DEBUGGING
-            Debugging.Log(this,
+            Log.Info(this,
                 $"[InvokeCallback] Repeat = {_divaStatesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success}.",
-                Debugging.Type.BehaviorTree);
+                Log.Type.BehaviorTree);
 #endif
             
             if (_divaStatesAnalytic.CurrentLowerLiveStateKey == ELiveStateKey.None && success)

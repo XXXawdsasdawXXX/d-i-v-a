@@ -56,7 +56,7 @@ namespace Code.Entities.Common
 
                 _lastColor = newColor;
 #if DEBUGGING
-                Debugging.Log(this, $"Find other color {lastColorHtml} vs {newColorHtml}", Debugging.Type.Window);
+                Log.Info(this, $"Find other color {lastColorHtml} vs {newColorHtml}", Log.Type.Window);
 #endif
                 OnFoundedNewColor?.Invoke(_lastColor);
             }

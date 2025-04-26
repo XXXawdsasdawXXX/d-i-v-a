@@ -28,11 +28,9 @@ namespace Code.Entities.Diva.Reactions
             return base.InitializeReaction();
         }
         
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _interactionKeyDown.OnWorldEntered += _onWorldEntered;
-
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()

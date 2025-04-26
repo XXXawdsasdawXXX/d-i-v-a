@@ -74,7 +74,7 @@ namespace Code.Data
             if (values == null)
             {
 #if DEBUGGING
-                Debugging.Log(this, "[AddPercentageValues] can not add null values", Debugging.Type.LiveState);
+                Log.Info(this, "[AddPercentageValues] can not add null values", Log.Type.LiveState);
 #endif
                 return;
             }
@@ -84,8 +84,8 @@ namespace Code.Data
                 if (TryGetLiveState(liveStateValue.Key, out CharacterLiveState state))
                 {
 #if DEBUGGING
-                    Debugging.Log(this, $"[AddPercentageValues] add {liveStateValue.Key} {liveStateValue.Value}",
-                        Debugging.Type.LiveState);
+                    Log.Info(this, $"[AddPercentageValues] add {liveStateValue.Key} {liveStateValue.Value}",
+                        Log.Type.LiveState);
 #endif
                     _addPercent(state, liveStateValue.Value);
                 }
@@ -116,8 +116,8 @@ namespace Code.Data
             float result = max / 100 * _getCorrectValue(value);
 #if DEBUGGING
 
-            Debugging.Log(this, $"[_addPercent] {max} / 100 * `{value}` = {result} | state value = {state.Current}",
-                Debugging.Type.LiveState);
+            Log.Info(this, $"[_addPercent] {max} / 100 * `{value}` = {result} | state value = {state.Current}",
+                Log.Type.LiveState);
 #endif
 
             state.Add(result);
@@ -149,7 +149,7 @@ namespace Code.Data
             }
 
 #if DEBUGGING
-            Debugging.Log(this, "[_init new states]", Debugging.Type.LiveState);
+            Log.Info(this, "[_init new states]", Log.Type.LiveState);
 #endif
 
             return characterLiveStates;
@@ -170,7 +170,7 @@ namespace Code.Data
             }
 
 #if DEBUGGING
-            Debugging.Log(this, $"[_load states]", Debugging.Type.LiveState);
+            Log.Info(this, $"[_load states]", Log.Type.LiveState);
 #endif
 
             return characterLiveStates;

@@ -24,11 +24,9 @@ namespace Code.Entities.Hand
             return UniTask.CompletedTask;
         }
         
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _interactionStorage.OnSwitchDominationType += _onSwitchDominationInteraction;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()

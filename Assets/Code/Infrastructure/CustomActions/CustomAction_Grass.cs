@@ -48,15 +48,13 @@ namespace Code.Infrastructure.CustomActions
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _divaAnimator.OnModeEntered += _onDivaSwitchAnimation;
             _tickCounter.OnWaitIsOver += _onCooldownTick;
             _grassColorChecker.OnFoundedNewColor += OnNewColorFounded;
             _grassButton.OnPressedUp += OnGrassPressedUp;
             _divaDragAndDrop.OnEndedDrag += _onDivaEndedDrag;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEditor;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Utils
 {
-    public class Debugging : MonoBehaviour
+    public class Log : MonoBehaviour
     {
         public enum Type
         {
@@ -36,68 +36,57 @@ namespace Code.Utils
         }
 
         [Serializable]
-        private class DebugParam
+        private struct DebugParam
         {
             public Type Type;
-            public bool Active = true;
-            public Color Color = Color.white;
+            public bool Active;
+            public Color Color;
         }
 
         [SerializeField] private DebugParam[] _debugParams;
 
-        private static DebugParam[] _params;
-      
+        private static readonly Dictionary<Type, DebugParam> _params = new();
+
         private void Awake()
         {
-            _params = _debugParams;
+            foreach (DebugParam param in _debugParams)
+            {
+                _params.Add(param.Type, param);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Log(string message, Type type = Type.None)
+        public static void Info(string message, Type type = Type.None)
         {
-            DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
-      
-            if (debugParam != null)
+            DebugParam debugParam = _params[type];
+
+            if (debugParam.Active)
             {
-                if (debugParam.Active)
-                {
-                    _colorLog($"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
-                }
-            }
-            else
-            {
-                _colorLog(message, Color.white);
+                _colorLog($"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()}: {message}", debugParam.Color);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Log(object invoker, string message, Type type = Type.None)
+        public static void Info(object invoker, string message, Type type = Type.None)
         {
-            DebugParam debugParam = _params.FirstOrDefault(d => d.Type == type);
-            
-            if (debugParam != null)
+            DebugParam debugParam = _params[type];
+
+            if (debugParam.Active)
             {
-                if (debugParam.Active)
-                {
-                    _colorLog(
-                        $"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()} {invoker.GetType().Name}: {message}",
-                        debugParam.Color);
-                }
-            }
-            else
-            {
-                _colorLog(message, Color.white);
+                _colorLog(
+                    $"{_insertSpaceBeforeUppercase(type.ToString()).ToUpper()} {invoker.GetType().Name}: {message}",
+                    debugParam.Color);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void LogError(object obj, string message)
+        public static void Error(object obj, string message)
         {
             _colorLog($"{obj.GetType()} {message}", Color.red);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void LogError(string message)
+        public static void Error(string message)
         {
             _colorLog(message, Color.red);
         }
@@ -127,16 +116,37 @@ namespace Code.Utils
         }
 
 #if UNITY_EDITOR
+
         public void DisableAll()
         {
-            foreach (DebugParam debugParam in _debugParams)
+            for (int i = 0; i < _debugParams.Length; i++)
             {
+                DebugParam debugParam = _debugParams[i];
+
                 debugParam.Active = false;
+
+                _debugParams[i] = debugParam;
             }
-            
+
+            EditorUtility.SetDirty(this);
+        }
+
+        private void OnValidate()
+        {
+            for (int i = 0; i < _debugParams.Length; i++)
+            {
+                DebugParam debugParam = _debugParams[i];
+
+                if (debugParam.Color == new Color())
+                {
+                    debugParam.Color = Color.white;
+                }
+
+                _debugParams[i] = debugParam;
+            }
+
             EditorUtility.SetDirty(this);
         }
 #endif
-        
     }
 }

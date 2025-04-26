@@ -37,15 +37,15 @@ namespace Code.Entities.Items
             
                 if (itemData.SpawnChance > randomChance)
                 {
-                    Debugging.Log(this, $"(chance {itemData.SpawnChance} >= {randomChance}) " +
+                    Log.Info(this, $"(chance {itemData.SpawnChance} >= {randomChance}) " +
                                         $"return {itemData.Type} {itemData.AnimatorController.name}", 
-                        Debugging.Type.Items);
+                        Log.Type.Items);
 
                     return itemData;
                 }
 
 #if DEBUGGING
-                Debugging.Log(this, $"(chance {itemData.SpawnChance} >= {randomChance})", Debugging.Type.Items);
+                Log.Info(this, $"(chance {itemData.SpawnChance} >= {randomChance})", Log.Type.Items);
 #endif
             }
 

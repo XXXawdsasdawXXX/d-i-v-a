@@ -24,11 +24,9 @@ namespace Code.Infrastructure.Services
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _timeObserver.OnTicked += _onTimeObserverTick;
-
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
@@ -41,7 +39,7 @@ namespace Code.Infrastructure.Services
 #if DEBUGGING
             if (_storage.LiveStates == null)
             {
-                Debugging.LogError(this,
+                Log.Error(this,
                     $"[_onTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }
@@ -52,9 +50,9 @@ namespace Code.Infrastructure.Services
                 if (_isCanUpdateLiveState(liveState))
                 {
 #if DEBUGGING
-                    Debugging.Log(this,
+                    Log.Info(this,
                         $"[_onTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}",
-                        Debugging.Type.LiveState);
+                        Log.Type.LiveState);
 #endif
 
                     liveState.Value.TimeUpdate();

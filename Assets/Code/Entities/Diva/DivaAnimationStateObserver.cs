@@ -37,7 +37,7 @@ namespace Code.Entities.Diva
             OnStateEntered?.Invoke(State);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[EnteredState] {State}.", Debugging.Type.AnimationState);
+            Log.Info(this, $"[EnteredState] {State}.", Log.Type.AnimationState);
 #endif
         }
 
@@ -48,7 +48,7 @@ namespace Code.Entities.Diva
             OnStateExited?.Invoke(StateFor(stateHash));
 
 #if DEBUGGING
-            Debugging.Log(this, $"[ExitedState] {State}.", Debugging.Type.AnimationState);
+            Log.Info(this, $"[ExitedState] {State}.", Log.Type.AnimationState);
 #endif
         }
 

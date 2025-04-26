@@ -39,12 +39,10 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             return base.InitializeCustomAction();
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _interactionStorage.OnSwitchDominationType += _onSwitchInteractionType;
             _animationAnalytic.OnSwitchState += _onSwitchAnimationState;
-            
-            return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
@@ -108,7 +106,7 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
             if (_particlesSystems == null)
             {
-                Debugging.LogError(this, "particle system is null");
+                Log.Error(this, "particle system is null");
                 
                 return;
             }

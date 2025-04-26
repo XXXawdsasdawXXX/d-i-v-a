@@ -54,11 +54,9 @@ namespace Code.Infrastructure.CustomActions
             return UniTask.CompletedTask;
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _characterButton.OnPressedUp += _onPressedUp;
-            
-            return UniTask.CompletedTask;
         }
 
         public UniTask GameStart()
@@ -95,7 +93,7 @@ namespace Code.Infrastructure.CustomActions
             
             _coroutineRunner.StartActionWithDelay(StopAction, _duration);
 #if DEBUGGING
-            Debugging.Log(this, $"[start Action] {GetActionType()}.", Debugging.Type.CustomAction);
+            Log.Info(this, $"[start Action] {GetActionType()}.", Log.Type.CustomAction);
 #endif
         }
 
@@ -105,14 +103,14 @@ namespace Code.Infrastructure.CustomActions
             
             _particle.Off();
 #if DEBUGGING
-            Debugging.Log(this, $"[stop Action] {GetActionType()}.", Debugging.Type.CustomAction);
+            Log.Info(this, $"[stop Action] {GetActionType()}.", Log.Type.CustomAction);
 #endif
         }
 
         private void _onPressedUp(Vector2 _, float pressDuration)
         {
 #if DEBUGGING
-            Debugging.Log(this, $"[_onPressedUp] {GetActionType()}. Is active {_isActive}.", Debugging.Type.CustomAction);
+            Log.Info(this, $"[_onPressedUp] {GetActionType()}. Is active {_isActive}.", Log.Type.CustomAction);
 #endif
             if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {

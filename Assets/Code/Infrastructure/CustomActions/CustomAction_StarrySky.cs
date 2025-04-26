@@ -24,12 +24,10 @@ namespace Code.Infrastructure.CustomActions
             }
         }
 
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _timeObserver.OnNightStarted += TryStartAction;
             _timeObserver.OnDayStarted += StopAction;
-
-            return UniTask.CompletedTask;
         }
 
         public UniTask GameStart()

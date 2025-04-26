@@ -63,7 +63,7 @@ namespace Code.Entities.Diva
             _frontHairAnimator.SetTrigger(_reactionVoiceHash_t);
             _backHairAnimator.SetTrigger(_reactionVoiceHash_t);
 #if DEBUGGING
-            Debugging.Log(this, $"[PlayReactionVoice]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[PlayReactionVoice]", Log.Type.AnimationState);
 #endif
         }
 
@@ -74,7 +74,7 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetBool(_eatHash_b, true);
             _coroutineRunner.StartActionWithDelay(OnReadyEat, 1);
 #if DEBUGGING
-            Debugging.Log(this, $"", Debugging.Type.AnimationState);
+            Log.Info(this, $"", Log.Type.AnimationState);
 #endif
         }
 
@@ -84,7 +84,7 @@ namespace Code.Entities.Diva
             _frontHairAnimator.SetBool(_eatHash_b, false);
             _backHairAnimator.SetBool(_eatHash_b, false);
 #if DEBUGGING
-            Debugging.Log(this, $"[StopPlayEat]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[StopPlayEat]", Log.Type.AnimationState);
 #endif
         }
 
@@ -94,7 +94,7 @@ namespace Code.Entities.Diva
             _frontHairAnimator.SetBool(_reactionMouseHash_b, true);
             _backHairAnimator.SetBool(_reactionMouseHash_b, true);
 #if DEBUGGING
-            Debugging.Log(this, $"[StartPlayReactionMouse]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[StartPlayReactionMouse]", Log.Type.AnimationState);
 #endif
         }
 
@@ -105,7 +105,7 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetBool(_reactionMouseHash_b, false);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[StopPlayReactionMouse]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[StopPlayReactionMouse]", Log.Type.AnimationState);
 #endif
         }
 
@@ -128,7 +128,7 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetBool(_hideHand_b, true);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[StartPlayHideHand]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[StartPlayHideHand]", Log.Type.AnimationState);
 #endif
         }
 
@@ -139,7 +139,7 @@ namespace Code.Entities.Diva
             _backHairAnimator.SetBool(_hideHand_b, false);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[StopPlayHideHand]", Debugging.Type.AnimationState);
+            Log.Info(this, $"[StopPlayHideHand]", Log.Type.AnimationState);
 #endif
         }
 
@@ -152,7 +152,7 @@ namespace Code.Entities.Diva
             if (Mode == EDivaAnimationMode.None)
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[SetEmptyMode] State is already set.", Debugging.Type.AnimationMode);
+                Log.Info(this, $"[SetEmptyMode] State is already set.", Log.Type.AnimationMode);
 #endif
 
                 return;
@@ -167,7 +167,7 @@ namespace Code.Entities.Diva
             OnModeEntered?.Invoke(Mode);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[SetEmptyMode]", Debugging.Type.AnimationMode);
+            Log.Info(this, $"[SetEmptyMode]", Log.Type.AnimationMode);
 #endif
         }
 
@@ -176,7 +176,7 @@ namespace Code.Entities.Diva
             if (Mode == EDivaAnimationMode.Sleep)
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[SetSleepMode] State is already set.", Debugging.Type.AnimationMode);
+                Log.Info(this, $"[SetSleepMode] State is already set.", Log.Type.AnimationMode);
 #endif
 
                 return;
@@ -193,7 +193,7 @@ namespace Code.Entities.Diva
             OnModeEntered?.Invoke(Mode);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[SetSleepMode]", Debugging.Type.AnimationMode);
+            Log.Info(this, $"[SetSleepMode]", Log.Type.AnimationMode);
 #endif
         }
 
@@ -202,7 +202,7 @@ namespace Code.Entities.Diva
             if (Mode == EDivaAnimationMode.Stand)
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[SetStandMode] State is already set.", Debugging.Type.AnimationMode);
+                Log.Info(this, $"[SetStandMode] State is already set.", Log.Type.AnimationMode);
 #endif
                 return;
             }
@@ -218,7 +218,7 @@ namespace Code.Entities.Diva
             OnModeEntered?.Invoke(Mode);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[SetStandMode]", Debugging.Type.AnimationMode);
+            Log.Info(this, $"[SetStandMode]", Log.Type.AnimationMode);
 #endif
         }
 
@@ -227,7 +227,7 @@ namespace Code.Entities.Diva
             if (Mode == EDivaAnimationMode.Seat)
             {
 #if DEBUGGING
-                Debugging.Log(this, $"[SetSeatMode] State is already set.", Debugging.Type.AnimationMode);
+                Log.Info(this, $"[SetSeatMode] State is already set.", Log.Type.AnimationMode);
 #endif
                 return;
             }
@@ -243,7 +243,7 @@ namespace Code.Entities.Diva
             OnModeEntered?.Invoke(Mode);
 
 #if DEBUGGING
-            Debugging.Log(this, $"[SetSeatMode]", Debugging.Type.AnimationMode);
+            Log.Info(this, $"[SetSeatMode]", Log.Type.AnimationMode);
 #endif
         }
 
@@ -277,7 +277,7 @@ namespace Code.Entities.Diva
             _resetTriggers();
 
 #if DEBUGGING
-            Debugging.Log(this, $"[Reset]", Debugging.Type.AnimationMode);
+            Log.Info(this, $"[Reset]", Log.Type.AnimationMode);
 #endif
         }
 

@@ -40,12 +40,10 @@ namespace Code.Infrastructure.CustomActions
             return UniTask.CompletedTask;
         }
         
-        public UniTask Subscribe()
+        public void Subscribe()
         {
             _timeObserver.OnTimeInitialized += _onTimeInitialized;
             _interaction_returnAfterAbsence.UserReturnEvent += _tryStartAction;
-            
-            return UniTask.CompletedTask;
         }
         
         public UniTask LoadProgress(PlayerProgressData playerProgress)
