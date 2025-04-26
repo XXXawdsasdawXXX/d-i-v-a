@@ -24,9 +24,7 @@ namespace Code.Entities.Hand
 
             OnStateEntered?.Invoke(State);
 
-#if DEBUGGING
             Log.Info(this, $"[EnteredState] {State}.", Log.Type.Hand);
-#endif
         }
 
         public void ExitedState(int stateHash)
@@ -35,9 +33,7 @@ namespace Code.Entities.Hand
 
             OnStateExited?.Invoke(StateFor(stateHash));
 
-#if DEBUGGING
             Log.Info(this, $"[ExitedState] {State}.", Log.Type.Hand);
-#endif
         }
 
         private EHandAnimationMode StateFor(int stateHash)

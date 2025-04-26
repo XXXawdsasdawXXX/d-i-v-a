@@ -70,12 +70,10 @@ namespace Code.BehaviorTree.Diva
         {
             float minPercent = 0.3f + bonusMinPercent;
             
-#if DEBUGGING
             Log.Info(this, "[IsCanSleep]" +
                                 $" && ({_timeObserver.IsNightTime()}||{_sleepState?.GetPercent() < minPercent})" +
                                 $" && {_sleepState?.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState?.Max}",
                 Log.Type.CharacterCondition);
-#endif
 
             return _sleepState != null && (_timeObserver.IsNightTime() || _sleepState.GetPercent() < minPercent) &&
                    _sleepState.Current + _sleepHealValue * _stoppingTicksToMaximumSleepValues < _sleepState.Max;
@@ -87,13 +85,11 @@ namespace Code.BehaviorTree.Diva
 
             bool randomResult = Random.Range(0, 100) >= 50;
 
-#if DEBUGGING
             Log.Info("[IsCanExitWhenSleep]" +
                           $" {lowerKey is ELiveStateKey.Trust}" +
                           $" && ({lowerStatePercent <= 0.4f})" +
                           $" && {randomResult}",
                 Log.Type.CharacterCondition);
-#endif
 
             return lowerKey is ELiveStateKey.Trust && lowerStatePercent <= 0.4f && randomResult;
         }
@@ -122,14 +118,12 @@ namespace Code.BehaviorTree.Diva
             bool isCorrectInteractionResult = _interactionStorage.GetDominantInteractionType()
                 is not EInteractionType.Normal;
 
-#if DEBUGGING
             Log.Info(this, "[CanShowNimbus]" +
                                 $" {!_animationAnalytic.IsTransition}" +
                                 $" && {isCorrectInteractionResult}" +
                                 $" && {isCorrectMode}" +
                                 $" && {isCorrectState}",
                 Log.Type.CharacterCondition);
-#endif
 
             return !_animationAnalytic.IsTransition && isCorrectInteractionResult && isCorrectMode && isCorrectState;
         }

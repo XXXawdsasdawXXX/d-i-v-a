@@ -19,16 +19,14 @@ namespace Code.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-#if DEBUGGING
                 Log.Info(this, $"[Run]", Log.Type.BehaviorTree);
-#endif
+
                 _audioReaction.StartReaction();
             }
             else
             {
-#if DEBUGGING
                 Log.Info(this, $"[Run] Is not ready.", Log.Type.BehaviorTree);
-#endif
+
                 Return(false);
             }
         }

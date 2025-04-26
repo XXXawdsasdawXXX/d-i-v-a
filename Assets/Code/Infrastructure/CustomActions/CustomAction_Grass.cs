@@ -115,12 +115,10 @@ namespace Code.Infrastructure.CustomActions
 
         private void _onDivaEndedDrag(float distance)
         {
-#if DEBUGGING
             if (distance <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(distance));
             }
-#endif
             
             distance = Vector3.Distance(_grass.transform.position, _divaTransform.position);
 

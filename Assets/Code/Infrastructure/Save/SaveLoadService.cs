@@ -33,9 +33,7 @@ namespace Code.Infrastructure.Save
 
             LoadProgress();
 
-#if DEBUGGING
             Log.Info(this, "[Game load]", Log.Type.SaveLoad);
-#endif
             
             return UniTask.CompletedTask;
         }
@@ -44,9 +42,7 @@ namespace Code.Infrastructure.Save
         {
             _saveProgress();
             
-#if DEBUGGING
             Log.Info(this, "[Game save]", Log.Type.SaveLoad);
-#endif
         }
 
         private void _saveProgress()
@@ -59,26 +55,24 @@ namespace Code.Infrastructure.Save
             PlayerPrefs.SetString(PROGRESS_KEY, _playerProgress.ToJson());
 
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
-#if DEBUGGING
+
             Log.Info($"Save progress -> " +
                           $"{_playerProgress != null} " +
                           $"{_playerProgress?.LiveStatesData != null}" +
                           $"{_playerProgress?.LiveStatesData?.Count}\n" +
                           $"{data} ", Log.Type.SaveLoad);
-#endif
         }
 
         private void LoadProgress()
         {
             string data = PlayerPrefs.GetString(PROGRESS_KEY);
             _playerProgress = PlayerPrefs.GetString(PROGRESS_KEY)?.ToDeserialized<PlayerProgressData>();
-#if DEBUGGING
+
             Log.Info($"Load progress -> " +
                           $"{_playerProgress != null} " +
                           $"{_playerProgress?.LiveStatesData != null}" +
                           $"{_playerProgress?.LiveStatesData?.Count}\n" +
                           $"{data} ", Log.Type.SaveLoad);
-#endif
             _playerProgress ??= new PlayerProgressData();
             foreach (IProgressReader progressReader in _progressReader)
             {

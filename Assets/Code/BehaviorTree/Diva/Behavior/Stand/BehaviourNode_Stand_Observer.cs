@@ -36,9 +36,7 @@ namespace Code.BehaviorTree.Diva
         {
             if (obj.TryGetComponent(out ItemEntity item) && item.IsCanUse())
             {
-#if DEBUGGING
                 Log.Info(this, $"[_startReactionToObject]", Log.Type.BehaviorTree);
-#endif
                 _node_reactionToItem.SetCurrentItem(item);
                 
                 RunNode(_node_reactionToItem);

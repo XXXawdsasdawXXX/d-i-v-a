@@ -39,17 +39,15 @@ namespace Code.Entities.Common
 
         private void _onPressedUp(Vector2 arg1, float arg2)
         {
-#if DEBUGGING
             Log.Info(this, $"{gameObject.name} [OnPressedUp]", Log.Type.Window);
-#endif
+
             _colorChecker.RefreshLastColor();
         }
 
         private void _onFoundedNewColor(Color obj)
         {
-#if DEBUGGING
             Log.Info(this, $"{gameObject.name} [OnFoundedNewColor]", Log.Type.Window);
-#endif
+
             switch (_rigidbody2D.bodyType)
             {
                 case RigidbodyType2D.Kinematic:

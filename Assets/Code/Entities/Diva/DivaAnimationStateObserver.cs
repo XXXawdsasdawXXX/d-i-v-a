@@ -36,9 +36,7 @@ namespace Code.Entities.Diva
             
             OnStateEntered?.Invoke(State);
 
-#if DEBUGGING
             Log.Info(this, $"[EnteredState] {State}.", Log.Type.AnimationState);
-#endif
         }
 
         public void ExitedState(int stateHash)
@@ -47,9 +45,6 @@ namespace Code.Entities.Diva
 
             OnStateExited?.Invoke(StateFor(stateHash));
 
-#if DEBUGGING
-            Log.Info(this, $"[ExitedState] {State}.", Log.Type.AnimationState);
-#endif
         }
 
         private EDivaAnimationState StateFor(int stateHash)

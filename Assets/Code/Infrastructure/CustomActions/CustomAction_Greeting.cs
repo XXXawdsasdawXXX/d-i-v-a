@@ -53,18 +53,14 @@ namespace Code.Infrastructure.CustomActions
             {
                 _isAlreadySaidHi = false;
             }
-#if DEBUGGING
             Log.Info(this, $"[Load] _isAlreadySaidHi = {_isAlreadySaidHi}", Log.Type.CustomAction);
-#endif
             return UniTask.CompletedTask;
         }
 
         public void SaveProgress(PlayerProgressData playerProgress)
         {
             playerProgress.CustomActions.IsAlreadySaidHi = _isAlreadySaidHi;
-#if DEBUGGING
             Log.Info(this, $"[Save] _isAlreadySaidHi = {_isAlreadySaidHi}", Log.Type.CustomAction);
-#endif
         }
 
         public override ECustomCutsceneActionType GetActionType()
@@ -74,9 +70,7 @@ namespace Code.Infrastructure.CustomActions
         
         public void Active(Action OnTurnedOn = null)
         {
-#if DEBUGGING
             Log.Info(this, $"[Active] is can = {!_isActive}", Log.Type.CustomAction);
-#endif
             if (!_isActive)
             {
                 _isActive = true;
@@ -87,9 +81,7 @@ namespace Code.Infrastructure.CustomActions
 
         public void Disable(Action onTurnedOff = null)
         {
-#if DEBUGGING
             Log.Info(this, $"[Disable] is can = {_isActive}", Log.Type.CustomAction);
-#endif
             if (_isActive)
             {
                 _isActive = false;
@@ -117,26 +109,20 @@ namespace Code.Infrastructure.CustomActions
         {
             if (_isAlreadySaidHi || !_isActive)
             {
-#if DEBUGGING
-                Log.Info(this, "[TrySayHi] (_isAlreadySaidHi || !_isActive)", Log.Type.CustomAction);
-#endif
                 return;
             }
             
             _isAlreadySaidHi = true;
             _audioEventsService.PlayAudio(EAudioEventType.Hi);
             
-#if DEBUGGING
-            Log.Info(this, "[TrySayHi] Say", Log.Type.CustomAction);
-#endif
+            Log.Info(this, "[TrySayHi] Say", Log.Type.CustomAction); 
         }
 
         private void _onInitTime(bool isFirstVisit)
         {
-#if DEBUGGING
             Log.Info(this, $"[OnInitTime] _isAlreadySaidHi = {_isAlreadySaidHi} isFirstVisit = {isFirstVisit}",
                 Log.Type.CustomAction);
-#endif
+
             if (_isAlreadySaidHi && isFirstVisit)
             {
                 _isAlreadySaidHi = false;

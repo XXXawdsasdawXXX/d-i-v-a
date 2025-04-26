@@ -57,9 +57,8 @@ namespace Code.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-#if DEBUGGING
                 Log.Info(this, $"[run]", Log.Type.BehaviorTree);
-#endif
+              
                 SubscribeToEvents(true);
 
                 _sleepState?.SetHealUpdate();
@@ -68,17 +67,15 @@ namespace Code.BehaviorTree.Diva
 
                 if (_divaCondition.IsCanExitWhenSleep())
                 {
-#if DEBUGGING
                     Log.Info($"[run] Exit anim routine.", Log.Type.BehaviorTree);
-#endif
+
                     _coroutineRunner.StartRoutine(_playExitAnimationRoutine());
                 }
             }
             else
             {
-#if DEBUGGING
                 Log.Info(this, $"[run] Return.", Log.Type.BehaviorTree);
-#endif
+
                 Return(false);
             }
         }
@@ -91,9 +88,9 @@ namespace Code.BehaviorTree.Diva
         protected override void OnBreak()
         {
             _sleepState?.SetDefaultUpdate();
-#if DEBUGGING
+
             Log.Info(this, $"[break]");
-#endif
+            
             base.OnBreak();
         }
 
@@ -116,17 +113,16 @@ namespace Code.BehaviorTree.Diva
             _divaAnimator.EnterToMode(EDivaAnimationMode.None);
 
             yield return new WaitUntil(() => _statesAnalytic.GetStatePercent(ELiveStateKey.Sleep) >= 0.7f);
-#if DEBUGGING
+
             Log.Info(this, $"[_playExitAnimationRoutine] End.", Log.Type.BehaviorTree);
-#endif
+            
             _divaAnimator.EnterToMode(EDivaAnimationMode.Sleep);
         }
 
         private void _rouse()
         {
-#if DEBUGGING
             Log.Info(this, $"[_rouse]", Log.Type.BehaviorTree);
-#endif
+
             _liveStateStorage.AddPercentageValue(_effectAwakeningValue);
 
             _stopSleep(delay: 1.5f);
@@ -151,9 +147,7 @@ namespace Code.BehaviorTree.Diva
 
             SubscribeToEvents(false);
 
-#if DEBUGGING
             Log.Info(this, "[_stop sleep]", Log.Type.BehaviorTree);
-#endif
         }
 
         #endregion
@@ -164,16 +158,12 @@ namespace Code.BehaviorTree.Diva
         {
             data.SleepRemainingTick = _tickCounter.GetRemainingTick();
 
-#if DEBUGGING
             Log.Info(this, "[Save]", Log.Type.BehaviorTree);
-#endif
         }
 
         public void LoadData(BehaviourTreeLoader.Data data)
         {
-#if DEBUGGING
             Log.Info(this, $"[Load] -> SleepRemainingTick = {data.SleepRemainingTick}.", Log.Type.BehaviorTree);
-#endif
 
             if (data.SleepRemainingTick > 0)
             {

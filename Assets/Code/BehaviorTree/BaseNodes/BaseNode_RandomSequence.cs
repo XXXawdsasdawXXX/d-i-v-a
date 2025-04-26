@@ -19,9 +19,7 @@ namespace Code.BehaviorTree
         {
             if (IsCanRun())
             {
-#if DEBUGGING
                 Log.Info(this, "[run]", Log.Type.BehaviorTree);
-#endif
                 _currentNodeIndex = 0;
                 _currentChild = _orderNodes[_currentNodeIndex];
                 _currentChild.Run(callback: this);
@@ -38,9 +36,8 @@ namespace Code.BehaviorTree
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-#if DEBUGGING
             Log.Info(this, $"[InvokeCallback] Success {success}.", Log.Type.BehaviorTree);
-#endif
+
             if (!success)
             {
                 Return(false);
@@ -56,9 +53,9 @@ namespace Code.BehaviorTree
             _currentNodeIndex++;
             
             _currentChild = _orderNodes[_currentNodeIndex];
-#if DEBUGGING
+
             Log.Info(this, $"[InvokeCallback] Run next node {_currentChild.GetType().Name}", Log.Type.BehaviorTree);
-#endif
+            
             _currentChild.Run(callback: this);
         }
 
@@ -69,15 +66,11 @@ namespace Code.BehaviorTree
                 _currentChild.Break();
                 
                 _currentChild = null;
-#if DEBUGGING
                 Log.Info(this, "[break]", Log.Type.BehaviorTree);
-#endif
             }
             else
             {
-#if DEBUGGING
                 Log.Info(this, "[break] Has not child node.", Log.Type.BehaviorTree);
-#endif
             }
         }
     }

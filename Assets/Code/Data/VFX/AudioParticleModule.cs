@@ -90,17 +90,13 @@ namespace Code.Data
         {
             _isActive = true;
             _enabledTime = 0;
-#if DEBUGGING
             Log.Info($"On {_particleSystem.Type}", Log.Type.VFX);
-#endif
         }
 
         public virtual void Off()
         {
             _isActive = false;
-#if DEBUGGING
             Log.Info($"Off {_particleSystem.Type}", Log.Type.VFX);
-#endif
         }
 
         private void _refresh(Data effect)

@@ -54,10 +54,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void TryStartAction()
         {
-#if DEBUGGING
             Log.Info(this, $"[tryStartAction] {GetActionType()} particles count = {_particlesSystems.Length}",
                 Log.Type.CustomAction);
-#endif
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.On();
             foreach (AudioParticleModule particleModule in _audioParticles) particleModule.On();
@@ -67,10 +65,8 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
 
         protected override void StopAction()
         {
-#if DEBUGGING
             Log.Info(this, $"[stopAction] {GetActionType()} particles count = {_particlesSystems.Length}",
                 Log.Type.CustomAction);
-#endif
 
             foreach (ParticleSystemFacade particle in _particlesSystems) particle.Off();
             foreach (AudioParticleModule particleModule in _audioParticles) particleModule.Off();

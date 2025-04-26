@@ -21,9 +21,7 @@ namespace Code.BehaviorTree.Diva
 
         protected override void Run()
         {
-#if DEBUGGING
             Log.Info(this, "[run]", Log.Type.BehaviorTree);
-#endif
 
             _divaAnimator.PlayHideHand();
         }
@@ -42,10 +40,8 @@ namespace Code.BehaviorTree.Diva
 
         private void _onHandHidden()
         {
-#if DEBUGGING
             Log.Info(this, "[_onHandHidden]", Log.Type.BehaviorTree);
-#endif
-            
+
             _divaAnimator.PlayShowHand();
             
             Return(true);

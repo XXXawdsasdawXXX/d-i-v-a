@@ -36,24 +36,20 @@ namespace Code.Infrastructure.Services
 
         private void _onTimeObserverTick()
         {
-#if DEBUGGING
             if (_storage.LiveStates == null)
             {
                 Log.Error(this,
                     $"[_onTimeObserverTick] storage.LiveStates is null -> {_storage.LiveStates == null}");
                 return;
             }
-#endif
 
             foreach (KeyValuePair<ELiveStateKey, CharacterLiveState> liveState in _storage.LiveStates)
             {
                 if (_isCanUpdateLiveState(liveState))
                 {
-#if DEBUGGING
                     Log.Info(this,
                         $"[_onTimeObserverTick] update {liveState.Key} is healing {liveState.Value.IsHealing}",
                         Log.Type.LiveState);
-#endif
 
                     liveState.Value.TimeUpdate();
                 }

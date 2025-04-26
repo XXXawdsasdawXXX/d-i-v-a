@@ -24,9 +24,7 @@ namespace Code.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-#if DEBUGGING
                 Log.Info(this, $"[run]", Log.Type.BehaviorTree);
-#endif
                 _itemsController.StartReactionToObject(_item, OnEndReaction: () =>
                 {
                     Return(true);
@@ -35,9 +33,7 @@ namespace Code.BehaviorTree.Diva
             }
             else
             {
-#if DEBUGGING
                 Log.Info(this, $"[run] Return -> item is null", Log.Type.BehaviorTree);
-#endif
                 Return(false);
             }
         }
@@ -45,9 +41,8 @@ namespace Code.BehaviorTree.Diva
         public void SetCurrentItem(ItemEntity item)
         {
             _item = item;
-#if DEBUGGING
+
             Log.Info(this, "[SetCurrentItem]", Log.Type.BehaviorTree);
-#endif
         }
 
         protected override bool IsCanRun()
@@ -57,9 +52,8 @@ namespace Code.BehaviorTree.Diva
 
         protected override void OnReturn(bool success)
         {
-#if DEBUGGING
             Log.Info(this, $"[on return] {success}", Log.Type.BehaviorTree);
-#endif
+
             _item = null;
 
             base.OnReturn(success);
@@ -69,9 +63,7 @@ namespace Code.BehaviorTree.Diva
         {
             _item = null;
 
-#if DEBUGGING
             Log.Info(this, "[on break]", Log.Type.BehaviorTree);
-#endif
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Code.Utils
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining), System.Diagnostics.Conditional("LOG")]
         public static void Info(string message, Type type = Type.None)
         {
             DebugParam debugParam = _params[type];
@@ -66,7 +66,7 @@ namespace Code.Utils
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining), System.Diagnostics.Conditional("LOG")]
         public static void Info(object invoker, string message, Type type = Type.None)
         {
             DebugParam debugParam = _params[type];
@@ -79,19 +79,19 @@ namespace Code.Utils
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining), System.Diagnostics.Conditional("LOG")]
         public static void Error(object obj, string message)
         {
             _colorLog($"{obj.GetType()} {message}", Color.red);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining), System.Diagnostics.Conditional("LOG")]
         public static void Error(string message)
         {
             _colorLog(message, Color.red);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining), System.Diagnostics.Conditional("LOG")]
         private static void _colorLog(string message, Color color)
         {
             Debug.Log($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>" + message + "</color>");

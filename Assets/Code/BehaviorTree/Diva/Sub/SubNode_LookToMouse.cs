@@ -21,9 +21,7 @@ namespace Code.BehaviorTree.Diva
         {
             if (IsCanRun())
             {
-#if DEBUGGING
                 Log.Info(this, "[run]", Log.Type.BehaviorTree);
-#endif
 
                 _mouseReaction.StartReaction();
 
@@ -46,28 +44,22 @@ namespace Code.BehaviorTree.Diva
 
             _mouseReaction.StopReaction();
 
-#if DEBUGGING
             Log.Info(this, "[break]", Log.Type.BehaviorTree);
-#endif
         }
 
         protected override void OnReturn(bool success)
         {
             _mouseReaction.StopReaction();
-
-#if DEBUGGING
+            
             Log.Info(this, $"[on Return] {success}", Log.Type.BehaviorTree);
-#endif
 
             base.OnReturn(success);
         }
 
         void IBehaviourCallback.InvokeCallback(BaseNode node, bool success)
         {
-#if DEBUGGING
             Log.Info(this, "[InvokeCallback]", Log.Type.BehaviorTree);
-#endif
-        
+
             _mouseReaction.StopReaction();
         
             Return(true);

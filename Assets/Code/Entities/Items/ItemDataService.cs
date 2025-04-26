@@ -44,9 +44,7 @@ namespace Code.Entities.Items
                     return itemData;
                 }
 
-#if DEBUGGING
                 Log.Info(this, $"(chance {itemData.SpawnChance} >= {randomChance})", Log.Type.Items);
-#endif
             }
 
             return items[Random.Range(0, items.Length - 1)];

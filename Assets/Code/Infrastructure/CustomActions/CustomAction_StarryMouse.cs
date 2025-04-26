@@ -92,9 +92,8 @@ namespace Code.Infrastructure.CustomActions
             _particle.On();
             
             _coroutineRunner.StartActionWithDelay(StopAction, _duration);
-#if DEBUGGING
+
             Log.Info(this, $"[start Action] {GetActionType()}.", Log.Type.CustomAction);
-#endif
         }
 
         protected override void StopAction()
@@ -102,16 +101,14 @@ namespace Code.Infrastructure.CustomActions
             _isActive = false;
             
             _particle.Off();
-#if DEBUGGING
+
             Log.Info(this, $"[stop Action] {GetActionType()}.", Log.Type.CustomAction);
-#endif
         }
 
         private void _onPressedUp(Vector2 _, float pressDuration)
         {
-#if DEBUGGING
             Log.Info(this, $"[_onPressedUp] {GetActionType()}. Is active {_isActive}.", Log.Type.CustomAction);
-#endif
+
             if (pressDuration < 0.1 && _divaAnimationAnalytic.GetAnimationMode() is EDivaAnimationMode.Stand)
             {
                 if (_isActive)

@@ -73,9 +73,8 @@ namespace Code.Data
         {
             if (values == null)
             {
-#if DEBUGGING
                 Log.Info(this, "[AddPercentageValues] can not add null values", Log.Type.LiveState);
-#endif
+
                 return;
             }
 
@@ -83,10 +82,9 @@ namespace Code.Data
             {
                 if (TryGetLiveState(liveStateValue.Key, out CharacterLiveState state))
                 {
-#if DEBUGGING
                     Log.Info(this, $"[AddPercentageValues] add {liveStateValue.Key} {liveStateValue.Value}",
                         Log.Type.LiveState);
-#endif
+
                     _addPercent(state, liveStateValue.Value);
                 }
             }
@@ -114,11 +112,9 @@ namespace Code.Data
             float max = state.Max;
 
             float result = max / 100 * _getCorrectValue(value);
-#if DEBUGGING
 
             Log.Info(this, $"[_addPercent] {max} / 100 * `{value}` = {result} | state value = {state.Current}",
                 Log.Type.LiveState);
-#endif
 
             state.Add(result);
         }
@@ -148,9 +144,7 @@ namespace Code.Data
                 characterLiveStates.Add((ELiveStateKey)i, state);
             }
 
-#if DEBUGGING
             Log.Info(this, "[_init new states]", Log.Type.LiveState);
-#endif
 
             return characterLiveStates;
         }
@@ -169,9 +163,7 @@ namespace Code.Data
                 characterLiveStates.Add(stateSavedData.Key, state);
             }
 
-#if DEBUGGING
             Log.Info(this, $"[_load states]", Log.Type.LiveState);
-#endif
 
             return characterLiveStates;
         }

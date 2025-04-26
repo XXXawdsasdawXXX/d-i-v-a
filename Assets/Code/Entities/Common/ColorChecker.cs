@@ -55,9 +55,9 @@ namespace Code.Entities.Common
                 string lastColorHtml = $"<color=#{ColorUtility.ToHtmlStringRGBA(_lastColor)}>other</color>";
 
                 _lastColor = newColor;
-#if DEBUGGING
+              
                 Log.Info(this, $"Find other color {lastColorHtml} vs {newColorHtml}", Log.Type.Window);
-#endif
+                
                 OnFoundedNewColor?.Invoke(_lastColor);
             }
         }

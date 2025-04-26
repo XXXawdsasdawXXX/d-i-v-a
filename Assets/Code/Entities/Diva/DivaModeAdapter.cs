@@ -89,10 +89,8 @@ namespace Code.Entities.Diva
         {
             ModeParam modeParam = _sizeParams.FirstOrDefault(p => p.AnimationMode == mode);
 
-#if DEBUGGING
             Log.Info(this, $"[_onModeEnteredEvent] Collision switch mode {mode} {modeParam != null}",
                 Log.Type.Collision);
-#endif
 
             if (modeParam != null)
             {

@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using Kirurobo;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace Code.Infrastructure.GameLoop
 {
@@ -35,6 +36,8 @@ namespace Code.Infrastructure.GameLoop
         private readonly List<IExitListener> _exitListeners = new();
         private readonly List<ISubscriber> _subscribers = new();
         
+        private readonly Dictionary<IUpdateListener, string> _updateListenerName = new();
+        
         private ProfilerMarker _updateMarker = new("update");
 
         private State _currentState;
@@ -49,16 +52,12 @@ namespace Code.Infrastructure.GameLoop
             {
                 _controller.gameObject.SetActive(false);
                 _bootGame();
-#if DEBUGGING
                 Log.Info(this, "[Awake] editor", Log.Type.GameState);
-#endif
             }
             else
             {
                 _controller.OnStateChanged += _onWindowInitialized;
-#if DEBUGGING
                 Log.Info(this, "[Awake] build", Log.Type.GameState);
-#endif
             }
         }
 
@@ -86,9 +85,7 @@ namespace Code.Infrastructure.GameLoop
                 _notifyGameExit();
             }
 
-#if DEBUGGING
             Log.Info(this, "[OnApplicationQuit]", Log.Type.GameState);
-#endif
         }
 
         public async void InitializeRuntimeListener(IGameListeners listener)
@@ -164,9 +161,7 @@ namespace Code.Infrastructure.GameLoop
             marker.End();
 #endif
 
-#if DEBUGGING
             Log.Info(this, "[_bootGame] completed", Log.Type.GameState);
-#endif
         }
 
         private void _initializeListeners()
@@ -234,11 +229,9 @@ namespace Code.Infrastructure.GameLoop
             { 
                 subscriber.Subscribe();
             }
-            
 #if UNITY_EDITOR
             marker.End();
 #endif
-            
             return UniTask.CompletedTask;
         }
 
@@ -259,18 +252,27 @@ namespace Code.Infrastructure.GameLoop
 
         private void _notifyGameUpdate()
         {
+#if UNITY_EDITOR
+            using (_updateMarker.Auto())
+            {
+                foreach (IUpdateListener listener in _updateListeners)
+                {
+                    if (!_updateListenerName.ContainsKey(listener))
+                    {
+                        _updateListenerName.Add(listener, listener.GetType().Name);
+                    }
+                    
+                    Profiler.BeginSample(_updateListenerName[listener]);
+                    listener.GameUpdate();
+                    Profiler.EndSample();
+                }
+            }
+#else
             foreach (IUpdateListener listener in _updateListeners)
             {
-#if UNITY_EDITOR
-                string listenerName = listener.GetType().Name;
-                ProfilerMarker marker = new($"GameUpdate: {listenerName}");
-                marker.Begin();
-#endif
                 listener.GameUpdate();
-#if UNITY_EDITOR
-                marker.End();
-#endif
             }
+#endif
         }
 
         private void _notifyGameExit()

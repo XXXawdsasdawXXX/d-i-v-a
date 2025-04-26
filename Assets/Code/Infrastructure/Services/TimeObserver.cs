@@ -83,25 +83,19 @@ namespace Code.Infrastructure.Services
                 await webRequest.SendWebRequest();
 
                 string netTime = webRequest.GetResponseHeader("date");
-#if DEBUGGING
                 Log.Info(this, $"[_initCurrentTime] Init google time. Time = {netTime}", Log.Type.Time);
-#endif
                 if (!DateTime.TryParse(netTime, out _currentTime))
                 {
                     _currentTime = DateTime.UtcNow;
-#if DEBUGGING
                     Log.Info(this, $"[_initCurrentTime] Lose google time parsing. Time = {_currentTime}",
                         Log.Type.Time);
-#endif
                 }
             }
             else
             {
                 _currentTime = DateTime.UtcNow;
-#if DEBUGGING
                 Log.Info(this, $"[_initCurrentTime] Init standalone time. Time = {_currentTime}",
                     Log.Type.Time);
-#endif
             }
 
             DateTime lastVisit = playerProgressData.GameEnterTime;
@@ -110,12 +104,10 @@ namespace Code.Infrastructure.Services
 
             _checkTimeOfDay();
 
-#if DEBUGGING
             Log.Info(this, $"[_initCurrentTime] End init.\n" +
                                 $"Is first visit = {!Extensions.IsEqualDay(lastVisit, _currentTime)}\n" +
                                 $"Current time =  {_currentTime}. Saving time = {lastVisit}",
                 Log.Type.Time);
-#endif
 
             bool isFirstVisit = !Extensions.IsEqualDay(lastVisit, _currentTime);
 
@@ -143,10 +135,9 @@ namespace Code.Infrastructure.Services
                 _currentDeltaTime = 0;
 
                 _tickCount++;
-#if DEBUGGING
+                
                 Log.Info(this, $"[_updateTickTime] Tick #{_tickCount}.", Log.Type.Time);
-#endif
-
+                
                 OnTicked?.Invoke();
 
                 _checkTimeOfDay();
@@ -162,18 +153,16 @@ namespace Code.Infrastructure.Services
                 _isNight = true;
 
                 OnNightStarted?.Invoke();
-#if DEBUGGING
+
                 Log.Info(this, "[_checkTimeOfDay] Start night.", Log.Type.Time);
-#endif
             }
             else if (!isNightTime && _isNight)
             {
                 _isNight = false;
 
                 OnDayStarted?.Invoke();
-#if DEBUGGING
+
                 Log.Info(this, "[_checkTimeOfDay] Start day.", Log.Type.Time);
-#endif
             }
         }
 

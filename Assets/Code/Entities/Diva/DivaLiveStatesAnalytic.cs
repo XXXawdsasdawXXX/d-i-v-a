@@ -62,20 +62,16 @@ namespace Code.Entities.Diva
             {
                 statePercent = characterLiveState.GetPercent();
 
-#if DEBUGGING
                 Log.Info(this, $"[TryGetLowerSate](true) -> {liveStateKey} {statePercent}", 
                     Log.Type.LiveState);
-#endif
                 
                 return true;
             }
 
             statePercent = 1;
 
-#if DEBUGGING
             Log.Info(this, $"[TryGetLowerSate](false) -> {liveStateKey} {statePercent}",
                 Log.Type.LiveState);
-#endif
             
             return false;
         }
@@ -87,12 +83,10 @@ namespace Code.Entities.Diva
             
             ELiveStateKey lowerCharacterLiveState = keyValuePairs.First().Key;
 
-#if DEBUGGING
             Log.Info(this, 
                 $"[_checkLowerState] try switch lower state from {CurrentLowerLiveStateKey} to {lowerCharacterLiveState} " +
                 $"{_storage.LiveStates[lowerCharacterLiveState].GetPercent() <= 0.4f}",
                 Log.Type.LiveState);
-#endif
 
             ELiveStateKey resultState = _storage.LiveStates[lowerCharacterLiveState].GetPercent() > 0.4f
                 ? ELiveStateKey.None
@@ -100,10 +94,8 @@ namespace Code.Entities.Diva
 
             if (resultState != CurrentLowerLiveStateKey)
             {
-#if DEBUGGING
                 Log.Info(this, $"[_checkLowerState] {CurrentLowerLiveStateKey} switch {resultState}",
                     Log.Type.LiveState);
-#endif
                
                 CurrentLowerLiveStateKey = resultState;
                 

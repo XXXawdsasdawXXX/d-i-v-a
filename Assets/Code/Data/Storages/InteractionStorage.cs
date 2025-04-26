@@ -56,9 +56,7 @@ namespace Code.Data
 
             OnAdded?.Invoke(type, value);
             
-#if DEBUGGING
             Log.Info(this, $"[Add] {type} {_interactions[type]}", Log.Type.Interaction);
-#endif
         }
 
         public EInteractionType GetDominantInteractionType()

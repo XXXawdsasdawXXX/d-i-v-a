@@ -14,17 +14,13 @@ namespace Code.Entities.Grass
         {
             IsActive = true;
             _grassAnimator.PlayGrow();
-#if DEBUGGING
             Log.Info(this, "[Grow]", Log.Type.Grass);
-#endif
         }
 
         public void Die()
         {
             IsActive = false;
-#if DEBUGGING
             Log.Info(this, "[Die]", Log.Type.Grass);
-#endif
             _grassAnimator.PlayDie();
         }
 

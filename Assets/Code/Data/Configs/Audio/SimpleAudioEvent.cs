@@ -25,9 +25,8 @@ namespace Code.Data.Audio
             source.pitch = Random.Range(pitch.MinValue, pitch.MaxValue);
       
             source.Play();
-#if DEBUGGING
+
             Log.Info(this, $"[Play] {source.clip.name}.", Log.Type.Audio);
-#endif
         }
     }
 }

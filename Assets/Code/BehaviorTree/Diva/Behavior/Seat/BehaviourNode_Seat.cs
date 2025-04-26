@@ -46,16 +46,12 @@ namespace Code.BehaviorTree.Diva
                 SubscribeToEvents(true);
 
                 _divaAnimator.EnterToMode(EDivaAnimationMode.Seat);
-#if DEBUGGING
                 Log.Info(this, "[run]", Log.Type.BehaviorTree);
-#endif
             }
             else
             {
                 Return(false);
-#if DEBUGGING
                 Log.Info(this, $"[run] Return.", Log.Type.BehaviorTree);
-#endif
             }
         }
 

@@ -33,11 +33,10 @@ namespace Code.Entities.Common
         public void SetDefaultPosition()
         {
             transform.position = _positionService.GetPosition(_pointAnchor, _entityBounds);
-#if DEBUGGING
+
             Log.Info(this,
                 $"[{gameObject.name}] from {transform.position} to {_positionService.GetPosition(_pointAnchor, _entityBounds)}",
                 Log.Type.Position);
-#endif
         }
     }
 }
