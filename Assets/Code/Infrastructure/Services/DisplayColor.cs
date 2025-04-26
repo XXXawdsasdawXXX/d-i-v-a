@@ -20,7 +20,7 @@ namespace Code.Infrastructure.Services
 
         public UniTask GameInitialize()
         {
-            _positionService = Container.Instance.FindService<PositionService>();
+            _positionService = Container.Instance.GetService<PositionService>();
             
             _material = GetComponent<Renderer>().material;
             

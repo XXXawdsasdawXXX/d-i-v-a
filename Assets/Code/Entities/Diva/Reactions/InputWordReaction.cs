@@ -20,7 +20,7 @@ namespace Code.Entities.Diva.Reactions
         protected override UniTask InitializeReaction()
         {
             _interactionKeyDown = Container.Instance.FindInteractionObserver<Interaction_KeyDown>();
-            _audioEventServices = Container.Instance.FindService<AudioEventsService>();
+            _audioEventServices = Container.Instance.GetService<AudioEventsService>();
             
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();

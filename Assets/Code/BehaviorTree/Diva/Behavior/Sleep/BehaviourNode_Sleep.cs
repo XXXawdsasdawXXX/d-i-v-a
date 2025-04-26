@@ -30,7 +30,7 @@ namespace Code.BehaviorTree.Diva
 
         public BehaviourNode_Sleep()
         {
-            Container.Instance.FindService<BehaviourTreeLoader>().AddProgressWriter(this);
+            Container.Instance.GetService<BehaviourTreeLoader>().AddProgressWriter(this);
 
             //character-------------------------------------------------------------------------------------------------
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
@@ -39,10 +39,10 @@ namespace Code.BehaviorTree.Diva
             _characterButton = diva.FindCommonComponent<ColliderButton>();
 
             //services--------------------------------------------------------------------------------------------------
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
             _tickCounter = new TickCounter(Container.Instance.FindConfig<TimeConfig>().Cooldown.Sleep);
-            _divaCondition = Container.Instance.FindService<DivaCondition>();
+            _divaCondition = Container.Instance.GetService<DivaCondition>();
 
             //static values---------------------------------------------------------------------------------------------
             LiveStateConfig liveStateConfig = Container.Instance.FindConfig<LiveStateConfig>();

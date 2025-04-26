@@ -50,10 +50,10 @@ namespace Code.BehaviorTree.Hand
             _handCollision = _hand.FindCommonComponent<ColliderButton>();
             
             //item
-            _itemSpawner = Container.Instance.FindService<ItemSpawner>();
+            _itemSpawner = Container.Instance.GetService<ItemSpawner>();
             
             //services
-            _positionService = Container.Instance.FindService<PositionService>();
+            _positionService = Container.Instance.GetService<PositionService>();
         }
 
         protected override void Run()

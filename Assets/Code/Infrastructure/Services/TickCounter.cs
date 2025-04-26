@@ -21,7 +21,7 @@ namespace Code.Infrastructure.Services
         public TickCounter(bool isLoop = true)
         {
             _isLoop = isLoop;
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             
             _subscribeToEvents(true);
         }
@@ -30,7 +30,7 @@ namespace Code.Infrastructure.Services
         {
             _isLoop = isLoop;
             _tickCount = tickCount;
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             
             _subscribeToEvents(false);
         }

@@ -21,7 +21,7 @@ namespace Code.Entities.Diva
 
         public UniTask GameInitialize()
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             _storage = Container.Instance.FindStorage<LiveStateStorage>();
 
             return UniTask.CompletedTask;

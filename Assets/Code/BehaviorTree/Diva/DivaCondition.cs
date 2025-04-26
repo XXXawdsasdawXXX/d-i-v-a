@@ -35,7 +35,7 @@ namespace Code.BehaviorTree.Diva
             _animationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
 
             //services--------------------------------------------------------------------------------------------------
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
 
             //static values---------------------------------------------------------------------------------------------

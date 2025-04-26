@@ -16,7 +16,7 @@ namespace Code.Entities.Items
 
         public UniTask GameInitialize()
         {
-            _itemDataService = Container.Instance.FindService<ItemDataService>();
+            _itemDataService = Container.Instance.GetService<ItemDataService>();
             
             return UniTask.CompletedTask;
         }

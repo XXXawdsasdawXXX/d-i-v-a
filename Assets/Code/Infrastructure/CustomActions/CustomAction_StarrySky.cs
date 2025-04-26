@@ -19,7 +19,7 @@ namespace Code.Infrastructure.CustomActions
            
             if (particleDictionary.TryGetParticle(EParticleType.StarrySky, out ParticleSystemFacade[] skyStarsParticle))
             {
-                _timeObserver = Container.Instance.FindService<TimeObserver>();
+                _timeObserver = Container.Instance.GetService<TimeObserver>();
                 _skyStarsParticle = skyStarsParticle[0];
             }
         }

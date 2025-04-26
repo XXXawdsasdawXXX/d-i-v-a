@@ -34,7 +34,7 @@ namespace Code.BehaviorTree.Diva
             _divaCollision = character.FindCommonComponent<CollisionObserver>();
 
             //services--------------------------------------------------------------------------------------------------
-            _divaCondition = Container.Instance.FindService<DivaCondition>();
+            _divaCondition = Container.Instance.GetService<DivaCondition>();
             
             //services--------------------------------------------------------------------------------------------------
             HandEntity hand = Container.Instance.FindEntity<HandEntity>();

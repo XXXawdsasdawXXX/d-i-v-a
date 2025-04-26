@@ -34,7 +34,7 @@ namespace Code.Infrastructure.CustomActions
                 _interaction_returnAfterAbsence = Container.Instance
                     .FindInteractionObserver<Interaction_ReturnAfterAbsence>();
                 
-                _timeObserver = Container.Instance.FindService<TimeObserver>();
+                _timeObserver = Container.Instance.GetService<TimeObserver>();
             }
             
             return UniTask.CompletedTask;

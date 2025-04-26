@@ -20,9 +20,9 @@ namespace Code.BehaviorTree.Hand
         
         public UniTask GameInitialize()
         {
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
             
             return UniTask.CompletedTask;
         }

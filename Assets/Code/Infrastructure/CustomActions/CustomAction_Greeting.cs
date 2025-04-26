@@ -29,8 +29,8 @@ namespace Code.Infrastructure.CustomActions
 
         public UniTask GameInitialize()
         {
-            _audioEventsService = Container.Instance.FindService<AudioEventsService>();
-            _timeObserver = Container.Instance.FindService<TimeObserver>();
+            _audioEventsService = Container.Instance.GetService<AudioEventsService>();
+            _timeObserver = Container.Instance.GetService<TimeObserver>();
             
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _colliderButton = diva.FindCommonComponent<ColliderButton>();

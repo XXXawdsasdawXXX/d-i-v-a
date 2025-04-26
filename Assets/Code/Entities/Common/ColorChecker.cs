@@ -31,7 +31,7 @@ namespace Code.Entities.Common
         
         public UniTask GameInitialize()
         {
-            Container.Instance.FindGetter<DisplayColorGetter>().Get(out _colorAnalyzer);
+            Container.Instance.GetView<DisplayColorView>().Get(out _colorAnalyzer);
             
             _sensitivity = Container.Instance.FindConfig<SettingsConfig>().ColorCheckSensitivity;
 

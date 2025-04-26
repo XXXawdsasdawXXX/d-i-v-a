@@ -17,7 +17,7 @@ namespace Code.Data
 
         public UniTask GameInitialize()
         {
-            _factory = Container.Instance.FindService<ParticleFactory>();
+            _factory = Container.Instance.GetService<ParticleFactory>();
             
             return UniTask.CompletedTask;
         }

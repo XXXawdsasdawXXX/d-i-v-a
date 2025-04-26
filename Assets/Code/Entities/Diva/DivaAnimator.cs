@@ -41,7 +41,7 @@ namespace Code.Entities.Diva
             _frontHairAnimator.enabled = false;
             _backHairAnimator.enabled = false;
             
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
             
             return UniTask.CompletedTask;
         }

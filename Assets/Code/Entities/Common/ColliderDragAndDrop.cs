@@ -37,8 +37,8 @@ namespace Code.Entities.Common
         
         public async UniTask GameInitialize()
         {
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
-            _positionService = Container.Instance.FindService<PositionService>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
+            _positionService = Container.Instance.GetService<PositionService>();
 
             await InitializeDragAndDrop();
         }

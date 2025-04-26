@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.Getters
 {
-    public class DisplayColorGetter : MonoBehaviour, IGetter
+    public class DisplayColorView : MonoBehaviour, IView
     {
         [SerializeField] private DisplayColor _displayColor;
 

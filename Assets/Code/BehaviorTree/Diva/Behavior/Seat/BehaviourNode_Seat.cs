@@ -28,7 +28,7 @@ namespace Code.BehaviorTree.Diva
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaAnimator = diva.FindCharacterComponent<DivaAnimator>();
             _divaCollision = diva.FindCommonComponent<CollisionObserver>();
-            _divaCondition = Container.Instance.FindService<DivaCondition>();
+            _divaCondition = Container.Instance.GetService<DivaCondition>();
 
             //hand------------------------------------------------------------------------------------------------------
             HandEntity hand = Container.Instance.FindEntity<HandEntity>();

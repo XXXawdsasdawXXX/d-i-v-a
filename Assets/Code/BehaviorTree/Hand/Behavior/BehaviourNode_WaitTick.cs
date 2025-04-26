@@ -37,7 +37,7 @@ namespace Code.BehaviorTree.Hand
             //services
             _tickCounter = new TickCounter(isLoop: false);
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
             _returnAfterAbsence = Container.Instance.FindInteractionObserver<Interaction_ReturnAfterAbsence>();
 
             //static value

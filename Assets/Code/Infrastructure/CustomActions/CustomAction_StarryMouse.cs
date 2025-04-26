@@ -47,8 +47,8 @@ namespace Code.Infrastructure.CustomActions
                 _divaAnimationAnalytic = diva.FindCharacterComponent<DivaAnimationAnalytic>();
                 
                 //services 
-                _positionService = Container.Instance.FindService<PositionService>();
-                _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+                _positionService = Container.Instance.GetService<PositionService>();
+                _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
             }
             
             return UniTask.CompletedTask;

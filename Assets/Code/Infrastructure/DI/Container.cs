@@ -31,7 +31,7 @@ namespace Code.Infrastructure.DI
         private List<Entity> _entities = new();
         private List<InteractionObserver> _interactionObservers = new();
         private List<IMono> _mono = new();
-        private List<IGetter> _getters = new();
+        private List<IView> _getters = new();
         private List<Reaction> _reactions = new();
 
         private void Awake()
@@ -100,7 +100,7 @@ namespace Code.Infrastructure.DI
             return null;
         }
 
-        public T FindService<T>() where T : IService
+        public T GetService<T>() where T : IService
         {
             foreach (IService service in _services)
             {
@@ -114,9 +114,9 @@ namespace Code.Infrastructure.DI
         }
 
 
-        public T FindGetter<T>() where T : class
+        public T GetView<T>() where T : class
         {
-            foreach (IGetter getter in _getters)
+            foreach (IView getter in _getters)
             {
                 if (getter is T findGetter)
                 {

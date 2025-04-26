@@ -6,11 +6,47 @@
   <component name="ChangeListManager">
     <list default="true" id="3909b8ec-2f30-4006-94bf-015c665753af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.d-i-v-a/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Utils/Debugging.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/IngameDebugConsole/Sprites/IngameDebugConsoleSpriteAtlas.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/IngameDebugConsole/Sprites/IngameDebugConsoleSpriteAtlas.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/boot.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Seat/BehaviourNode_Seat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Sleep/BehaviourNode_Sleep.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/Behavior/Stand/BehaviourNode_Stand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/DivaCondition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Diva/DivaCondition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_ShowItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/Behavior/BehaviourNode_WaitTick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourRunner_Hand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/BehaviorTree/Hand/BehaviourRunner_Hand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Interfaces/IGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Interfaces/IView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Interfaces/IGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Interfaces/IView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/Storages/ParticlesStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/Storages/ParticlesStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Data/VFX/AudioParticleModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Data/VFX/AudioParticleModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColliderButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColliderButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColliderDragAndDrop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColliderDragAndDrop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColorChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/ColorChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/MovementToMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/MovementToMouse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/PositionInitializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/PositionInitializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Common/RuntimeEntityHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Common/RuntimeEntityHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaLiveStatesAnalytic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaLiveStatesAnalytic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/InputWordReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/InputWordReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/MouseReaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Diva/Reactions/MouseReaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Entities/Items/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Entities/Items/ItemSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/AudioParticles/CustomAction_Nimbus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Greeting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Sakura.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_Sakura.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarryMouse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarrySky.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/CustomActions/CustomAction_StarrySky.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/DI/Container.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/DI/Container.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/DisplayColor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/DisplayColor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/CameraView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/DisplayColorView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectGetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectGetter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/Getters/PixelPerfectView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/LiveStateTimer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/LiveStateTimer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/PositionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/PositionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/TickCounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Infrastructure/Services/TickCounter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/DebugWindow/DW_Tick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/DebugWindow/DW_Tick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Test/TestCameraColor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Test/TestCameraColor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +55,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ba783288ca164d3099898a8819fcec1c159e00/4d/385e6247/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c4b0cc57ec424a5a9b1c3b56141bb74a95de00/44/8b73d288/Lightmapping.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c648d86e9013479d818310c5918e31a4176600/b2/d3ebe65d/LightProbes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c648d86e9013479d818310c5918e31a4176600/b3/f29b4707/UnitySynchronizationContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/da87c2565b1d49249c12d4e941cfd109fe00/38/b587587f/Microphone.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/de920293e401402ab375ad8a2e1b19da46ac00/f4/47ea54cd/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5d2164985ea4de5bd27a36397a1a4422d600/35/54188efb/GUITargetAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d303c2bf72cd4cec95665b89c457d265d2b8ef3ed6da17cd4f85587c2f9de7/System.Linq.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Entities/Diva/DivaEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Entities/Items/ItemEntity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -27,6 +68,20 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/LowLevel/UniWinCore.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/UniWindowController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.kirurobo.uniwinc@05c2177703/Runtime/Scripts/UniWindowMoveHandle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.pixel-perfect@5.0.3/Runtime/PixelPerfectCamera.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInputModule.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/Raycasters/BaseRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Image.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/InputField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/CanvasScaler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/LayoutElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/LayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/RectMask2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/ScrollRect.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Scrollbar.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Selectable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Text.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -59,11 +114,11 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Standalone Player.Standalone Player">
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../builds/diva\d i v a.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../builds/diva/d i v a.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\user\Documents\d i v a" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../d i v a" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
@@ -94,10 +149,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="4944">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="4944" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -347,5 +402,24 @@
     <MESSAGE value="fix web request" />
     <MESSAGE value="add unity task" />
     <option name="LAST_COMMIT_MESSAGE" value="add unity task" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/Entities/Common/PositionInitializer.cs</url>
+          <line>34</line>
+          <properties documentPath="C:\Users\user\Documents\GitHub\d-i-v-a\Assets\Code\Entities\Common\PositionInitializer.cs" initialLine="34" containingFunctionPresentation="method 'SetDefaultPosition'">
+            <startOffsets>
+              <option value="941" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1020" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

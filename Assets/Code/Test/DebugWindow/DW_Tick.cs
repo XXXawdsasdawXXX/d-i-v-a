@@ -17,7 +17,7 @@ namespace Code.Test
         
         public Task Initialize()
         {
-            _timer = Container.Instance.FindService<TimeObserver>();
+            _timer = Container.Instance.GetService<TimeObserver>();
             
             return Task.CompletedTask;
         }

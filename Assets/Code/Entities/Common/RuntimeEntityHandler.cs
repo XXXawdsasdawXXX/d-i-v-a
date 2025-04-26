@@ -13,7 +13,7 @@ namespace Code.Entities.Common
         private void OnEnable()
         {
             _listeners ??= GetComponentsInChildren<IGameListeners>(true);
-            _gameEventDispatcher ??= Container.Instance.FindService<GameEventDispatcher>();
+            _gameEventDispatcher ??= Container.Instance.GetService<GameEventDispatcher>();
 
             foreach (IGameListeners listener in _listeners)
             {

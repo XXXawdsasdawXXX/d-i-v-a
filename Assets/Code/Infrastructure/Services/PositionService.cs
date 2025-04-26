@@ -16,14 +16,12 @@ namespace Code.Infrastructure.Services
         [SerializeField] private RectTransform _canvas;
 
         private readonly Vector2 _offset = new(75, 95);
-        private PixelPerfectCamera _perfectCamera;
-        private Camera _camera;
+        private CameraView _camera;
 
         public UniTask GameInitialize()
         {
-            _camera = Container.Instance.FindGetter<CameraGetter>().Get() as Camera;
-            
-            _perfectCamera = Container.Instance.FindGetter<PixelPerfectGetter>().Get() as PixelPerfectCamera;
+
+            _camera = Container.Instance.GetView<CameraView>();
             
             return UniTask.CompletedTask;
         }
@@ -48,7 +46,7 @@ namespace Code.Infrastructure.Services
         }
         
         public Vector2 WorldToScreen(Vector3 transformPosition) =>
-            _camera.WorldToScreenPoint(transformPosition);
+            _camera.WorldToScreen(transformPosition);
 
         public bool TryGetRandomDistantPosition(Vector3 targetPosition, float minDistance, out Vector3 resultPosition)
         {
@@ -82,10 +80,10 @@ namespace Code.Infrastructure.Services
         
         private Vector3 _screenToWorld(Vector2 screenPoint)
         {
-            Vector3 worldPoint = _perfectCamera != null && _perfectCamera.enabled
+            /*Vector3 worldPoint = _perfectCamera != null && _perfectCamera.enabled
                 ? _perfectCamera.RoundToPixel(_camera.ScreenToWorldPoint(screenPoint))
-                : _camera.ScreenToWorldPoint(screenPoint);
-            return new Vector3(worldPoint.x, worldPoint.y, 0);
+                : _camera.ScreenToWorldPoint(screenPoint);*/
+            return _camera.WorldToScreen(screenPoint);
         }
 
         //upper

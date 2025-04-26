@@ -24,7 +24,7 @@ namespace Code.Entities.Diva.Reactions
         
         protected override UniTask InitializeReaction()
         {
-            _positionService = Container.Instance.FindService<PositionService>();
+            _positionService = Container.Instance.GetService<PositionService>();
            
             DivaEntity diva = Container.Instance.FindEntity<DivaEntity>();
             _divaTransform = diva.transform;

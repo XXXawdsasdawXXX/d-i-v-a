@@ -18,7 +18,7 @@ namespace Code.Entities.Common
 
         public UniTask GameInitialize()
         {
-            _positionService = Container.Instance.FindService<PositionService>();
+            _positionService = Container.Instance.GetService<PositionService>();
             
             return UniTask.CompletedTask;
         }

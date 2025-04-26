@@ -32,9 +32,9 @@ namespace Code.Infrastructure.CustomActions.AudioParticles
             
             _interactionStorage = Container.Instance.FindStorage<InteractionStorage>();
             
-            _divaCondition = Container.Instance.FindService<DivaCondition>();
+            _divaCondition = Container.Instance.GetService<DivaCondition>();
             
-            _coroutineRunner = Container.Instance.FindService<CoroutineRunner>();
+            _coroutineRunner = Container.Instance.GetService<CoroutineRunner>();
              
             return base.InitializeCustomAction();
         }

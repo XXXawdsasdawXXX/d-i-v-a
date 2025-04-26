@@ -13,7 +13,7 @@ namespace Code.Test
 #if UNITY_EDITOR
         public void Start()
         {
-            _camera = Container.Instance.FindGetter<CameraGetter>().Get() as Camera;
+            _camera = Container.Instance.GetView<CameraView>().Get() as Camera;
             if (_camera == null)
             {
                 _camera = FindObjectOfType<Camera>();

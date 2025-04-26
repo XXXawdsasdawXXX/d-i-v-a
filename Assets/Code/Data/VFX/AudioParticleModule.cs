@@ -46,7 +46,7 @@ namespace Code.Data
 
         public UniTask GameInitialize()
         {
-            _loopbackAudioService = Container.Instance.FindService<LoopbackAudioService>();
+            _loopbackAudioService = Container.Instance.GetService<LoopbackAudioService>();
             
             return UniTask.CompletedTask;
         }
