@@ -46,6 +46,7 @@ namespace Code.Utils
         [SerializeField] private DebugParam[] _debugParams;
 
         private static DebugParam[] _params;
+      
         private void Awake()
         {
             _params = _debugParams;
