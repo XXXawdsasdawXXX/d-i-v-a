@@ -12,7 +12,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Services
 {
     [Preserve]
-    public class TimeObserver : IService, IInitListener, IStartListener, IUpdateListener, IProgressWriter
+    public class TimeObserver : IService, IInitializeListener, IStartListener, IUpdateListener, IProgressWriter
     {
         public event Action<bool> OnTimeInitialized;
         public event Action OnTicked;

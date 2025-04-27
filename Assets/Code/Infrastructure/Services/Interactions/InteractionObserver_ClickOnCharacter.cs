@@ -11,7 +11,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Services.Interactions
 {
     [Preserve]
-    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IInitListener, ISubscriber
+    public class InteractionObserver_ClickOnCharacter : InteractionObserver, IInitializeListener, ISubscriber
     {
         [Header("Observer components")] 
         private ColliderButton _characterCollisionButton;

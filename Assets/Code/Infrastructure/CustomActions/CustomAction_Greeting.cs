@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Code.Infrastructure.CustomActions
 {
     //todo #46 вернуть функционал
-    public class CustomAction_Greeting : CustomAction, IProgressWriter, IInitListener, IExitListener, IToggle
+    public class CustomAction_Greeting : CustomAction, IProgressWriter, IInitializeListener, IExitListener, IToggle
     {
         [Header("Services")] 
         private AudioEventsService _audioEventsService;

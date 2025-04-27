@@ -29,7 +29,7 @@ namespace Code.Infrastructure.GameLoop
         
         private UniWindowController _controller;
 
-        private readonly List<IInitListener> _initListeners = new();
+        private readonly List<IInitializeListener> _initListeners = new();
         private readonly List<ILoadListener> _loadListeners = new();
         private readonly List<IStartListener> _startListeners = new();
         private readonly List<IUpdateListener> _updateListeners = new();
@@ -94,7 +94,7 @@ namespace Code.Infrastructure.GameLoop
             ProfilerMarker marker = new($"RuntimeListener: {listener.GetType().Name}");
             marker.Begin();
 #endif
-            if (listener is IInitListener initListener)
+            if (listener is IInitializeListener initListener)
             {
                 await initListener.GameInitialize();
             }
@@ -175,7 +175,7 @@ namespace Code.Infrastructure.GameLoop
 
             foreach (IGameListeners listener in gameListeners)
             {
-                if (listener is IInitListener initListener) _initListeners.Add(initListener);
+                if (listener is IInitializeListener initListener) _initListeners.Add(initListener);
 
                 if (listener is ISubscriber subscriber) _subscribers.Add(subscriber);
 
@@ -195,7 +195,7 @@ namespace Code.Infrastructure.GameLoop
             ProfilerMarker marker = new("_notifyGameInitialize");
             marker.Begin();
 #endif
-            foreach (IInitListener listener in _initListeners)
+            foreach (IInitializeListener listener in _initListeners)
             {
                 await listener.GameInitialize();
             }

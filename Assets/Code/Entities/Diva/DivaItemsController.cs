@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Code.Entities.Diva
 {
     public class DivaItemsController : DivaComponent,
-        IInitListener
+        IInitializeListener
     {
         [Header("Components")] 
         private DivaAnimationAnalytic _animationAnalytic;

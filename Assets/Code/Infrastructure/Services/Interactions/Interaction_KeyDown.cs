@@ -1,20 +1,37 @@
 using System;
+using System.Linq;
 using Code.Data;
 using Code.Infrastructure.GameLoop;
 using Code.Utils;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.Interactions
 {
-    public class Interaction_KeyDown : InteractionObserver, IUpdateListener
+    public class Interaction_KeyDown : InteractionObserver, IStartListener ,IUpdateListener
     {
         public event Action<EInputWord> OnWorldEntered;
+
+        private KeyCode[] _textKeys;
         
         private string _currentInput;
 
+        public UniTask GameStart()
+        {
+            _textKeys = Enum.GetValues(typeof(KeyCode))
+                .Cast<KeyCode>()
+                .Where(key => 
+                    (key >= KeyCode.A && key <= KeyCode.Z) || 
+                    key == KeyCode.Space || 
+                    key == KeyCode.Backspace)
+                .ToArray();
+            
+            return UniTask.CompletedTask;    
+        }
+
         public void GameUpdate()
         {
-            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            foreach (KeyCode key in _textKeys)
             {
                 if (Input.GetKeyDown(key))
                 {

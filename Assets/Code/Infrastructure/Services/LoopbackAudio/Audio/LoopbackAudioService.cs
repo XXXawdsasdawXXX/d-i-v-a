@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.LoopbackAudio.Audio
 {
-    public class LoopbackAudioService : MonoBehaviour, IService, IInitListener, IWindowsSpecific
+    public class LoopbackAudioService : MonoBehaviour, IService, IInitializeListener, IWindowsSpecific
     {
         #region Constants
 

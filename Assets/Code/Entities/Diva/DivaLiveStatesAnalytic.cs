@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Code.Entities.Diva
 {
-    public class DivaLiveStatesAnalytic : DivaComponent, IInitListener, IStartListener, ISubscriber
+    public class DivaLiveStatesAnalytic : DivaComponent, IInitializeListener, IStartListener, ISubscriber
     {
         public event Action<ELiveStateKey> SwitchLowerStateKeyEvent;
       

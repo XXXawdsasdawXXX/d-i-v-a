@@ -9,7 +9,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Services
 {
     [Preserve]
-    public class LiveStateTimer : IService, IInitListener, ISubscriber
+    public class LiveStateTimer : IService, IInitializeListener, ISubscriber
     {
         private LiveStateStorage _storage;
         private TimeObserver _timeObserver;

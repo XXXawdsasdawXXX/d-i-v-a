@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class ColorChecker : CommonComponent, IWindowsSpecific, IInitListener, IUpdateListener
+    public class ColorChecker : CommonComponent, IWindowsSpecific, IInitializeListener, IUpdateListener
     {
         public event Action<Color> OnFoundedNewColor;
 

@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Services.Getters
 {
-    public class PixelPerfectView : MonoBehaviour, IView, IInitListener
+    public class PixelPerfectView : MonoBehaviour, IView, IInitializeListener
     {
         [SerializeField] private PixelPerfectCamera _pixelPerfect;
 

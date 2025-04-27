@@ -9,7 +9,7 @@ using CoroutineRunner = Code.Infrastructure.Services.CoroutineRunner;
 
 namespace Code.Entities.Diva
 {
-    public class DivaAnimator : DivaComponent, IInitListener, IStartListener
+    public class DivaAnimator : DivaComponent, IInitializeListener, IStartListener
     {
         public event Action<EDivaAnimationMode> OnModeEntered;
      

@@ -12,7 +12,7 @@ namespace Code.Infrastructure.GameLoop
         void Unsubscribe();
     }
     
-    public  interface IInitListener : IGameListeners
+    public  interface IInitializeListener : IGameListeners
     {
         UniTask GameInitialize();
     }

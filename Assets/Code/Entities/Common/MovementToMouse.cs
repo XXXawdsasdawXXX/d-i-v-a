@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class MovementToMouse : CommonComponent, IInitListener, IUpdateListener, IToggle
+    public class MovementToMouse : CommonComponent, IInitializeListener, IUpdateListener, IToggle
     {
         [Header("Static value")] 
         [SerializeField] private float _speed;

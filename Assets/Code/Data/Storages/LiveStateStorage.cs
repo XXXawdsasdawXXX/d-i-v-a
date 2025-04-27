@@ -11,7 +11,7 @@ using UnityEngine.Scripting;
 namespace Code.Data
 {
     [Preserve]
-    public class LiveStateStorage : IStorage, IInitListener, IProgressWriter
+    public class LiveStateStorage : IStorage, IInitializeListener, IProgressWriter
     {
         public Dictionary<ELiveStateKey, CharacterLiveState> LiveStates { get; private set; } = new();
 

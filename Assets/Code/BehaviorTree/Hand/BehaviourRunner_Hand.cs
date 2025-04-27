@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.BehaviorTree.Hand
 {
-    public class BehaviourRunner_Hand : MonoBehaviour, IService, IInitListener, IStartListener, IUpdateListener, IExitListener
+    public class BehaviourRunner_Hand : MonoBehaviour, IService, IInitializeListener, IStartListener, IUpdateListener, IExitListener
     {
         public bool IsInitBehaviorTree { get; private set; }
         

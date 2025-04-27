@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Entities.Hand
 {
-    public class HandMaterialAdapter : MaterialAdapter, IInitListener, ISubscriber
+    public class HandMaterialAdapter : MaterialAdapter, IInitializeListener, ISubscriber
     {
         [Header("Components")] 
         [SerializeField] private SpriteRenderer _spriteRenderer;

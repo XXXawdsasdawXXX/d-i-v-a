@@ -13,7 +13,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.CustomActions
 {
     [Preserve]
-    public class CustomAction_Grass : CustomAction, IInitListener, ISubscriber
+    public class CustomAction_Grass : CustomAction, IInitializeListener, ISubscriber
     {
         [Header("d i v a")] private Transform _divaTransform;
         private DivaAnimator _divaAnimator;

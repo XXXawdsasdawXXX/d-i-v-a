@@ -7,7 +7,7 @@ using uWindowCapture;
 
 namespace Code.Infrastructure.Services
 {
-    public class DisplayColor : MonoBehaviour, IWindowsSpecific, IInitListener
+    public class DisplayColor : MonoBehaviour, IWindowsSpecific, IInitializeListener
     {
         [SerializeField] private UwcWindowTexture _uwcTexture;
         [SerializeField] private int _w = 1;

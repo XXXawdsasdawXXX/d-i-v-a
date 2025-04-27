@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class PositionInitializer : CommonComponent, IInitListener, IStartListener
+    public class PositionInitializer : CommonComponent, IInitializeListener, IStartListener
     {
         [SerializeField] private EPointAnchor _pointAnchor;
         [SerializeField] private Vector2 _offset;

@@ -9,7 +9,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.CustomActions.AudioParticles
 {
-    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IInitListener, IUpdateListener
+    public abstract class CustomAction_AudioParticle : CustomAction, IWindowsSpecific, IInitializeListener, IUpdateListener
     {
         protected ParticleSystemFacade[] _particlesSystems;
         protected DivaModeAdapter _characterModeAdapter;

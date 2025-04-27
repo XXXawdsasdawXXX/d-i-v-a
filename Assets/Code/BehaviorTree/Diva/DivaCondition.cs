@@ -11,7 +11,7 @@ using UnityEngine.Scripting;
 namespace Code.BehaviorTree.Diva
 {
     [Preserve]
-    public class DivaCondition : IService, IInitListener, IStartListener
+    public class DivaCondition : IService, IInitializeListener, IStartListener
     {
         [Header("D I V A")]
         private DivaLiveStatesAnalytic _statesAnalytic;

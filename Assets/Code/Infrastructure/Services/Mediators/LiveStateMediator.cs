@@ -8,7 +8,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Services.Mediators
 {
     [Preserve]
-    public class LiveStateMediator : IMono, IInitListener, ISubscriber
+    public class LiveStateMediator : IMono, IInitializeListener, ISubscriber
     {
         private LiveStateStorage _liveStateStorage;
         private DivaItemsController _characterItemsController;

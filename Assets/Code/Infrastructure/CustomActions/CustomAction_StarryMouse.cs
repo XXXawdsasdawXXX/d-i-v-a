@@ -12,7 +12,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.CustomActions
 {
     [Preserve]
-    public class CustomAction_StarryMouse : CustomAction, ISubscriber, IInitListener, IStartListener, IUpdateListener 
+    public class CustomAction_StarryMouse : CustomAction, ISubscriber, IInitializeListener, IStartListener, IUpdateListener 
     {
         [Header("Character")] 
         private ColliderButton _characterButton;

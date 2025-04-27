@@ -11,7 +11,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.CustomActions
 {
     [Preserve]
-    public class CustomAction_Sakura : CustomAction, IProgressWriter, IInitListener, IUpdateListener, ISubscriber
+    public class CustomAction_Sakura : CustomAction, IProgressWriter, IInitializeListener, IUpdateListener, ISubscriber
     {
         private const float MAX_ACTIVE_MIN = 20;
         private const float NEEDED_ABSENCE_SEC = 60 * 60;

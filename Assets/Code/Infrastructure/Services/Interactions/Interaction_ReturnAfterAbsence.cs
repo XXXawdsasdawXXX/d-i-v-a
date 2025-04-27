@@ -9,7 +9,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Services.Interactions
 {
     [Preserve]
-    public class Interaction_ReturnAfterAbsence : InteractionObserver, IInitListener, IUpdateListener
+    public class Interaction_ReturnAfterAbsence : InteractionObserver, IInitializeListener, IUpdateListener
     {
         public event Action<float> UserReturnEvent;
         

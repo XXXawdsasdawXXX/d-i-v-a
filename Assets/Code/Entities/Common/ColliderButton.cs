@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Code.Entities.Common
 {
-    public class ColliderButton : CommonComponent, IInitListener, IUpdateListener
+    public class ColliderButton : CommonComponent, IInitializeListener, IUpdateListener
     {
         public event Action<Vector2> OnPressedDown;
         public event Action<Vector2, float> OnPressedUp;

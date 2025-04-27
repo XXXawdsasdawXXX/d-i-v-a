@@ -6,7 +6,7 @@ using UnityEngine.Scripting;
 namespace Code.Entities.Diva.Reactions
 {
     [Preserve]
-    public abstract class Reaction :  IInitListener
+    public abstract class Reaction :  IInitializeListener
     {
         private TickCounter _tickCounter;
         private int _cooldownTickCount;

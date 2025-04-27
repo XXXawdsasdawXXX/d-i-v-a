@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Data
 {
-    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IInitListener, IUpdateListener, IStartListener
+    public class AudioParticleModule : MonoBehaviour, IWindowsSpecific, IInitializeListener, IUpdateListener, IStartListener
     {
         private enum LoopBackAudioParamType
         {

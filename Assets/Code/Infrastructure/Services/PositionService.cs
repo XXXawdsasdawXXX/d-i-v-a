@@ -11,7 +11,7 @@ using UnityEngine.U2D;
 
 namespace Code.Infrastructure.Services
 {
-    public class PositionService : MonoBehaviour, IService, IInitListener
+    public class PositionService : MonoBehaviour, IService, IInitializeListener
     {
         [SerializeField] private RectTransform _canvas;
 
@@ -20,7 +20,6 @@ namespace Code.Infrastructure.Services
 
         public UniTask GameInitialize()
         {
-
             _camera = Container.Instance.GetView<CameraView>();
             
             return UniTask.CompletedTask;

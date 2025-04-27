@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services
 {
-    public class AudioEventsService : MonoBehaviour, IService, IInitListener
+    public class AudioEventsService : MonoBehaviour, IService, IInitializeListener
     {
         [SerializeField] private AudioSource _audioSource;
       

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Data
 {
-    public class ParticleSystemFacade : MonoBehaviour, IInitListener
+    public class ParticleSystemFacade : MonoBehaviour, IInitializeListener
     {
         [field: SerializeField] public EParticleType Type { get; private set; }
      

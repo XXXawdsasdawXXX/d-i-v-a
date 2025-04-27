@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Code.Entities.Items
 {
-    public class ItemSpawner: MonoBehaviour, IService, IInitListener
+    public class ItemSpawner: MonoBehaviour, IService, IInitializeListener
     {
         [SerializeField] private MonoPool<ItemEntity> _monoPool;
         

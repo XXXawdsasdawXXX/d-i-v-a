@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Code.Entities.Items
 {
-    public class ItemDataService : IService, IInitListener
+    public class ItemDataService : IService, IInitializeListener
     {
         private ItemData[] _itemsData;
 

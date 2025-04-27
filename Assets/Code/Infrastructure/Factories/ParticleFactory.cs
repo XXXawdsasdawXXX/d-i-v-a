@@ -10,7 +10,7 @@ using UnityEngine.Scripting;
 namespace Code.Infrastructure.Factories
 {
     [Preserve]
-    public class ParticleFactory : IService, IInitListener
+    public class ParticleFactory : IService, IInitializeListener
     {
         private VFXConfig _vfxConfig;
 

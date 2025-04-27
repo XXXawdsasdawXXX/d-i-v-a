@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Code.Data
 {
-    public class ParticlesStorage : MonoBehaviour, IStorage, IInitListener
+    public class ParticlesStorage : MonoBehaviour, IStorage, IInitializeListener
     {
         [SerializeField] private List<ParticleSystemFacade> _particles;
 

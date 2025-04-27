@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Code.Entities.Common
 {
     public class ColliderDragAndDrop : CommonComponent, IToggle,
-        IInitListener, 
+        IInitializeListener, 
         IStartListener,
         IUpdateListener
     {
