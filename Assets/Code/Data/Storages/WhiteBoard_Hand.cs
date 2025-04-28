@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Infrastructure.ServiceLocator;
 
 namespace Code.Data
 {

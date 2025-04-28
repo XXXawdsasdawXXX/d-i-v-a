@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Data;
-using Code.Infrastructure.DI;
 using Code.Infrastructure.GameLoop;
+using Code.Infrastructure.ServiceLocator;
 using Code.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

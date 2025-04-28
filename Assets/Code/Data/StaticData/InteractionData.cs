@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Game.Services.Interactions;
 
 namespace Code.Data
 {

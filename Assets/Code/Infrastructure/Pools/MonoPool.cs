@@ -8,10 +8,6 @@ namespace Code.Infrastructure.Pools
 {
     public interface  IPoolEntity
     {
-        /// <summary>
-        /// Pool methods
-        /// </summary>
-        void Init(params object[] parameters);
         void Enable();
         void Disable();
     }
@@ -24,9 +20,9 @@ namespace Code.Infrastructure.Pools
         [SerializeField] private List<T> _all = new();
         [SerializeField] private List<T> _enabled = new();
 
-        public T GetNext(params object[] initParams)
+        public T GetNext()
         {
-            T entity = GetDisabledEntity() ?? AddNewEntity(initParams);
+            T entity = GetDisabledEntity() ?? AddNewEntity();
             _enabled.Add(entity);
             entity.Enable();
             return entity;
@@ -37,10 +33,9 @@ namespace Code.Infrastructure.Pools
             return _all.FirstOrDefault(entity => entity != null && !entity.gameObject.activeSelf);
         }
 
-        private T AddNewEntity(params object[] initParams)
+        private T AddNewEntity()
         {
             T entity = Object.Instantiate(_prefab, _root);
-            entity.Init(initParams);
             _all.Add(entity);
             return entity;
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Code.Infrastructure.DI;
-using Code.Infrastructure.Services;
+using Code.Game.Services.Time;
+using Code.Infrastructure.ServiceLocator;
 using UnityEngine;
 using UnityEngine.UI;
 

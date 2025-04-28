@@ -1,5 +1,4 @@
-﻿using Code.Infrastructure.DI;
-using Code.Infrastructure.GameLoop;
+﻿using Code.Infrastructure.GameLoop;
 using IngameDebugConsole;
 using UnityEngine;
 

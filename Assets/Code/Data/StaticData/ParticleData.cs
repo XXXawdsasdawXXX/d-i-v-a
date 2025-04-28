@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Game.Effects;
 
 namespace Code.Data
 {

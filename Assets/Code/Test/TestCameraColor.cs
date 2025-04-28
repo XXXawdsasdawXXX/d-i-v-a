@@ -1,6 +1,6 @@
-﻿using Code.Infrastructure.DI;
+﻿using Code.Game.Views;
 using Code.Infrastructure.GameLoop;
-using Code.Infrastructure.Services.Getters;
+using Code.Infrastructure.ServiceLocator;
 using UnityEngine;
 
 namespace Code.Test
